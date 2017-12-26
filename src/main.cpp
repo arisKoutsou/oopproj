@@ -7,10 +7,13 @@
 
 #include <iostream>
 
+#include "items/Item.h"
+
 using namespace std;
 
 int main() {
-	cout << "heuuu" << endl;
+	Item item("sword");
+	cout << item.getInfo();
 	return 0;
 }
 
