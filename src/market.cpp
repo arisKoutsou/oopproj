@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdint>
+#include <list>
 #include "market.h"
 #include "spell.h"
 #include "item.h"
@@ -50,7 +51,11 @@ uint8_t Market :: buy(Item* item, size_t index, Hero* hero) {
       price <= money) {
 
     hero->update_money(money - price);
-    //items.erase(index); FIXME (George): This has a problem
+    // Creating an iterator for our list and increasing it until we reach our index
+    // TODO (George): Maybe I should pass as a parameter to the function the required iterator
+    list<Item*> :: iterator it = items.begin();
+    for (size_t i = 0U; i != index; ++i, ++it) {}
+    items.erase(it);
     return 0U;
     // If 1 gets returned the caller should print that the hero hasn't got enough money.
   } else if (price > money) return 1U; 
@@ -66,7 +71,9 @@ uint8_t Market :: buy(Spell* spell, size_t index, Hero* hero) {
       price <= money) {
 
     hero->update_money(money - price);
-    //spells.erase(index); FIXME (George): This has a problem
+    list<Spell*> :: iterator it = spells.begin();
+    for (size_t i = 0U; i != index; ++i, ++it) {}
+    spells.erase(it);
     return 0U;
   } else if (price > money) return 1U;
   else return 2U;
