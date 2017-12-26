@@ -1,11 +1,5 @@
-/*
- * main.cpp
- *
- *  Created on: Dec 25, 2017
- *      Author: aris
- */
-
 #include <iostream>
+#include <cstdlib>
 
 #include "items/Item.h"
 
@@ -15,6 +9,8 @@ int main() {
 	Item item("sword");
 	cout << item.getInfo();
 	return 0;
+int main(int argc, char* argv[]) {
+	Item item("sword");
+	cout << item.getInfo();
+ 	return EXIT_SUCCESS;
 }
-
-
