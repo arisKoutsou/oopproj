@@ -16,15 +16,20 @@ using namespace std;
 
 class Grid {
 public:
-  // TODO (George): Make a decision about Tile constructor.
-  // Should I pass as arguments the information that a market needs
-  // or I should make another constructor that takes as argument a
-  // market?
   struct Tile {
     Tile(int x, int y, bool nonAccessible, bool market,
 	 bool common, bool hasLiving, int numberOfLivings);
     ~Tile();
 
+    int getX() const;	// returns the x coordinate (col) of the tile
+    int getY() const;	// returns the y coordinate (row) of the tile
+    bool isNonAccessible() const; // returns if the tile is not accessible
+    bool hasLiving() const;	  // returns if the tile has a living
+    bool hasMarket() const;	  // returns if the tile has a market
+    bool isCommon() const;	  // returns if the tile is common
+    int getNumberOfLivings() const; // returns the number of livings
+    Market getMarket() const;	    // returns the market of the tile
+    
     int x;			// x represents the columns
     int y;			// y represents the rows
     bool nonAccessible;
@@ -32,11 +37,15 @@ public:
     bool hasMarket;
     bool common;
     int numberOfLivings;
-    // We use this instead of pointer, meaning that
-    // we are going to have at most one market
-    vector<Market> market;	
+    vector<Market> market;
   };
 
+  // Posible directions for heros to move
+  enum directions = {
+    up, down, left, right
+  };
+
+  // Error codes for reporting hero movement result
   enum movementReport = {
     success, upError, downError,
     leftError, rightError, directionError
@@ -46,9 +55,16 @@ public:
   // nonAccessible, hasMarket, common, hasLiving (with that order)
   Grid(int maxX, int maxY, bool[] tileInfo);
   ~Grid();
+
+  int getMaxX() const;
+  int getMaxY() const;
+  
   // This function moves the hero to the required direction in the grid
-  // and returns an enum value indicating if the movement succeded or not 
-  movementReport move(const Hero& hero, const string& direction);
+  // and returns an enum value indicating if the movement succeded or not
+  movementReport move(const Hero& hero, const directions& direction);
+  vector<vector<Tile>> getTiles() const; // returns the all the tiles
+  Tile getTile(int row, int col) const;  // returns the tile at row,col
+  void addMarket(int row, int col, const Market& market);
 private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
