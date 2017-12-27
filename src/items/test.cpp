@@ -10,6 +10,7 @@
 #include "Item.h"
 #include "Weapon.h"
 #include "Armor.h"
+#include "Potion.h"
 
 int main() {
 
@@ -27,6 +28,11 @@ int main() {
 	Item* armor = new Armor("Shield");
 	cout << armor->getInfo();
 	delete armor;
+
+	// Testing Potion...
+	Item* potion = new Potion("manaPotion");
+	cout << potion->getInfo() << endl;
+	delete potion;
 
 	return 0;
 }
