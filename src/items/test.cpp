@@ -11,6 +11,7 @@
 #include "Weapon.h"
 #include "Armor.h"
 #include "Potion.h"
+#include "../random/Random.h"
 
 int main() {
 
@@ -33,6 +34,10 @@ int main() {
 	Item* potion = new Potion("manaPotion");
 	cout << potion->getInfo() << endl;
 	delete potion;
+
+	Random random;
+
+	random.boolean();
 
 	return 0;
 }
