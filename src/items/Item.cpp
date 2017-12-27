@@ -1,0 +1,57 @@
+/*
+ * Item.cpp
+ *
+ *  Created on: Dec 27, 2017
+ *      Author: aris
+ */
+#include <iostream>
+#include <sstream>
+
+#include "Item.h"
+
+using namespace std;
+
+Item::Item(
+	string nam,
+	int val,
+	int s,
+	int minL
+)
+: name(nam), value(val),
+  sellFor(s), minLevel(minL)
+{
+	cout << "Item constructed..." << endl;
+}
+
+Item::~Item() {
+	cout << "Item destroyed !!!" << endl;
+}
+
+string Item::getName() const {
+	return name;
+}
+
+int Item::sellsFor() const {
+	return sellFor;
+}
+
+int Item::buyFor() const {
+	return value;
+}
+
+int Item::unlocksInLevel() const {
+	return minLevel;
+}
+
+string Item::getInfo() const {
+	stringstream result;
+
+	result << "name: " << name << endl
+		<< "price: " << buyFor() << endl
+		<< "sell for: " << sellsFor() << endl
+		<< "min level to aquire: " << minLevel << endl;
+
+	return result.str();
+}
+
+

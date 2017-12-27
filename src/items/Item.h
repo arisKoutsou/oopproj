@@ -19,12 +19,13 @@ public:
 		int s = 15,
 		int minL = 3
 	);
+	virtual ~Item();
 
 	string getName() const;		// Item's name...
 	int sellsFor() const;		// Return how much it sells for.
 	int buyFor() const;			// Return it's price.
 	int unlocksInLevel() const;	// Return the level it unlocks.
-	string getInfo() const;		// Returns a string with all the info.
+	virtual string getInfo() const;		// Returns a string with all the info.
 
 	const double sellRate = 0.5;// Sells for <sellRate>*buyFor().
 

@@ -14,7 +14,7 @@
 class Random {
 
 public:
-	Random();		// Initialize seed.
+	Random(int seed = NULL);		// Initialize seed.
 
 	static double from0to1();
 	static bool boolean(const double p = 0.5);						// returns true with probability p.

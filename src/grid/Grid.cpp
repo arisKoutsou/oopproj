@@ -79,7 +79,7 @@ Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
       int x = static_cast<int>(i);
       int y = static_cast<int>(j);
       Tile newTile(x, y, nonAccessible, hasMarket, common, hasLiving);
-      tiles.push_back(newTile);
+      tiles[i][j].push_back(newTile);
 
       ++auxI;
       ++auxJ;

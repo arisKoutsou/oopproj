@@ -7,8 +7,8 @@
 
 #include "Random.h"
 
-Random::Random() {
-
+Random::Random(int seed) {
+	srand(time(NULL));
 }
 
 double Random::from0to1() {
