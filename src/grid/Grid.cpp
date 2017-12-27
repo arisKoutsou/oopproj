@@ -26,6 +26,39 @@ Grid :: Tile :: ~Tile() {
   cout << "Destroying a Tile" << endl;
 }
 
+int Grid :: Tile :: getX() const {
+  return x;
+}
+
+int Grid :: Tile :: getY() const {
+  return y;
+}
+
+bool Grid :: Tile :: isNonAccessible() const {
+  return nonAccessible;
+}
+
+bool Grid :: Tile :: hasLiving() const {
+  return hasLiving;
+}
+
+bool Grid :: Tile :: hasMarket() const {
+  return hasMarket;
+}
+
+bool Grid :: Tile :: isCommon() const {
+  return common;
+}
+
+int Grid :: Tile :: getNumberOfLivings() const {
+  return numberOfLivings;
+}
+
+Market Grid :: Tile :: getMarket() const {
+  // NOTE (George): This function assumes that a market at
+  // the specific tile exists
+  return (market[0]);
+}
 
 Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
 
@@ -52,21 +85,44 @@ Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
       ++auxJ;
     }
   
-  cout << "Creating an instance of Grid" << endl;
+    cout << "Creating an instance of Grid" << endl;
 }
 
 Grid :: ~Grid() {
   cout << "Destroying a Grid" << endl;
 }
 
-movementReport Grid :: move(const Hero& hero, const string& direction) {
+int Grid :: getMaxX() const {
+  return maxX;
+}
+
+int Grid :: getMaxY() const {
+  return maxY;
+}
+ 
+void Grid :: addMarket(int row, int col, const Market _market) {
+  if (tiles[row][col].market.empty() == false) {
+    cerr << "You can't add more than one market in a tile" << endl;
+    return;
+  }
+  // NOTE (George): We don't need copy constructor for this
+  // as we don't have any pointers as data members
+  tiles[row][col].market.push_back(_market);
+}
+
+Tile Grid :: getTile(int row, int col) const {
+   return (tiles[row][col]);
+}
+ 
+movementReport Grid :: move(const Hero& hero, const directions& direction) {
   // TODO (George): Wait for Aris to implement the functions that give
   // the position of the Hero and then finalize this implementation
   int heroX = hero.getX();
   int heroY = hero.getY();
   int numberOfLivings = tiles[heroY][heroX].numberOfLivings;
 
-  if (direction == "up") {
+  switch (direction) {
+  case up: {
     if (heroY ==  maxY) {
       return upError;
     } else {
@@ -81,7 +137,9 @@ movementReport Grid :: move(const Hero& hero, const string& direction) {
 
       return success;
     }
-  } else if (direction == "down") {
+  }
+
+  case down: {
     if (heroY == 0) {
       return downError;
     } else {
@@ -96,7 +154,9 @@ movementReport Grid :: move(const Hero& hero, const string& direction) {
 
       return success;
     }
-  } else if (direction == "left") {
+  }
+
+  case left: {
     if (heroX == 0) {
       return leftError;
     } else {
@@ -111,7 +171,9 @@ movementReport Grid :: move(const Hero& hero, const string& direction) {
 
       return success;
     }
-  } else if (direction == "right") {
+  }
+
+  case right: {
     if (heroX == maxX) {
       return rightError;
     } else {
@@ -126,7 +188,8 @@ movementReport Grid :: move(const Hero& hero, const string& direction) {
 
       return success;
     }
-  } else {
-    return directionError;
+  }
+
+  defaut: return directionError;
   }
 }
