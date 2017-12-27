@@ -37,7 +37,7 @@ int main() {
 
 	Random random;
 
-	random.boolean();
+	cout << random.from0to1();
 
 	return 0;
 }
