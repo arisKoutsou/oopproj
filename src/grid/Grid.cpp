@@ -68,7 +68,9 @@ Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
   size_t auxJ = 0U;
   
   for (size_t i = 0U; i != maxY; ++i) {
-
+    vector<Tile> newTileVector;
+    tiles[i].push_back(newTileVector);
+    
     for (size_t j = 0U; j != maxX; ++j) {
 
       bool nonAccessible = _tileInfo[auxI + auxJ];
