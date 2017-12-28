@@ -6,23 +6,14 @@
 
 #include <iostream>
 #include <list>
-#include <sstream>
 #include "Inventory.h"
 
 using namespace std;
 
-Inventory :: Inventory(int _capacity, int _maxItems, int _maxSpells)
+Inventory :: Inventory(int _maxCapacity)
 
-  : capacity(_capacity), maxItems(_maxItems), maxSpells(_maxSpells) {
+  : maxCapacity(_maxCapacity) {
 
-
-  if ((maxItems + maxSpells) > capacity) {
-    cerr << "The sum of max items and max spells is greater than "
-	 << "the capacity of the inventory (Cannot construct object)"
-	 << endl;
-    ~Inventory();
-  }
-  
   cout << "Creating an instance of Inventory" << endl;
 }
 
@@ -30,25 +21,16 @@ Inventory :: ~Inventory() {
   cout << "Destroying an Inventory" << endl;
 }
 
-
-int Inventory :: getCapacity() const {
-  return capacity;
+int Inventory :: getMaxCapacity() const {
+  return maxCapacity;
 }
 
 int Inventory :: getCurrentCapacity() const {
   return (items.size() + spells.size());
 }
 
-int Inventory :: getMaxItems() const {
-  return maxItems;
-}
-
 int Inventory :: getCurrentItems() const {
   return (items.size());
-}
-
-int Inventory :: getMaxSpells() const {
-  return maxSpells;
 }
 
 int Inventory :: getCurrentSpells() const {
@@ -78,4 +60,44 @@ void Inventory :: printInfo() const {
     cout << spellIterator.getInfo() << endl;
   }
   cout << endl;
+}
+
+void Inventory :: addItem(const Item& item) {
+  if (this->getCurrentCapacity() == maxCapacity) {
+    cout << "Your inventory is full" << endl;
+    return;
+  }
+
+  items.push_back(item);
+}
+
+void Inventory :: addSpell(const Spell& spell) {
+  if (this->getCurrentCapacity() == maxCapacity) {
+    cout << "Your inventory is full" << endl;
+    return;
+  }
+
+  spells.push_back(spell);
+}
+
+void Inventory :: removeItem(const Item& item) {
+  // This check can be ommited. If the inventory is already empty
+  // then we should not be able to select an item to remove
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Your inventory is already empty" << endl;
+    return;
+  }
+
+  items.remove(item);
+}
+
+void Inventory :: removeSpell(const Spell& spell) {
+  // This check can be ommited. If the inventory is already empty
+  // then we should not be able to select a spell to remove
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Your inventory is aldready empty" << endl;
+    return;
+  }
+
+  spells.remove(spell);
 }
