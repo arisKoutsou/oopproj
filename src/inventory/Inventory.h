@@ -15,24 +15,24 @@ using namespace std;
 
 class Inventory {
 public:
-  Inventory(int capacity, int maxItems, int maxSpells);
+  Inventory(int maxCapacity);
   ~Inventory();
 
-  int getCapacity() const;	// returns the inventory capacity
+  int getMaxCapacity() const;	// returns the inventory max capacity
   int getCurrentCapacity() const; // return  the current capacity
-  int getMaxItems() const;	// returns the maximum items
-  int getMaxSpells() const;	// returns the maximum spells
   int getCurrentItems() const;	// returns the current items
   int getCurrentSpells() const;	// return the current spells
   list<Item> getItemList() const; // returns the list of items
   list<Spell> getSpellList() const; // return the list of spells
 
   // Prints all the items and spells, including their info.
-  void printInfo() const; 	
+  void printInfo() const;
+  void addItem(const Item& item); // Adds an item to the inventory
+  void addSpell(const Spell& spell); // Adds a spell to the inventory
+  void removeItem(const Item& item); // Removes an items from the inventory
+  void removeSpell(const Spell& spell); // Removes a spell from the inventory
 private:
-  int capacity;
-  int maxItems;
-  int maxSpells;
+  int maxCapacity;
   list<Item> items;
   list<Spell> spells;
 };

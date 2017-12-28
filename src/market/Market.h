@@ -16,21 +16,23 @@ using namespace std;
 
 class Market {
 public:
-  Market(int capacity, int maxItems, int maxSpells);
+  Market(int maxCapacity);
   ~Market();
 
-  int getCapacity() const;	// returns the capacity of the market
+  int geMaxCapacity() const;	// returns the max capacity of the market
   int getCurrentCapacity() const; // returns the current capacity
-  int getMaxItems() const;	// returns the max items of the market
   int getCurrentItems() const; 	// returns the current items
-  int getMaxSpells() const;	// returns the max spells of the market
   int getCurrentSpells() const; // returns the current spells
   list<Item> getItemList() const; // returns the item list
   list<Spell> getSpellList() const; // returns the spell list
+
+  void printInfo() const;  // Prints every item and spell in the market
+  void addItem(const Item& item); // adds an item in the market
+  void addSpell(const Spell& spell); // adds a spell in the market
+  void removeItem(const Item& item); // removes an item from the market
+  void removeSpell(const Spell& spell); // removes a spell from the market
 private:
-  int capacity;
-  int maxItems;
-  int maxSpells;
+  int maxCapacity;
   list<Item> items;
   list<Spell> spells;
 };

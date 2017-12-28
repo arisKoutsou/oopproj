@@ -10,17 +10,10 @@
 
 using namespace std;
 
-Market :: Market(int _capacity, int _maxItems, int _maxSpells)
+Market :: Market(int _maxCapacity)
 
-  : capacity(_capacity), maxItems(_maxItems), maxSpells(_maxSpells)  {
+  : maxCapacity(_maxCapacity) {
 
-  if ((maxItems + maxSpells) > capacity) {
-    cerr << "The sum of max items and max spells is greater than "
-	 << "the capacity of the market (Cannot construct object)"
-	 << endl;
-    ~Market();
-  }
-  
   cout << "Creating an instance of Market" << endl;
 }
 
@@ -28,24 +21,16 @@ Market :: ~Market() {
   cout << "Destroying a Market" << endl;
 }
 
-int Market :: getCapacity() const {
-  return capacity;
+int Market :: getMaxCapacity() const {
+  return maxCapacity;
 }
 
 int Market :: getCurrentCapacity() const {
   return (items.size() + spells.size());
 }
 
-int Market :: getMaxItems() const {
-  return maxItems;
-}
-
 int Market :: getCurrentItems() const {
   return (items.size());
-}
-
-int Market :: getMaxSpells() const {
-  return maxSpells;
 }
 
 int Market :: getCurrentSpells() const {
@@ -60,3 +45,55 @@ list<Spell> Market :: getSpellList() const {
   return spells;
 }
 
+void Market :: printInfo() const {
+  list<Item> :: iterator itemIterator = items.begin();
+  list<Spell> :: iterator spellIterator = spells.begin();
+
+  cout << "Items:" << endl;
+  for ( ; itemIterator != items.end(); ++itemIterator) {
+    cout << itemIterator.getInfo() << endl;
+  }
+  cout << endl;
+
+  cout << "Spells:" << endl;
+  for ( ; spellIterator != spells.end() ; ++spellIterator) {
+    cout << spellIterator.getInfo() << endl;
+  }
+  cout << endl;
+}
+
+void Market :: addItem(const Item& item) {
+  if (this->getCurrentCapacity() == maxCapacity) {
+    cout << "Market is full" << endl;
+    return;
+  }
+
+  items.push_back(item);
+}
+
+void Market :: addSpell(const Spell& spell) {
+  if (this->getCurrentCapacity() == maxCapacity) {
+    cout << "Market is full" << endl;
+    return;
+  }
+
+  spells.push_back(spell);
+}
+
+void Market :: removeItem(const Item& item) {
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Market is already empty" << endl;
+    return;
+  }
+
+  items.remove(item);
+}
+
+void Market :: removeSpell(const Spell& spell) {
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Market is already empty" << endl;
+    return;
+  }
+
+  spells.remove(item);
+}
