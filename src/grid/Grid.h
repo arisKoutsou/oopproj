@@ -10,7 +10,7 @@
 #include <iostream>
 #include <vector>
 #include "../hero/Hero.h"
-#include "../market/Market.h"		// @Incomplete: Implement this
+#include "../market/Market.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ public:
     bool hasMarket;
     bool common;
     int numberOfLivings;
-    vector<Market> market;
+    vector<Market> market;	
   };
 
   // Posible directions for heros to move
@@ -63,12 +63,13 @@ public:
   // and returns an enum value indicating if the movement succeded or not
   movementReport move(const Hero& hero, const directions& direction);
   vector<vector<Tile>> getTiles() const; // returns the all the tiles
-  Tile getTile(int row, int col) const;  // returns the tile at row,col
+  Tile getTile(int row, int col) const;  // returns the tile at row, col
+  // Adds a makret in tile which is at (row, col) location
   void addMarket(int row, int col, const Market& market);
 private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
-  vector<vector<Tile>> tiles;
+  vector<vector<Tile>> tiles;	// 2D grid of tiles
 };
 
 #endif
