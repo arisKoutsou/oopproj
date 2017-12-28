@@ -46,8 +46,8 @@ list<Spell> Inventory :: getSpellList() const {
 }
 
 void Inventory :: printInfo() const {
-  list<Item> :: iterator itemIterator = items.begin();
-  list<Spell> :: iterator spellIterator = spells.begin();
+  list<Item> :: const_iterator itemIterator = items.begin();
+  list<Spell> :: const_iterator spellIterator = spells.begin();
 
   cout << "Items:" << endl;
   for ( ; itemIterator != items.end(); ++itemIterator) {
