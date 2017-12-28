@@ -19,7 +19,7 @@ public:
   Market(int maxCapacity);
   ~Market();
 
-  int geMaxCapacity() const;	// returns the max capacity of the market
+  int getMaxCapacity() const;	// returns the max capacity of the market
   int getCurrentCapacity() const; // returns the current capacity
   int getCurrentItems() const; 	// returns the current items
   int getCurrentSpells() const; // returns the current spells

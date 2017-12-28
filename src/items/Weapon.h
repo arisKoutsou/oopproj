@@ -20,7 +20,7 @@ public:
 		int dmg = 80,
 		bool both = false
 	);
-	virtual ~Weapon();
+	~Weapon();
 
 	string getInfo() const;	// Uses base class getInfo().
 	int getDamage() const;	// How much damage it has.

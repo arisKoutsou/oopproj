@@ -21,7 +21,7 @@ public:
 		double dB = 0.0,
 		double aB = 0.05
 	);
-	virtual ~Potion();
+	~Potion();
 
 	double getAgilityBoost() const;
 	double getDexterityBoost() const;

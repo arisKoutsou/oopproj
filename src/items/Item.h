@@ -25,10 +25,12 @@ public:
 	int sellsFor() const;		// Return how much it sells for.
 	int buyFor() const;			// Return it's price.
 	int unlocksInLevel() const;	// Return the level it unlocks.
-	virtual string getInfo() const;		// Returns a string with all the info.
+        virtual string getInfo() const;		// Returns a string with all the info.
 
+        // Added by: (George Liontos)
+        bool operator==(const Item& rValue) const;
+  
 	const double sellRate = 0.5;// Sells for <sellRate>*buyFor().
-
 private:
 	string name;
 	int value;
