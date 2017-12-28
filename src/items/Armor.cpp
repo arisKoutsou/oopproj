@@ -42,3 +42,16 @@ string Armor::getInfo() const {
 
 	return result.str();
 }
+
+// Implemented by: (George Liontos)
+bool Armor :: operator==(const Armor& rValue) const {
+  bool sameItems;
+  bool sameReduceDamageTakenBy;
+
+  sameItems = (static_cast<Item>(*this) == rValue);
+  sameReduceDamageTakenBy =
+    (this->reduceDamageTakenBy == rvalue.reduceDamageTakenBy)
+    ? true : false;
+
+  return (sameItems && sameReduceDamageTakenBy);
+}

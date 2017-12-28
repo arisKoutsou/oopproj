@@ -24,6 +24,9 @@ public:
 	double getDamageReductionFactor() const;	// Returns private member.
 	string getInfo() const;	// Uses base ...
 
+
+        // Added by: (George Liontos)
+        bool operator==(const Armor& rValue) const;
 private:
 	double reduceDamageTakenBy;	// A double in [0, 1],
 								// Representing percentage of reduced damage.

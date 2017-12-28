@@ -25,6 +25,8 @@ public:
 	string getInfo() const;	// Uses base class getInfo().
 	int getDamage() const;	// How much damage it has.
 
+        // Added by: (George Liontos)
+        bool operator==(const Weapon& rValue) const;
 private:
 	int damage;				// Damage done when used.
 	bool requiresBothHands;	// True if this Weapon requires both hands.

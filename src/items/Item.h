@@ -28,7 +28,7 @@ public:
         virtual string getInfo() const;		// Returns a string with all the info.
 
         // Added by: (George Liontos)
-        bool operator==(const Item& rValue) const;
+        virtual bool operator==(const Item& rValue) const;
   
 	const double sellRate = 0.5;// Sells for <sellRate>*buyFor().
 private:

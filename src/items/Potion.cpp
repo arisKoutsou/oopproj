@@ -66,3 +66,27 @@ string Potion::getInfo() const {
 
 	return result.str();
 }
+
+// Implemented by: (George Liontos)
+bool Potion :: operator==(const Potion& rValue) const {
+  bool sameItems;
+  bool sameStrengthBoost;
+  bool sameDexterityBoost;
+  bool sameAgilityBoost;
+
+  sameItems = (static_cast<Item>(*this) == rValue);
+
+  sameStrengthBoost = (this->strengthBoost == rValue.strengthBoost)
+                       ? true : false;
+
+  sameDexterityBoost = (this->dexterityBoost == rValue.dexterityBoost)
+                        ? true : false;
+
+  sameAgilityBoost = (this->agilityBoost == rValue.agilityBoost)
+                      ? true : false;
+
+  return (sameStrengthBoost &&
+	  sameDexterityBoost &&
+	  sameAgilityBoost &&
+	  sameItems);
+}

@@ -28,6 +28,8 @@ public:
 	double getStrengthBoost() const;
 	string getInfo() const;
 
+        // Added by: (George Liontos)
+        bool operator==(const Potion& rValue) const;
 private:
 	// All boosts are doubles in [0,1] and that means.
 	// That they will boost damage to damage*(1+boostAmount)...

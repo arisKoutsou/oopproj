@@ -41,3 +41,16 @@ string Weapon::getInfo() const {
 	return result.str();
 }
 
+// Implemented by: (George Liontos)
+bool Weapon :: operator==(const Weapon& rValue) const {
+  bool sameItems;
+  bool sameDamage;
+  bool sameRequiresBothHands;
+
+  sameItems = (static_cast<Item>(*this) == rValue);
+  sameDamage = (this->damage == rValue.damage) ? true : false;
+  sameRequiresBothHands = (this->requiresBothHands == rValue.requiresBothHands)
+                           ? true : false;
+
+  return (sameItems && sameDamage && sameRequiresBothHands);
+}
