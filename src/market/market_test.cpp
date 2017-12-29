@@ -18,7 +18,7 @@ using namespace std;
 
 int main() {
   // Creating a Market
-  Market market(10);
+  Market market(20);	// Changed to 20 to test github...
 
   // Testing Market methods
   cout << "Market's max capacity is: "
@@ -91,7 +91,7 @@ int main() {
   // Gia na doume an mporei na kanei print olo to market.
   // cout << endl << "ADDED BY ARIS..." << endl << endl;
 
-  // market.print();
+  market.printInfo();
 
   return 0;
 }
