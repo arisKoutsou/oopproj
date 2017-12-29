@@ -12,12 +12,22 @@ using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : menu(*this), maxCapacity(_maxCapacity) {
+  : maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Inventory" << endl;
 }
 
 Inventory :: ~Inventory() {
+  while(items.empty() == false) {
+    delete items.front();
+    items.pop_front();
+  }
+
+  while (spells.empty() == false) {
+    delete spells.front();
+    spells.pop_front();
+  }
+  
   cout << "Destroying an Inventory" << endl;
 }
 
@@ -46,23 +56,21 @@ list<Spell> Inventory :: getSpellList() const {
 }
 
 void Inventory :: printInfo() const {
-  list<Item> :: const_iterator itemIterator = items.begin();
-  list<Spell> :: const_iterator spellIterator = spells.begin();
+  list<Item*> :: const_iterator itemIterator = items.begin();
+  list<Spell*> :: const_iterator spellIterator = spells.begin();
 
-  cout << "Items:" << endl;
+  cout << "Items:" << endl << endl;
   for ( ; itemIterator != items.end(); ++itemIterator) {
-    cout << itemIterator.getInfo() << endl;
+    cout << (*itemIterator)->getInfo() << endl;
   }
-  cout << endl;
 
-  cout << "Spells:" << endl;
+  cout << "Spells:" << endl << endl;
   for ( ; spellIterator != spells.end() ; ++spellIterator) {
-    cout << spellIterator.getInfo() << endl;
+    cout << (*spellIterator)->getInfo() << endl;
   }
-  cout << endl;
 }
 
-void Inventory :: addItem(const Item& item) {
+void Inventory :: addItem(Item* item) {
   if (this->getCurrentCapacity() == maxCapacity) {
     cout << "Your inventory is full" << endl;
     return;
@@ -71,7 +79,7 @@ void Inventory :: addItem(const Item& item) {
   items.push_back(item);
 }
 
-void Inventory :: addSpell(const Spell& spell) {
+void Inventory :: addSpell(Spell* spell) {
   if (this->getCurrentCapacity() == maxCapacity) {
     cout << "Your inventory is full" << endl;
     return;
@@ -80,7 +88,7 @@ void Inventory :: addSpell(const Spell& spell) {
   spells.push_back(spell);
 }
 
-void Inventory :: removeItem(const Item& item) {
+void Inventory :: removeItem(Item* item) {
   // This check can be ommited. If the inventory is already empty
   // then we should not be able to select an item to remove
   if (this->getCurrentCapacity() == 0) {
@@ -89,9 +97,10 @@ void Inventory :: removeItem(const Item& item) {
   }
 
   items.remove(item);
+  delete item;
 }
 
-void Inventory :: removeSpell(const Spell& spell) {
+void Inventory :: removeSpell(Spell* spell) {
   // This check can be ommited. If the inventory is already empty
   // then we should not be able to select a spell to remove
   if (this->getCurrentCapacity() == 0) {
@@ -100,4 +109,5 @@ void Inventory :: removeSpell(const Spell& spell) {
   }
 
   spells.remove(spell);
+  delete spell;
 }

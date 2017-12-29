@@ -10,7 +10,7 @@
 #include <iostream>
 #include "../items/Item.h"
 #include "../spells/Spell.h"
-#include "../menu/InventoryMenu.h"
+//#include "../menu/InventoryMenu.h"
 
 using namespace std;
 
@@ -28,15 +28,15 @@ public:
 
   // Prints all the items and spells, including their info.
   void printInfo() const;
-  void addItem(const Item& item); // Adds an item to the inventory
-  void addSpell(const Spell& spell); // Adds a spell to the inventory
-  void removeItem(const Item& item); // Removes an items from the inventory
-  void removeSpell(const Spell& spell); // Removes a spell from the inventory
+  void addItem(Item* item); // Adds an item to the inventory
+  void addSpell(Spell* spell); // Adds a spell to the inventory
+  void removeItem(Item* item); // Removes an items from the inventory
+  void removeSpell(Spell* spell); // Removes a spell from the inventory
 private:
   int maxCapacity;
-  list<Item> items;
-  list<Spell> spells;
-  InventoryMenu menu;
+  list<Item*> items;
+  list<Spell*> spells;
+  //  InventoryMenu menu;
 };
 
 #endif
