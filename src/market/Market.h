@@ -32,6 +32,10 @@ public:
   void addSpell(const Spell& spell); // adds a spell in the market
   void removeItem(const Item& item); // removes an item from the market
   void removeSpell(const Spell& spell); // removes a spell from the market
+
+  // Added by aris...
+  void print() const;		// Prints all the market.
+
 private:
   int maxCapacity;
   list<Item> items;

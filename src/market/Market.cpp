@@ -97,3 +97,26 @@ void Market :: removeSpell(const Spell& spell) {
 
   spells.remove(spell);
 }
+
+// Implemenet by: (arisKoutsou)
+void Market::print() const {
+	string itemListString;
+
+	for (list<Item>::const_iterator it=items.begin(); it != items.end(); ++it) {
+		itemListString.append(it->getInfo() + "\n");
+	}
+
+	string spellListString;
+
+	for (list<Spell>::const_iterator it=spells.begin(); it != spells.end(); ++it) {
+		spellListString.append(it->getInfo() + "\n");
+	}
+
+	cout << "Printing Market with maxCapacity: "
+		<< maxCapacity << endl
+		<< "Items: " << items.size() << endl
+		<< "Spells: " << spells.size() << endl
+		<< endl
+		<< "->ITEMS\n" << itemListString
+		<< "->SPELLS\n" << spellListString << endl;
+}

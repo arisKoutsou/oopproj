@@ -83,5 +83,10 @@ int main() {
   cout << "Current Capacity: "
        << market.getCurrentCapacity() << endl;
 
+  // Gia na doume an mporei na kanei print olo to market.
+  cout << endl << "ADDED BY ARIS..." << endl << endl;
+
+  market.print();
+
   return 0;
 }
