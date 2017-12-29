@@ -12,7 +12,7 @@ using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : maxCapacity(_maxCapacity) {
+  : menu(*this), maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Inventory" << endl;
 }

@@ -45,3 +45,17 @@ string LightningSpell::getInfo() const {
 
 	return result.str();
 }
+
+// Implemented by: (George Liontos)
+bool LightningSpell :: operator==(const LightningSpell& rValue) const {
+  bool sameSpells;
+  bool sameOponentDodgeReduction;
+  bool sameRounds;
+
+  sameSpells = (static_cast<Spell>(*this) == rValue);
+  sameOponentDodgeReduction =
+    (this->oponentDodgeReduction == rValue.oponentDodgeReduction) ? true : false;
+  sameRounds = (this->rounds == rValue.rounds) ? true : false;
+
+  return (sameSpells && sameOponentDodgeReduction && sameRounds);
+}

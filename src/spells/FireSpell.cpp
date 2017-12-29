@@ -45,3 +45,17 @@ string FireSpell::getInfo() const {
 
 	return result.str();
 }
+
+// Implemented by: (George Liontos)
+bool FireSpell :: operator==(const FireSpell& rValue) const {
+  bool sameSpells;
+  bool sameOponentArmorReduction;
+  bool sameRounds;
+
+  sameSpells = (static_cast<Spell>(*this) == rValue);
+  sameOponentArmorReduction =
+    (this->oponentArmorReduction == rValue.oponentArmorReduction) ? true : false;
+  sameRounds = (this->rounds == rValue.rounds) ? true : false;
+
+  return (sameSpells && sameOponentArmorReduction && sameRounds);
+}

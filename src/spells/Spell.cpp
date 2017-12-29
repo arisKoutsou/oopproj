@@ -70,3 +70,23 @@ string Spell::getInfo() const {
 
 }
 
+// Imlemented by: (George Liontos)
+bool Spell :: operator==(const Spell& rValue) const {
+  bool sameName;
+  bool sameValue;
+  bool sameMinLevel;
+  bool sameMagicPowerRequired;
+  bool sameMinDamage;
+  bool sameMaxDamage;
+
+  sameName = (this->name == rValue.name) ? true : false;
+  sameValue = (this->value == rValue.value) ? true : false;
+  sameMinLevel = (this->minLevel == rValue.minLevel) ? true : false;
+  sameMagicPowerRequired =
+    (this->magicPowerRequired == rValue.magicPowerRequired) ? true : false;
+  sameMinDamage = (this->minDamage == rValue.minDamage) ? true : false;
+  sameMaxDamage = (this->maxDamage == rValue.maxDamage) ? true : false;
+
+  return (sameName && sameValue && sameMinLevel &&
+	  sameMagicPowerRequired && sameMinDamage && sameMaxDamage);
+}

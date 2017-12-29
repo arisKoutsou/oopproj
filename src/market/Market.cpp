@@ -26,7 +26,7 @@ int Market :: getMaxCapacity() const {
 }
 
 int Market :: getCurrentCapacity() const {
-  return (items.size() + spells.size());x
+  return (items.size() + spells.size());
 }
 
 int Market :: getCurrentItems() const {
@@ -51,13 +51,13 @@ void Market :: printInfo() const {
 
   cout << "Items:" << endl;
   for ( ; itemIterator != items.end(); ++itemIterator) {
-    cout << (*itemIterator).getInfo() << endl;
+    cout << itemIterator->getInfo() << endl;
   }
   cout << endl;
 
   cout << "Spells:" << endl;
   for ( ; spellIterator != spells.end() ; ++spellIterator) {
-    cout << spellIterator.getInfo() << endl;
+    cout << spellIterator->getInfo() << endl;
   }
   cout << endl;
 }
@@ -95,5 +95,5 @@ void Market :: removeSpell(const Spell& spell) {
     return;
   }
 
-  spells.remove(item);
+  spells.remove(spell);
 }

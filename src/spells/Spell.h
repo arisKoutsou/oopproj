@@ -34,6 +34,9 @@ public:
 
 	virtual string getInfo() const;
 
+  
+        // Added by: (George Liontos)
+        virtual bool operator==(const Spell& rValue) const;
 	const double sellRate = 0.4;
 
 private:

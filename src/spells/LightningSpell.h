@@ -29,6 +29,8 @@ public:
 	int    getReductionRounds() const;
 	string getInfo() const;
 
+        // Added by: (George Liontos)
+        bool operator==(const LightningSpell& rValue) const;
 private:
 	double 	oponentDodgeReduction;	// Decreases the possibility that an opponent dodges.
 	int 	rounds;

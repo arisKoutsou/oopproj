@@ -10,6 +10,7 @@
 #include <iostream>
 #include "../items/Item.h"
 #include "../spells/Spell.h"
+#include "../menu/InventoryMenu.h"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ private:
   int maxCapacity;
   list<Item> items;
   list<Spell> spells;
+  InventoryMenu menu;
 };
 
 #endif

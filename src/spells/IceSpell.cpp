@@ -45,3 +45,17 @@ string IceSpell::getInfo() const {
 
 	return result.str();
 }
+
+// Imlemented by: (George Liontos)
+bool IceSpell :: operator==(const IceSpell& rValue) const {
+  bool sameSpells;
+  bool sameOponentDamageReduction;
+  bool sameRounds;
+
+  sameSpells = (static_cast<Spell>(*this) == rValue);
+  sameOponentDamageReduction =
+    (this->oponentDamageReduction == rValue.oponentDamageReduction) ? true : false;
+  sameRounds = (this->rounds == rValue.rounds) ? true : false;
+
+  return (sameSpells && sameOponentDamageReduction && sameRounds);
+}

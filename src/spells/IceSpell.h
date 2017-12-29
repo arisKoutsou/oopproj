@@ -28,6 +28,9 @@ public:
 	double reduceOponentDamageRangeBy() const;
 	int    getReductionRounds() const;
 	string getInfo() const;
+
+        // Added by: (George Liontos)
+        bool operator==(const IceSpell& rValue) const;
 private:
 	double 	oponentDamageReduction;
 	int 	rounds;

@@ -29,6 +29,8 @@ public:
 	int    getReductionRounds() const;
 	string getInfo() const;
 
+        // Added by: (George Liontos)
+        bool operator==(const FireSpell& rValue) const;
 private:
 	double 	oponentArmorReduction;
 	int 	rounds;
