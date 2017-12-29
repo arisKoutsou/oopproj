@@ -34,6 +34,8 @@ int main() {
   market.addItem(shield);
   market.addItem(healthPotion);
 
+  market.printInfo();
+  
   cout << endl;
   cout << "Market's max capacity is: "
        << market.getMaxCapacity() << endl;
@@ -58,6 +60,8 @@ int main() {
   market.addSpell(fire);
   market.addSpell(light);
 
+  market.printInfo();
+  
   cout << endl;
   cout << "Market's max capacity is: "
        << market.getMaxCapacity() << endl;
