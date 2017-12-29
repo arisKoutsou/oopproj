@@ -24,22 +24,18 @@ public:
   int getCurrentCapacity() const; // returns the current capacity
   int getCurrentItems() const; 	// returns the current items
   int getCurrentSpells() const; // returns the current spells
-  list<Item> getItemList() const; // returns the item list
-  list<Spell> getSpellList() const; // returns the spell list
+  list<Item*> getItemList() const; // returns the item list
+  list<Spell*> getSpellList() const; // returns the spell list
 
   void printInfo() const;  // Prints every item and spell in the market
-  void addItem(const Item& item); // adds an item in the market
-  void addSpell(const Spell& spell); // adds a spell in the market
-  void removeItem(const Item& item); // removes an item from the market
-  void removeSpell(const Spell& spell); // removes a spell from the market
-
-  // Added by aris...
-  void print() const;		// Prints all the market.
-
+  void addItem(Item* item); // adds an item in the market
+  void addSpell(Spell* spell); // adds a spell in the market
+  void removeItem(Item* item); // removes an item from the market
+  void removeSpell(Spell* spell); // removes a spell from the market
 private:
   int maxCapacity;
-  list<Item> items;
-  list<Spell> spells;
+  list<Item*> items;
+  list<Spell*> spells;
   //  MarketMenu menu;
 };
 

@@ -5,6 +5,7 @@
 // Created: Thu Dec 28 15:47:59 2017 (+0200)
 
 #include <iostream>
+#include <cstdlib>
 #include "Market.h"
 #include "../items/Weapon.h"
 #include "../items/Armor.h"
@@ -26,9 +27,9 @@ int main() {
   cout << "Current Items in the Market: "
        << market.getCurrentItems() << endl;
 
-  Weapon sword("Excalibur");
-  Armor shield("Crimson Parma");
-  Potion healthPotion("Elixir of life");
+  Weapon* sword = new Weapon("Excalibur");
+  Armor* shield = new Armor("Crimson Parma");
+  Potion* healthPotion = new Potion("Elixir of life");
   
   market.addItem(sword);
   market.addItem(shield);
@@ -52,9 +53,9 @@ int main() {
   cout << "Current Items in the Market: "
        << market.getCurrentItems() << endl;
 
-  IceSpell ice("Frozen Prison");
-  FireSpell fire("Living Hell");
-  LightningSpell light("Thunderstorm");
+  IceSpell* ice = new IceSpell("Frozen Prison");
+  FireSpell* fire = new FireSpell("Living Hell");
+  LightningSpell* light = new LightningSpell("Thunderstorm");
 
   market.addSpell(ice);
   market.addSpell(fire);
@@ -88,9 +89,9 @@ int main() {
        << market.getCurrentCapacity() << endl;
 
   // Gia na doume an mporei na kanei print olo to market.
-  cout << endl << "ADDED BY ARIS..." << endl << endl;
+  // cout << endl << "ADDED BY ARIS..." << endl << endl;
 
-  market.print();
+  // market.print();
 
   return 0;
 }
