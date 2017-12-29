@@ -49,17 +49,15 @@ void Market :: printInfo() const {
   list<Item> :: const_iterator itemIterator = items.begin();
   list<Spell> :: const_iterator spellIterator = spells.begin();
 
-  cout << "Items:" << endl;
+  cout << "Items:" << endl << endl;
   for ( ; itemIterator != items.end(); ++itemIterator) {
     cout << itemIterator->getInfo() << endl;
   }
-  cout << endl;
 
-  cout << "Spells:" << endl;
+  cout << "Spells:" << endl << endl;
   for ( ; spellIterator != spells.end() ; ++spellIterator) {
     cout << spellIterator->getInfo() << endl;
   }
-  cout << endl;
 }
 
 void Market :: addItem(const Item& item) {
