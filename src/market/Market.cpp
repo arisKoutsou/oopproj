@@ -18,6 +18,16 @@ Market :: Market(int _maxCapacity)
 }
 
 Market :: ~Market() {
+  while(items.empty() == false) {
+    delete items.front();
+    items.pop_front();
+  }
+
+  while(spells.empty() == false) {
+    delete spells.front();
+    spells.pop_front();
+  }
+  
   cout << "Destroying a Market" << endl;
 }
 
@@ -83,8 +93,9 @@ void Market :: removeItem(Item* item) {
     cout << "Market is already empty" << endl;
     return;
   }
-  
+
   items.remove(item);
+  delete item;
 }
 
 void Market :: removeSpell(Spell* spell) {
@@ -94,4 +105,5 @@ void Market :: removeSpell(Spell* spell) {
   }
 
   spells.remove(spell);
+  delete spell;
 }
