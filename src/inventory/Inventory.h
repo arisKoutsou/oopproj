@@ -16,7 +16,7 @@ using namespace std;
 
 class Inventory {
 public:
-  Inventory(int maxCapacity);
+  Inventory(int maxCapacity = 20);
   ~Inventory();
 
   int getMaxCapacity() const;	// returns the inventory max capacity
