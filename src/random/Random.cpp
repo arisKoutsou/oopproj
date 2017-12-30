@@ -8,7 +8,11 @@
 #include "Random.h"
 
 Random::Random(int seed) {
-	srand(time(NULL));
+  if (seed == 0) {
+    srand(time(NULL));
+  } else {
+    srand(seed);
+  }
 }
 
 double Random::from0to1() {

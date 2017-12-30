@@ -6,13 +6,13 @@
 
 #include <iostream>
 #include <cstdlib>
-#include "Market.h"
-#include "../items/Weapon.h"
-#include "../items/Armor.h"
-#include "../items/Potion.h"
-#include "../spells/FireSpell.h"
-#include "../spells/IceSpell.h"
-#include "../spells/LightningSpell.h"
+#include "../src/market/Market.h"
+#include "../src/items/Weapon.h"
+#include "../src/items/Armor.h"
+#include "../src/items/Potion.h"
+#include "../src/spells/FireSpell.h"
+#include "../src/spells/IceSpell.h"
+#include "../src/spells/LightningSpell.h"
 
 using namespace std;
 
