@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iomanip>
 
-#include "Armor.h"
+#include "../../include/Armor.h"
 
 using namespace std;
 

@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "Grid.h"
+#include "../../include/Grid.h"
 
 using namespace std;
 

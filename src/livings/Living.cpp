@@ -6,7 +6,7 @@
  */
 #include <iostream>
 
-#include "Living.h"
+#include "../../include/Living.h"
 
 Living::Living(
 	string nam,

@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include "Menu.h"
-#include "../inventory/Inventory.h"
+#include "Inventory.h"
 
 using namespace std;
 

@@ -9,7 +9,7 @@
 #define LIVINGS_HERO_H_
 
 #include "Living.h"
-#include "../inventory/Inventory.h"
+#include "Inventory.h"
 
 class Hero : public Living {
 public:

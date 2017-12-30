@@ -9,8 +9,8 @@
 
 #include <iostream>
 #include <list>
-#include "../items/Item.h"
-#include "../spells/Spell.h"
+#include "Item.h"
+#include "Spell.h"
 //#include "../menu/MarketMenu.h"
 
 using namespace std;

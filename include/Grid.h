@@ -9,8 +9,8 @@
 
 #include <iostream>
 #include <vector>
-#include "../hero/Hero.h"
-#include "../market/Market.h"
+#include "Hero.h"
+#include "Market.h"
 
 using namespace std;
 

@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <list>
-#include "Inventory.h"
+#include "../../include/Inventory.h"
 
 using namespace std;
 

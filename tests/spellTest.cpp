@@ -6,10 +6,10 @@
  */
 #include <iostream>
 
-#include "../src/spells/Spell.h"
-#include "../src/spells/IceSpell.h"
-#include "../src/spells/FireSpell.h"
-#include "../src/spells/LightningSpell.h"
+#include "../include/Spell.h"
+#include "../include/IceSpell.h"
+#include "../include/FireSpell.h"
+#include "../include/LightningSpell.h"
 
 using namespace std;
 

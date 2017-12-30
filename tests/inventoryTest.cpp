@@ -1,12 +1,12 @@
 #include <iostream>
 #include <cstdlib>
-#include "../src/inventory/Inventory.h"
-#include "../src/items/Weapon.h"
-#include "../src/items/Armor.h"
-#include "../src/items/Potion.h"
-#include "../src/spells/FireSpell.h"
-#include "../src/spells/IceSpell.h"
-#include "../src/spells/LightningSpell.h"
+#include "../include/Inventory.h"
+#include "../include/Weapon.h"
+#include "../include/Armor.h"
+#include "../include/Potion.h"
+#include "../include/FireSpell.h"
+#include "../include/IceSpell.h"
+#include "../include/LightningSpell.h"
 
 int main() {
   // Creating an inventory
