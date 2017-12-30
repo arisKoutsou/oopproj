@@ -61,7 +61,7 @@ int main() {
   market.addSpell(fire);
   market.addSpell(light);
 
-  market.printInfo();
+  market.printInfo();	// comments
   
   cout << endl;
   cout << "Market's max capacity is: "
