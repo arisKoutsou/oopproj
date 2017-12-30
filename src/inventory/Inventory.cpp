@@ -47,11 +47,11 @@ int Inventory :: getCurrentSpells() const {
   return (spells.size());
 }
 
-list<Item> Inventory :: getItemList() const {
+list<Item*> Inventory :: getItemList() const {
   return items;
 }
 
-list<Spell> Inventory :: getSpellList() const {
+list<Spell*> Inventory :: getSpellList() const {
   return spells;
 }
 

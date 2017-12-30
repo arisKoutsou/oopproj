@@ -8,6 +8,7 @@
 #define __INVENTORY_HEADER__
 
 #include <iostream>
+#include <list>
 #include "../items/Item.h"
 #include "../spells/Spell.h"
 //#include "../menu/InventoryMenu.h"
@@ -23,8 +24,8 @@ public:
   int getCurrentCapacity() const; // return  the current capacity
   int getCurrentItems() const;	// returns the current items
   int getCurrentSpells() const;	// return the current spells
-  list<Item> getItemList() const; // returns the list of items
-  list<Spell> getSpellList() const; // return the list of spells
+  list<Item*> getItemList() const; // returns the list of items
+  list<Spell*> getSpellList() const; // return the list of spells
 
   // Prints all the items and spells, including their info.
   void printInfo() const;
