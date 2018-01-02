@@ -7,12 +7,13 @@
 #include <iostream>
 #include <list>
 #include "../../include/Inventory.h"
+#include "../../include/Hero.h"
 
 using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : maxCapacity(_maxCapacity) {
+  : menu(), maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Inventory" << endl;
 }

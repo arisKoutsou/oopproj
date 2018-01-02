@@ -9,17 +9,13 @@
 
 #include <iostream>
 #include "Menu.h"
-#include "Market.h"
 
 using namespace std;
 
 class MarketMenu : public Menu {
 public:
-  MarketMenu(Market& market);
+  MarketMenu();
   ~MarketMenu();
-  void handleSelection(int option);
-private:
-  Market market;
 };
 
 #endif

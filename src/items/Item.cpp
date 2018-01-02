@@ -18,7 +18,8 @@ Item::Item(
 	int minL
 )
 : name(nam), value(val),
-  sellFor(s), minLevel(minL)
+  sellFor(s), minLevel(minL),
+  sellRate(0.5)
 {
 	cout << "Item constructed..." << endl;
 }

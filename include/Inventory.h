@@ -11,7 +11,7 @@
 #include <list>
 #include "Item.h"
 #include "Spell.h"
-//#include "../menu/InventoryMenu.h"
+#include "InventoryMenu.h"
 
 using namespace std;
 
@@ -37,7 +37,7 @@ private:
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
-  //  InventoryMenu menu;
+  InventoryMenu menu;
 };
 
 #endif

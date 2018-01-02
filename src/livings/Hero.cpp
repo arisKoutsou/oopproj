@@ -19,7 +19,7 @@ Hero::Hero(
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
-  expirience(0)
+  expirience(0), inventory()
 {
 	// cnstr.
 }

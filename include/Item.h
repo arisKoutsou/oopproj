@@ -29,8 +29,8 @@ public:
 
         // Added by: (George Liontos)
         virtual bool operator==(const Item& rValue) const;
-  
-	const double sellRate = 0.5;// Sells for <sellRate>*buyFor().
+        // WARNING (George): Non static initialisation only possible in C++11
+        const double sellRate;// Sells for <sellRate>*buyFor().
 private:
 	string name;
 	int value;

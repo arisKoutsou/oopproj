@@ -11,7 +11,7 @@
 #include <list>
 #include "Item.h"
 #include "Spell.h"
-//#include "../menu/MarketMenu.h"
+#include "MarketMenu.h"
 
 using namespace std;
 
@@ -26,7 +26,8 @@ public:
   int getCurrentSpells() const; // returns the current spells
   list<Item*> getItemList() const; // returns the item list
   list<Spell*> getSpellList() const; // returns the spell list
-
+  MarketMenu getMenu() const;	     // returns the market menu
+  
   void printInfo() const;  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market
   void addSpell(Spell* spell); // adds a spell in the market
@@ -36,7 +37,7 @@ private:
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
-  //  MarketMenu menu;
+  MarketMenu menu;
 };
 
 #endif

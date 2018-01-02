@@ -12,12 +12,10 @@
 using namespace std;
 
 Grid :: Tile :: Tile(int _x, int _y, bool _nonAccessible,
-		     bool _hasMarket, bool _common, bool _hasLiving,
-		     int _numberOfLivings)
+		     bool __hasMarket, bool _common, bool __hasLiving)
   
-  : x(_x), y(_y), nonAccessible(_nonAccessible), hasMarket(_hasMarket),
-    common(_common), hasLiving(_hasLiving),
-    numberOfLivings(_numberOfLivings) {
+  : x(_x), y(_y), nonAccessible(_nonAccessible), _hasMarket(__hasMarket),
+    common(_common), _hasLiving(__hasLiving) {
 
   cout << "Creating an instance of Tile" << endl;
 }
@@ -39,11 +37,11 @@ bool Grid :: Tile :: isNonAccessible() const {
 }
 
 bool Grid :: Tile :: hasLiving() const {
-  return hasLiving;
+  return _hasLiving;
 }
 
 bool Grid :: Tile :: hasMarket() const {
-  return hasMarket;
+  return _hasMarket;
 }
 
 bool Grid :: Tile :: isCommon() const {
@@ -51,7 +49,7 @@ bool Grid :: Tile :: isCommon() const {
 }
 
 int Grid :: Tile :: getNumberOfLivings() const {
-  return numberOfLivings;
+  return livings.size();
 }
 
 Market Grid :: Tile :: getMarket() const {
@@ -60,18 +58,18 @@ Market Grid :: Tile :: getMarket() const {
   return (market[0]);
 }
 
-Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
+Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
 
   : maxX(_maxX), maxY(_maxY) {
 
   size_t auxI = 0U;
   size_t auxJ = 0U;
   
-  for (size_t i = 0U; i != maxY; ++i) {
+  for (ssize_t i = 0U; i != maxY; ++i) {
     vector<Tile> newTileVector;
-    tiles[i].push_back(newTileVector);
+    tiles.push_back(newTileVector);
     
-    for (size_t j = 0U; j != maxX; ++j) {
+    for (ssize_t j = 0U; j != maxX; ++j) {
 
       bool nonAccessible = _tileInfo[auxI + auxJ];
       bool hasMarket = _tileInfo[auxI + auxJ + 1];
@@ -81,12 +79,12 @@ Grid :: Grid(int _maxX, int _maxY, bool[] _tileInfo)
       int x = static_cast<int>(i);
       int y = static_cast<int>(j);
       Tile newTile(x, y, nonAccessible, hasMarket, common, hasLiving);
-      tiles[i][j].push_back(newTile);
+      tiles[i].push_back(newTile);
 
       ++auxI;
       ++auxJ;
     }
-  
+  }
     cout << "Creating an instance of Grid" << endl;
 }
 
@@ -102,7 +100,7 @@ int Grid :: getMaxY() const {
   return maxY;
 }
  
-void Grid :: addMarket(int row, int col, const Market _market) {
+void Grid :: addMarket(int row, int col, const Market& _market) {
   if (tiles[row][col].market.empty() == false) {
     cerr << "You can't add more than one market in a tile" << endl;
     return;
@@ -112,16 +110,20 @@ void Grid :: addMarket(int row, int col, const Market _market) {
   tiles[row][col].market.push_back(_market);
 }
 
-Tile Grid :: getTile(int row, int col) const {
+vector<vector<Grid :: Tile> > Grid :: getTiles() const {
+  return tiles;
+}
+ 
+Grid :: Tile Grid :: getTile(int row, int col) const {
    return (tiles[row][col]);
 }
  
-movementReport Grid :: move(const Hero& hero, const directions& direction) {
+Grid :: movementReport Grid :: move(const Hero& hero, const directions& direction) {
   // TODO (George): Wait for Aris to implement the functions that give
   // the position of the Hero and then finalize this implementation
   int heroX = hero.getX();
   int heroY = hero.getY();
-  int numberOfLivings = tiles[heroY][heroX].numberOfLivings;
+  int numberOfLivings = tiles[heroY][heroX].livings.size();
 
   switch (direction) {
   case up: {
@@ -131,11 +133,10 @@ movementReport Grid :: move(const Hero& hero, const directions& direction) {
       hero.setY(heroY + 1);
 
       if (numberOfLivings ==  1) {
-	tiles[heroY][heroX].hasLiving = false;
+	tiles[heroY][heroX]._hasLiving = false;
       }
 
-      --tiles[heroY][heroX].numberOfLivings;
-      tiles[heroY + 1][heroX].hasLiving = true;
+      tiles[heroY + 1][heroX]._hasLiving = true;
 
       return success;
     }
@@ -148,11 +149,10 @@ movementReport Grid :: move(const Hero& hero, const directions& direction) {
       hero.setY(heroY - 1);
 
       if (numberOfLivings == 1) {
-	tiles[heroY][heroX] = false;
+	tiles[heroY][heroX]._hasLiving = false;
       }
 
-      --tiles[heroY][heroX].numberOfLivings;
-      tiles[heroY - 1][heroX].hasLiving = true;
+      tiles[heroY - 1][heroX]._hasLiving = true;
 
       return success;
     }
@@ -165,11 +165,10 @@ movementReport Grid :: move(const Hero& hero, const directions& direction) {
       hero.setX(heroX - 1);
 
       if (numberOfLivings == 1) {
-	tiles[heroY][heroX] = false;
+	tiles[heroY][heroX]._hasLiving = false;
       }
 
-      --tiles[heroY][heroX].numberOfLivings;
-      tiles[heroY][heroX + 1].hasLiving = true;
+      tiles[heroY][heroX + 1]._hasLiving = true;
 
       return success;
     }
@@ -182,11 +181,10 @@ movementReport Grid :: move(const Hero& hero, const directions& direction) {
       hero.setX(heroX + 1);
 
       if (numberOfLivings == 1) {
-	tiles[heroY][heroX] = false;
+	tiles[heroY][heroX]._hasLiving = false;
       }
 
-      --tiles[heroY][heroX].numberOfLivings;
-      tiles[heroY][heroX + 1].hasLiving = true;
+      tiles[heroY][heroX + 1]._hasLiving = true;
 
       return success;
     }
@@ -194,4 +192,12 @@ movementReport Grid :: move(const Hero& hero, const directions& direction) {
 
   defaut: return directionError;
   }
+}
+
+void Grid :: addLiving(int row, int col, Living* living) {
+  tiles[row][col].livings.push_back(living);
+}
+ 
+void Grid :: removeLiving(int row, int col, Living* living) {
+  tiles[row][col].livings.remove(living);
 }

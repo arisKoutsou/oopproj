@@ -37,7 +37,7 @@ private:
 	int 	expirience;	// Xp.
 
 	Inventory inventory;	// Implemented by george.
-							// Contains all items and spells.
+                                // Contains all items and spells.
 };
 
 #endif /* LIVINGS_HERO_H_ */

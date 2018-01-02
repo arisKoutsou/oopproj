@@ -15,16 +15,13 @@ using namespace std;
 class Menu {
 public:
   Menu();
-  virtual ~Menu();
+  ~Menu();
 
   int getNumberOfOptions() const; // Returns the number of options
   void displayMenu() const;	  // Displays the menu
-  void setMenuOption();	 // Sets a new option for the menu
+  void setMenuOption(const string& option); // Sets a new option for the menu
   void clearMenu() const;	// Clears the menu screen
   int getSelection();   // Returns the selection the user made
-
-  // Handles the selection of the user
-  virtual void handleSelection(int option) = 0;
 private:
   vector<string> options;
 };

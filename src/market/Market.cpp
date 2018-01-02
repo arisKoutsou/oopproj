@@ -12,7 +12,7 @@ using namespace std;
 
 Market :: Market(int _maxCapacity)
 
-  : maxCapacity(_maxCapacity) {
+  : menu(), maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Market" << endl;
 }
@@ -53,6 +53,10 @@ list<Item*> Market :: getItemList() const {
 
 list<Spell*> Market :: getSpellList() const {
   return spells;
+}
+
+MarketMenu Market :: getMenu() const {
+  return menu;
 }
 
 void Market :: printInfo() const {

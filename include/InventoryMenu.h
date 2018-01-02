@@ -9,17 +9,15 @@
 
 #include <iostream>
 #include "Menu.h"
-#include "Inventory.h"
+
+class Inventory;
 
 using namespace std;
 
 class InventoryMenu : public Menu {
 public:
-  InventoryMenu(Inventory& inventory);
+  InventoryMenu();
   ~InventoryMenu();
-  void handleSelection(int option);
-private:
-  Inventory inventory;
 };
 
 #endif
