@@ -19,7 +19,7 @@ Spell::Spell(
 )
 : name(nam), value(val),
   minLevel(minL), magicPowerRequired(magicP),
-  minDamage(minDmg), maxDamage(maxDmg)
+  minDamage(minDmg), maxDamage(maxDmg), sellRate(0.4)
 {
 	cout << "Spell constructed..." << endl;
 }
