@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <vector>
 #include "../../include/Grid.h"
+#include "../../include/Living.h"
 
 using namespace std;
 
@@ -123,81 +124,81 @@ Grid :: Tile Grid :: getTile(int row, int col) const {
    return (tiles[row][col]);
 }
  
-Grid :: movementReport Grid :: move(const Hero& hero, const directions& direction) {
-  // TODO (George): Wait for Aris to implement the functions that give
-  // the position of the Hero and then finalize this implementation
-  int heroX = hero.getX();
-  int heroY = hero.getY();
-  int numberOfLivings = tiles[heroY][heroX].livings.size();
+// Grid :: movementReport Grid :: move(const Hero& hero, const directions& direction) {
+//   // TODO (George): Wait for Aris to implement the functions that give
+//   // the position of the Hero and then finalize this implementation
+//   int heroX = hero.getX();
+//   int heroY = hero.getY();
+//   int numberOfLivings = tiles[heroY][heroX].livings.size();
 
-  switch (direction) {
-  case up: {
-    if (heroY ==  maxY) {
-      return upError;
-    } else {
-      hero.setY(heroY + 1);
+//   switch (direction) {
+//   case up: {
+//     if (heroY ==  maxY) {
+//       return upError;
+//     } else {
+//       hero.setY(heroY + 1);
 
-      if (numberOfLivings ==  1) {
-	tiles[heroY][heroX]._hasLiving = false;
-      }
+//       if (numberOfLivings ==  1) {
+// 	tiles[heroY][heroX]._hasLiving = false;
+//       }
 
-      tiles[heroY + 1][heroX]._hasLiving = true;
+//       tiles[heroY + 1][heroX]._hasLiving = true;
 
-      return success;
-    }
-  }
+//       return success;
+//     }
+//   }
 
-  case down: {
-    if (heroY == 0) {
-      return downError;
-    } else {
-      hero.setY(heroY - 1);
+//   case down: {
+//     if (heroY == 0) {
+//       return downError;
+//     } else {
+//       hero.setY(heroY - 1);
 
-      if (numberOfLivings == 1) {
-	tiles[heroY][heroX]._hasLiving = false;
-      }
+//       if (numberOfLivings == 1) {
+// 	tiles[heroY][heroX]._hasLiving = false;
+//       }
 
-      tiles[heroY - 1][heroX]._hasLiving = true;
+//       tiles[heroY - 1][heroX]._hasLiving = true;
 
-      return success;
-    }
-  }
+//       return success;
+//     }
+//   }
 
-  case left: {
-    if (heroX == 0) {
-      return leftError;
-    } else {
-      hero.setX(heroX - 1);
+//   case left: {
+//     if (heroX == 0) {
+//       return leftError;
+//     } else {
+//       hero.setX(heroX - 1);
 
-      if (numberOfLivings == 1) {
-	tiles[heroY][heroX]._hasLiving = false;
-      }
+//       if (numberOfLivings == 1) {
+// 	tiles[heroY][heroX]._hasLiving = false;
+//       }
 
-      tiles[heroY][heroX + 1]._hasLiving = true;
+//       tiles[heroY][heroX + 1]._hasLiving = true;
 
-      return success;
-    }
-  }
+//       return success;
+//     }
+//   }
 
-  case right: {
-    if (heroX == maxX) {
-      return rightError;
-    } else {
-      hero.setX(heroX + 1);
+//   case right: {
+//     if (heroX == maxX) {
+//       return rightError;
+//     } else {
+//       hero.setX(heroX + 1);
 
-      if (numberOfLivings == 1) {
-	tiles[heroY][heroX]._hasLiving = false;
-      }
+//       if (numberOfLivings == 1) {
+// 	tiles[heroY][heroX]._hasLiving = false;
+//       }
 
-      tiles[heroY][heroX + 1]._hasLiving = true;
+//       tiles[heroY][heroX + 1]._hasLiving = true;
 
-      return success;
-    }
-  }
+//       return success;
+//     }
+//   }
 
-  defaut: return directionError;
-  }
-}
+//   defaut: return directionError;
+//   }
+// }
 
 void Grid :: addLiving(int row, int col, Living* living) {
   tiles[row][col].livings.push_back(living);
@@ -205,4 +206,22 @@ void Grid :: addLiving(int row, int col, Living* living) {
  
 void Grid :: removeLiving(int row, int col, Living* living) {
   tiles[row][col].livings.remove(living);
+}
+
+void Grid :: displayMap() const {
+  size_t tileNumber = 0;
+  for (size_t i = 0U; i != tiles.size(); ++i) {
+    for (size_t j = 0U; j != tiles[i].size(); ++j) {
+      cout << "Tile" << tileNumber << ":" << endl;
+      cout << ((tiles[i][j].isNonAccessible()
+		? "not accessible" : "accessible")) << endl;
+        
+      cout << ((tiles[i][j].hasLiving()
+		? "has living" : "hasn't living")) << endl;
+
+      cout << ((tiles[i][j].isCommon())
+	       ? "is common" : "isn't common") << endl;
+      tileNumber++;
+    }
+  }
 }
