@@ -38,6 +38,9 @@ private:
 
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
+
+        // Added by: (George Liontos)
+        bool operator==(const Hero& rValue) const;
 };
 
 #endif /* LIVINGS_HERO_H_ */
