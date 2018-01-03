@@ -23,6 +23,8 @@ public:
 	int getLevel() const;
 	const string& getName() const;
 
+        // Added by: (George Liontos)
+        virtual bool operator==(const Living& rValue) const;
 private:
 	string 	name;
 	int 	level;			// Level starting from 1.
