@@ -6,6 +6,7 @@
  */
 
 #include <iomanip>
+#include <sstream>
 #include "../../include/IceSpell.h"
 
 IceSpell::IceSpell(
