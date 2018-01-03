@@ -32,3 +32,16 @@ int Living::getLevel() const {
 const string& Living::getName() const {
 	return name;
 }
+
+// Implemented by: (George Liontos)
+bool Living :: operator==(const Living& rValue) const {
+  bool sameName;
+  bool sameLevel;
+  bool sameHealthPower;
+
+  sameName = (this->name == rValue.name) ? true : false;
+  sameLevel = (this->level == rValue.name) ? true : false;
+  sameHealthPower = (this->healthPower == rValue.healthPower) ? true : false;
+
+  return (sameName && sameLevel && sameHealthPower);
+}
