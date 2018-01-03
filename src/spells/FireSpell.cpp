@@ -6,6 +6,7 @@
  */
 
 #include <iomanip>
+#include <sstream>
 #include "../../include/FireSpell.h"
 
 FireSpell::FireSpell(
