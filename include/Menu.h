@@ -9,17 +9,19 @@
 
 #include <iostream>
 #include <vector>
+#include "Market.h"
+#include "Inventory.h"
 
 using namespace std;
 
 class Menu {
 public:
-  Menu();
+  Menu(const Market& market);
+  Menu(const Inventory& inventory);
   ~Menu();
 
   int getNumberOfOptions() const; // Returns the number of options
   void displayMenu() const;	  // Displays the menu
-  void setMenuOption(const string& option); // Sets a new option for the menu
   void clearMenu() const;	// Clears the menu screen
   int getSelection();   // Returns the selection the user made
 private:
