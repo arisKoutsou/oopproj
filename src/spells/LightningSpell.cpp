@@ -6,6 +6,7 @@
  */
 
 #include <iomanip>
+#include <sstream>
 #include "../../include/LightningSpell.h"
 
 LightningSpell::LightningSpell(
