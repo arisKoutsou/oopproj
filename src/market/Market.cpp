@@ -7,6 +7,8 @@
 #include <iostream>
 #include <list>
 #include "../../include/Market.h"
+#include "../../include/Item.h"
+#include "../../include/Spell.h"
 
 using namespace std;
 
