@@ -37,7 +37,8 @@ public:
   
         // Added by: (George Liontos)
         virtual bool operator==(const Spell& rValue) const;
-	const double sellRate = 0.4;
+        // WARNING: (George) Non-static initialisation only in C++11
+	const double sellRate;
 
 private:
 	string 	name;
