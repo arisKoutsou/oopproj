@@ -21,6 +21,11 @@ Grid :: Tile :: Tile(int _x, int _y, bool _nonAccessible,
 }
 
 Grid :: Tile :: ~Tile() {
+  while (livings.empty() == false) {
+    delete livings.front();
+    livings.pop_front();
+  }
+
   cout << "Destroying a Tile" << endl;
 }
 
