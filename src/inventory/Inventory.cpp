@@ -16,7 +16,7 @@ using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : menu(), maxCapacity(_maxCapacity) {
+  : menu(*this), maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Inventory" << endl;
 }
@@ -114,4 +114,8 @@ void Inventory :: removeSpell(Spell* spell) {
 
   spells.remove(spell);
   delete spell;
+}
+
+Menu Inventory :: getMenu() const {
+  return menu;
 }
