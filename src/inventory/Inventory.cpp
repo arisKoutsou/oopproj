@@ -7,6 +7,9 @@
 #include <iostream>
 #include <list>
 #include "../../include/Inventory.h"
+#include "../../include/Item.h"
+#include "../../include/Spell.h"
+
 #include "../../include/Hero.h"
 
 using namespace std;
