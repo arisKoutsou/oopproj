@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <list>
-#include "MarketMenu.h"
+#include "Menu.h"
 
 class Item;
 class Spell;
@@ -27,7 +27,7 @@ public:
   int getCurrentSpells() const; // returns the current spells
   list<Item*> getItemList() const; // returns the item list
   list<Spell*> getSpellList() const; // returns the spell list
-  MarketMenu getMenu() const;	     // returns the market menu
+  Menu getMenu() const;	     // returns the market menu
   
   void printInfo() const;  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market
@@ -38,7 +38,7 @@ private:
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
-  MarketMenu menu;
+  Menu menu;
 };
 
 #endif
