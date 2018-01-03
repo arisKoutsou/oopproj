@@ -9,9 +9,10 @@
 
 #include <iostream>
 #include <list>
-#include "Item.h"
-#include "Spell.h"
 #include "InventoryMenu.h"
+
+class Item;
+class Spell;
 
 using namespace std;
 
