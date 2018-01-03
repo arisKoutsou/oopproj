@@ -9,9 +9,11 @@
 
 #include <iostream>
 #include <list>
-#include "Living.h"
+#include <vector>
 #include "Hero.h"
 #include "Market.h"
+
+class Living;
 
 using namespace std;
 
@@ -62,7 +64,7 @@ public:
   
   // This function moves the hero to the required direction in the grid
   // and returns an enum value indicating if the movement succeded or not
-  movementReport move(const Hero& hero, const directions& direction);
+  //  movementReport move(const Hero& hero, const directions& direction);
 
   vector<vector<Tile> > getTiles() const; // returns the all the tiles
   Tile getTile(int row, int col) const;  // returns the tile at row, col
