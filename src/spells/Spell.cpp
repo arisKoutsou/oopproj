@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "../../include/Spell.h"
+#include "./Spell.h"
 
 Spell::Spell(
 	string 	nam,

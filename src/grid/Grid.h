@@ -10,8 +10,8 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include "Hero.h"
-#include "Market.h"
+#include "../livings/Hero.h"
+#include "../market/Market.h"
 
 class Living;
 

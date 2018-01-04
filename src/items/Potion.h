@@ -8,7 +8,7 @@
 #ifndef ITEMS_POTION_H_
 #define ITEMS_POTION_H_
 
-#include "Item.h"
+#include "./Item.h"
 
 class Potion: public Item {
 public:

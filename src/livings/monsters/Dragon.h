@@ -8,7 +8,7 @@
 #ifndef LIVINGS_DRAGON_H_
 #define LIVINGS_DRAGON_H_
 
-#include "Monster.h"
+#include "../Monster.h"
 
 class Dragon: public Monster {
 public:

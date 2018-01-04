@@ -8,7 +8,7 @@
 #ifndef LIVINGS_MONSTER_H_
 #define LIVINGS_MONSTER_H_
 
-#include <Living.h>
+#include "./Living.h"
 
 class Monster: public Living {
 public:

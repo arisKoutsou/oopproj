@@ -8,7 +8,7 @@
 #ifndef LIVINGS_EXOSKELETON_H_
 #define LIVINGS_EXOSKELETON_H_
 
-#include "Monster.h"
+#include "../Monster.h"
 
 class Exoskeleton: public Monster {
 public:

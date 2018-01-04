@@ -5,7 +5,7 @@
 // Created: Fri Dec 29 00:01:55 2017 (+0200)
 
 #include <iostream>
-#include "../../include/Menu.h"
+#include "./Menu.h"
 
 using namespace std;
 

@@ -5,13 +5,13 @@
  *      Author: aris
  */
 
-#include <iostream>
+#include  <iostream>
 
-#include "../include/Item.h"
-#include "../include/Weapon.h"
-#include "../include/Armor.h"
-#include "../include/Potion.h"
-#include "../include/Random.h"
+#include "../items/Item.h"
+#include "../items/Weapon.h"
+#include "../items/Armor.h"
+#include "../items/Potion.h"
+#include "../random/Random.h"
 
 int main() {
 

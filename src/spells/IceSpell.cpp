@@ -7,7 +7,7 @@
 
 #include <iomanip>
 #include <sstream>
-#include "../../include/IceSpell.h"
+#include "./IceSpell.h"
 
 IceSpell::IceSpell(
 	string 	nam,

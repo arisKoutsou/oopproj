@@ -8,7 +8,7 @@
 #ifndef LIVINGS_PALADIN_H_
 #define LIVINGS_PALADIN_H_
 
-#include <Hero.h>
+#include "../Hero.h"
 
 class Paladin: public Hero {
 	// This type of hero is better at:

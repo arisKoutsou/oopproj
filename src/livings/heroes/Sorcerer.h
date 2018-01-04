@@ -8,7 +8,7 @@
 #ifndef LIVINGS_SORCERER_H_
 #define LIVINGS_SORCERER_H_
 
-#include <Hero.h>
+#include "../Hero.h"
 
 class Sorcerer: public Hero {
 	// This type of hero is better at:

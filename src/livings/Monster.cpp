@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "Monster.h"
+#include "./Monster.h"
 
 Monster::Monster(
 	string nam,

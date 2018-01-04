@@ -7,7 +7,7 @@
 
 #include <iomanip>
 #include <sstream>
-#include "../../include/FireSpell.h"
+#include "./FireSpell.h"
 
 FireSpell::FireSpell(
 	string 	nam,

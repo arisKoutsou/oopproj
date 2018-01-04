@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "../../include/Hero.h"
+#include "./Hero.h"
 
 Hero::Hero(
 	string nam,

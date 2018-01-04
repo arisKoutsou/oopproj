@@ -8,7 +8,7 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../../include/Potion.h"
+#include "./Potion.h"
 
 using namespace std;
 

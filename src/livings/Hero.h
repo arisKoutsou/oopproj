@@ -8,8 +8,8 @@
 #ifndef LIVINGS_HERO_H_
 #define LIVINGS_HERO_H_
 
-#include "Living.h"
-#include "Inventory.h"
+#include "./Living.h"
+#include "../inventory/Inventory.h"
 
 class Hero : public Living {
 public:
@@ -30,7 +30,7 @@ public:
 	int getStrength() const;
 	virtual void levelUp();
 
-private:
+protected:
 	int 	magicPower;	// Mana.
 	int 	strength;
 	int 	agility;

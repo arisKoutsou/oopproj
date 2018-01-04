@@ -8,7 +8,7 @@
 #ifndef LIVINGS_SPIRIT_H_
 #define LIVINGS_SPIRIT_H_
 
-#include "Monster.h"
+#include "../Monster.h"
 
 class Spirit: public Monster {
 public:
