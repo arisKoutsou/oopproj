@@ -18,7 +18,7 @@ using namespace std;
 
 class Market {
 public:
-  Market(int maxCapacity);
+  explicit Market(int maxCapacity);
   ~Market();
 
   int getMaxCapacity() const;	// returns the max capacity of the market
