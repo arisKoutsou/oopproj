@@ -28,6 +28,7 @@ public:
 	int getMagicPower() const;
 	int getMoney() const;
 	int getStrength() const;
+	virtual void levelUp();
 
 private:
 	int 	magicPower;	// Mana.

@@ -27,7 +27,7 @@ public:
         virtual bool operator==(const Living& rValue) const;
 private:
 	string 	name;
-	int 	level;			// Level starting from 1.
+	int 	level;			// Level starting from 0.
 	int 	healthPower;	// hp with a stupid name...
 
 };

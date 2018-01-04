@@ -12,7 +12,7 @@ Living::Living(
 	string nam,
 	int hp
 )
-: name(nam), level(1), healthPower(hp)	// Level start at 1.
+: name(nam), level(0), healthPower(hp)	// Level start at 1.
 {
 	cout << "Living constructed..." << endl;
 }
