@@ -21,6 +21,7 @@ public:
 		int a = 250,
 		int d = 100
 	);
+
 	int getAgility() const;
 	int getDexterity() const;
 	int getExpirience() const;
