@@ -7,8 +7,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "../../include/Grid.h"
-#include "../../include/Living.h"
+#include "./Grid.h"
+#include "../livings/Living.h"
 
 using namespace std;
 

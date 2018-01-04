@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "../../include/Random.h"
+#include "./Random.h"
 
 Random::Random(int seed) {
   if (seed == 0) {

@@ -8,7 +8,7 @@
 #ifndef ITEMS_WEAPON_H_
 #define ITEMS_WEAPON_H_
 
-#include "Item.h"
+#include "./Item.h"
 
 class Weapon : public Item {
 public:

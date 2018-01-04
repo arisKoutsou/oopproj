@@ -9,10 +9,13 @@
 
 #include <iostream>
 #include <vector>
-#include "Market.h"
-#include "Inventory.h"
+//#include "../market/Market.h"
+//#include "../inventory/Inventory.h"
 
 using namespace std;
+
+class Market;
+class Inventory;
 
 class Menu {
 public:

@@ -6,11 +6,11 @@
 
 #include <iostream>
 #include <list>
-#include "../../include/Inventory.h"
-#include "../../include/Item.h"
-#include "../../include/Spell.h"
+#include "./Inventory.h"
+#include "../items/Item.h"
+#include "../spells/Spell.h"
 
-#include "../../include/Hero.h"
+#include "../livings/Hero.h"
 
 using namespace std;
 

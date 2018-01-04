@@ -8,7 +8,7 @@
 #ifndef ITEMS_ARMOR_H_
 #define ITEMS_ARMOR_H_
 
-#include "Item.h"
+#include "../items/Item.h"
 
 class Armor: public Item {
 public:

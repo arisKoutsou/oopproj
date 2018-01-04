@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "../../include/Hero.h"
+#include "./Hero.h"
 
 Hero::Hero(
 	string nam,
@@ -21,7 +21,7 @@ Hero::Hero(
   dexterity(d), money(450),
   expirience(0), inventory()
 {
-	// cnstr.
+	//
 }
 
 int Hero::getAgility() const {
@@ -48,6 +48,9 @@ int Hero::getStrength() const {
 	return strength;
 }
 
+void Hero::levelUp() {
+	// Do nothing.
+}
 // Implemented by: (George Liontos)
 bool Hero :: operator==(const Hero& rValue) const {
   bool sameLiving;

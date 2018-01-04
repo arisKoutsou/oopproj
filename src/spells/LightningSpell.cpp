@@ -7,7 +7,7 @@
 
 #include <iomanip>
 #include <sstream>
-#include "../../include/LightningSpell.h"
+#include "./LightningSpell.h"
 
 LightningSpell::LightningSpell(
 	string 	nam,

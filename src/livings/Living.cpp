@@ -6,13 +6,13 @@
  */
 #include <iostream>
 
-#include "../../include/Living.h"
+#include "./Living.h"
 
 Living::Living(
 	string nam,
 	int hp
 )
-: name(nam), healthPower(hp), level(1)	// Level start at 1.
+: name(nam), level(0), healthPower(hp)	// Level start at 1.
 {
 	cout << "Living constructed..." << endl;
 }
@@ -40,7 +40,7 @@ bool Living :: operator==(const Living& rValue) const {
   bool sameHealthPower;
 
   sameName = (this->name == rValue.name) ? true : false;
-  sameLevel = (this->level == rValue.name) ? true : false;
+  sameLevel = (this->level == rValue.level) ? true : false;
   sameHealthPower = (this->healthPower == rValue.healthPower) ? true : false;
 
   return (sameName && sameLevel && sameHealthPower);

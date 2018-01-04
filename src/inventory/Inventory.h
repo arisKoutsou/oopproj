@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <list>
-#include "Menu.h"
+#include "../menu/Menu.h"
 
 class Item;
 class Spell;
