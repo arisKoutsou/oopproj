@@ -7,11 +7,11 @@
 
 #include <iostream>
 
-#include "Item.h"
-#include "Weapon.h"
-#include "Armor.h"
-#include "Potion.h"
-#include "../random/Random.h"
+#include "../include/Item.h"
+#include "../include/Weapon.h"
+#include "../include/Armor.h"
+#include "../include/Potion.h"
+#include "../include/Random.h"
 
 int main() {
 

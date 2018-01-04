@@ -5,8 +5,9 @@
  *      Author: aris
  */
 
-#include "FireSpell.h"
-#include "iomanip"
+#include <iomanip>
+#include <sstream>
+#include "../../include/FireSpell.h"
 
 FireSpell::FireSpell(
 	string 	nam,

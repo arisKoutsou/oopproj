@@ -9,9 +9,10 @@
 
 #include <iostream>
 #include <list>
-#include "../items/Item.h"
-#include "../spells/Spell.h"
-//#include "../menu/InventoryMenu.h"
+#include "Menu.h"
+
+class Item;
+class Spell;
 
 using namespace std;
 
@@ -26,7 +27,8 @@ public:
   int getCurrentSpells() const;	// return the current spells
   list<Item*> getItemList() const; // returns the list of items
   list<Spell*> getSpellList() const; // return the list of spells
-
+  Menu getMenu() const; // returns the menu
+  
   // Prints all the items and spells, including their info.
   void printInfo() const;
   void addItem(Item* item); // Adds an item to the inventory
@@ -37,7 +39,7 @@ private:
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
-  //  InventoryMenu menu;
+  Menu menu;
 };
 
 #endif

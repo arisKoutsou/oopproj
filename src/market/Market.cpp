@@ -6,13 +6,15 @@
 
 #include <iostream>
 #include <list>
-#include "Market.h"
+#include "../../include/Market.h"
+#include "../../include/Item.h"
+#include "../../include/Spell.h"
 
 using namespace std;
 
 Market :: Market(int _maxCapacity)
 
-  : maxCapacity(_maxCapacity) {
+  : menu(*this), maxCapacity(_maxCapacity) {
 
   cout << "Creating an instance of Market" << endl;
 }
@@ -53,6 +55,10 @@ list<Item*> Market :: getItemList() const {
 
 list<Spell*> Market :: getSpellList() const {
   return spells;
+}
+
+Menu Market :: getMenu() const {
+  return menu;
 }
 
 void Market :: printInfo() const {

@@ -8,9 +8,12 @@
 #define __GRID_HEADER__
 
 #include <iostream>
+#include <list>
 #include <vector>
-#include "../hero/Hero.h"
-#include "../market/Market.h"
+#include "Hero.h"
+#include "Market.h"
+
+class Living;
 
 using namespace std;
 
@@ -18,7 +21,7 @@ class Grid {
 public:
   struct Tile {
     Tile(int x, int y, bool nonAccessible, bool market,
-	 bool common, bool hasLiving, int numberOfLivings);
+	 bool common, bool hasLiving);
     ~Tile();
 
     int getX() const;	// returns the x coordinate (col) of the tile
@@ -29,31 +32,31 @@ public:
     bool isCommon() const;	  // returns if the tile is common
     int getNumberOfLivings() const; // returns the number of livings
     Market getMarket() const;	    // returns the market of the tile
-    
+
     int x;			// x represents the columns
     int y;			// y represents the rows
     bool nonAccessible;
-    bool hasLiving;
-    bool hasMarket;
+    bool _hasLiving;
+    bool _hasMarket;
     bool common;
-    int numberOfLivings;
-    vector<Market> market;	
+    list<Living*> livings;
+    vector<Market> market;
   };
 
   // Posible directions for heros to move
-  enum directions = {
+  typedef enum {
     up, down, left, right
-  };
+  } directions;
 
   // Error codes for reporting hero movement result
-  enum movementReport = {
+  typedef enum {
     success, upError, downError,
     leftError, rightError, directionError
-  };
+  } movementReport;
   
   // tileInfo is an array of bools which has 4 boolean values stored:
   // nonAccessible, hasMarket, common, hasLiving (with that order)
-  Grid(int maxX, int maxY, bool[] tileInfo);
+  Grid(int maxX, int maxY, bool* tileInfo);
   ~Grid();
 
   int getMaxX() const;
@@ -61,15 +64,27 @@ public:
   
   // This function moves the hero to the required direction in the grid
   // and returns an enum value indicating if the movement succeded or not
-  movementReport move(const Hero& hero, const directions& direction);
-  vector<vector<Tile>> getTiles() const; // returns the all the tiles
+  //  movementReport move(const Hero& hero, const directions& direction);
+
+  vector<vector<Tile> > getTiles() const; // returns the all the tiles
   Tile getTile(int row, int col) const;  // returns the tile at row, col
+
   // Adds a makret in tile which is at (row, col) location
   void addMarket(int row, int col, const Market& market);
+
+  // Adds a living (i.e Hero, Monster) at (row, col) location
+  void addLiving(int row, int col, Living* living);
+
+  // Removes a living (i.e Hero, Monster) from (row, col) location
+  void removeLiving(int row, int col, Living* living);
+
+  // Displays the map
+  void displayMap() const;
 private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
-  vector<vector<Tile>> tiles;	// 2D grid of tiles
+  vector<vector<Tile> > tiles;	// 2D grid of tiles
 };
 
 #endif
+

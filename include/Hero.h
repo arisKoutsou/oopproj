@@ -9,7 +9,7 @@
 #define LIVINGS_HERO_H_
 
 #include "Living.h"
-#include "../inventory/Inventory.h"
+#include "Inventory.h"
 
 class Hero : public Living {
 public:
@@ -38,7 +38,10 @@ private:
 	int 	expirience;	// Xp.
 
 	Inventory inventory;	// Implemented by george.
-							// Contains all items and spells.
+                                // Contains all items and spells.
+
+        // Added by: (George Liontos)
+        bool operator==(const Hero& rValue) const;
 };
 
 #endif /* LIVINGS_HERO_H_ */

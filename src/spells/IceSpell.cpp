@@ -5,8 +5,9 @@
  *      Author: aris
  */
 
-#include "IceSpell.h"
-#include "iomanip"
+#include <iomanip>
+#include <sstream>
+#include "../../include/IceSpell.h"
 
 IceSpell::IceSpell(
 	string 	nam,

@@ -5,8 +5,9 @@
  *      Author: aris
  */
 
-#include "LightningSpell.h"
-#include "iomanip"
+#include <iomanip>
+#include <sstream>
+#include "../../include/LightningSpell.h"
 
 LightningSpell::LightningSpell(
 	string 	nam,

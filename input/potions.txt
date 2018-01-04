@@ -1,0 +1,66 @@
+Potion
+Hi-Potion
+X-Potion
+Mega-Potion
+Ether
+Turbo Ether
+Elixir
+Megalixir
+Phoenix Down
+Mega Phoenix
+Antidote
+Echo Screen
+Eye Drops
+Holy Water
+Remedy
+Soft
+Al Bhed Potion
+Healing Water
+Tetra Elemental
+Candle of Life
+Dream Powder
+Farplane Shadow
+Farplane Wind
+Frag Grenade
+Silence Grenade
+Sleeping Powder
+Smoke Bomb
+Petrify Grenade
+Poison Fang
+Blessed Gem
+Dark Matter
+Shadow Gem
+Shining Gem
+Supreme Gem
+Gold Hourglass
+Healing Spring
+Light Curtain
+Lunar Curtain
+Mana Spring
+Mana Tablet
+Mana Tonic
+Purifying Salt
+Silver Hourglass
+Soul Spring
+Stamina Spring
+Stamina Tablet
+Stamina Tonic
+Star Curtain
+Three Stars
+Twin Stars
+Ability Distiller
+Amulet
+Designer Wallet
+Door to Tomorrow
+Gambler's Spirit
+Hypello Potion
+Mana Distiller
+Map
+Musk
+Pendulum
+Power Distiller
+Shining Thorn
+Speed Distiller
+Underdog's Secret
+Wings to Discovery
+Winning Formula

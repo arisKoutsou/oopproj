@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "Weapon.h"
+#include "../../include/Weapon.h"
 
 using namespace std;
 
