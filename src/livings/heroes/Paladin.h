@@ -26,9 +26,12 @@ class Paladin: public Hero {
 		);
 		void levelUp();	// Increase stats.
 
-	private:
-		const double strengthBonus = 0.1;
-		const double dexterityBonus = 0.1;
+        // Added by: (George Liontos)
+        bool operator==(const Paladin& rValue) const;
+
+        private:
+		const double strengthBonus;
+		const double dexterityBonus;
 };
 
 #endif /* LIVINGS_PALADIN_H_ */

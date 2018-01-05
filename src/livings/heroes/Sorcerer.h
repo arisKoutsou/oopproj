@@ -26,6 +26,8 @@ class Sorcerer: public Hero {
 		);
 		void levelUp();	// Increase stats.
 
+        // Added by: (George Liontos)
+        bool operator==(const Sorcerer& rValue) const;
 	private:
 		const double agilityBonus = 0.1;
 		const double dexterityBonus = 0.1;

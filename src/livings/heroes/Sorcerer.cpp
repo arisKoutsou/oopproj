@@ -14,7 +14,8 @@ Sorcerer::Sorcerer(
 	int s,
 	int a,
 	int d
-) : Hero(nam, hp, mp, s, a*agilityBonus, d*dexterityBonus) {
+) : Hero(nam, hp, mp, s, a*agilityBonus, d*dexterityBonus),
+    agilityBonus(0.1), dexterityBonus(0.1) {
 
 }
 
@@ -23,4 +24,17 @@ void Sorcerer::levelUp() {
 	agility += agility*agilityBonus;
 }
 
+// Implemented by: (George Liontos)
+bool Sorcerer :: operator==(const Sorcerer& rValue) const {
+  bool sameHeros;
+  bool sameAgilityBonus;
+  bool sameDexterityBonus;
 
+  sameHeros = (static_cast<Hero>(*this) == rValue);
+  sameAgilityBonus = (this->agilityBonus == rValue.agilityBonus)
+    ? true : false;
+  sameDexterityBonus = (this->dexterityBonus == rValue.dexterityBonus)
+    ? true : false;
+
+  return (sameHeros && sameAgilityBonus && sameDexterityBonus);
+}
