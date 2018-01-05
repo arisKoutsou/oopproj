@@ -42,7 +42,19 @@ protected:
                                 // Contains all items and spells.
 
         // Added by: (George Liontos)
-        bool operator==(const Hero& rValue) const;
+
+        // Posible directions for heros to move
+        typedef enum {
+	  up, down, left, right
+	} directions;
+
+       // Error codes for reporting hero movement result
+       typedef enum {
+	 success, upError, downError,
+	 leftError, rightError, directionError
+       } movementReport;
+
+       bool operator==(const Hero& rValue) const;
 };
 
 #endif /* LIVINGS_HERO_H_ */
