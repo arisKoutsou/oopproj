@@ -33,7 +33,9 @@ public:
   void printInfo() const;
   void addItem(Item* item); // Adds an item to the inventory
   void addSpell(Spell* spell); // Adds a spell to the inventory
-  void removeItem(Item* item); // Removes an items from the inventory
+  void removeAndDeleteItem(Item* item); // Completely removes an items from the inventory
+  void removeAndDeleteSpell(Spell* spell); // Completely removes a spell from the inventory
+  void removeItem(Item* item); // Removes an item from the inventory
   void removeSpell(Spell* spell); // Removes a spell from the inventory
 private:
   int maxCapacity;
