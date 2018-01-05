@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <list>
-#include "./Inventory.h"
+#include "Inventory.h"
 #include "../items/Item.h"
 #include "../spells/Spell.h"
 
@@ -92,7 +92,7 @@ void Inventory :: addSpell(Spell* spell) {
   spells.push_back(spell);
 }
 
-void Inventory :: removeItem(Item* item) {
+void Inventory :: removeAndDeleteItem(Item* item) {
   // This check can be ommited. If the inventory is already empty
   // then we should not be able to select an item to remove
   if (this->getCurrentCapacity() == 0) {
@@ -104,7 +104,7 @@ void Inventory :: removeItem(Item* item) {
   delete item;
 }
 
-void Inventory :: removeSpell(Spell* spell) {
+void Inventory :: removeAndDeleteSpell(Spell* spell) {
   // This check can be ommited. If the inventory is already empty
   // then we should not be able to select a spell to remove
   if (this->getCurrentCapacity() == 0) {
@@ -114,6 +114,24 @@ void Inventory :: removeSpell(Spell* spell) {
 
   spells.remove(spell);
   delete spell;
+}
+
+void Inventory :: removeItem(Item* item) {
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Your inventory is already empty" << endl;
+    return;
+  }
+
+  items.remove(item);
+}
+
+void Inventory :: removeSpell(Spell* spell) {
+  if (this->getCurrentCapacity() == 0) {
+    cout << "Your inventory is already empty" << endl;
+    return;
+  }
+
+  spells.remove(spell);
 }
 
 Menu Inventory :: getMenu() const {
