@@ -38,7 +38,7 @@ public:
 
         int getMoney() const;
 	int getStrength() const;
-        void move(const Grid& grid, directions direction) throw();
+        void move(Grid& grid, directions direction) throw();
 	virtual void levelUp() = 0;
 
 protected:
@@ -56,10 +56,10 @@ protected:
   
         bool operator==(const Hero& rValue) const;
 private:
-        void moveUp(const Grid& grid) throw();
-        void moveDown(const Grid& grid) throw();
-        void moveLeft(const Grid& grid) throw();
-        void moveRight(const Grid& grid) throw();
+        void moveUp(Grid& grid) throw();
+        void moveDown(Grid& grid) throw();
+        void moveLeft(Grid& grid) throw();
+        void moveRight(Grid& grid) throw();
 };
 
 #endif /* LIVINGS_HERO_H_ */

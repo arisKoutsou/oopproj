@@ -75,43 +75,55 @@ bool Hero :: operator==(const Hero& rValue) const {
 	  sameExperience);
 }
 
-void Hero :: moveUp(const Grid& grid) throw() {
-  if (this->y == grid.getMaxY()) {
+void Hero :: moveUp(Grid& grid) throw() {
+  int heroY = this->getPosition().getY();
+  int heroX = this->getPosition().getX();
+
+  if (heroY == grid.getMaxY()) {
     throw HeroMoveException("You can't move up any further");
   } else {
-    grid.removeLiving(this->y, this->x, this);
-    ++this->y;
+    grid.removeLiving(heroY, heroX, this);
+    this->getPosition().setY(heroY + 1);
   }
 }
 
-void Hero :: moveDown(const Grid& grid) throw() {
-  if (this->y == 0) {
+void Hero :: moveDown(Grid& grid) throw() {
+  int heroY = this->getPosition().getY();
+  int heroX = this->getPosition().getX();
+ 
+  if (heroY == 0) {
     throw HeroMoveException("You can't move down any further");
   } else {
-    grid.removeLiving(this->y, this->x, this);
-    --this->y;    
+    grid.removeLiving(heroY, heroX, this);
+    this->getPosition().setY(heroY - 1);
   }
 }
 
-void Hero :: moveLeft(const Grid& grid) throw() {
-  if (this-x == 0) {
+void Hero :: moveLeft(Grid& grid) throw() {
+  int heroY = this->getPosition().getY();
+  int heroX = this->getPosition().getX();
+
+  if (heroX == 0) {
     throw HeroMoveException("You can't move left any further");
   } else {
-    grid.removeLiving(this->y, this->x, this);
-    --this->x;
+    grid.removeLiving(heroY, heroX, this);
+    this->getPosition().setX(heroX - 1);
   }
 }
 
-void Hero :: moveRight(const Grid& grid) throw() {
-  if (this->x == grid.getMaxX()) {
+void Hero :: moveRight(Grid& grid) throw() {
+  int heroY = this->getPosition().getY();
+  int heroX = this->getPosition().getX();
+
+  if (heroX == grid.getMaxX()) {
     throw HeroMoveException("You can't move right any further");
   } else {
-    grid.removeLiving(this->y, this->x, this);
-    ++this->x;
+    grid.removeLiving(heroY, heroX, this);
+    this->getPosition().setX(heroX + 1);
   }
 }
 
-void Hero :: move(const Grid& grid, directions direction) throw() {
+void Hero :: move(Grid& grid, directions direction) throw() {
   switch (direction) {
   case UP: moveUp(grid); return;
   case DOWN: moveDown(grid); return;
