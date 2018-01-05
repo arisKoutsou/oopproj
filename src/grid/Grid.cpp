@@ -130,6 +130,9 @@ void Grid :: addLiving(int row, int col, Living* living) {
  
 void Grid :: removeLiving(int row, int col, Living* living) {
   tiles[row][col].livings.remove(living);
+  if (tiles[row][col].livings.size() == 0) {
+    tiles[row][col]._hasLiving = false;
+  }
 }
 
 void Grid :: displayMap() const {
