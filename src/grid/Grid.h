@@ -43,16 +43,6 @@ public:
     vector<Market> market;
   };
 
-  // Posible directions for heros to move
-  typedef enum {
-    up, down, left, right
-  } directions;
-
-  // Error codes for reporting hero movement result
-  typedef enum {
-    success, upError, downError,
-    leftError, rightError, directionError
-  } movementReport;
   
   // tileInfo is an array of bools which has 4 boolean values stored:
   // nonAccessible, hasMarket, common, hasLiving (with that order)
@@ -61,10 +51,6 @@ public:
 
   int getMaxX() const;
   int getMaxY() const;
-  
-  // This function moves the hero to the required direction in the grid
-  // and returns an enum value indicating if the movement succeded or not
-  //  movementReport move(const Hero& hero, const directions& direction);
 
   vector<vector<Tile> > getTiles() const; // returns the all the tiles
   Tile getTile(int row, int col) const;  // returns the tile at row, col
