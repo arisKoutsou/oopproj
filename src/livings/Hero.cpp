@@ -48,9 +48,6 @@ int Hero::getStrength() const {
 	return strength;
 }
 
-void Hero::levelUp() {
-	// Do nothing.
-}
 // Implemented by: (George Liontos)
 bool Hero :: operator==(const Hero& rValue) const {
   bool sameLiving;
