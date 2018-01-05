@@ -11,8 +11,17 @@
 #include "./Living.h"
 #include "../inventory/Inventory.h"
 
+class Grid;
+
 class Hero : public Living {
 public:
+        // Added by: (George Liontos)
+
+        // Posible directions for heros to move
+        typedef enum {
+	  UP, DOWN, LEFT, RIGHT
+	} directions;
+
 	Hero(
 		string nam,
 		int hp = 500,
@@ -26,8 +35,10 @@ public:
 	int getDexterity() const;
 	int getExpirience() const;
 	int getMagicPower() const;
-	int getMoney() const;
+
+        int getMoney() const;
 	int getStrength() const;
+        void move(const Grid& grid, directions direction) throw();
 	virtual void levelUp() = 0;
 
 protected:
@@ -42,19 +53,13 @@ protected:
                                 // Contains all items and spells.
 
         // Added by: (George Liontos)
-
-        // Posible directions for heros to move
-        typedef enum {
-	  up, down, left, right
-	} directions;
-
-       // Error codes for reporting hero movement result
-       typedef enum {
-	 success, upError, downError,
-	 leftError, rightError, directionError
-       } movementReport;
-
-       bool operator==(const Hero& rValue) const;
+  
+        bool operator==(const Hero& rValue) const;
+private:
+        void moveUp(const Grid& grid) throw();
+        void moveDown(const Grid& grid) throw();
+        void moveLeft(const Grid& grid) throw();
+        void moveRight(const Grid& grid) throw();
 };
 
 #endif /* LIVINGS_HERO_H_ */

@@ -5,7 +5,9 @@
  *      Author: aris
  */
 
-#include "./Hero.h"
+#include "Hero.h"
+#include "../grid/Grid.h"
+#include "../exceptions/heroExceptions.h"
 
 Hero::Hero(
 	string nam,
@@ -71,4 +73,50 @@ bool Hero :: operator==(const Hero& rValue) const {
 	  sameStrength && sameDexterity &&
 	  sameAgility && sameMoney &&
 	  sameExperience);
+}
+
+void Hero :: moveUp(const Grid& grid) throw() {
+  if (this->y == grid.getMaxY()) {
+    throw HeroMoveException("You can't move up any further");
+  } else {
+    grid.removeLiving(this->y, this->x, this);
+    ++this->y;
+  }
+}
+
+void Hero :: moveDown(const Grid& grid) throw() {
+  if (this->y == 0) {
+    throw HeroMoveException("You can't move down any further");
+  } else {
+    grid.removeLiving(this->y, this->x, this);
+    --this->y;    
+  }
+}
+
+void Hero :: moveLeft(const Grid& grid) throw() {
+  if (this-x == 0) {
+    throw HeroMoveException("You can't move left any further");
+  } else {
+    grid.removeLiving(this->y, this->x, this);
+    --this->x;
+  }
+}
+
+void Hero :: moveRight(const Grid& grid) throw() {
+  if (this->x == grid.getMaxX()) {
+    throw HeroMoveException("You can't move right any further");
+  } else {
+    grid.removeLiving(this->y, this->x, this);
+    ++this->x;
+  }
+}
+
+void Hero :: move(const Grid& grid, directions direction) throw() {
+  switch (direction) {
+  case UP: moveUp(grid); return;
+  case DOWN: moveDown(grid); return;
+  case LEFT: moveLeft(grid); return;
+  case RIGHT: moveRight(grid); return;
+  default: throw HeroMoveException("Unknown direction"); return;
+  }
 }
