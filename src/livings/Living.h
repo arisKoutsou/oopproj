@@ -14,21 +14,40 @@ using namespace std;
 
 class Living {
 public:
+        struct Position {
+	  Position(int x, int y);
+	  ~Position();
+	   
+	  int getX() const;
+	  int getY() const;
+	  void setX(int x);
+	  void setY(int y);
+
+	  bool operator==(const Position& rValue) const;
+
+	  int x;
+	  int y;
+	};
+  
 	Living(		// Don't pass level as argument because at initialization it's 1.
 		string nam,
-		int hp = 500
+		int hp = 500,
+		int x = 0,
+		int y = 0
 	);
 	virtual ~Living();
 	int getHealthPower() const;
 	int getLevel() const;
 	const string& getName() const;
-
+  
         // Added by: (George Liontos)
+        Position getPosition() const;
         virtual bool operator==(const Living& rValue) const;
 private:
 	string 	name;
 	int 	level;			// Level starting from 0.
 	int 	healthPower;	// hp with a stupid name...
+        Position p;
 
 };
 
