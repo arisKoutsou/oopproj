@@ -13,8 +13,10 @@ Dragon::Dragon(
 	int min,
 	int max,
 	int arm,
-	double dodg
-) : Monster(nam, hp, min+damageBonus, max+damageBonus, arm, dodg){
+	double dodg,
+	int x,
+	int y
+) : Monster(nam, hp, min+damageBonus, max+damageBonus, arm, dodg, x, y){
 
 }
 

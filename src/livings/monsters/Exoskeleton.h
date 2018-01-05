@@ -18,7 +18,9 @@ public:
 		int min = 10,
 		int max = 20,
 		int arm = 5,
-		double dodg = 0.1
+		double dodg = 0.1,
+		int x = 0,
+		int y = 0
 	);
 
 private:
