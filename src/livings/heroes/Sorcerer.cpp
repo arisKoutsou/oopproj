@@ -13,8 +13,10 @@ Sorcerer::Sorcerer(
 	int mp,
 	int s,
 	int a,
-	int d
-) : Hero(nam, hp, mp, s, a*agilityBonus, d*dexterityBonus),
+	int d,
+	int x,
+	int y
+) : Hero(nam, hp, mp, s, a*agilityBonus, d*dexterityBonus, x, y),
     agilityBonus(0.1), dexterityBonus(0.1) {
 
 }

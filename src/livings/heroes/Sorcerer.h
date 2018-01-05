@@ -22,15 +22,17 @@ class Sorcerer: public Hero {
 			int mp = 200,
 			int s = 100,
 			int a = 250,
-			int d = 100
+			int d = 100,
+			int x = 0,
+			int y = 0
 		);
 		void levelUp();	// Increase stats.
 
         // Added by: (George Liontos)
         bool operator==(const Sorcerer& rValue) const;
 	private:
-		const double agilityBonus = 0.1;
-		const double dexterityBonus = 0.1;
+		const double agilityBonus;
+		const double dexterityBonus;
 };
 
 #endif /* LIVINGS_SORCERER_H_ */

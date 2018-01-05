@@ -13,8 +13,10 @@ Warrior::Warrior(
 	int mp,
 	int s,
 	int a,
-	int d
-) : Hero(nam, hp, mp, s*strengthBonus, a*agilityBonus, d),
+	int d,
+	int x,
+	int y
+) : Hero(nam, hp, mp, s*strengthBonus, a*agilityBonus, d, x, y),
     agilityBonus(0.1), strengthBonus(0.1) {
 
 }

@@ -15,9 +15,11 @@ Hero::Hero(
 	int mp,
 	int s,
 	int a,
-	int d
+	int d,
+	int x,
+	int y
 )
-: Living(nam, hp),
+: Living(nam, hp, x, y),
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),

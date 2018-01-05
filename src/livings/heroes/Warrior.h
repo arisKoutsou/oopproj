@@ -22,7 +22,9 @@ public:
 		int mp = 200,
 		int s = 100,
 		int a = 250,
-		int d = 100
+		int d = 100,
+		int x = 0,
+		int y
 	);
 	void levelUp();	// Increase stats.
 
