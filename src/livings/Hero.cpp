@@ -25,7 +25,10 @@ Hero::Hero(
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
-  expirience(0), inventory()
+  expirience(0), inventory(),
+  leftHandWeapon(NULL),
+  rightHandWeapon(NULL),
+  shield(NULL)
 {
 	//
 }
@@ -265,21 +268,3 @@ void Hero::sell(string itemName) {
 		return;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
