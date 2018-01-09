@@ -27,7 +27,7 @@ public:
 		int a = 250,
 		int d = 100,
 		int x = 0,
-		int y
+		int y = 0
 	);
 	void levelUp();	// Increase stats.
 

@@ -27,7 +27,7 @@ public:
 	);
 
 private:
-	const int armorBonus = 10;
+	const int armorBonus;
 
 };
 

@@ -55,12 +55,11 @@ public:
 
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-
 protected:
   Weapon* leftHandWeapon;
   Weapon* rightHandWeapon;
   Armor* shield;
-  vector<Spell*> spells;
+  list<Spell*> spells;
   
 	int 	magicPower;	// Mana.
 	int 	strength;
@@ -76,6 +75,13 @@ protected:
 
         Grid* grid;
 private:
+        bool usesBothHands() const; // returns true if the hero uses both hands
+        void equipWeapon(Weapon* weapon);
+        void equipArmor(Armor* armor);
+        void equipSpell(Spell* spell);
+        bool usesOneHand() const;
+        bool usesLeftHand() const;
+        bool usesRightHand() const;
         void moveUp() throw();
         void moveDown() throw();
         void moveLeft() throw();

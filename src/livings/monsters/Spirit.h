@@ -27,7 +27,7 @@ public:
 	);
 
 private:
-	const int dodgeBonus = 0.1;
+        const double dodgeBonus;
 };
 
 #endif /* LIVINGS_SPIRIT_H_ */

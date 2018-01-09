@@ -74,7 +74,7 @@ bool Potion :: operator==(const Potion& rValue) const {
   bool sameDexterityBoost;
   bool sameAgilityBoost;
 
-  sameItems = (static_cast<Item>(*this) == rValue);
+  sameItems = Item::operator==(rValue);
 
   sameStrengthBoost = (this->strengthBoost == rValue.strengthBoost)
                        ? true : false;

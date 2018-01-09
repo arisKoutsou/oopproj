@@ -33,7 +33,7 @@ bool Warrior :: operator==(const Warrior& rValue) const {
   bool sameAgilityBonus;
   bool sameStrengthBonus;
 
-  sameHeros = (static_cast<Hero>(*this) == rValue);
+  sameHeros = Hero::operator==(rValue);
   sameAgilityBonus = (this->agilityBonus == rValue.agilityBonus)
     ? true : false;
   sameStrengthBonus = (this->strengthBonus == rValue.strengthBonus)

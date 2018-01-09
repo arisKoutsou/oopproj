@@ -48,7 +48,7 @@ bool Armor :: operator==(const Armor& rValue) const {
   bool sameItems;
   bool sameReduceDamageTakenBy;
 
-  sameItems = (static_cast<Item>(*this) == rValue);
+  sameItems = Item::operator==(rValue);
   sameReduceDamageTakenBy =
     (this->reduceDamageTakenBy == rValue.reduceDamageTakenBy)
     ? true : false;

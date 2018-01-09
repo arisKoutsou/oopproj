@@ -9,7 +9,11 @@
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
 #include "../items/Item.h"
+#include "../items/Weapon.h"
+#include "../items/Armor.h"
+#include "../items/Potion.h"
 #include "../spells/Spell.h"
+#include "../inventory/Inventory.h"
 
 Hero::Hero(
         Grid* gr,
@@ -31,7 +35,7 @@ Hero::Hero(
   rightHandWeapon(NULL),
   shield(NULL)
 {
-
+  
 }
 
 int Hero::getAgility() const {
@@ -69,7 +73,7 @@ bool Hero :: operator==(const Hero& rValue) const {
   bool sameExperience;
   // There's no need to check if they've got the same inventory
 
-  sameLiving = (static_cast<Living>(*this) == rValue);
+  sameLiving = Living::operator==(rValue);
   sameMagicPower = (this->magicPower == rValue.magicPower) ? true : false;
   sameStrength = (this->strength == rValue.strength) ? true : false;
   sameAgility = (this->agility == rValue.agility) ? true : false;
@@ -95,7 +99,7 @@ void Hero :: moveUp() throw() {
   }
 }
 
-void Hero :: moveDown(Grid& grid) throw() {
+void Hero :: moveDown() throw() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
  
@@ -107,7 +111,7 @@ void Hero :: moveDown(Grid& grid) throw() {
   }
 }
 
-void Hero :: moveLeft(Grid& grid) throw() {
+void Hero :: moveLeft() throw() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
@@ -119,11 +123,11 @@ void Hero :: moveLeft(Grid& grid) throw() {
   }
 }
 
-void Hero :: moveRight(Grid& grid) throw() {
+void Hero :: moveRight() throw() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
-  if (heroX == grid.getMaxX()) {
+  if (heroX == grid->getMaxX()) {
     throw HeroMoveException("You can't move right any further");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
@@ -155,6 +159,18 @@ void Hero :: equip(const string& name) {
 
   if (itemToEquip != NULL) {
     string kind = itemToEquip->kindOf();
+
+    if (kind == "Weapon") {
+      Weapon* weaponToEquip = static_cast<Weapon*>(itemToEquip);
+      this->equipWeapon(weaponToEquip);
+    } else if (kind == "Armor") {
+      Armor* armorToEquip = static_cast<Armor*>(itemToEquip);
+      this->equipArmor(armorToEquip);
+
+    } else if (kind == "Potion") {
+      cout << "You can't equip a potion" << endl;
+      return;
+    }
     this->inventory.removeItem(itemToEquip);
     return;
   }
@@ -162,6 +178,7 @@ void Hero :: equip(const string& name) {
   Spell* spellToEquip = inventory.getSpellByName(name);
 
   if (spellToEquip != NULL) {
+    this->equipSpell(spellToEquip);
     this->inventory.removeSpell(spellToEquip);
     return;
   }
@@ -208,28 +225,24 @@ void Hero :: checkInventory() {
       this->inventory.printInfo();
       break;
     }
-
     case 2: {
       string input = getUserInput();
     
       this->equip(input);
       break;
     }
-
     case 3: {
       string input = getUserInput();
 
       this->discard(input);
       break;      
     }
-
     case 4: {
       string input = getUserInput();
 
       this->usePotion(input);
       break;
-    }
-      
+    } 
     case 5: {
       this->inventory.getMenu().clearMenu();
       return;
@@ -268,4 +281,69 @@ void Hero::sell(const string& itemName) {
 		money += spellToSell->getValue();
 		return;
 	}
+}
+
+bool Hero :: usesBothHands() const {
+  return (leftHandWeapon != NULL && rightHandWeapon != NULL);
+}
+
+bool Hero :: usesOneHand() const {
+  return (leftHandWeapon != NULL || rightHandWeapon != NULL);
+}
+
+bool Hero :: usesLeftHand() const {
+  return (leftHandWeapon != NULL);
+}
+
+bool Hero :: usesRightHand() const {
+  return (rightHandWeapon != NULL);
+}
+
+void Hero :: equipWeapon(Weapon* weapon) {
+  bool weaponNeedsBothHands = weapon->needsBothHands();
+      
+  if (weaponNeedsBothHands) {
+    if (this->usesLeftHand()) {
+      this->inventory.addItem(this->leftHandWeapon);
+    }
+    if (this->usesRightHand()) {
+      this->inventory.addItem(this->rightHandWeapon);
+    }
+    this->leftHandWeapon = this->rightHandWeapon = weapon;
+  } else {
+    if (this->usesBothHands()) {
+      string hand;
+      do {
+	cout << "You are using both hands. Would you like to equip"
+	     << " the weapon to left of right hand?" << endl;
+
+	cin >> hand;
+
+	if (hand == "left") {
+	  this->inventory.addItem(this->leftHandWeapon);
+	  this->leftHandWeapon = weapon;
+	} else if (hand == "right") {
+	  this->inventory.addItem(this->rightHandWeapon);
+	  this->rightHandWeapon = weapon;
+	}
+      } while (hand != "left" || hand != "right");
+    } else if (this->usesLeftHand()) {
+      this->leftHandWeapon = weapon;
+    } else {
+      this->rightHandWeapon = weapon;
+    }
+  }    
+}
+
+void Hero :: equipArmor(Armor* armor) {
+  if (this->shield != NULL) {
+    this->inventory.addItem(shield);
+  }
+  this->shield = armor;  
+}
+
+void Hero :: equipSpell(Spell* spell) {
+  if (this->spells.size() != 3) {
+    this->spells.push_back(spell);
+  }
 }

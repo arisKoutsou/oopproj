@@ -126,6 +126,7 @@ Grid :: Tile Grid :: getTile(int row, int col) const {
 
 void Grid :: addLiving(int row, int col, Living* living) {
   tiles[row][col].livings.push_back(living);
+  tiles[row][col]._hasLiving = true;
 }
  
 void Grid :: removeLiving(int row, int col, Living* living) {

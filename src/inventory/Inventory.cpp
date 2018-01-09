@@ -142,7 +142,7 @@ Menu Inventory :: getMenu() const {
 Item* Inventory::getItemByName(const string& itemName) const {
 	list<Item*>::const_iterator it = items.begin();
 
-	for ( ; it != items.size() ; it++) {
+	for ( ; it != items.end() ; it++) {
 		if ((*it)->getName() == itemName) {
 			return *it;
 		}
@@ -154,7 +154,7 @@ Item* Inventory::getItemByName(const string& itemName) const {
 Spell* Inventory::getSpellByName(const string& spellName) const {
 	list<Spell*>::const_iterator it = spells.begin();
 
-	for ( ; it != spells.size() ; it++) {
+	for ( ; it != spells.end() ; it++) {
 		if ((*it)->getName() == spellName) {
 			return *it;
 		}

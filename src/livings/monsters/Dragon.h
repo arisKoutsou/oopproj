@@ -27,7 +27,7 @@ public:
 	);
 
 private:
-	const int damageBonus = 5;
+        const int damageBonus;
 
 };
 

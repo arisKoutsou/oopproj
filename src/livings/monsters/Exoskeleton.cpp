@@ -17,6 +17,8 @@ Exoskeleton::Exoskeleton(
 	double dodg,
 	int x,
 	int y
-) : Monster(gr, nam, hp, min, max, arm+armorBonus, dodg, x, y){
+) : Monster(gr, nam, hp, min, max, arm+armorBonus, dodg, x, y),
+    armorBonus(10)
+{
 
 }

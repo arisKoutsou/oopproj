@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "./Weapon.h"
+#include "Weapon.h"
 #include "../items/Item.h"
 
 using namespace std;
@@ -48,7 +48,7 @@ bool Weapon :: operator==(const Weapon& rValue) const {
   bool sameDamage;
   bool sameRequiresBothHands;
 
-  sameItems = (static_cast<Item>(*this) == rValue);
+  sameItems = Item::operator==(rValue);
   sameDamage = (this->damage == rValue.damage) ? true : false;
   sameRequiresBothHands = (this->requiresBothHands == rValue.requiresBothHands)
                            ? true : false;
@@ -58,4 +58,8 @@ bool Weapon :: operator==(const Weapon& rValue) const {
 
 string Weapon :: kindOf() const {
   return "Weapon";
+}
+
+bool Weapon :: needsBothHands() const {
+  return requiresBothHands;
 }

@@ -17,7 +17,9 @@ Spirit::Spirit(
 	double dodg,
 	int x,
 	int y
-) : Monster(gr, nam, hp, min, max, arm, dodg+dodgeBonus, x, y){
+) : Monster(gr, nam, hp, min, max, arm, dodg+dodgeBonus, x, y),
+    dodgeBonus(0.1)
+{
 
 }
 

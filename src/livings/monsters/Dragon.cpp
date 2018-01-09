@@ -17,7 +17,9 @@ Dragon::Dragon(
 	double dodg,
 	int x,
 	int y
-) : Monster(gr, nam, hp, min+damageBonus, max+damageBonus, arm, dodg, x, y){
+) : Monster(gr, nam, hp, min+damageBonus, max+damageBonus, arm, dodg, x, y),
+    damageBonus(5)
+{
 
 }
 
