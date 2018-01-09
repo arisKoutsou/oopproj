@@ -38,10 +38,13 @@ public:
 	int getExpirience() const;
 	int getMagicPower() const;
 
-        int getMoney() const;
+    int getMoney() const;
 	int getStrength() const;
-        void move(Grid& grid, directions direction) throw();
+    void move(Grid& grid, directions direction) throw();
 	virtual void levelUp() = 0;
+
+	void buy(string);	// Add item, and subtract from money.
+	void sell(string);	// Sells item, and gains money.
 
 protected:
 	int 	magicPower;	// Mana.
