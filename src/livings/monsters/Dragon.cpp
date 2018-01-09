@@ -8,6 +8,7 @@
 #include "Dragon.h"
 
 Dragon::Dragon(
+	Grid* gr,
 	string nam,
 	int hp,
 	int min,
@@ -16,7 +17,7 @@ Dragon::Dragon(
 	double dodg,
 	int x,
 	int y
-) : Monster(nam, hp, min+damageBonus, max+damageBonus, arm, dodg, x, y){
+) : Monster(gr, nam, hp, min+damageBonus, max+damageBonus, arm, dodg, x, y){
 
 }
 

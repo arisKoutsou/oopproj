@@ -8,6 +8,7 @@
 #include "./Monster.h"
 
 Monster::Monster(
+	Grid* gr,
 	string nam,
 	int hp,
 	int min,
@@ -17,7 +18,7 @@ Monster::Monster(
 	int x,
 	int y
 )
-: Living(nam, hp, x, y),
+: Living(gr, nam, hp, x, y),
   minDamage(min),
   maxDamage(max),
   armor(arm), dodge(dodg)

@@ -9,6 +9,7 @@
 #include "../Hero.h"
 
 Paladin::Paladin(
+	Grid* gr,
 	string nam,
 	int hp,
 	int mp,
@@ -17,7 +18,7 @@ Paladin::Paladin(
 	int d,
 	int x,
 	int y
-) : Hero(nam, hp, mp, s*strengthBonus, a, d*dexterityBonus, x, y),
+) : Hero(gr, nam, hp, mp, s*strengthBonus, a, d*dexterityBonus, x, y),
     strengthBonus(0.1), dexterityBonus(0.1) {
 
 }

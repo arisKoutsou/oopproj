@@ -8,6 +8,7 @@
 #include "Exoskeleton.h"
 
 Exoskeleton::Exoskeleton(
+	Grid* gr,
 	string nam,
 	int hp,
 	int min,
@@ -16,6 +17,6 @@ Exoskeleton::Exoskeleton(
 	double dodg,
 	int x,
 	int y
-) : Monster(nam, hp, min, max, arm+armorBonus, dodg, x, y){
+) : Monster(gr, nam, hp, min, max, arm+armorBonus, dodg, x, y){
 
 }

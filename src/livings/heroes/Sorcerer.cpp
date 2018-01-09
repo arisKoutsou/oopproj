@@ -4,10 +4,10 @@
  *  Created on: Jan 4, 2018
  *      Author: aris
  */
-
 #include "Sorcerer.h"
 
 Sorcerer::Sorcerer(
+	Grid* gr,
 	string nam,
 	int hp,
 	int mp,
@@ -16,7 +16,7 @@ Sorcerer::Sorcerer(
 	int d,
 	int x,
 	int y
-) : Hero(nam, hp, mp, s, a*agilityBonus, d*dexterityBonus, x, y),
+) : Hero(gr, nam, hp, mp, s, a*agilityBonus, d*dexterityBonus, x, y),
     agilityBonus(0.1), dexterityBonus(0.1) {
 
 }

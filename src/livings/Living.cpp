@@ -9,12 +9,15 @@
 #include "./Living.h"
 
 Living::Living(
+	Grid* gr,
 	string nam,
 	int hp,
 	int x,
 	int y
 )
-: p(x, y), name(nam), level(0), healthPower(hp)	// Level start at 1.
+  : p(x, y), grid(gr),
+    name(nam), level(0),
+    healthPower(hp)	// Level start at 1.
 {
 	cout << "Living constructed..." << endl;
 }

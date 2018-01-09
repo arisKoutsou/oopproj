@@ -12,6 +12,8 @@
 
 using namespace std;
 
+class Grid;
+
 class Living {
 public:
         struct Position {
@@ -30,7 +32,8 @@ public:
 	};
   
 	Living(		// Don't pass level as argument because at initialization it's 1.
-		string nam,
+	        Grid* gr,
+	        string nam,
 		int hp = 500,
 		int x = 0,
 		int y = 0
@@ -43,6 +46,8 @@ public:
         // Added by: (George Liontos)
         Position getPosition() const;
         virtual bool operator==(const Living& rValue) const;
+protected:
+        Grid* grid;
 private:
 	string 	name;
 	int 	level;			// Level starting from 0.

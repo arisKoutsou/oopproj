@@ -10,6 +10,8 @@
 
 #include "../Hero.h"
 
+class Grid;
+
 class Sorcerer: public Hero {
 	// This type of hero is better at:
 	// Agility, Dexterity.
@@ -17,6 +19,7 @@ class Sorcerer: public Hero {
 	// Get an extra bonus...
 	public:
 		Sorcerer(
+			Grid* gr,
 			string nam,
 			int hp = 500,
 			int mp = 200,

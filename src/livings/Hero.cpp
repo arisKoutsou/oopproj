@@ -12,6 +12,7 @@
 #include "../spells/Spell.h"
 
 Hero::Hero(
+        Grid* gr,
 	string nam,
 	int hp,
 	int mp,
@@ -19,18 +20,16 @@ Hero::Hero(
 	int a,
 	int d,
 	int x,
-	int y,
-	Grid* gr
+	int y
 )
-: Living(nam, hp, x, y),
+: Living(gr, nam, hp, x, y),
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
   expirience(0), inventory(),
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
-  shield(NULL),
-  grid(gr)
+  shield(NULL)
 {
 
 }
@@ -84,14 +83,14 @@ bool Hero :: operator==(const Hero& rValue) const {
 	  sameExperience);
 }
 
-void Hero :: moveUp(Grid& grid) throw() {
+void Hero :: moveUp() throw() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
-  if (heroY == grid.getMaxY()) {
+  if (heroY == this->grid->getMaxY()) {
     throw HeroMoveException("You can't move up any further");
   } else {
-    grid.removeLiving(heroY, heroX, this);
+    this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY + 1);
   }
 }
@@ -103,7 +102,7 @@ void Hero :: moveDown(Grid& grid) throw() {
   if (heroY == 0) {
     throw HeroMoveException("You can't move down any further");
   } else {
-    grid.removeLiving(heroY, heroX, this);
+    this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY - 1);
   }
 }
@@ -115,7 +114,7 @@ void Hero :: moveLeft(Grid& grid) throw() {
   if (heroX == 0) {
     throw HeroMoveException("You can't move left any further");
   } else {
-    grid.removeLiving(heroY, heroX, this);
+    this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX - 1);
   }
 }
@@ -127,17 +126,17 @@ void Hero :: moveRight(Grid& grid) throw() {
   if (heroX == grid.getMaxX()) {
     throw HeroMoveException("You can't move right any further");
   } else {
-    grid.removeLiving(heroY, heroX, this);
+    this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX + 1);
   }
 }
 
-void Hero :: move(Grid& grid, directions direction) throw() {
+void Hero :: move(directions direction) throw() {
   switch (direction) {
-  case UP: moveUp(grid); return;
-  case DOWN: moveDown(grid); return;
-  case LEFT: moveLeft(grid); return;
-  case RIGHT: moveRight(grid); return;
+  case UP: moveUp(); return;
+  case DOWN: moveDown(); return;
+  case LEFT: moveLeft(); return;
+  case RIGHT: moveRight(); return;
   default: throw HeroMoveException("Unknown direction"); return;
   }
 }

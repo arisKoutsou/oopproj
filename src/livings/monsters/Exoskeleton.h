@@ -10,9 +10,12 @@
 
 #include "../Monster.h"
 
+class Grid;
+
 class Exoskeleton: public Monster {
 public:
 	Exoskeleton(
+		Grid* gr,
 		string nam,
 		int hp = 500,
 		int min = 10,

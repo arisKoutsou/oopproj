@@ -10,9 +10,12 @@
 
 #include "./Living.h"
 
+class Grid;
+
 class Monster: public Living {
 public:
 	Monster(
+		Grid* gr,
 		string nam,
 		int hp = 500,
 		int min = 10,
@@ -26,7 +29,8 @@ public:
 	double getDodge() const;
 	int getMaxDamage() const;
 	int getMinDamage() const;
-
+protected:
+       Grid* grid;  
 private:
 	int minDamage;
 	int maxDamage;

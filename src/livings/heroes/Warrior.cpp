@@ -8,6 +8,7 @@
 #include "Warrior.h"
 
 Warrior::Warrior(
+	Grid* gr,
 	string nam,
 	int hp,
 	int mp,
@@ -16,7 +17,7 @@ Warrior::Warrior(
 	int d,
 	int x,
 	int y
-) : Hero(nam, hp, mp, s*strengthBonus, a*agilityBonus, d, x, y),
+) : Hero(gr, nam, hp, mp, s*strengthBonus, a*agilityBonus, d, x, y),
     agilityBonus(0.1), strengthBonus(0.1) {
 
 }

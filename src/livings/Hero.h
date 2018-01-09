@@ -26,6 +26,7 @@ public:
 	} directions;
 
 	Hero(
+	        Grid* gr,
 		string nam,
 		int hp = 500,
 		int mp = 200,
@@ -33,8 +34,7 @@ public:
 		int a = 250,
 		int d = 100,
 		int x = 0,
-		int y = 0,
-		Grid* gr
+		int y = 0
 	);
 
 	int getAgility() const;
@@ -42,9 +42,9 @@ public:
 	int getExpirience() const;
 	int getMagicPower() const;
 
-    int getMoney() const;
+        int getMoney() const;
 	int getStrength() const;
-    void move(Grid& grid, directions direction) throw();
+        void move(directions direction) throw();
 	virtual void levelUp() = 0;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
@@ -76,10 +76,10 @@ protected:
 
         Grid* grid;
 private:
-        void moveUp(Grid& grid) throw();
-        void moveDown(Grid& grid) throw();
-        void moveLeft(Grid& grid) throw();
-        void moveRight(Grid& grid) throw();
+        void moveUp() throw();
+        void moveDown() throw();
+        void moveLeft() throw();
+        void moveRight() throw();
         string getUserInput();
 };
 

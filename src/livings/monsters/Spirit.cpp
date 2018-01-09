@@ -8,6 +8,7 @@
 #include "Spirit.h"
 
 Spirit::Spirit(
+	Grid* gr,
 	string nam,
 	int hp,
 	int min,
@@ -16,7 +17,7 @@ Spirit::Spirit(
 	double dodg,
 	int x,
 	int y
-) : Monster(nam, hp, min, max, arm, dodg+dodgeBonus, x, y){
+) : Monster(gr, nam, hp, min, max, arm, dodg+dodgeBonus, x, y){
 
 }
 
