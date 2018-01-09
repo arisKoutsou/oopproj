@@ -35,8 +35,8 @@ public:
     Market* market;
   };
   
-  // tileInfo is an array of bools which has 4 boolean values stored:
-  // nonAccessible, hasMarket, common, hasLiving (with that order)
+  // tileInfo is an array of bools which has 2 boolean values stored:
+  // nonAccessible, common (with that order)
   Grid(int maxX, int maxY, bool* tileInfo);
   ~Grid();
 
