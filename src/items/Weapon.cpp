@@ -54,3 +54,7 @@ bool Weapon :: operator==(const Weapon& rValue) const {
 
   return (sameItems && sameDamage && sameRequiresBothHands);
 }
+
+string Weapon :: kindOf() const {
+  return "Weapon";
+}

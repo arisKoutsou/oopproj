@@ -90,3 +90,7 @@ bool Potion :: operator==(const Potion& rValue) const {
 	  sameAgilityBoost &&
 	  sameItems);
 }
+
+string Potion :: kindOf() const {
+  return "Potion";
+}

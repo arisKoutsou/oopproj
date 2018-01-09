@@ -26,6 +26,7 @@ public:
 	int getDamage() const;	// How much damage it has.
 
         // Added by: (George Liontos)
+        string kindOf() const;
         bool operator==(const Weapon& rValue) const;
 private:
 	int damage;				// Damage done when used.
