@@ -22,6 +22,7 @@ Menu :: Menu(const Inventory& inventory) {
   this->options.push_back("Display inventory");
   this->options.push_back("Equip Item/Spell");
   this->options.push_back("Discard Item/Spell");
+  this->options.push_back("Use Potion");
   this->options.push_back("Exit Inventory");
 
   cout << "Creating an instance of Inventory Menu" << endl;
