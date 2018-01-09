@@ -10,8 +10,11 @@
 
 #include "./Living.h"
 #include "../inventory/Inventory.h"
+#include <vector>
 
 class Grid;
+class Weapon;
+class Armor;
 
 class Hero : public Living {
 public:
@@ -42,8 +45,18 @@ public:
 	int getStrength() const;
         void move(Grid& grid, directions direction) throw();
 	virtual void levelUp() = 0;
-
+        bool operator==(const Hero& rValue) const;
+        // Opens the inventory menu and handles the hero selection
+        void checkInventory();
+        void equip(const string& name);
+        void discard(const string& name);
+        void usePotion(const string& name);
 protected:
+  Weapon* leftHandWeapon;
+  Weapon* rightHandWeapon;
+  Armor* shield;
+  vector<Spell*> spells;
+  
 	int 	magicPower;	// Mana.
 	int 	strength;
 	int 	agility;
@@ -55,13 +68,14 @@ protected:
                                 // Contains all items and spells.
 
         // Added by: (George Liontos)
-  
-        bool operator==(const Hero& rValue) const;
+
+        Grid* grid;
 private:
         void moveUp(Grid& grid) throw();
         void moveDown(Grid& grid) throw();
         void moveLeft(Grid& grid) throw();
         void moveRight(Grid& grid) throw();
+        string getUserInput();
 };
 
 #endif /* LIVINGS_HERO_H_ */
