@@ -52,8 +52,8 @@ public:
 	void discard(const string& name);
 	void usePotion(const string& name);
 
-	void buy(string);	// Add item, and subtract from money.
-	void sell(string);	// Sells item, and gains money.
+	void buy(const string&);	// Add item, and subtract from money.
+	void sell(const string&);	// Sells item, and gains money.
 
 protected:
   Weapon* leftHandWeapon;
