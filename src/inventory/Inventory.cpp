@@ -137,3 +137,28 @@ void Inventory :: removeSpell(Spell* spell) {
 Menu Inventory :: getMenu() const {
   return menu;
 }
+
+// Added by aris.
+Item* Inventory::getItemByName(const string& itemName) const {
+	list<Item*>::const_iterator it = items.begin();
+
+	for ( ; it != items.size() ; it++) {
+		if ((*it)->getName() == itemName) {
+			return *it;
+		}
+	}
+
+	return NULL;
+}
+
+Spell* Inventory::getSpellByName(const string& spellName) const {
+	list<Spell*>::const_iterator it = spells.begin();
+
+	for ( ; it != spells.size() ; it++) {
+		if ((*it)->getName() == spellName) {
+			return *it;
+		}
+	}
+
+	return NULL;
+}

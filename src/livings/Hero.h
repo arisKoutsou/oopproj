@@ -41,16 +41,23 @@ public:
 	int getExpirience() const;
 	int getMagicPower() const;
 
-        int getMoney() const;
+    int getMoney() const;
 	int getStrength() const;
-        void move(Grid& grid, directions direction) throw();
+    void move(Grid& grid, directions direction) throw();
 	virtual void levelUp() = 0;
+<<<<<<< HEAD
         bool operator==(const Hero& rValue) const;
         // Opens the inventory menu and handles the hero selection
         void checkInventory();
         void equip(const string& name);
         void discard(const string& name);
         void usePotion(const string& name);
+=======
+
+	void buy(string);	// Add item, and subtract from money.
+	void sell(string);	// Sells item, and gains money.
+
+>>>>>>> origin/HEAD
 protected:
   Weapon* leftHandWeapon;
   Weapon* rightHandWeapon;

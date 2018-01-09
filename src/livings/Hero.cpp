@@ -8,7 +8,12 @@
 #include "Hero.h"
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
+<<<<<<< HEAD
 #include "../inventory/Inventory.h"
+=======
+#include "../items/Item.h"
+#include "../spells/Spell.h"
+>>>>>>> origin/HEAD
 
 Hero::Hero(
 	string nam,
@@ -139,6 +144,7 @@ void Hero :: move(Grid& grid, directions direction) throw() {
   }
 }
 
+<<<<<<< HEAD
 string Hero :: getUserInput() {
   cout << "Please enter the name of the item/spell you want to equip" << endl;
 
@@ -234,4 +240,36 @@ void Hero :: checkInventory() {
     }
     } 
   }
+=======
+void Hero::buy(string itemName) {
+	Item* itemToBuy = inventory.getItemByName(itemName);
+	if (itemToBuy != NULL) {
+		inventory.addItem(itemToBuy);
+		money -= itemToBuy->buyFor();
+		return;
+	}
+
+	Spell* spellToBuy = inventory.getSpellByName(itemName);
+	if (spellToBuy != NULL) {
+		inventory.addSpell(spellToBuy);
+		money -= spellToBuy->getValue();
+		return;
+	}
+}
+
+void Hero::sell(string itemName) {
+	Item* itemToSell = inventory.getItemByName(itemName);
+	if (itemToSell != NULL) {
+		inventory.removeItem(itemToSell);
+		money += itemToSell->sellsFor();
+		return;
+	}
+
+	Spell* spellToSell = inventory.getSpellByName(itemName);
+	if (spellToSell != NULL) {
+		inventory.removeSpell(spellToSell);
+		money += spellToSell->getValue();
+		return;
+	}
+>>>>>>> origin/HEAD
 }

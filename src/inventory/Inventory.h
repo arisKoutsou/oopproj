@@ -28,6 +28,8 @@ public:
   list<Item*> getItemList() const; // returns the list of items
   list<Spell*> getSpellList() const; // return the list of spells
   Menu getMenu() const; // returns the menu
+  Item* getItemByName(const string& name) const; // returns a pointer to an item.
+  Spell* getSpellByName(const string& spellName) const;// return pointer to spell.
   
   // Prints all the items and spells, including their info.
   void printInfo() const;
