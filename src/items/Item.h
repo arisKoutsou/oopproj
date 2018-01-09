@@ -28,6 +28,7 @@ public:
         virtual string getInfo() const;		// Returns a string with all the info.
 
         // Added by: (George Liontos)
+        virtual string kindOf() const = 0;
         virtual bool operator==(const Item& rValue) const;
         // WARNING (George): Non static initialisation only possible in C++11
         const double sellRate;// Sells for <sellRate>*buyFor().
