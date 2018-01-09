@@ -19,7 +19,7 @@ public:
 		int s = 15,
 		int minL = 3
 	);
-	virtual ~Item();
+        virtual ~Item();
 
 	string getName() const;		// Item's name...
 	int sellsFor() const;		// Return how much it sells for.

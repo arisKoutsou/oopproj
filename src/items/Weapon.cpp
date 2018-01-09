@@ -8,6 +8,7 @@
 #include <sstream>
 
 #include "./Weapon.h"
+#include "../items/Item.h"
 
 using namespace std;
 
