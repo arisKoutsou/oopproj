@@ -19,7 +19,8 @@ Hero::Hero(
 	int a,
 	int d,
 	int x,
-	int y
+	int y,
+	Grid* gr
 )
 : Living(nam, hp, x, y),
   magicPower(mp),
@@ -28,9 +29,10 @@ Hero::Hero(
   expirience(0), inventory(),
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
-  shield(NULL)
+  shield(NULL),
+  grid(gr)
 {
-	//
+
 }
 
 int Hero::getAgility() const {
@@ -150,15 +152,15 @@ string Hero :: getUserInput() {
 }
 
 void Hero :: equip(const string& name) {
-  Item* itemToEquip = getItemByName(name);
+  Item* itemToEquip = inventory.getItemByName(name);
 
   if (itemToEquip != NULL) {
-    string kind = itemToEquip.kindOf();
+    string kind = itemToEquip->kindOf();
     this->inventory.removeItem(itemToEquip);
     return;
   }
 
-  Spell* spellToEquip = getSpellByName(name);
+  Spell* spellToEquip = inventory.getSpellByName(name);
 
   if (spellToEquip != NULL) {
     this->inventory.removeSpell(spellToEquip);
@@ -169,17 +171,17 @@ void Hero :: equip(const string& name) {
 }
 
 void Hero :: discard(const string& name) {
-  Item* itemToDiscard = getItemByName(name);
+  Item* itemToDiscard = inventory.getItemByName(name);
 
   if (itemToDiscard != NULL) {
     this->inventory.removeAndDeleteItem(itemToDiscard);
     return;
   }
 
-  Spell* spellToDiscard = getSpellByName(name);
+  Spell* spellToDiscard = inventory.getSpellByName(name);
 
   if (spellToDiscard != NULL) {
-    this->inventory.removeAndDeleteSpell(name);
+    this->inventory.removeAndDeleteSpell(spellToDiscard);
     return;
   }
 
@@ -187,7 +189,7 @@ void Hero :: discard(const string& name) {
 }
 
 void Hero :: usePotion(const string& name) {
-  Item* potionToBeUsed = getItemByName(name);
+  Item* potionToBeUsed = inventory.getItemByName(name);
 
   if (potionToBeUsed != NULL) {
     this->inventory.removeAndDeleteItem(potionToBeUsed);
@@ -237,7 +239,7 @@ void Hero :: checkInventory() {
   }
 }
 
-void Hero::buy(string itemName) {
+void Hero::buy(const string& itemName) {
 	Item* itemToBuy = inventory.getItemByName(itemName);
 	if (itemToBuy != NULL) {
 		inventory.addItem(itemToBuy);
@@ -253,7 +255,7 @@ void Hero::buy(string itemName) {
 	}
 }
 
-void Hero::sell(string itemName) {
+void Hero::sell(const string& itemName) {
 	Item* itemToSell = inventory.getItemByName(itemName);
 	if (itemToSell != NULL) {
 		inventory.removeItem(itemToSell);
