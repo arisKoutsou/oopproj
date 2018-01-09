@@ -7,16 +7,15 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "./Grid.h"
+#include "Grid.h"
+#include "../market/Market.h"
 #include "../livings/Living.h"
 
 using namespace std;
 
-Grid :: Tile :: Tile(int _x, int _y, bool _nonAccessible,
-		     bool __hasMarket, bool _common, bool __hasLiving)
+Grid :: Tile :: Tile(bool _nonAccessible, bool _common)
   
-  : x(_x), y(_y), nonAccessible(_nonAccessible), _hasMarket(__hasMarket),
-    common(_common), _hasLiving(__hasLiving) {
+  : nonAccessible(_nonAccessible), common(_common) {
 
   cout << "Creating an instance of Tile" << endl;
 }
@@ -27,15 +26,9 @@ Grid :: Tile :: ~Tile() {
     livings.pop_front();
   }
 
+  delete market;
+  
   cout << "Destroying a Tile" << endl;
-}
-
-int Grid :: Tile :: getX() const {
-  return x;
-}
-
-int Grid :: Tile :: getY() const {
-  return y;
 }
 
 bool Grid :: Tile :: isNonAccessible() const {
@@ -43,11 +36,11 @@ bool Grid :: Tile :: isNonAccessible() const {
 }
 
 bool Grid :: Tile :: hasLiving() const {
-  return _hasLiving;
+  return (livings.empty());
 }
 
 bool Grid :: Tile :: hasMarket() const {
-  return _hasMarket;
+  return (market != NULL);
 }
 
 bool Grid :: Tile :: isCommon() const {
@@ -61,7 +54,7 @@ int Grid :: Tile :: getNumberOfLivings() const {
 Market Grid :: Tile :: getMarket() const {
   // NOTE (George): This function assumes that a market at
   // the specific tile exists
-  return (market[0]);
+  return (*market);
 }
 
 Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
@@ -78,20 +71,19 @@ Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
     for (ssize_t j = 0U; j != maxX; ++j) {
 
       bool nonAccessible = _tileInfo[auxI + auxJ];
-      bool hasMarket = _tileInfo[auxI + auxJ + 1];
-      bool common = _tileInfo[auxI + auxJ + 2];
-      bool hasLiving = _tileInfo[auxI + auxJ + 3];
+      bool common = _tileInfo[auxI + auxJ + 1];
 
       int x = static_cast<int>(i);
       int y = static_cast<int>(j);
-      Tile newTile(x, y, nonAccessible, hasMarket, common, hasLiving);
+      Tile newTile(nonAccessible, common);
       tiles[i].push_back(newTile);
 
       ++auxI;
       ++auxJ;
     }
   }
-    cout << "Creating an instance of Grid" << endl;
+
+  cout << "Creating an instance of Grid" << endl;
 }
 
 Grid :: ~Grid() {
@@ -106,34 +98,26 @@ int Grid :: getMaxY() const {
   return maxY;
 }
  
-void Grid :: addMarket(int row, int col, const Market& _market) {
-  if (tiles[row][col].market.empty() == false) {
+void Grid :: addMarket(int row, int col, Market* _market) {
+  if (tiles[row][col].market == NULL) {
     cerr << "You can't add more than one market in a tile" << endl;
     return;
   }
   // NOTE (George): We don't need copy constructor for this
   // as we don't have any pointers as data members
-  tiles[row][col].market.push_back(_market);
+  tiles[row][col].market = _market;
 }
 
-vector<vector<Grid :: Tile> > Grid :: getTiles() const {
-  return tiles;
-}
- 
 Grid :: Tile Grid :: getTile(int row, int col) const {
    return (tiles[row][col]);
 }
 
 void Grid :: addLiving(int row, int col, Living* living) {
   tiles[row][col].livings.push_back(living);
-  tiles[row][col]._hasLiving = true;
 }
  
 void Grid :: removeLiving(int row, int col, Living* living) {
   tiles[row][col].livings.remove(living);
-  if (tiles[row][col].livings.size() == 0) {
-    tiles[row][col]._hasLiving = false;
-  }
 }
 
 void Grid :: displayMap() const {
