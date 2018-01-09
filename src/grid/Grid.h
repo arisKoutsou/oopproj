@@ -42,7 +42,6 @@ public:
     list<Living*> livings;
     vector<Market> market;
   };
-
   
   // tileInfo is an array of bools which has 4 boolean values stored:
   // nonAccessible, hasMarket, common, hasLiving (with that order)
