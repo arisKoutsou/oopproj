@@ -8,12 +8,8 @@
 #include "Hero.h"
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
-<<<<<<< HEAD
-#include "../inventory/Inventory.h"
-=======
 #include "../items/Item.h"
 #include "../spells/Spell.h"
->>>>>>> origin/HEAD
 
 Hero::Hero(
 	string nam,
@@ -29,10 +25,7 @@ Hero::Hero(
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
-  expirience(0), inventory(),
-  leftHandWeapon(NULL),
-  rightHandWeapon(NULL),
-  shield(NULL)
+  expirience(0), inventory()
 {
 	//
 }
@@ -144,103 +137,6 @@ void Hero :: move(Grid& grid, directions direction) throw() {
   }
 }
 
-<<<<<<< HEAD
-string Hero :: getUserInput() {
-  cout << "Please enter the name of the item/spell you want to equip" << endl;
-
-  string input;
-  cin >> input;
-
-  return input;
-}
-
-void Hero :: equip(const string& name) {
-  Item* itemToEquip = getItemByName(name);
-
-  if (itemToEquip != NULL) {
-    string kind = itemToEquip.kindOf();
-    this->inventory.removeItem(itemToEquip);
-    return;
-  }
-
-  Spell* spellToEquip = getSpellByName(name);
-
-  if (spellToEquip != NULL) {
-    this->inventory.removeSpell(spellToEquip);
-    return;
-  }
-
-  cout << "There's no such item or spell in your inventory" << endl;
-}
-
-void Hero :: discard(const string& name) {
-  Item* itemToDiscard = getItemByName(name);
-
-  if (itemToDiscard != NULL) {
-    this->inventory.removeAndDeleteItem(itemToDiscard);
-    return;
-  }
-
-  Spell* spellToDiscard = getSpellByName(name);
-
-  if (spellToDiscard != NULL) {
-    this->inventory.removeAndDeleteSpell(name);
-    return;
-  }
-
-  cout << "There's no such item or spell in your inventory" << endl;
-}
-
-void Hero :: usePotion(const string& name) {
-  Item* potionToBeUsed = getItemByName(name);
-
-  if (potionToBeUsed != NULL) {
-    this->inventory.removeAndDeleteItem(potionToBeUsed);
-    return;
-  }
-
-  cout << "There's no such Potion in your inventory" << endl;
-}
-
-void Hero :: checkInventory() {
-  this->inventory.getMenu().displayMenu();
-  int selection;
-
-  while ((selection = this->inventory.getMenu().getSelection())) {
-    switch (selection) {
-    case 1: {
-      this->inventory.printInfo();
-      break;
-    }
-
-    case 2: {
-      string input = getUserInput();
-    
-      this->equip(input);
-      break;
-    }
-
-    case 3: {
-      string input = getUserInput();
-
-      this->discard(input);
-      break;      
-    }
-
-    case 4: {
-      string input = getUserInput();
-
-      this->usePotion(input);
-      break;
-    }
-      
-    case 5: {
-      this->inventory.getMenu().clearMenu();
-      return;
-    }
-    } 
-  }
-=======
 void Hero::buy(string itemName) {
 	Item* itemToBuy = inventory.getItemByName(itemName);
 	if (itemToBuy != NULL) {
@@ -271,5 +167,4 @@ void Hero::sell(string itemName) {
 		money += spellToSell->getValue();
 		return;
 	}
->>>>>>> origin/HEAD
 }
