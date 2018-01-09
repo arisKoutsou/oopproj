@@ -55,3 +55,7 @@ bool Armor :: operator==(const Armor& rValue) const {
 
   return (sameItems && sameReduceDamageTakenBy);
 }
+
+string Armor :: kindOf() const {
+  return "Armor";
+}

@@ -26,6 +26,7 @@ public:
 
 
         // Added by: (George Liontos)
+        string kindOf() const;
         bool operator==(const Armor& rValue) const;
 private:
 	double reduceDamageTakenBy;	// A double in [0, 1],
