@@ -73,8 +73,6 @@ Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
       bool nonAccessible = _tileInfo[auxI + auxJ];
       bool common = _tileInfo[auxI + auxJ + 1];
 
-      int x = static_cast<int>(i);
-      int y = static_cast<int>(j);
       Tile newTile(nonAccessible, common);
       tiles[i].push_back(newTile);
 
@@ -119,12 +117,12 @@ Grid :: Tile Grid :: getTile(int row, int col) const {
 }
 
 void Grid :: addLiving(int row, int col, Living* living) {
-
-	if (tiles[row][col].isNonAccessible()) {
-		cerr << "A Hero can't be on a nonAccessible Tile." << endl;
-		return;
-	}
-	tiles[row][col].livings.push_back(living);
+  
+  if (tiles[row][col].isNonAccessible()) {
+    cerr << "A Hero can't be on a nonAccessible Tile." << endl;
+    return;
+  }
+  tiles[row][col].livings.push_back(living);
 }
  
 void Grid :: removeLiving(int row, int col, Living* living) {
@@ -173,16 +171,3 @@ void Grid::print() const {
 
 	cout << endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
