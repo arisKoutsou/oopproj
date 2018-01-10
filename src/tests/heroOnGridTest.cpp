@@ -12,6 +12,8 @@
 #include "../market/Market.h"			// Put a market maybe...
 #include "../random/Random.h"			// Use random boolean.
 #include "../exceptions/heroExceptions.h"
+#include "../items/Item.h"
+#include "../items/Weapon.h"
 
 int main() {
 
@@ -80,16 +82,26 @@ int main() {
 	);
 	
 	grid.print();
-
 	try {
-	  warrior->move(Hero::LEFT);
+	  warrior->move(Hero::DOWN);
 	}
 	catch (HeroMoveException& e) {
-	  cout << e.getMessage() << endl;
+	  cout << e.what() << endl;
 	}
-	
-	grid.print();
 
+	grid.print();
+	
+	Item* sword = new Weapon("Excalibur");
+
+	warrior->getInventory().addItem(sword);
+
+	warrior->printStats();
+	
+	warrior->checkInventory();
+
+	warrior->printStats();
+	
+	delete[] randomTileInfo;
 	return EXIT_SUCCESS;
 }
 
