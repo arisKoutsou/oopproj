@@ -45,6 +45,7 @@ public:
   
         // Added by: (George Liontos)
         Position getPosition() const;
+        virtual void printStats() const = 0;
         virtual bool operator==(const Living& rValue) const;
 protected:
         Grid* grid;

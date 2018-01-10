@@ -44,22 +44,24 @@ public:
 
         int getMoney() const;
 	int getStrength() const;
-        void move(directions direction) throw();
+        void move(directions direction);
 	virtual void levelUp() = 0;
+        void printStats() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();
+        Inventory& getInventory();
 	void equip(const string& name);
 	void discard(const string& name);
 	void usePotion(const string& name);
-
+  
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
 protected:
-  Weapon* leftHandWeapon;
-  Weapon* rightHandWeapon;
-  Armor* shield;
-  list<Spell*> spells;
+        Weapon* leftHandWeapon;
+        Weapon* rightHandWeapon;
+        Armor* shield;
+        list<Spell*> spells;
   
 	int 	magicPower;	// Mana.
 	int 	strength;
@@ -80,10 +82,10 @@ private:
         bool usesOneHand() const;
         bool usesLeftHand() const;
         bool usesRightHand() const;
-        void moveUp() throw();
-        void moveDown() throw();
-        void moveLeft() throw();
-        void moveRight() throw();
+        void moveUp();
+        void moveDown();
+        void moveLeft();
+        void moveRight();
         string getUserInput();
 };
 

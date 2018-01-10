@@ -63,6 +63,10 @@ int Hero::getStrength() const {
 }
 
 // Implemented by: (George Liontos)
+Inventory& Hero :: getInventory() {
+  return inventory;
+}
+
 bool Hero :: operator==(const Hero& rValue) const {
   bool sameLiving;
   bool sameMagicPower;
@@ -87,12 +91,14 @@ bool Hero :: operator==(const Hero& rValue) const {
 	  sameExperience);
 }
 
-void Hero :: moveUp() throw() {
+void Hero :: moveUp() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
   if (heroY == this->grid->getMaxY()) {
     throw HeroMoveException("You can't move up any further");
+  } else if (this->grid->getTile(heroY + 1, heroX).isNonAccessible()) {
+    throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY + 1);
@@ -100,12 +106,14 @@ void Hero :: moveUp() throw() {
   }
 }
 
-void Hero :: moveDown() throw() {
+void Hero :: moveDown() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
  
   if (heroY == 0) {
     throw HeroMoveException("You can't move down any further");
+  } else if (this->grid->getTile(heroY - 1, heroX).isNonAccessible()) {
+    throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY - 1);
@@ -113,12 +121,14 @@ void Hero :: moveDown() throw() {
   }
 }
 
-void Hero :: moveLeft() throw() {
+void Hero :: moveLeft() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
   if (heroX == 0) {
     throw HeroMoveException("You can't move left any further");
+  } else if (this->grid->getTile(heroY, heroX - 1).isNonAccessible()) {
+    throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX - 1);
@@ -126,12 +136,14 @@ void Hero :: moveLeft() throw() {
   }
 }
 
-void Hero :: moveRight() throw() {
+void Hero :: moveRight() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
   if (heroX == grid->getMaxX()) {
-    throw HeroMoveException("You can't move right any further");
+    throw HeroMoveException("You can't move right any further");    
+  } else if (this->grid->getTile(heroY, heroX + 1).isNonAccessible()) {
+    throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX + 1);
@@ -139,7 +151,7 @@ void Hero :: moveRight() throw() {
   }
 }
 
-void Hero :: move(directions direction) throw() {
+void Hero :: move(directions direction) {
   switch (direction) {
   case UP: moveUp(); return;
   case DOWN: moveDown(); return;
@@ -250,8 +262,9 @@ void Hero :: checkInventory() {
     case 5: {
       this->inventory.getMenu().clearMenu();
       return;
+    }      
     }
-    } 
+    this->inventory.getMenu().displayMenu();
   }
 }
 
@@ -350,4 +363,19 @@ void Hero :: equipSpell(Spell* spell) {
   if (this->spells.size() != 3) {
     this->spells.push_back(spell);
   }
+}
+
+void Hero :: printStats() const {
+  Living :: printStats();
+  cout << "Mana: " << this->magicPower << endl
+       << "Stregth: " << this->strength << endl
+       << "Agility: " << this->agility << endl
+       << "Dexterity: " << this->dexterity << endl
+       << "Money: " << this->money << endl
+       << "Experience: " << this->expirience << endl
+       << endl
+       << "Left Hand: " << ((this->leftHandWeapon) ? this->leftHandWeapon->getInfo() : "") << endl
+       << endl
+       << "Right Hand: " << ((this->rightHandWeapon) ? this->rightHandWeapon->getInfo() : "")
+       << endl;
 }

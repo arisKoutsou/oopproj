@@ -17,7 +17,7 @@ Living::Living(
 	int y
 )
   : p(x, y), grid(gr),
-    name(nam), level(0),
+    name(nam), level(1),
     healthPower(hp)	// Level start at 1.
 {
 	grid->addLiving(y, x, this);
@@ -88,4 +88,10 @@ bool Living :: Position :: operator==(const Position& rValue) const {
   sameY = (this->y == rValue.y) ? true : false;
 
   return (sameX && sameY);
+}
+
+void Living :: printStats() const {
+  cout << "Name: " << this->name << endl
+       << "Level: " << this->level << endl
+       << "Health: " << this->healthPower << endl;					     
 }
