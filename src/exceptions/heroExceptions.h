@@ -8,13 +8,15 @@
 #define __HERO_EXCEPTION_HEADER__
 
 #include <string>
+#include <exception>
 
 using namespace std;
 
-class HeroMoveException {
+class HeroMoveException : public exception {
 public:
   HeroMoveException(const string& message);
-  string getMessage();
+  virtual ~HeroMoveException() throw();
+  const char* what() const throw();
 private:
   string message;
 };

@@ -14,6 +14,8 @@ HeroMoveException :: HeroMoveException(const string& _message)
 
   :message(_message) {}
 
-string HeroMoveException :: getMessage() {
-  return message;
+HeroMoveException :: ~HeroMoveException() throw() {}
+
+const char* HeroMoveException :: what() const throw() {
+  return message.c_str();
 }
