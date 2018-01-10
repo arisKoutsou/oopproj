@@ -27,7 +27,7 @@ public:
     bool hasMarket() const;	  // returns if the tile has a market
     bool isCommon() const;	  // returns if the tile is common
     int getNumberOfLivings() const; // returns the number of livings
-    Market getMarket() const;	    // returns the market of the tile
+    Market* getMarket() const;	    // returns the market of the tile
 
     bool nonAccessible;
     bool common;
@@ -56,9 +56,16 @@ public:
 
   // Displays the map
   void displayMap() const;
+
+  // (@aris), "X" means nonAccessible,
+  // "M" means Market,
+  // "+" means common, most of tiles should be common...
+  void print() const;
+
 private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
+  int marketCount;	// Counts markets on that grid.
   vector< vector<Tile> > tiles;	// 2D grid of tiles
 };
 

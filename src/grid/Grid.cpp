@@ -15,9 +15,9 @@ using namespace std;
 
 Grid :: Tile :: Tile(bool _nonAccessible, bool _common)
   
-  : nonAccessible(_nonAccessible), common(_common) {
+  : nonAccessible(_nonAccessible), common(_common), market(NULL) {
 
-  cout << "Creating an instance of Tile" << endl;
+//  cout << "Creating an instance of Tile" << endl;
 }
 
 Grid :: Tile :: ~Tile() {
@@ -28,7 +28,7 @@ Grid :: Tile :: ~Tile() {
 
   delete market;
   
-  cout << "Destroying a Tile" << endl;
+//  cout << "Destroying a Tile" << endl;
 }
 
 bool Grid :: Tile :: isNonAccessible() const {
@@ -36,7 +36,7 @@ bool Grid :: Tile :: isNonAccessible() const {
 }
 
 bool Grid :: Tile :: hasLiving() const {
-  return (livings.empty());
+  return !livings.empty();	// fixed, "!" missing.
 }
 
 bool Grid :: Tile :: hasMarket() const {
@@ -51,15 +51,15 @@ int Grid :: Tile :: getNumberOfLivings() const {
   return livings.size();
 }
 
-Market Grid :: Tile :: getMarket() const {
+Market* Grid :: Tile :: getMarket() const {
   // NOTE (George): This function assumes that a market at
   // the specific tile exists
-  return (*market);
+  return (market);	// (@aris) Return NULL if there is no market. That way we can be sure.
 }
 
 Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
 
-  : maxX(_maxX), maxY(_maxY) {
+  : maxX(_maxX), maxY(_maxY), marketCount(0) {
 
   size_t auxI = 0U;
   size_t auxJ = 0U;
@@ -99,13 +99,19 @@ int Grid :: getMaxY() const {
 }
  
 void Grid :: addMarket(int row, int col, Market* _market) {
-  if (tiles[row][col].market == NULL) {
-    cerr << "You can't add more than one market in a tile" << endl;
+  if (tiles[row][col].hasMarket()) {	// market == NULL means there is no market at that tile.
+    cerr << "You can't add more than one market in a tile." << endl;
     return;
+  }
+  // (@aris)
+  if (tiles[row][col].isNonAccessible()) {	// If it's non accessible u cant put a market in it.
+	  cerr << "You can't add a market at a nonAccessible tile." << endl;
+	  return;
   }
   // NOTE (George): We don't need copy constructor for this
   // as we don't have any pointers as data members
   tiles[row][col].market = _market;
+  marketCount++;
 }
 
 Grid :: Tile Grid :: getTile(int row, int col) const {
@@ -113,7 +119,12 @@ Grid :: Tile Grid :: getTile(int row, int col) const {
 }
 
 void Grid :: addLiving(int row, int col, Living* living) {
-  tiles[row][col].livings.push_back(living);
+
+	if (tiles[row][col].isNonAccessible()) {
+		cerr << "A Hero can't be on a nonAccessible Tile." << endl;
+		return;
+	}
+	tiles[row][col].livings.push_back(living);
 }
  
 void Grid :: removeLiving(int row, int col, Living* living) {
@@ -137,3 +148,41 @@ void Grid :: displayMap() const {
     }
   }
 }
+
+// (@aris) Implemented print function.
+// Prints "+" and letters to represent grid.
+void Grid::print() const {
+	cout << endl;
+	cout << "Displaying Grid..." << endl;
+	cout << endl;
+
+	for (int i = 0; i < tiles.size(); i++) {
+		for (int j = 0; j < tiles[i].size(); j++) {
+			if (tiles[i][j].isNonAccessible()) {
+				cout << "X";
+			} else if (tiles[i][j].hasMarket()) {
+				cout << "M";
+			} else if (tiles[i][j].hasLiving()) {
+				cout << "L";
+			}else {
+				cout << "+";
+			}
+		}
+		cout << "\n";
+	}
+
+	cout << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
