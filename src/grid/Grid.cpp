@@ -129,45 +129,27 @@ void Grid :: removeLiving(int row, int col, Living* living) {
   tiles[row][col].livings.remove(living);
 }
 
-void Grid :: displayMap() const {
-  size_t tileNumber = 0;
-  for (size_t i = 0U; i != tiles.size(); ++i) {
-    for (size_t j = 0U; j != tiles[i].size(); ++j) {
-      cout << "Tile" << tileNumber << ":" << endl;
-      cout << ((tiles[i][j].isNonAccessible()
-		? "not accessible" : "accessible")) << endl;
-        
-      cout << ((tiles[i][j].hasLiving()
-		? "has living" : "hasn't living")) << endl;
-
-      cout << ((tiles[i][j].isCommon())
-	       ? "is common" : "isn't common") << endl;
-      tileNumber++;
-    }
-  }
-}
-
-// (@aris) Implemented print function.
+// (@aris) Implemented displayMap function.
 // Prints "+" and letters to represent grid.
-void Grid::print() const {
-	cout << endl;
-	cout << "Displaying Grid..." << endl;
-	cout << endl;
+void Grid :: displayMap() const {
+  cout << endl;
+  cout << "Displaying Grid..." << endl;
+  cout << endl;
 
-	for (int i = 0; i < tiles.size(); i++) {
-		for (int j = 0; j < tiles[i].size(); j++) {
-			if (tiles[i][j].isNonAccessible()) {
-				cout << "X";
-			} else if (tiles[i][j].hasMarket()) {
-				cout << "M";
-			} else if (tiles[i][j].hasLiving()) {
-				cout << "L";
-			}else {
-				cout << "+";
-			}
-		}
-		cout << "\n";
-	}
+  for (ssize_t i = tiles.size() - 1; i >= 0; --i) {
+    for (ssize_t j = 0; j != tiles[i].size(); ++j) {
+      if (tiles[i][j].isNonAccessible()) {
+	cout << "X";
+      } else if (tiles[i][j].hasMarket()) {
+	cout << "M";
+      } else if (tiles[i][j].hasLiving()) {
+	cout << "L";
+      } else {
+	cout << "+";
+      }
+    }
+    cout << endl;
+  }
 
-	cout << endl;
+  cout << endl;
 }
