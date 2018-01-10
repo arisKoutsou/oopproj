@@ -16,7 +16,7 @@ class Grid;
 
 class Living {
 public:
-        struct Position {
+    struct Position {
 	  Position(int x, int y);
 	  ~Position();
 	   
@@ -52,7 +52,7 @@ private:
 	string 	name;
 	int 	level;			// Level starting from 0.
 	int 	healthPower;	// hp with a stupid name...
-        Position p;
+    Position p;
 
 };
 

@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "./Living.h"
+#include "../grid/Grid.h"
 
 Living::Living(
 	Grid* gr,
@@ -19,6 +20,7 @@ Living::Living(
     name(nam), level(0),
     healthPower(hp)	// Level start at 1.
 {
+	grid->addLiving(x, y, this);
 	cout << "Living constructed..." << endl;
 }
 

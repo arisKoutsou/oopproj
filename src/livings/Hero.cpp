@@ -16,7 +16,7 @@
 #include "../inventory/Inventory.h"
 
 Hero::Hero(
-        Grid* gr,
+    Grid* gr,
 	string nam,
 	int hp,
 	int mp,

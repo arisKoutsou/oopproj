@@ -71,9 +71,7 @@ protected:
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 
-        // Added by: (George Liontos)
 
-        Grid* grid;
 private:
         bool usesBothHands() const; // returns true if the hero uses both hands
         void equipWeapon(Weapon* weapon);
