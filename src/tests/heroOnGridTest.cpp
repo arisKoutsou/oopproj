@@ -11,6 +11,7 @@
 #include "../livings/heroes/Warrior.h"	// Use a kindOf Hero...
 #include "../market/Market.h"			// Put a market maybe...
 #include "../random/Random.h"			// Use random boolean.
+#include "../exceptions/heroExceptions.h"
 
 int main() {
 
@@ -73,15 +74,20 @@ int main() {
 	// Νow add a Hero on the grid.
 	Hero* warrior = new Warrior(
 		&grid,			// This warrior lives on the previously made grid.
-		0, 2,			// Put him on the 1st row, 3rd column.
+		2, 0,			// Put him on the 1st row, 3rd column.
 		"Tryndamere"	// Name.
 		// Rest of the arguments to constructor default...
 	);
-
+	
 	grid.print();
 
-	warrior->move(Hero::LEFT);
-
+	try {
+	  warrior->move(Hero::LEFT);
+	}
+	catch (HeroMoveException& e) {
+	  cout << e.getMessage() << endl;
+	}
+	
 	grid.print();
 
 	return EXIT_SUCCESS;
