@@ -9,7 +9,6 @@
 #include "Inventory.h"
 #include "../items/Item.h"
 #include "../spells/Spell.h"
-
 #include "../livings/Hero.h"
 
 using namespace std;
@@ -51,13 +50,13 @@ int Inventory :: getCurrentSpells() const {
   return (spells.size());
 }
 
-list<Item*> Inventory :: getItemList() const {
-  return items;
-}
+// list<Item*> Inventory :: getItemList() const {
+//   return items;
+// }
 
-list<Spell*> Inventory :: getSpellList() const {
-  return spells;
-}
+// list<Spell*> Inventory :: getSpellList() const {
+//   return spells;
+// }
 
 void Inventory :: printInfo() const {
   list<Item*> :: const_iterator itemIterator = items.begin();
