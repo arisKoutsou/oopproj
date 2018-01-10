@@ -8,14 +8,14 @@
 
 Sorcerer::Sorcerer(
 	Grid* gr,
+	int x,
+	int y,
 	string nam,
 	int hp,
 	int mp,
 	int s,
 	int a,
-	int d,
-	int x,
-	int y
+	int d
 ) : Hero(gr, nam, hp, mp, s, a*agilityBonus, d*dexterityBonus, x, y),
     agilityBonus(0.1), dexterityBonus(0.1) {
 

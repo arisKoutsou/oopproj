@@ -20,7 +20,7 @@ double Random::from0to1() {
 	return (double)rand() / RAND_MAX;
 }
 
-bool Random::boolean(const double p) {
+bool Random::boolean(const double p) {	// P(true) = p
 
 	return (Random::from0to1() < p) ? true : false;
 }
