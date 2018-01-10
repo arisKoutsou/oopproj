@@ -102,7 +102,6 @@ int main() {
 	warrior->printStats();
 	
 	delete[] randomTileInfo;
+
 	return EXIT_SUCCESS;
 }
-
-
