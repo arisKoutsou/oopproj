@@ -20,7 +20,7 @@ Living::Living(
     name(nam), level(0),
     healthPower(hp)	// Level start at 1.
 {
-	grid->addLiving(x, y, this);
+	grid->addLiving(y, x, this);
 	cout << "Living constructed..." << endl;
 }
 

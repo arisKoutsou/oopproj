@@ -37,8 +37,8 @@ string Armor::getInfo() const {
 	result << fixed << setprecision(2);
 
 	result << Item::getInfo()
-		<< "reduces damage taken by: "
-		<< reduceDamageTakenBy*100 << "%" << endl;
+	       << "reduces damage taken by: "
+	       << reduceDamageTakenBy*100 << "%" << endl;
 
 	return result.str();
 }

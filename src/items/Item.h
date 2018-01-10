@@ -36,7 +36,7 @@ private:
 	string name;
 	int value;
 	int sellFor;
-	int minLevel;
+        int minLevel;
 };
 
 #endif /* ITEMS_ITEM_H_ */

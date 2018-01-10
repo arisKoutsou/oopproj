@@ -16,7 +16,7 @@
 #include "../inventory/Inventory.h"
 
 Hero::Hero(
-    Grid* gr,
+	Grid* gr,
 	string nam,
 	int hp,
 	int mp,
@@ -96,6 +96,7 @@ void Hero :: moveUp() throw() {
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY + 1);
+    this->grid->addLiving(heroY + 1, heroX, this);
   }
 }
 
@@ -108,6 +109,7 @@ void Hero :: moveDown() throw() {
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setY(heroY - 1);
+    this->grid->addLiving(heroY - 1, heroX, this);
   }
 }
 
@@ -120,6 +122,7 @@ void Hero :: moveLeft() throw() {
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX - 1);
+    this->grid->addLiving(heroY, heroX - 1, this);
   }
 }
 
@@ -132,6 +135,7 @@ void Hero :: moveRight() throw() {
   } else {
     this->grid->removeLiving(heroY, heroX, this);
     this->getPosition().setX(heroX + 1);
+    this->grid->addLiving(heroY, heroX + 1, this);
   }
 }
 

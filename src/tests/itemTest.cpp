@@ -14,13 +14,7 @@
 #include "../random/Random.h"
 
 int main() {
-
-	// Testing Item...
-	Item* item = new Item("Boots");
-	cout << item->getInfo();
-	delete item;
-
-	// Testing Weapon...
+        // Testing Weapon...
 	Item* weapon = new Weapon("Sword");
 	cout << weapon->getInfo();
 	delete weapon;
