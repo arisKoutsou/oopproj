@@ -14,6 +14,7 @@
 #include "../items/Potion.h"
 #include "../spells/Spell.h"
 #include "../inventory/Inventory.h"
+#include "../market/Market.h"
 
 Hero::Hero(
 	Grid* gr,
@@ -35,7 +36,7 @@ Hero::Hero(
   rightHandWeapon(NULL),
   shield(NULL)
 {
-  
+
 }
 
 int Hero::getAgility() const {
@@ -97,7 +98,7 @@ void Hero :: moveUp() {
 
   if (heroY == this->grid->getMaxY()) {
     throw HeroMoveException("You can't move up any further");
-  } else if (this->grid->getTile(heroY + 1, heroX).isNonAccessible()) {
+  } else if (this->grid->getTile(heroY + 1, heroX)->isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
@@ -112,7 +113,7 @@ void Hero :: moveDown() {
  
   if (heroY == 0) {
     throw HeroMoveException("You can't move down any further");
-  } else if (this->grid->getTile(heroY - 1, heroX).isNonAccessible()) {
+  } else if (this->grid->getTile(heroY - 1, heroX)->isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
@@ -127,7 +128,7 @@ void Hero :: moveLeft() {
 
   if (heroX == 0) {
     throw HeroMoveException("You can't move left any further");
-  } else if (this->grid->getTile(heroY, heroX - 1).isNonAccessible()) {
+  } else if (this->grid->getTile(heroY, heroX - 1)->isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
@@ -142,7 +143,7 @@ void Hero :: moveRight() {
 
   if (heroX == grid->getMaxX()) {
     throw HeroMoveException("You can't move right any further");    
-  } else if (this->grid->getTile(heroY, heroX + 1).isNonAccessible()) {
+  } else if (this->grid->getTile(heroY, heroX + 1)->isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
   } else {
     this->grid->removeLiving(heroY, heroX, this);
@@ -269,18 +270,37 @@ void Hero :: checkInventory() {
 }
 
 void Hero::buy(const string& itemName) {
-	Item* itemToBuy = inventory.getItemByName(itemName);
-	if (itemToBuy != NULL) {
-		inventory.addItem(itemToBuy);
-		money -= itemToBuy->buyFor();
+	Market* currentMarket;
+
+	if ( grid->getTile(getPosition().getY(), getPosition().getX())->hasMarket() ) {
+		currentMarket =
+			grid->getTile(
+				getPosition().getY(),
+				getPosition().getX()
+			)->getMarket();
+	} else {
+		cout << endl << "There is no market at the current Tile!" << endl;
 		return;
 	}
+	Item* itemToBuy;
 
-	Spell* spellToBuy = inventory.getSpellByName(itemName);
-	if (spellToBuy != NULL) {
-		inventory.addSpell(spellToBuy);
-		money -= spellToBuy->getValue();
-		return;
+	list<Item*> :: const_iterator itemIterator = currentMarket->getItemList().begin();
+
+	for ( ; itemIterator != currentMarket->getItemList().end() ; ++itemIterator) {
+		if ((*itemIterator)->getName() == itemName) {
+			if ((*itemIterator)->buyFor() < this->getMoney()) {
+				this->inventory.addItem(*itemIterator);
+				this->money -= (*itemIterator)->buyFor();
+				currentMarket->removeItem(*itemIterator);
+				return;
+			} else {
+				cout << endl << "Not enough gold. You need "
+					<< (*itemIterator)->buyFor() - this->getMoney() << " more." << endl;
+			}
+		} else {
+			cout << endl << "Item/Spell doesn't exist on this Market." << endl;
+		}
+
 	}
 }
 
