@@ -62,15 +62,24 @@ void Inventory :: printInfo() const {
   list<Item*> :: const_iterator itemIterator = items.begin();
   list<Spell*> :: const_iterator spellIterator = spells.begin();
 
-  cout << "Items:" << endl << endl;
-  for ( ; itemIterator != items.end(); ++itemIterator) {
-    cout << (*itemIterator)->getInfo() << endl;
+  if (items.empty()) {
+	  cout << "No items..." << endl;
+  } else {
+	cout << "Items:" << endl << endl;
+	for ( ; itemIterator != items.end(); ++itemIterator) {
+		cout << (*itemIterator)->getInfo() << endl;
+	}
   }
 
-  cout << "Spells:" << endl << endl;
-  for ( ; spellIterator != spells.end() ; ++spellIterator) {
-    cout << (*spellIterator)->getInfo() << endl;
+  if (spells.empty()) {
+	  cout << "No spells..." << endl;
+  } else {
+	  cout << "Spells:" << endl << endl;
+	  for ( ; spellIterator != spells.end() ; ++spellIterator) {
+		cout << (*spellIterator)->getInfo() << endl;
+	  }
   }
+
 }
 
 void Inventory :: addItem(Item* item) {
