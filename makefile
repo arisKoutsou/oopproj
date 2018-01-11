@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -std=c++98 -ggdb -Wall
+CFLAGS= -std=c++98 -ggdb -Wall -fPIC
 
 alltests : all bin/inventoryTest bin/itemTest bin/marketTest bin/spellTest bin/heroOnGridTest
 
