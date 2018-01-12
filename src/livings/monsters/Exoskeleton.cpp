@@ -9,15 +9,15 @@
 
 Exoskeleton::Exoskeleton(
 	Grid* gr,
+	int y,
+	int x,
 	string nam,
 	int hp,
 	int min,
 	int max,
 	int arm,
-	double dodg,
-	int x,
-	int y
-) : Monster(gr, nam, hp, min, max, arm+armorBonus, dodg, x, y),
+	double dodg        
+) : Monster(gr, y, x, nam, hp, min, max, arm+armorBonus, dodg),
     armorBonus(10)
 {
 

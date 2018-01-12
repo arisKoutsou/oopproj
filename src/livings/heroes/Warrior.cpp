@@ -17,10 +17,13 @@ Warrior::Warrior(
 	int s,
 	int a,
 	int d
-) : Hero(gr, nam, hp, mp, s*strengthBonus, a*agilityBonus, d, y, x),
-    agilityBonus(0.1), strengthBonus(0.1) {
+) : agilityBonus(0.1), strengthBonus(0.1),
+  Hero(gr, y, x, nam, hp, mp, strength, a, d) {
 
+  this->strength = s + (s * strengthBonus);
+  this->agility = a + (a * agilityBonus);
 }
+    
 
 void Warrior::levelUp() {
 	strength += strength*strengthBonus;

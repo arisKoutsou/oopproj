@@ -16,14 +16,14 @@ class Monster: public Living {
 public:
 	Monster(
 		Grid* gr,
-		string nam,
+		int y = 0,
+		int x = 0,
+		string nam = "",
 		int hp = 500,
 		int min = 10,
 		int max = 20,
 		int arm = 5,
-		double dodg = 0.1,
-		int y = 0,
-		int x = 0
+		double dodg = 0.1                
 	);
 	int getArmor() const;
 	double getDodge() const;

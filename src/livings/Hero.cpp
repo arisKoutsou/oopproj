@@ -22,14 +22,14 @@
 
 Hero::Hero(
 	Grid* gr,
+	int y,
+	int x,
 	string nam,
 	int hp,
 	int mp,
 	int s,
 	int a,
-	int d,
-	int y,
-	int x
+	int d
 )
 : Living(gr, nam, hp, y, x),
   magicPower(mp),
@@ -420,7 +420,7 @@ void Hero :: equipSpell(Spell* spell) {
 void Hero :: printStats() const {
   Living :: printStats();
   cout << "Mana: " << this->magicPower << endl
-       << "Stregth: " << this->strength << endl
+       << "Strength: " << this->strength << endl
        << "Agility: " << this->agility << endl
        << "Dexterity: " << this->dexterity << endl
        << "Money: " << this->money << endl

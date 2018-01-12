@@ -28,14 +28,14 @@ public:
 
 	Hero(
 	        Grid* gr,
-		string nam,
+		int y = 0,
+		int x = 0,
+		string nam = "",
 		int hp = 500,
 		int mp = 200,
 		int s = 100,
 		int a = 250,
-		int d = 100,
-		int y = 0,
-		int x = 0
+		int d = 100
 	);
         ~Hero();
   
@@ -65,7 +65,7 @@ protected:
         Armor* shield;
         list<Spell*> spells;
   
-	int 	magicPower;	// Mana.
+        int 	magicPower;	// Mana.
 	int 	strength;
 	int 	agility;
 	int 	dexterity;

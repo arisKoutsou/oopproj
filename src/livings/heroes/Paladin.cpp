@@ -18,9 +18,11 @@ Paladin::Paladin(
 	int s,
 	int a,
 	int d
-) : Hero(gr, nam, hp, mp, s*strengthBonus, a, d*dexterityBonus, y, x),
-    strengthBonus(0.1), dexterityBonus(0.1) {
+) : strengthBonus(0.1), dexterityBonus(0.1),
+    Hero(gr, y, x, nam, hp, mp, s, a, d) {
 
+  this->strength = s + (s * strengthBonus);
+  this->dexterity = d + (d * dexterityBonus);
 }
 
 void Paladin::levelUp() {

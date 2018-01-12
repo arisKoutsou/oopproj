@@ -16,9 +16,11 @@ Sorcerer::Sorcerer(
 	int s,
 	int a,
 	int d
-) : Hero(gr, nam, hp, mp, s, a*agilityBonus, d*dexterityBonus, y, x),
-    agilityBonus(0.1), dexterityBonus(0.1) {
+) : agilityBonus(0.1), dexterityBonus(0.1),
+    Hero(gr, y, x, nam, hp, mp, s, a, d) {
 
+  this->agility = a + (a * agilityBonus);
+  this->dexterity = d + (d * dexterityBonus);
 }
 
 void Sorcerer::levelUp() {

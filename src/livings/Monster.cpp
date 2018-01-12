@@ -9,14 +9,14 @@
 
 Monster::Monster(
 	Grid* gr,
+	int y,
+	int x,
 	string nam,
 	int hp,
 	int min,
 	int max,
 	int arm,
-	double dodg,
-	int y,
-	int x
+	double dodg        
 )
 : Living(gr, nam, hp, y, x),
   minDamage(min),
