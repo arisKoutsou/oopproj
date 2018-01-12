@@ -75,13 +75,9 @@ Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
       ++auxJ;
     }
   }
-
-  cout << "Creating an instance of Grid" << endl;
 }
 
-Grid :: ~Grid() {
-  cout << "Destroying a Grid" << endl;
-}
+Grid :: ~Grid() {}
 
 int Grid :: getMaxX() const {
   return maxX;
