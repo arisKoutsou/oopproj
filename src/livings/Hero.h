@@ -43,11 +43,11 @@ public:
 	int getExpirience() const;
 	int getMagicPower() const;
 
-    int getMoney() const;
+        int getMoney() const;
 	int getStrength() const;
-    void move(directions direction);
-	virtual void levelUp() = 0;
-    void printStats() const;
+        void move(directions direction);
+ 	virtual void levelUp() = 0;
+        void printStats() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();

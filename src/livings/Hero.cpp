@@ -150,12 +150,17 @@ void Hero :: moveRight() {
 }
 
 void Hero :: move(directions direction) {
-  switch (direction) {
-  case UP: moveUp(); return;
-  case DOWN: moveDown(); return;
-  case LEFT: moveLeft(); return;
-  case RIGHT: moveRight(); return;
-  default: throw HeroMoveException("Unknown direction"); return;
+  try {
+    switch (direction) {
+    case UP: moveUp(); break;
+    case DOWN: moveDown(); break;
+    case LEFT: moveLeft(); break;
+    case RIGHT: moveRight(); break;
+    default: throw HeroMoveException("Unknown direction"); break;
+    }
+  }
+  catch (HeroMoveException& e) {
+    cout << e.what() << endl;
   }
 }
 
