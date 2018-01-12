@@ -25,13 +25,9 @@ Potion::Potion(
   agilityBoost(aB),
   strengthBoost(sB),
   dexterityBoost(dB)
-{
-	cout << "Potion constructed..." << endl;
-}
+{}
 
-Potion::~Potion() {
-	cout << "Potion destroyed !!!" << endl;
-}
+Potion::~Potion() {}
 
 double Potion::getAgilityBoost() const {
 	return agilityBoost;

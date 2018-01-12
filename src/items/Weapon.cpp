@@ -19,14 +19,9 @@ Weapon::Weapon(
 	int minL,
 	int dmg, bool both
 )
-: Item(name, val, s, minL), damage(dmg), requiresBothHands(both)
-{
-	cout << "Weapon constructed..." << endl;
-}
+: Item(name, val, s, minL), damage(dmg), requiresBothHands(both) {}
 
-Weapon::~Weapon() {
-	cout << "Weapon destroyed !!!" << endl;
-}
+Weapon::~Weapon() {}
 
 int Weapon::getDamage() const {
 	return damage;

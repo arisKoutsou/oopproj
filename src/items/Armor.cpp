@@ -19,14 +19,9 @@ Armor::Armor(
 	int minL,
 	double reduce
 )
-: Item(name, val, s, minL), reduceDamageTakenBy(reduce)
-{
-	cout << "Armor constructed..." << endl;
-}
+: Item(name, val, s, minL), reduceDamageTakenBy(reduce) {}
 
-Armor::~Armor() {
-	cout << "Armor destroyed !!!" << endl;
-}
+Armor::~Armor() {}
 
 double Armor::getDamageReductionFactor() const {
 	return reduceDamageTakenBy;

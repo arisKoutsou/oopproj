@@ -19,14 +19,9 @@ Spell::Spell(
 )
 : name(nam), value(val),
   minLevel(minL), magicPowerRequired(magicP),
-  minDamage(minDmg), maxDamage(maxDmg), sellRate(0.4)
-{
-	cout << "Spell constructed..." << endl;
-}
+  minDamage(minDmg), maxDamage(maxDmg), sellRate(0.4) {}
 
-Spell::~Spell() {
-	cout << "Spell destroyed !!!" << endl;
-}
+Spell::~Spell() {}
 
 int Spell::getMagicPowerRequired() const {
 	return magicPowerRequired;

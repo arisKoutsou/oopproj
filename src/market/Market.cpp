@@ -14,10 +14,7 @@ using namespace std;
 
 Market :: Market(int _maxCapacity)
 
-  : menu(*this), maxCapacity(_maxCapacity) {
-
-  cout << "Creating an instance of Market" << endl;
-}
+  : menu(*this), maxCapacity(_maxCapacity) {}
 
 Market :: ~Market() {
   while(items.empty() == false) {
@@ -28,9 +25,7 @@ Market :: ~Market() {
   while(spells.empty() == false) {
     delete spells.front();
     spells.pop_front();
-  }
-  
-  cout << "Destroying a Market" << endl;
+  }  
 }
 
 int Market :: getMaxCapacity() const {
@@ -104,4 +99,28 @@ void Market :: removeSpell(Spell* spell) {
 
   spells.remove(spell);
   delete spell;
+}
+
+Item* Market :: getItemByName(const string& name) {
+  list<Item*> :: iterator itemIterator = items.begin();
+
+  for ( ; itemIterator != items.end(); ++itemIterator) {
+    if ((*itemIterator)->getName() == name) {
+      return (*itemIterator);
+    }
+  }
+
+  return NULL;
+}
+
+Spell* Market :: getSpellByName(const string& name) {
+  list<Spell*> :: iterator spellIterator = spells.begin();
+
+  for ( ; spellIterator != spells.end(); ++spellIterator) {
+    if ((*spellIterator)->getName() == name) {
+      return (*spellIterator);
+    }
+  }
+
+  return NULL;
 }

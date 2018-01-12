@@ -21,10 +21,7 @@ Monster::Monster(
 : Living(gr, nam, hp, x, y),
   minDamage(min),
   maxDamage(max),
-  armor(arm), dodge(dodg)
-{
-
-}
+  armor(arm), dodge(dodg) {}
 
 int Monster::getArmor() const {
 	return armor;

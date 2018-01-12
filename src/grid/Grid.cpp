@@ -15,10 +15,7 @@ using namespace std;
 
 Grid :: Tile :: Tile(bool _nonAccessible, bool _common)
   
-  : nonAccessible(_nonAccessible), common(_common), market(NULL) {
-
-  cout << "Creating an instance of Tile" << endl;
-}
+  : nonAccessible(_nonAccessible), common(_common), market(NULL) {}
 
 Grid :: Tile :: ~Tile() {
   while (livings.empty() == false) {
@@ -27,8 +24,6 @@ Grid :: Tile :: ~Tile() {
   }
 
   delete market;
-  
- cout << "Destroying a Tile" << endl;
 }
 
 bool Grid :: Tile :: isNonAccessible() const {
@@ -112,14 +107,10 @@ void Grid :: addMarket(int row, int col, Market* _market) {
   marketCount++;
 }
 
-<<<<<<< HEAD
+
 const Grid :: Tile& Grid :: getTile(int row, int col) const {
-   return (tiles[row][col]);
-=======
-const Grid::Tile* Grid :: getTile(int row, int col) const {
-   return &(tiles[row][col]);
->>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
-}
+  return (tiles[row][col]);
+}   
 
 void Grid :: addLiving(int row, int col, Living* living) {
   

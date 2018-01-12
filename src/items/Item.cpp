@@ -19,14 +19,9 @@ Item::Item(
 )
 : name(nam), value(val),
   sellFor(s), minLevel(minL),
-  sellRate(0.5)
-{
-	cout << "Item constructed..." << endl;
-}
+  sellRate(0.5) {}
 
-Item::~Item() {
-	cout << "Item destroyed !!!" << endl;
-}
+Item::~Item() {}
 
 string Item::getName() const {
 	return name;

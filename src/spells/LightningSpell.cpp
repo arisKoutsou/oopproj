@@ -21,10 +21,7 @@ LightningSpell::LightningSpell(
 )
 : Spell(nam, val, minL, magicP, minDmg, maxDmg),
   oponentDodgeReduction(reduction),
-  rounds(rnds)
-{
-	// Put cnstr.
-}
+  rounds(rnds) {}
 
 double LightningSpell::reduceOponentDodgeBy() const {
 	return oponentDodgeReduction;

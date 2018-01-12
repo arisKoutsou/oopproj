@@ -21,10 +21,7 @@ FireSpell::FireSpell(
 )
 : Spell(nam, val, minL, magicP, minDmg, maxDmg),
   oponentArmorReduction(reduction),
-  rounds(rnds)
-{
-	// Put cnstr.
-}
+  rounds(rnds) {}
 
 double FireSpell::reduceOponentArmorBy() const {
 	return oponentArmorReduction;

@@ -26,7 +26,9 @@ public:
   int getCurrentItems() const; 	// returns the current items
   int getCurrentSpells() const; // returns the current spells
   Menu& getMenu();	     // returns the market menu
-  
+  Item* getItemByName(const string& name);
+  Spell* getSpellByName(const string& name);
+
   void printInfo() const;  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market
   void addSpell(Spell* spell); // adds a spell in the market

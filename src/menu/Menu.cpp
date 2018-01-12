@@ -14,8 +14,6 @@ Menu :: Menu(const Market& market) {
   this->options.push_back("Buy Item/Spell");
   this->options.push_back("Sell Item/Spell");
   this->options.push_back("Exit Market");
-
-  cout << "Creating an instance of Market Menu" << endl;
 }
 
 Menu :: Menu(const Inventory& inventory) {
@@ -24,13 +22,9 @@ Menu :: Menu(const Inventory& inventory) {
   this->options.push_back("Discard Item/Spell");
   this->options.push_back("Use Potion");
   this->options.push_back("Exit Inventory");
-
-  cout << "Creating an instance of Inventory Menu" << endl;
 }
 
-Menu :: ~Menu() {
-  // cout << "Destroying a Menu" << endl; // NEEDS FIXING ... Constructor message doesnt apear...
-}
+Menu :: ~Menu() {}
 
 int Menu :: getNumberOfOptions() const {
   return (options.size());

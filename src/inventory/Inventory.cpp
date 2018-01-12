@@ -15,10 +15,7 @@ using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : menu(*this), maxCapacity(_maxCapacity) {
-
-  cout << "Creating an instance of Inventory" << endl;
-}
+  : menu(*this), maxCapacity(_maxCapacity) {}
 
 Inventory :: ~Inventory() {
   while(items.empty() == false) {
@@ -30,8 +27,6 @@ Inventory :: ~Inventory() {
     delete spells.front();
     spells.pop_front();
   }
-  
-  cout << "Destroying an Inventory" << endl;
 }
 
 int Inventory :: getMaxCapacity() const {

@@ -21,10 +21,7 @@ IceSpell::IceSpell(
 )
 : Spell(nam, val, minL, magicP, minDmg, maxDmg),
   oponentDamageReduction(reduction),
-  rounds(rnds)
-{
-	// Put cnstr.
-}
+  rounds(rnds) {}
 
 double IceSpell::reduceOponentDamageRangeBy() const {
 	return oponentDamageReduction;
