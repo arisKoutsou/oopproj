@@ -20,8 +20,8 @@ class Sorcerer: public Hero {
 	public:
 		Sorcerer(
 			Grid* gr,
-			int x,
 			int y,
+			int x,
 			string nam,
 			int hp = 500,
 			int mp = 200,

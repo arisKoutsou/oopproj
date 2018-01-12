@@ -10,15 +10,15 @@
 
 Paladin::Paladin(
 	Grid* gr,
-	int x,
 	int y,
+	int x,
 	string nam,
 	int hp,
 	int mp,
 	int s,
 	int a,
 	int d
-) : Hero(gr, nam, hp, mp, s*strengthBonus, a, d*dexterityBonus, x, y),
+) : Hero(gr, nam, hp, mp, s*strengthBonus, a, d*dexterityBonus, y, x),
     strengthBonus(0.1), dexterityBonus(0.1) {
 
 }

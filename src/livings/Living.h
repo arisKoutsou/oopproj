@@ -35,8 +35,8 @@ public:
 	        Grid* gr,
 	        string nam,
 		int hp = 500,
-		int x = 0,
-		int y = 0
+		int y = 0,
+		int x = 0
 	);
 	virtual ~Living();
 	int getHealthPower() const;

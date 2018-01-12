@@ -22,8 +22,8 @@ public:
 		int max = 20,
 		int arm = 5,
 		double dodg = 0.1,
-		int x = 0,
-		int y = 0
+		int y = 0,
+		int x = 0
 	);
 	int getArmor() const;
 	double getDodge() const;

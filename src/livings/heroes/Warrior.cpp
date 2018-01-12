@@ -9,15 +9,15 @@
 
 Warrior::Warrior(
 	Grid* gr,
-	int x,
 	int y,
+	int x,
 	string nam,
 	int hp,
 	int mp,
 	int s,
 	int a,
 	int d
-) : Hero(gr, nam, hp, mp, s*strengthBonus, a*agilityBonus, d, x, y),
+) : Hero(gr, nam, hp, mp, s*strengthBonus, a*agilityBonus, d, y, x),
     agilityBonus(0.1), strengthBonus(0.1) {
 
 }

@@ -13,8 +13,8 @@ Living::Living(
 	Grid* gr,
 	string nam,
 	int hp,
-	int x,
-	int y
+	int y,
+	int x
 )
   : p(x, y), grid(gr),
     name(nam), level(1),

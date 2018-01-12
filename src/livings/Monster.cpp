@@ -15,10 +15,10 @@ Monster::Monster(
 	int max,
 	int arm,
 	double dodg,
-	int x,
-	int y
+	int y,
+	int x
 )
-: Living(gr, nam, hp, x, y),
+: Living(gr, nam, hp, y, x),
   minDamage(min),
   maxDamage(max),
   armor(arm), dodge(dodg) {}
