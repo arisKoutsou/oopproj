@@ -34,10 +34,11 @@ public:
 		int s = 100,
 		int a = 250,
 		int d = 100,
-		int x = 0,
-		int y = 0
+		int y = 0,
+		int x = 0
 	);
-
+        ~Hero();
+  
 	int getAgility() const;
 	int getDexterity() const;
 	int getExpirience() const;

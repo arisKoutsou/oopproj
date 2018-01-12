@@ -5,6 +5,7 @@
  *      Author: aris
  */
 
+#include <cstring>
 #include "Hero.h"
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
@@ -13,6 +14,9 @@
 #include "../items/Armor.h"
 #include "../items/Potion.h"
 #include "../spells/Spell.h"
+#include "../spells/IceSpell.h"
+#include "../spells/FireSpell.h"
+#include "../spells/LightningSpell.h"
 #include "../inventory/Inventory.h"
 #include "../market/Market.h"
 
@@ -24,10 +28,10 @@ Hero::Hero(
 	int s,
 	int a,
 	int d,
-	int x,
-	int y
+	int y,
+	int x
 )
-: Living(gr, nam, hp, x, y),
+: Living(gr, nam, hp, y, x),
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
@@ -35,6 +39,17 @@ Hero::Hero(
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
   shield(NULL) {}
+
+Hero :: ~Hero() {
+  delete leftHandWeapon;
+  delete rightHandWeapon;
+  delete shield;
+
+  while (spells.empty() == false) {
+    delete spells.front();
+    spells.pop_front();
+  }
+}
 
 int Hero::getAgility() const {
 	return agility;
@@ -275,52 +290,42 @@ void Hero :: checkInventory() {
 }
 
 void Hero::buy(const string& itemName) {
-	// Market* currentMarket;
-
-	// if ( grid->getTile(getPosition().getY(), getPosition().getX()).hasMarket() ) {
-	// 	currentMarket =
-	// 		grid->getTile(
-	// 			getPosition().getY(),
-	// 			getPosition().getX()
-	// 		).getMarket();
-	// } else {
-	// 	cout << endl << "There is no market at the current Tile!" << endl;
-	// 	return;
-	// }
-	// Item* itemToBuy;
-
-	// list<Item*> :: const_iterator itemIterator = currentMarket->getItemList().begin();
-
-	// for ( ; itemIterator != currentMarket->getItemList().end() ; ++itemIterator) {
-	// 	if ((*itemIterator)->getName() == itemName) {
-	// 		if ((*itemIterator)->buyFor() < this->getMoney()) {
-	// 			this->inventory.addItem(*itemIterator);
-	// 			this->money -= (*itemIterator)->buyFor();
-	// 			currentMarket->removeItem(*itemIterator);
-	// 			return;
-	// 		} else {
-	// 			cout << endl << "Not enough gold. You need "
-	// 				<< (*itemIterator)->buyFor() - this->getMoney() << " more." << endl;
-	// 		}
-	// 	} else {
-	// 		cout << endl << "Item/Spell doesn't exist on this Market." << endl;
-	// 	}
-
-	// }
   Market* currentMarket = grid->getTile(getPosition().getY(), getPosition().getX()).getMarket();
 
   Item* itemToBuy = currentMarket->getItemByName(itemName);
 
   if (itemToBuy != NULL) {
-    inventory.addItem(itemToBuy);
+    string kind = itemToBuy->kindOf();
+    Item* itemToAdd;
+    
+    if (kind == "Weapon") {
+      itemToAdd = new Weapon(*static_cast<Weapon*>(itemToBuy));
+    } else if (kind == "Armor") {
+      itemToAdd = new Armor(*static_cast<Armor*>(itemToBuy));
+    } else {
+      itemToAdd = new Potion(*static_cast<Potion*>(itemToBuy));
+    }
+
+    inventory.addItem(itemToAdd);
     money -= itemToBuy->buyFor();
     return;
   }
 
   Spell* spellToBuy = currentMarket->getSpellByName(itemName);
-
+  
   if (spellToBuy != NULL) {
-    inventory.addSpell(spellToBuy);
+    string kind = spellToBuy->kindOf();
+    Spell* spellToAdd;
+
+    if (kind == "IceSpell") {
+      spellToAdd = new IceSpell(*static_cast<IceSpell*>(spellToBuy));
+    } else if (kind == "FireSpell") {
+      spellToAdd = new FireSpell(*static_cast<FireSpell*>(spellToBuy));
+    } else {
+      spellToAdd = new LightningSpell(*static_cast<LightningSpell*>(spellToBuy));
+    }
+
+    inventory.addSpell(spellToAdd);
     money -= spellToBuy->getValue();
     return;
   }
@@ -330,15 +335,16 @@ void Hero::buy(const string& itemName) {
 
 void Hero::sell(const string& itemName) {
         Item* itemToSell = inventory.getItemByName(itemName);
+
 	if (itemToSell != NULL) {
-		inventory.removeItem(itemToSell);
+		inventory.removeAndDeleteItem(itemToSell);
 		money += itemToSell->sellsFor();
 		return;
 	}
 
 	Spell* spellToSell = inventory.getSpellByName(itemName);
 	if (spellToSell != NULL) {
-		inventory.removeSpell(spellToSell);
+		inventory.removeAndDeleteSpell(spellToSell);
 		money += spellToSell->getValue();
 		return;
 	}
@@ -430,7 +436,7 @@ void Hero :: enterMarket(Market* market) {
   market->getMenu().displayMenu();
   int selection;
   string buyPrompt = "Please enter the name of the item/spell you want to buy";
-  string sellPrompt = "Please ente the name of the item/spell you want to sell";
+  string sellPrompt = "Please enter the name of the item/spell you want to sell";
   
   while ((selection = market->getMenu().getSelection())) {
     switch (selection) {
@@ -457,5 +463,6 @@ void Hero :: enterMarket(Market* market) {
       return;
     }
     }
+    market->getMenu().displayMenu();
   }
 }
