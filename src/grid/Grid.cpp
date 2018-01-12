@@ -108,12 +108,17 @@ void Grid :: addMarket(int row, int col, Market* _market) {
   }
   // NOTE (George): We don't need copy constructor for this
   // as we don't have any pointers as data members
-  tiles[row][col].market = _market;
+  tiles[col][row].market = _market;
   marketCount++;
 }
 
+<<<<<<< HEAD
 const Grid :: Tile& Grid :: getTile(int row, int col) const {
    return (tiles[row][col]);
+=======
+const Grid::Tile* Grid :: getTile(int row, int col) const {
+   return &(tiles[row][col]);
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 }
 
 void Grid :: addLiving(int row, int col, Living* living) {

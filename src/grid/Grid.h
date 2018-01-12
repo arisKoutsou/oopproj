@@ -43,7 +43,11 @@ public:
   int getMaxX() const;
   int getMaxY() const;
 
+<<<<<<< HEAD
   const Tile& getTile(int row, int col) const;  // returns the tile at row, col
+=======
+  const Tile* getTile(int row, int col) const;  // returns the tile at row, col
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 
   // Adds a makret in tile which is at (row, col) location
   void addMarket(int row, int col, Market* market);
