@@ -86,17 +86,7 @@ int main() {
 	
 	grid.displayMap();
 
-	try {
-	  warrior->move(Hero::UP);
-	  
-	  // warrior->checkInventory();
-	  // warrior->buy("Excalibur");
-	  // warrior->checkInventory();
-
-	}
-	catch (HeroMoveException& e) {
-	  cout << e.what() << endl;
-	}
+	warrior->move(Hero::UP);
 
 	int heroY = warrior->getPosition().getY();
 	int heroX = warrior->getPosition().getX();
@@ -108,7 +98,10 @@ int main() {
 	}
 	
 	grid.displayMap();
-	
+
+	warrior->checkInventory();
+	warrior->printStats();
+
 	delete[] randomTileInfo;
 
 	return EXIT_SUCCESS;
