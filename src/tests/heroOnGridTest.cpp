@@ -79,7 +79,7 @@ int main() {
 	// Νow add a Hero on the grid.
 	Hero* warrior = new Warrior(
 		&grid,			// This warrior lives on the previously made grid.
-		3, 0,			// Put him on the 1st row, 3rd column.
+		0, 3,			// Put him on the 1st row, 3rd column.
 		"Tryndamere"	// Name.
 		// Rest of the arguments to constructor default...
 	);
