@@ -50,10 +50,14 @@ bool FireSpell :: operator==(const FireSpell& rValue) const {
   bool sameOponentArmorReduction;
   bool sameRounds;
 
-  sameSpells = (static_cast<Spell>(*this) == rValue);
+  sameSpells = Spell::operator==(rValue);
   sameOponentArmorReduction =
     (this->oponentArmorReduction == rValue.oponentArmorReduction) ? true : false;
   sameRounds = (this->rounds == rValue.rounds) ? true : false;
 
   return (sameSpells && sameOponentArmorReduction && sameRounds);
+}
+
+const string FireSpell :: kindOf() const {
+  return "FireSpell";
 }

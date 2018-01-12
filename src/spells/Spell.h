@@ -33,7 +33,7 @@ public:
 	int sellsFor() const;
 
 	virtual string getInfo() const;
-
+        virtual const string kindOf() const = 0;
   
         // Added by: (George Liontos)
         virtual bool operator==(const Spell& rValue) const;

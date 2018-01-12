@@ -30,6 +30,7 @@ public:
 	string getInfo() const;
 
         // Added by: (George Liontos)
+        const string kindOf() const;
         bool operator==(const IceSpell& rValue) const;
 private:
 	double 	oponentDamageReduction;

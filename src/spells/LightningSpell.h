@@ -30,6 +30,7 @@ public:
 	string getInfo() const;
 
         // Added by: (George Liontos)
+        const string kindOf() const;
         bool operator==(const LightningSpell& rValue) const;
 private:
 	double 	oponentDodgeReduction;	// Decreases the possibility that an opponent dodges.

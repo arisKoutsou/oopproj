@@ -50,10 +50,14 @@ bool LightningSpell :: operator==(const LightningSpell& rValue) const {
   bool sameOponentDodgeReduction;
   bool sameRounds;
 
-  sameSpells = (static_cast<Spell>(*this) == rValue);
+  sameSpells = Spell::operator==(rValue);;
   sameOponentDodgeReduction =
     (this->oponentDodgeReduction == rValue.oponentDodgeReduction) ? true : false;
   sameRounds = (this->rounds == rValue.rounds) ? true : false;
 
   return (sameSpells && sameOponentDodgeReduction && sameRounds);
+}
+
+const string LightningSpell :: kindOf() const {
+  return "LightningSpell";
 }
