@@ -14,6 +14,7 @@
 #include "../items/Potion.h"
 #include "../spells/Spell.h"
 #include "../inventory/Inventory.h"
+#include "../market/Market.h"
 
 Hero::Hero(
 	Grid* gr,
@@ -161,8 +162,8 @@ void Hero :: move(directions direction) {
   }
 }
 
-string Hero :: getUserInput() {
-  cout << "Please enter the name of the item/spell you want to equip" << endl;
+string Hero :: getUserInput(const string& prompt) {
+  cout << prompt << endl;
 
   string input;
   cin >> input;
@@ -234,7 +235,10 @@ void Hero :: usePotion(const string& name) {
 void Hero :: checkInventory() {
   this->inventory.getMenu().displayMenu();
   int selection;
-
+  string equipPrompt = "Please enter the name of the item/spell you want to equip";
+  string discardPrompt = "Please enter the name of the item/spell you want to discard";
+  string usePotionPrompt = "Please enter the name of the potion you want to use";
+  
   while ((selection = this->inventory.getMenu().getSelection())) {
     switch (selection) {
     case 1: {
@@ -242,19 +246,19 @@ void Hero :: checkInventory() {
       break;
     }
     case 2: {
-      string input = getUserInput();
+      string input = getUserInput(equipPrompt);
     
       this->equip(input);
       break;
     }
     case 3: {
-      string input = getUserInput();
+      string input = getUserInput(discardPrompt);
 
       this->discard(input);
       break;      
     }
     case 4: {
-      string input = getUserInput();
+      string input = getUserInput(usePotionPrompt);
 
       this->usePotion(input);
       break;
@@ -378,4 +382,38 @@ void Hero :: printStats() const {
        << endl
        << "Right Hand: " << ((this->rightHandWeapon) ? this->rightHandWeapon->getInfo() : "")
        << endl;
+}
+
+void Hero :: enterMarket(Market* market) {
+  market->getMenu().displayMenu();
+  int selection;
+  string buyPrompt = "Please enter the name of the item/spell you want to buy";
+  string sellPrompt = "Please ente the name of the item/spell you want to sell";
+  
+  while ((selection = market->getMenu().getSelection())) {
+    switch (selection) {
+    case 1: {
+     market->printInfo();
+     break; 
+    }
+    case 2: {
+      string input = getUserInput(buyPrompt);
+      
+      this->buy(input);
+      break;
+    }
+    case 3: {
+      cout << "You have these items/spells for sale" << endl << endl;
+      this->inventory.printInfo();
+      string input = getUserInput(sellPrompt);
+      
+      this->sell(input);
+      break;
+    }
+    case 4: {
+      market->getMenu().clearMenu();
+      return;
+    }
+    }
+  }
 }

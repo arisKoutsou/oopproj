@@ -54,7 +54,7 @@ public:
 	void equip(const string& name);
 	void discard(const string& name);
 	void usePotion(const string& name);
-  
+        void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
 protected:
@@ -86,7 +86,7 @@ private:
         void moveDown();
         void moveLeft();
         void moveRight();
-        string getUserInput();
+        string getUserInput(const string& prompt);
 };
 
 #endif /* LIVINGS_HERO_H_ */
