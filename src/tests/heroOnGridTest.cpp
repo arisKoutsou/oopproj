@@ -76,20 +76,30 @@ int main() {
 	// Νow add a Hero on the grid.
 	Hero* warrior = new Warrior(
 		&grid,			// This warrior lives on the previously made grid.
-		2, 0,			// Put him on the 1st row, 3rd column.
+		3, 0,			// Put him on the 1st row, 3rd column.
 		"Tryndamere"	// Name.
 		// Rest of the arguments to constructor default...
 	);
 	
-	grid.print();
+	grid.displayMap();
+
 	try {
-	  warrior->move(Hero::DOWN);
+	  warrior->move(Hero::UP);
 	}
 	catch (HeroMoveException& e) {
 	  cout << e.what() << endl;
 	}
 
-	grid.print();
+	int heroY = warrior->getPosition().getY();
+	int heroX = warrior->getPosition().getX();
+
+	bool isOnMarket = grid.getTile(heroY, heroX).hasMarket();
+	
+	if (isOnMarket) {
+          warrior->enterMarket(grid.getTile(heroY, heroX).getMarket());
+	}
+	
+	grid.displayMap();
 	
 	Item* sword = new Weapon("Excalibur");
 
@@ -99,8 +109,8 @@ int main() {
 	
 	warrior->checkInventory();
 
-	warrior->printStats();
-	
+	warrior->printStats();	
+
 	delete[] randomTileInfo;
 
 	return EXIT_SUCCESS;
