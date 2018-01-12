@@ -29,7 +29,7 @@ Menu :: Menu(const Inventory& inventory) {
 }
 
 Menu :: ~Menu() {
-  cout << "Destroying a Menu" << endl;
+  // cout << "Destroying a Menu" << endl; // NEEDS FIXING ... Constructor message doesnt apear...
 }
 
 int Menu :: getNumberOfOptions() const {
@@ -45,7 +45,7 @@ void Menu :: displayMenu() const {
 
 void Menu :: clearMenu() const {
   // Yes I know, that way is pathetic... :)
-  cout << string(100, '\n');
+  //cout << string(100, '\n');	// Can't debug... removed temporarily.
 }
 
 int Menu :: getSelection() {

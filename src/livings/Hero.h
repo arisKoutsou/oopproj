@@ -13,6 +13,7 @@
 #include <vector>
 
 class Grid;
+class Tile;
 class Weapon;
 class Armor;
 
@@ -42,15 +43,15 @@ public:
 	int getExpirience() const;
 	int getMagicPower() const;
 
-        int getMoney() const;
+    int getMoney() const;
 	int getStrength() const;
-        void move(directions direction);
+    void move(directions direction);
 	virtual void levelUp() = 0;
-        void printStats() const;
+    void printStats() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();
-        Inventory& getInventory();
+	Inventory& getInventory();
 	void equip(const string& name);
 	void discard(const string& name);
 	void usePotion(const string& name);

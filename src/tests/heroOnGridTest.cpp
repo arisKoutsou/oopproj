@@ -73,23 +73,40 @@ int main() {
 	Market* market1 = new Market(10);	// maxCapacity of market1 is 10.
 	grid.addMarket(1, 3, market1);		// Add a market at the 2nd row, 4th column.
 
+	Item* sword = new Weapon("Excalibur");
+	market1->addItem(sword);		// Add an item to the Market.
+
 	// Νow add a Hero on the grid.
 	Hero* warrior = new Warrior(
 		&grid,			// This warrior lives on the previously made grid.
+<<<<<<< HEAD
 		3, 0,			// Put him on the 1st row, 3rd column.
+=======
+		1, 3,			// Put him on the 1st row, 3rd column.
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 		"Tryndamere"	// Name.
 		// Rest of the arguments to constructor default...
 	);
 	
 	grid.displayMap();
 
+<<<<<<< HEAD
 	try {
 	  warrior->move(Hero::UP);
+=======
+	warrior->checkInventory();
+	warrior->buy("Excalibur");
+	warrior->checkInventory();
+
+	try {
+	  warrior->move(Hero::LEFT);
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 	}
 	catch (HeroMoveException& e) {
 	  cout << e.what() << endl;
 	}
 
+<<<<<<< HEAD
 	int heroY = warrior->getPosition().getY();
 	int heroX = warrior->getPosition().getX();
 
@@ -102,15 +119,25 @@ int main() {
 	grid.displayMap();
 	
 	Item* sword = new Weapon("Excalibur");
+=======
+	grid.displayMap();
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 
+	/*
 	warrior->getInventory().addItem(sword);
 
 	warrior->printStats();
 	
-	warrior->checkInventory();
 
+
+<<<<<<< HEAD
 	warrior->printStats();	
 
+=======
+	warrior->printStats();
+	*/
+	
+>>>>>>> 49c155757117680bfab184e91559dc27e60f9daf
 	delete[] randomTileInfo;
 
 	return EXIT_SUCCESS;
