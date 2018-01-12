@@ -19,7 +19,7 @@ public:
 		int minL = 3,
 		double reduce = 0.1	// if he takes 100 damages, he really takes 90.
 	);
-	~Armor();
+        ~Armor();
 
 	double getDamageReductionFactor() const;	// Returns private member.
 	string getInfo() const;	// Uses base ...
