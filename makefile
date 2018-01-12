@@ -26,9 +26,6 @@ bin/marketTest : src/tests/marketTest.cpp objects/market/*.o objects/menu/*.o ob
 bin/spellTest : src/tests/spellTest.cpp objects/spells/*.o
 	$(CC) $(CFLAGS) src/tests/spellTest.cpp objects/spells/*.o -o bin/spellTest
 
-# bin/livingTest : src/tests/livingTest.cpp objects/livings/Living.o
-# 	$(CC) $(CFLAGS) src/tests/livingTest.cpp objects/livings/Living.o -o bin/livingTest
-
 bin/heroOnGridTest : src/tests/heroOnGridTest.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 		       objects/exceptions/*.o objects/inventory/*.o objects/menu/*.o objects/market/*.o objects/random/*.o \
 		       objects/items/*.o objects/spells/*.o
