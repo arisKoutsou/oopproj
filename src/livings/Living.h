@@ -19,12 +19,12 @@ public:
     struct Position {
 	  Position(int x, int y);
 	  ~Position();
-	   
+
+          void setX(int x);
+          void setY(int y);
 	  int getX() const;
 	  int getY() const;
-	  void setX(int x);
-	  void setY(int y);
-
+      
 	  bool operator==(const Position& rValue) const;
 
 	  int x;
@@ -44,7 +44,7 @@ public:
 	const string& getName() const;
   
         // Added by: (George Liontos)
-        Position getPosition() const;
+        Position& getPosition();
         virtual void printStats() const = 0;
         virtual bool operator==(const Living& rValue) const;
 protected:
@@ -53,7 +53,7 @@ private:
 	string 	name;
 	int 	level;			// Level starting from 0.
 	int 	healthPower;	// hp with a stupid name...
-    Position p;
+        Position p;
 
 };
 

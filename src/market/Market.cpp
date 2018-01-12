@@ -49,15 +49,7 @@ int Market :: getCurrentSpells() const {
   return (spells.size());
 }
 
-list<Item*> Market :: getItemList() const {
-  return items;
-}
-
-list<Spell*> Market :: getSpellList() const {
-  return spells;
-}
-
-Menu Market :: getMenu() const {
+Menu& Market :: getMenu() {
   return menu;
 }
 

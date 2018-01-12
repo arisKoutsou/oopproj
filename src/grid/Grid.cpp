@@ -17,7 +17,7 @@ Grid :: Tile :: Tile(bool _nonAccessible, bool _common)
   
   : nonAccessible(_nonAccessible), common(_common), market(NULL) {
 
-//  cout << "Creating an instance of Tile" << endl;
+  cout << "Creating an instance of Tile" << endl;
 }
 
 Grid :: Tile :: ~Tile() {
@@ -28,7 +28,7 @@ Grid :: Tile :: ~Tile() {
 
   delete market;
   
-//  cout << "Destroying a Tile" << endl;
+ cout << "Destroying a Tile" << endl;
 }
 
 bool Grid :: Tile :: isNonAccessible() const {
@@ -112,7 +112,7 @@ void Grid :: addMarket(int row, int col, Market* _market) {
   marketCount++;
 }
 
-Grid :: Tile Grid :: getTile(int row, int col) const {
+const Grid :: Tile& Grid :: getTile(int row, int col) const {
    return (tiles[row][col]);
 }
 

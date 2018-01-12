@@ -50,14 +50,6 @@ int Inventory :: getCurrentSpells() const {
   return (spells.size());
 }
 
-// list<Item*> Inventory :: getItemList() const {
-//   return items;
-// }
-
-// list<Spell*> Inventory :: getSpellList() const {
-//   return spells;
-// }
-
 void Inventory :: printInfo() const {
   list<Item*> :: const_iterator itemIterator = items.begin();
   list<Spell*> :: const_iterator spellIterator = spells.begin();
@@ -133,7 +125,7 @@ void Inventory :: removeSpell(Spell* spell) {
   spells.remove(spell);
 }
 
-Menu Inventory :: getMenu() const {
+Menu& Inventory :: getMenu() {
   return menu;
 }
 

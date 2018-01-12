@@ -25,9 +25,7 @@ public:
   int getCurrentCapacity() const; // returns the current capacity
   int getCurrentItems() const; 	// returns the current items
   int getCurrentSpells() const; // returns the current spells
-  list<Item*> getItemList() const; // returns the item list
-  list<Spell*> getSpellList() const; // returns the spell list
-  Menu getMenu() const;	     // returns the market menu
+  Menu& getMenu();	     // returns the market menu
   
   void printInfo() const;  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market

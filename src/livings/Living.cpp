@@ -55,7 +55,7 @@ bool Living :: operator==(const Living& rValue) const {
   return (sameName && sameLevel && sameHealthPower && samePosition);
 }
 
-Living :: Position Living :: getPosition() const {
+Living :: Position& Living :: getPosition() {
   return p;
 }
 
@@ -78,7 +78,7 @@ void Living :: Position :: setX(int _x) {
 
 void Living :: Position :: setY(int _y) {
   y = _y;
-} 
+}
 
 bool Living :: Position :: operator==(const Position& rValue) const {
   bool sameX;
@@ -93,5 +93,5 @@ bool Living :: Position :: operator==(const Position& rValue) const {
 void Living :: printStats() const {
   cout << "Name: " << this->name << endl
        << "Level: " << this->level << endl
-       << "Health: " << this->healthPower << endl;					     
+       << "Health: " << this->healthPower << endl;
 }
