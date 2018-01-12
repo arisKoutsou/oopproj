@@ -87,7 +87,7 @@ objects/livings/Living.o : src/livings/Living.cpp src/livings/Living.h src/grid/
 objects/livings/Hero.o : src/livings/Hero.cpp src/livings/Hero.h src/livings/Living.h \
 			   src/menu/Menu.h src/grid/Grid.h src/exceptions/heroExceptions.h \
 			   src/items/Item.h src/items/Weapon.h src/items/Armor.h src/items/Potion.h \
-			   src/spells/Spell.h
+			   src/spells/Spell.h src/market/Market.h
 	$(CC) $(CFLAGS) -c src/livings/Hero.cpp -o objects/livings/Hero.o
 
 objects/livings/Monster.o : src/livings/Monster.cpp src/livings/Monster.h src/livings/Living.h
