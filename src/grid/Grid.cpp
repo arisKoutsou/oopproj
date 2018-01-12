@@ -99,7 +99,7 @@ void Grid :: addMarket(int row, int col, Market* _market) {
   }
   // NOTE (George): We don't need copy constructor for this
   // as we don't have any pointers as data members
-  tiles[col][row].market = _market;
+  tiles[row][col].market = _market;
   marketCount++;
 }
 
