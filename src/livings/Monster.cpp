@@ -4,6 +4,7 @@
  *  Created on: Jan 4, 2018
  *      Author: aris
  */
+#include <iostream>
 
 #include "./Monster.h"
 
@@ -42,3 +43,12 @@ int Monster::getMinDamage() const {
 string Monster :: kindOf() const {
   return "Monster";
 }
+
+void Monster::dealDamage(int damageDealt) {
+	Living::dealDamage(damageDealt);
+	if (this->getHealthPower() <= 0) {
+		cout << "A monster died..." << endl; // This needs fixing...
+	}
+}
+
+

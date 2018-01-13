@@ -31,8 +31,8 @@ public:
 	int getMaxDamage() const;
 	int getMinDamage() const;
         string kindOf() const;
-protected:
-        Grid* grid;  
+
+    void dealDamage(int damageDealt);	// Reduces health by damageDealt.
 private:
 	int minDamage;
 	int maxDamage;
