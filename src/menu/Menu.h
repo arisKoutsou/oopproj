@@ -9,18 +9,18 @@
 
 #include <iostream>
 #include <vector>
-//#include "../market/Market.h"
-//#include "../inventory/Inventory.h"
 
 using namespace std;
 
 class Market;
 class Inventory;
+class Hero;
 
 class Menu {
 public:
   Menu(const Market& market);
   Menu(const Inventory& inventory);
+  Menu(const Hero& hero);
   ~Menu();
 
   int getNumberOfOptions() const; // Returns the number of options
