@@ -45,6 +45,13 @@ int Inventory :: getCurrentSpells() const {
   return (spells.size());
 }
 
+bool Inventory :: hasItems() const {
+  return (items.empty() == false);
+}
+
+bool Inventory :: hasSpells() const {
+  return (spells.empty() == false);
+}
 void Inventory :: printInfo() const {
   list<Item*> :: const_iterator itemIterator = items.begin();
   list<Spell*> :: const_iterator spellIterator = spells.begin();
@@ -131,6 +138,14 @@ void Inventory :: removeSpell(Spell* spell) {
 
 Menu& Inventory :: getMenu() {
   return menu;
+}
+
+void Inventory :: printSpells() const {
+  list<Spell*> :: const_iterator it = spells.begin();
+  for ( ; it != spells.end(); ++it) {
+    cout << (*it)->getInfo() << endl;
+  }
+  cout << endl;
 }
 
 // Added by aris.

@@ -25,12 +25,15 @@ public:
   int getCurrentCapacity() const; // return  the current capacity
   int getCurrentItems() const;	// returns the current items
   int getCurrentSpells() const;	// return the current spells
+  bool hasSpells() const;
+  bool hasItems() const;
   Menu& getMenu(); // returns the menu
   Item* getItemByName(const string& name) const; // returns a pointer to an item.
   Spell* getSpellByName(const string& spellName) const;// return pointer to spell.
   
   // Prints all the items and spells, including their info.
   void printInfo() const;
+  void printSpells() const;
   void addItem(Item* item); // Adds an item to the inventory
   void addSpell(Spell* spell); // Adds a spell to the inventory
   void removeAndDeleteItem(Item* item); // Completely removes an items from the inventory
