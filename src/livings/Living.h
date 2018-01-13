@@ -13,6 +13,7 @@
 using namespace std;
 
 class Grid;
+class Menu;
 
 class Living {
 public:
@@ -43,6 +44,7 @@ public:
 
 	int getHealthPower() const;
 	int getLevel() const;
+        void setHealthPower(int health);
 	const string& getName() const;  
         // Added by: (George Liontos)
         Position& getPosition();

@@ -38,6 +38,11 @@ const string& Living::getName() const {
 }
 
 // Implemented by: (George Liontos)
+
+void Living :: setHealthPower(int health) {
+  healthPower = health;
+}
+
 bool Living :: operator==(const Living& rValue) const {
   bool sameName;
   bool sameLevel;
