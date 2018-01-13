@@ -19,6 +19,8 @@
 #include "../spells/LightningSpell.h"
 #include "../inventory/Inventory.h"
 #include "../market/Market.h"
+#include "../random/Random.h"
+#include "Monster.h"
 
 Hero::Hero(
 	Grid* gr,
@@ -38,6 +40,7 @@ Hero::Hero(
   expirience(0), inventory(),
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
+  battleMenu(*this),
   shield(NULL) {}
 
 Hero :: ~Hero() {
@@ -487,4 +490,36 @@ void Hero :: enterMarket(Market* market) {
 
 string Hero :: kindOf() const {
   return "Hero";
+}
+
+void Hero :: castSpell(Monster* target) {
+  if (this->inventory.hasSpells() == false) {
+    cout << "You have no spells for use" << endl;
+    return;
+  }
+  cout << "You currently have these spells" << endl << endl;
+  this->inventory.printSpells();
+  Spell* spellToCast;
+  do {
+    cout << "Choose a spell to cast (name): ";
+    string name;
+    cin >> name;
+    spellToCast = this->inventory.getSpellByName(name);
+    if (spellToCast == NULL) {
+      cout << "There's no such a spell" << endl;
+    }    
+  } while (spellToCast == NULL);
+  Random rng;
+  double dodgeProbability = rng.from0to1();
+  if (dodgeProbability <= target->getDodge()) {
+    cout << "The monster dodged your attack" << endl;
+    return;
+  }
+  int damage = this->agility +
+    rng.fromMintoMax(spellToCast->getMinDamage(),
+		     spellToCast->getMaxDamage());
+  int newHealth = target->getHealthPower() + target->getArmor() - damage;
+  newHealth = (newHealth < 0) ? 0 : newHealth;
+  target->setHealthPower(newHealth);
+  
 }

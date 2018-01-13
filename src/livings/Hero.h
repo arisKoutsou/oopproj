@@ -10,12 +10,14 @@
 
 #include "./Living.h"
 #include "../inventory/Inventory.h"
+#include "../menu/Menu.h"
 #include <vector>
 
 class Grid;
 class Tile;
 class Weapon;
 class Armor;
+class Monster;
 
 class Hero : public Living {
 public:
@@ -58,6 +60,8 @@ public:
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
+        Menu& getBattleMenu() const;
+        void castSpell(Monster* target);
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
@@ -73,6 +77,7 @@ protected:
 
 	Inventory inventory;	// Implemented by george.
 							// Contains all items and spells.
+        Menu battleMenu;
 
 private:
 	bool usesBothHands() const; // returns true if the hero uses both hands
@@ -86,7 +91,7 @@ private:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
-	string getUserInput(const string& prompt);
+	string getUserInput(const string& prompt);  
 };
 
 #endif /* LIVINGS_HERO_H_ */
