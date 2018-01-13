@@ -44,13 +44,16 @@ public:
 
 	int getHealthPower() const;
 	int getLevel() const;
-        void setHealthPower(int health);
 	const string& getName() const;  
-        // Added by: (George Liontos)
-        Position& getPosition();
-        virtual void printStats() const;
-        virtual string kindOf() const = 0;
-        virtual bool operator==(const Living& rValue) const;  
+	virtual void dealDamage(int damageDealt);	// Subtract from hp the damageDealt.
+	// Added by: (George Liontos)
+	virtual void setHealthPower(int );
+
+	Position& getPosition();
+	virtual void printStats() const;
+	virtual string kindOf() const = 0;
+	virtual bool operator==(const Living& rValue) const;
+
 protected:
 	Grid* 	grid;
 	int 	level;			// Level starting from 0.

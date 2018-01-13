@@ -37,8 +37,12 @@ const string& Living::getName() const {
 	return name;
 }
 
-// Implemented by: (George Liontos)
+void Living::dealDamage(int damageDealt) {
+	healthPower -= damageDealt;	// Derived classes use this.
+								// And then kill the living.
+}
 
+// Implemented by: (George Liontos)
 void Living :: setHealthPower(int health) {
   healthPower = health;
 }
