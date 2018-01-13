@@ -11,12 +11,12 @@
 
 Living::Living(
 	Grid* gr,
-	string nam,
-	int hp,
 	int y,
-	int x
+	int x,
+	string nam,
+	int hp
 )
-  : p(x, y), grid(gr),
+  : grid(gr), p(x, y),
     name(nam), level(1),
     healthPower(hp)	// Level start at 1.
 {

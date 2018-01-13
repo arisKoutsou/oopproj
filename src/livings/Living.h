@@ -16,44 +16,47 @@ class Grid;
 
 class Living {
 public:
-    struct Position {
-	  Position(int x, int y);
-	  ~Position();
+	class Position {
+	public:
+		Position(int x, int y);
+		~Position();
 
-          void setX(int x);
-          void setY(int y);
-	  int getX() const;
-	  int getY() const;
-      
-	  bool operator==(const Position& rValue) const;
+		void setX(int x);
+		void setY(int y);
+		int getX() const;
+		int getY() const;
 
-	  int x;
-	  int y;
+		bool operator==(const Position& rValue) const;
+	private:
+		int x;
+		int y;
 	};
   
 	Living(		// Don't pass level as argument because at initialization it's 1.
-	        Grid* gr,
-	        string nam,
-		int hp = 500,
-		int y = 0,
-		int x = 0
+	    Grid* gr,
+		int y,
+		int x,
+	    string nam,
+		int hp = 500
 	);
 	virtual ~Living();
+
 	int getHealthPower() const;
 	int getLevel() const;
 	const string& getName() const;
-  
-        // Added by: (George Liontos)
-        Position& getPosition();
-        virtual void printStats() const;
-        virtual bool operator==(const Living& rValue) const;
+
+	// Added by: (George Liontos)
+	Position& getPosition();
+	virtual void printStats() const;
+	virtual bool operator==(const Living& rValue) const;
+
 protected:
-        Grid* grid;
-private:
-	string 	name;
+	Grid* 	grid;
 	int 	level;			// Level starting from 0.
+private:
+	Position p;
+	string 	name;
 	int 	healthPower;	// hp with a stupid name...
-        Position p;
 
 };
 

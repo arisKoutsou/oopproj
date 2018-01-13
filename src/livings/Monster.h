@@ -16,21 +16,21 @@ class Monster: public Living {
 public:
 	Monster(
 		Grid* gr,
-		int y = 0,
-		int x = 0,
-		string nam = "",
+		int y,
+		int x,
+		string nam,
 		int hp = 500,
 		int min = 10,
 		int max = 20,
 		int arm = 5,
 		double dodg = 0.1                
 	);
+
 	int getArmor() const;
 	double getDodge() const;
 	int getMaxDamage() const;
 	int getMinDamage() const;
-protected:
-       Grid* grid;  
+
 private:
 	int minDamage;
 	int maxDamage;

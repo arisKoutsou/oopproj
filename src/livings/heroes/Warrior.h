@@ -31,12 +31,12 @@ public:
 	);
 	void levelUp();	// Increase stats.
 
-        // Added by: (George Liontos)
-        bool operator==(const Warrior& rValue) const;
+	// Added by: (George Liontos)
+	bool operator==(const Warrior& rValue) const;
   
 private:
 	const double agilityBonus;
-        const double strengthBonus;
+	const double strengthBonus;
 };
 
 #endif /* LIVINGS_WARRIOR_H_ */

@@ -26,6 +26,7 @@ Warrior::Warrior(
     
 
 void Warrior::levelUp() {
+	Hero::levelUp();
 	strength += strength*strengthBonus;
 	agility += agility*agilityBonus;
 }

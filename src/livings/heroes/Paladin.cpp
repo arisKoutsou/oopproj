@@ -26,6 +26,7 @@ Paladin::Paladin(
 }
 
 void Paladin::levelUp() {
+	Hero::levelUp();
 	dexterity += dexterity*dexterityBonus;
 	strength += strength*strengthBonus;
 }

@@ -19,15 +19,14 @@ class Armor;
 
 class Hero : public Living {
 public:
-        // Added by: (George Liontos)
-
-        // Posible directions for heros to move
-        typedef enum {
-	  UP, DOWN, LEFT, RIGHT
+    // Added by: (George Liontos)
+    // Posible directions for heros to move
+	typedef enum {
+		UP, DOWN, LEFT, RIGHT
 	} directions;
 
 	Hero(
-	        Grid* gr,
+		Grid* gr,
 		int y = 0,
 		int x = 0,
 		string nam = "",
@@ -37,18 +36,17 @@ public:
 		int a = 250,
 		int d = 100
 	);
-        ~Hero();
+    ~Hero();
   
 	int getAgility() const;
 	int getDexterity() const;
 	int getExpirience() const;
 	int getMagicPower() const;
-
-        int getMoney() const;
+	int getMoney() const;
 	int getStrength() const;
-        void move(directions direction);
- 	virtual void levelUp() = 0;
-        void printStats() const;
+	void printStats() const;
+
+	void move(directions direction);
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();
@@ -56,16 +54,18 @@ public:
 	void equip(const string& name);
 	void discard(const string& name);
 	void usePotion(const string& name);
-        void enterMarket(Market* market);
+	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
+
+	virtual void levelUp();
 protected:
-        Weapon* leftHandWeapon;
-        Weapon* rightHandWeapon;
-        Armor* shield;
-        list<Spell*> spells;
-  
-        int 	magicPower;	// Mana.
+	Weapon* leftHandWeapon;
+	Weapon* rightHandWeapon;
+	Armor* shield;
+	list<Spell*> spells;
+
+	int 	magicPower;	// Mana.
 	int 	strength;
 	int 	agility;
 	int 	dexterity;
@@ -73,22 +73,21 @@ protected:
 	int 	expirience;	// Xp.
 
 	Inventory inventory;	// Implemented by george.
-                                // Contains all items and spells.
-
+							// Contains all items and spells.
 
 private:
-        bool usesBothHands() const; // returns true if the hero uses both hands
-        void equipWeapon(Weapon* weapon);
-        void equipArmor(Armor* armor);
-        void equipSpell(Spell* spell);
-        bool usesOneHand() const;
-        bool usesLeftHand() const;
-        bool usesRightHand() const;
-        void moveUp();
-        void moveDown();
-        void moveLeft();
-        void moveRight();
-        string getUserInput(const string& prompt);
+	bool usesBothHands() const; // returns true if the hero uses both hands
+	void equipWeapon(Weapon* weapon);
+	void equipArmor(Armor* armor);
+	void equipSpell(Spell* spell);
+	bool usesOneHand() const;
+	bool usesLeftHand() const;
+	bool usesRightHand() const;
+	void moveUp();
+	void moveDown();
+	void moveLeft();
+	void moveRight();
+	string getUserInput(const string& prompt);
 };
 
 #endif /* LIVINGS_HERO_H_ */

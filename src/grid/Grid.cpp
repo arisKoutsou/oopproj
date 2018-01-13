@@ -135,7 +135,7 @@ void Grid :: displayMap() const {
       } else if (tiles[i][j].hasMarket()) {
 	cout << "M";
       } else if (tiles[i][j].hasLiving()) {
-	cout << "L";
+	cout << "H";
       } else {
 	cout << "+";
       }
