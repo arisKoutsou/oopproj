@@ -48,6 +48,7 @@ public:
 	int getStrength() const;
         void move(directions direction);
  	virtual void levelUp() = 0;
+        string kindOf() const;
         void printStats() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection

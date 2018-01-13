@@ -466,3 +466,7 @@ void Hero :: enterMarket(Market* market) {
     market->getMenu().displayMenu();
   }
 }
+
+string Hero :: kindOf() const {
+  return "Hero";
+}

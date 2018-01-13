@@ -29,6 +29,7 @@ public:
 	double getDodge() const;
 	int getMaxDamage() const;
 	int getMinDamage() const;
+        string kindOf() const;
 protected:
        Grid* grid;  
 private:

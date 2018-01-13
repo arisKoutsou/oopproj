@@ -38,3 +38,7 @@ int Monster::getMaxDamage() const {
 int Monster::getMinDamage() const {
 	return minDamage;
 }
+
+string Monster :: kindOf() const {
+  return "Monster";
+}
