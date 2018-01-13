@@ -43,7 +43,6 @@ public:
   int getMaxX() const;
   int getMaxY() const;
 
-
   const Tile& getTile(int row, int col) const;  // returns the tile at row, col
   
   // Adds a makret in tile which is at (row, col) location
@@ -55,14 +54,10 @@ public:
   // Removes a living (i.e Hero, Monster) from (row, col) location
   void removeLiving(int row, int col, Living* living);
 
-  // Displays the map
-  void displayMap() const;
-
   // (@aris), "X" means nonAccessible,
   // "M" means Market,
   // "+" means common, most of tiles should be common...
-  void print() const;
-
+  void displayMap() const;
 private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
