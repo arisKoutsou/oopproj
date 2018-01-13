@@ -31,7 +31,7 @@ Hero::Hero(
 	int a,
 	int d
 )
-: Living(gr, nam, hp, y, x),
+: Living(gr, y, x, nam, hp),
   magicPower(mp),
   strength(s), agility(a),
   dexterity(d), money(450),
@@ -73,6 +73,39 @@ int Hero::getMoney() const {
 
 int Hero::getStrength() const {
 	return strength;
+}
+
+void Hero :: printStats() const {
+	Living :: printStats();
+	cout << "Mana: " << this->magicPower << endl
+	   << "Strength: " << this->strength << endl
+	   << "Agility: " << this->agility << endl
+	   << "Dexterity: " << this->dexterity << endl
+	   << "Money: " << this->money << endl
+	   << "Experience: " << this->expirience << endl;
+
+	if (leftHandWeapon == NULL && rightHandWeapon == NULL) {
+		cout << "Not using any weapon..." << endl << endl;
+		return;
+	}
+
+	if (leftHandWeapon != NULL) {
+		cout << "Left hand weapon: " << leftHandWeapon->getName() << endl;
+	}
+
+	if (rightHandWeapon != NULL) {
+		cout << "Right hand weapon: " << rightHandWeapon->getName() << endl;
+	}
+
+	cout << endl;
+}
+
+void Hero::levelUp() {
+	level++;			// These are common for all Heroes.
+	strength += 10;
+	agility += 10;
+	dexterity += 10;
+	magicPower += 5;
 }
 
 // Implemented by: (George Liontos)
@@ -415,21 +448,6 @@ void Hero :: equipSpell(Spell* spell) {
   if (this->spells.size() != 3) {
     this->spells.push_back(spell);
   }
-}
-
-void Hero :: printStats() const {
-  Living :: printStats();
-  cout << "Mana: " << this->magicPower << endl
-       << "Strength: " << this->strength << endl
-       << "Agility: " << this->agility << endl
-       << "Dexterity: " << this->dexterity << endl
-       << "Money: " << this->money << endl
-       << "Experience: " << this->expirience << endl
-       << endl
-       << "Left Hand: " << ((this->leftHandWeapon) ? this->leftHandWeapon->getInfo() : "") << endl
-       << endl
-       << "Right Hand: " << ((this->rightHandWeapon) ? this->rightHandWeapon->getInfo() : "")
-       << endl;
 }
 
 void Hero :: enterMarket(Market* market) {

@@ -18,7 +18,7 @@ Monster::Monster(
 	int arm,
 	double dodg        
 )
-: Living(gr, nam, hp, y, x),
+: Living(gr, y ,x, nam, hp),
   minDamage(min),
   maxDamage(max),
   armor(arm), dodge(dodg) {}

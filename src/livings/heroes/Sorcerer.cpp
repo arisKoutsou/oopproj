@@ -24,6 +24,7 @@ Sorcerer::Sorcerer(
 }
 
 void Sorcerer::levelUp() {
+	Hero::levelUp();
 	dexterity += dexterity*dexterityBonus;
 	agility += agility*agilityBonus;
 }
