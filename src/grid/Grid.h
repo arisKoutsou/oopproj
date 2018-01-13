@@ -28,7 +28,7 @@ public:
     bool isCommon() const;	  // returns if the tile is common
     int getNumberOfLivings() const; // returns the number of livings
     Market* getMarket() const;	    // returns the market of the tile
-    const list<Living*>& getLivings() const;
+    //    const list<Living*>& getLivings() const;
     
     bool nonAccessible;
     bool common;
