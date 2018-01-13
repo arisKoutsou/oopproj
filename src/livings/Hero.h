@@ -11,9 +11,9 @@
 #include "./Living.h"
 #include "../inventory/Inventory.h"
 #include "../menu/Menu.h"
+#include "../grid/Grid.h"
 #include <vector>
 
-class Grid;
 class Tile;
 class Weapon;
 class Armor;
@@ -46,7 +46,9 @@ public:
 	int getMagicPower() const;
 	int getMoney() const;
 	int getStrength() const;
-        void move(directions direction);
+	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
+
+    	void move(directions direction);
  	virtual void levelUp();
         string kindOf() const;
         void printStats() const;
@@ -62,6 +64,9 @@ public:
 	void sell(const string&);	// Sells item, and gains money.
         Menu& getBattleMenu() const;
         void castSpell(Monster* target);
+
+    void attack(Monster* monster);	// Reduces monster's health.
+
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;

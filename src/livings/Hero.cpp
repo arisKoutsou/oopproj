@@ -78,6 +78,13 @@ int Hero::getStrength() const {
 	return strength;
 }
 
+const Grid::Tile& Hero::getTile() {
+	return grid->getTile(
+		getPosition().getY(),
+		getPosition().getX()
+	);
+}
+
 void Hero :: printStats() const {
 	Living :: printStats();
 	cout << "Mana: " << this->magicPower << endl
@@ -326,7 +333,7 @@ void Hero :: checkInventory() {
 }
 
 void Hero::buy(const string& itemName) {
-  Market* currentMarket = grid->getTile(getPosition().getY(), getPosition().getX()).getMarket();
+  Market* currentMarket = this->getTile().getMarket();
 
   if (currentMarket == NULL) return;
 
@@ -524,4 +531,32 @@ void Hero :: castSpell(Monster* target) {
   newHealth = (newHealth < 0) ? 0 : newHealth;
   target->setHealthPower(newHealth);
   
+
+}
+
+void Hero::attack(Monster* monster) {
+	Random random;
+
+	if (random.boolean(monster->getDodge())) {
+		// Monster dodged this attack! , nothing happens.
+	} else {
+		int heroDamage = 0;
+		// Calculate the damage that the Hero can cause.
+		heroDamage += strength;
+
+		if (leftHandWeapon != NULL) {
+			heroDamage += leftHandWeapon->getDamage();
+		}
+
+		if (rightHandWeapon != NULL) {
+			heroDamage += rightHandWeapon->getDamage();
+		}
+
+		// Calculate the damage reduction.
+		int damageReduction = 0;
+
+		damageReduction += monster->getArmor();
+
+		monster->dealDamage(heroDamage - damageReduction);
+	}
 }
