@@ -328,6 +328,8 @@ void Hero :: checkInventory() {
 void Hero::buy(const string& itemName) {
   Market* currentMarket = grid->getTile(getPosition().getY(), getPosition().getX()).getMarket();
 
+  if (currentMarket == NULL) return;
+
   Item* itemToBuy = currentMarket->getItemByName(itemName);
 
   if (itemToBuy != NULL) {
