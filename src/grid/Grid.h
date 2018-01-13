@@ -32,8 +32,8 @@ public:
     
     bool nonAccessible;
     bool common;
-    list<Living*> livings;
-    Market* market;
+    list<Living*> 	livings;
+    Market* 		market;
   };
   
   // tileInfo is an array of bools which has 2 boolean values stored:

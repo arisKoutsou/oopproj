@@ -372,7 +372,7 @@ void Hero::buy(const string& itemName) {
 }
 
 void Hero::sell(const string& itemName) {
-        Item* itemToSell = inventory.getItemByName(itemName);
+    Item* itemToSell = inventory.getItemByName(itemName);
 
 	if (itemToSell != NULL) {
 		inventory.removeAndDeleteItem(itemToSell);
