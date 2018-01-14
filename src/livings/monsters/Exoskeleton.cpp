@@ -17,8 +17,8 @@ Exoskeleton::Exoskeleton(
 	int max,
 	int arm,
 	double dodg        
-) : Monster(gr, y, x, nam, hp, min, max, arm+armorBonus, dodg),
-    armorBonus(10)
+) : armorBonus(0.1),
+	Monster(gr, y, x, nam, hp, min, max, arm+arm*armorBonus, dodg)
 {
 
 }

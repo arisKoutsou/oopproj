@@ -11,6 +11,7 @@
 #include "./Living.h"
 
 class Grid;
+class Hero;
 
 class Monster: public Living {
 public:
@@ -22,21 +23,24 @@ public:
 		int hp = 500,
 		int min = 10,
 		int max = 20,
-		int arm = 5,
+		int arm = 0.1,
 		double dodg = 0.1                
 	);
 
-	int getArmor() const;
+	int getDamageReductionFactor() const;
 	double getDodge() const;
 	int getMaxDamage() const;
 	int getMinDamage() const;
         string kindOf() const;
+    void printStats() const;
 
-    void dealDamage(int damageDealt);	// Reduces health by damageDealt.
+    void receiveDamage(int damageDealt);// Reduces health by damageDealt.
+    void attack(Hero* hero);			// Reduces hero's health.
+
 private:
 	int minDamage;
 	int maxDamage;
-	int armor;		// Reduce damage taken.
+	double damageReductionFactor;	// Reduce damage taken.
 	double dodge;	// Probabillity for dodge.
 
 };
