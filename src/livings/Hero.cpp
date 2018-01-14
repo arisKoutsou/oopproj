@@ -435,9 +435,9 @@ void Hero :: equipWeapon(Weapon* weapon) {
 	}
       } while (hand != "left" || hand != "right");
     } else if (this->usesLeftHand()) {
-      this->leftHandWeapon = weapon;
-    } else {
       this->rightHandWeapon = weapon;
+    } else {
+      this->leftHandWeapon = weapon;
     }
   }    
 }
