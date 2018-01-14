@@ -65,8 +65,7 @@ public:
 	void sell(const string&);	// Sells item, and gains money.
         Menu& getBattleMenu() const;
         void castSpell(Monster* target);
-
-    void attack(Monster* monster);	// Reduces monster's health.
+        void attack(Monster* monster);	// Reduces monster's health.
 
 protected:
 	Weapon* leftHandWeapon;
@@ -86,6 +85,8 @@ protected:
         Menu battleMenu;
 
 private:
+        void printEquipedSpells() const;
+        Spell* getSpellByName(const string& name);
 	bool usesBothHands() const; // returns true if the hero uses both hands
 	void equipWeapon(Weapon* weapon);
 	void equipArmor(Armor* armor);

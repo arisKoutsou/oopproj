@@ -516,38 +516,53 @@ string Hero :: kindOf() const {
   return "Hero";
 }
 
-//void Hero :: castSpell(Monster* target) {
-//  if (this->inventory.hasSpells() == false) {
-//    cout << "You have no spells for use" << endl;
-//    return;
-//  }
-//  cout << "You currently have these spells" << endl << endl;
-//  this->inventory.printSpells();
-//  Spell* spellToCast;
-//  do {
-//    cout << "Choose a spell to cast (name): ";
-//    string name;
-//    cin >> name;
-//    spellToCast = this->inventory.getSpellByName(name);
-//    if (spellToCast == NULL) {
-//      cout << "There's no such a spell" << endl;
-//    }
-//  } while (spellToCast == NULL);
-//  Random rng;
-//  double dodgeProbability = rng.from0to1();
-//  if (dodgeProbability <= target->getDodge()) {
-//    cout << "The monster dodged your attack" << endl;
-//    return;
-//  }
-//  int damage = this->agility +
-//    rng.fromMintoMax(spellToCast->getMinDamage(),
-//		     spellToCast->getMaxDamage());
-//  int newHealth = target->getHealthPower() + target->getArmor() - damage;
-//  newHealth = (newHealth < 0) ? 0 : newHealth;
-//  target->setHealthPower(newHealth);
-//
-//
-//}
+void Hero :: printEquipedSpells() const {
+  list<Spell*> :: const_iterator it = spells.begin();
+  for ( ; it != spells.end(); ++it) {
+    cout << (*it)->getInfo() << endl;
+  }
+  cout << endl;
+}
+
+Spell* Hero :: getSpellByName(const string& name) {
+  list<Spell*> :: const_iterator it = spells.begin();
+  for ( ; it != spells.end(); ++it) {
+    if ((*it)->getName() == name) {
+      return *it;
+    }
+  }
+  return NULL;
+}
+
+void Hero :: castSpell(Monster* target) {
+  if (this->spells.empty()) {
+    cout << "You have no spells for use" << endl;
+    return;
+  }
+  cout << "You currently have these spells" << endl << endl;
+  this->printEquipedSpells();
+  Spell* spellToCast;
+  do {
+    cout << "Choose a spell to cast (name): ";
+    string name;
+    cin >> name;
+    spellToCast = this->getSpellByName(name);
+    if (spellToCast == NULL) {
+      cout << "There's no such a spell" << endl;
+    }
+  } while (spellToCast == NULL);
+  Random rng;
+  double dodgeProbability = rng.from0to1();
+  if (dodgeProbability <= target->getDodge()) {
+    cout << "The monster dodged your attack" << endl;
+    return;
+  }
+  int damage = this->dexterity +
+    rng.fromMintoMax(spellToCast->getMinDamage(),
+		     spellToCast->getMaxDamage());
+  int damageReduction = target->getDamageReductionFactor() * damage;
+  target->receiveDamage(damage - damageReduction);
+}
 
 void Hero::attack(Monster* monster) {
 	Random random;
