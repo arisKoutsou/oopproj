@@ -16,7 +16,7 @@ Paladin::Paladin(
 	int hp,
 	int mp,
 	int s,
-	int a,
+	double a,
 	int d
 ) : strengthBonus(0.1), dexterityBonus(0.1),
     Hero(gr, y, x, nam, hp, mp, s, a, d) {

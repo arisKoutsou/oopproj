@@ -26,7 +26,7 @@ class Paladin: public Hero {
 			int hp = 500,
 			int mp = 200,
 			int s = 100,
-			int a = 250,
+			double a = 0.2,
 			int d = 100
 		);
 		void levelUp();	// Increase stats.

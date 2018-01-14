@@ -45,7 +45,7 @@ public:
 	int getHealthPower() const;
 	int getLevel() const;
 	const string& getName() const;  
-	virtual void dealDamage(int damageDealt);	// Subtract from hp the damageDealt.
+	virtual void receiveDamage(int damageDealt);	// Subtract from hp the damageDealt.
 	// Added by: (George Liontos)
 	virtual void setHealthPower(int );
 
