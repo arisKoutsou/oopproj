@@ -20,7 +20,9 @@ Living::Living(
     name(nam), level(1),
     healthPower(hp)	// Level start at 1.
 {
-	grid->addLiving(y, x, this);        
+	if (grid != NULL) {
+		grid->addLiving(y, x, this);
+	}
 }
 
 Living::~Living() {}
@@ -37,8 +39,12 @@ const string& Living::getName() const {
 	return name;
 }
 
-// Implemented by: (George Liontos)
+void Living::receiveDamage(int damageDealt) {
+	healthPower -= damageDealt;	// Derived classes use this.
+								// And then kill the living.
+}
 
+// Implemented by: (George Liontos)
 void Living :: setHealthPower(int health) {
   healthPower = health;
 }

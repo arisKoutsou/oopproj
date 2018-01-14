@@ -51,10 +51,11 @@ Market* Grid :: Tile :: getMarket() const {
   // the specific tile exists
   return (market);	// (@aris) Return NULL if there is no market. That way we can be sure.
 }
-
+/* Temporarily removed... didnt compile...
 const list<Living*>& Grid :: Tile :: getLivings() const {
   return this->livings;
 }
+*/
 
 Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
 

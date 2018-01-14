@@ -14,7 +14,7 @@ Sorcerer::Sorcerer(
 	int hp,
 	int mp,
 	int s,
-	int a,
+	double a,
 	int d
 ) : agilityBonus(0.1), dexterityBonus(0.1),
     Hero(gr, y, x, nam, hp, mp, s, a, d) {

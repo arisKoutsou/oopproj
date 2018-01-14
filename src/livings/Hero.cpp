@@ -7,6 +7,9 @@
 
 #include <cstring>
 #include "Hero.h"
+
+#include <iomanip>
+
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
 #include "../items/Item.h"
@@ -30,7 +33,7 @@ Hero::Hero(
 	int hp,
 	int mp,
 	int s,
-	int a,
+	double a,
 	int d
 )
 : Living(gr, y, x, nam, hp),
@@ -54,7 +57,7 @@ Hero :: ~Hero() {
   }
 }
 
-int Hero::getAgility() const {
+double Hero::getAgility() const {
 	return agility;
 }
 
@@ -78,11 +81,30 @@ int Hero::getStrength() const {
 	return strength;
 }
 
+double Hero::getDamageReductionFactor() const {
+	double result = 0.0;
+
+	if (shield != NULL) {
+		result += shield->getDamageReductionFactor();
+	}
+
+	return result;
+}
+
+const Grid::Tile& Hero::getTile() {
+	return grid->getTile(
+		getPosition().getY(),
+		getPosition().getX()
+	);
+}
+
 void Hero :: printStats() const {
 	Living :: printStats();
+	cout << setprecision(2);
+
 	cout << "Mana: " << this->magicPower << endl
 	   << "Strength: " << this->strength << endl
-	   << "Agility: " << this->agility << endl
+	   << "Agility: " << this->agility*100 << "%" << endl
 	   << "Dexterity: " << this->dexterity << endl
 	   << "Money: " << this->money << endl
 	   << "Experience: " << this->expirience << endl;
@@ -326,7 +348,7 @@ void Hero :: checkInventory() {
 }
 
 void Hero::buy(const string& itemName) {
-  Market* currentMarket = grid->getTile(getPosition().getY(), getPosition().getX()).getMarket();
+  Market* currentMarket = this->getTile().getMarket();
 
   if (currentMarket == NULL) return;
 
@@ -494,34 +516,62 @@ string Hero :: kindOf() const {
   return "Hero";
 }
 
-void Hero :: castSpell(Monster* target) {
-  if (this->inventory.hasSpells() == false) {
-    cout << "You have no spells for use" << endl;
-    return;
-  }
-  cout << "You currently have these spells" << endl << endl;
-  this->inventory.printSpells();
-  Spell* spellToCast;
-  do {
-    cout << "Choose a spell to cast (name): ";
-    string name;
-    cin >> name;
-    spellToCast = this->inventory.getSpellByName(name);
-    if (spellToCast == NULL) {
-      cout << "There's no such a spell" << endl;
-    }    
-  } while (spellToCast == NULL);
-  Random rng;
-  double dodgeProbability = rng.from0to1();
-  if (dodgeProbability <= target->getDodge()) {
-    cout << "The monster dodged your attack" << endl;
-    return;
-  }
-  int damage = this->agility +
-    rng.fromMintoMax(spellToCast->getMinDamage(),
-		     spellToCast->getMaxDamage());
-  int newHealth = target->getHealthPower() + target->getArmor() - damage;
-  newHealth = (newHealth < 0) ? 0 : newHealth;
-  target->setHealthPower(newHealth);
-  
+//void Hero :: castSpell(Monster* target) {
+//  if (this->inventory.hasSpells() == false) {
+//    cout << "You have no spells for use" << endl;
+//    return;
+//  }
+//  cout << "You currently have these spells" << endl << endl;
+//  this->inventory.printSpells();
+//  Spell* spellToCast;
+//  do {
+//    cout << "Choose a spell to cast (name): ";
+//    string name;
+//    cin >> name;
+//    spellToCast = this->inventory.getSpellByName(name);
+//    if (spellToCast == NULL) {
+//      cout << "There's no such a spell" << endl;
+//    }
+//  } while (spellToCast == NULL);
+//  Random rng;
+//  double dodgeProbability = rng.from0to1();
+//  if (dodgeProbability <= target->getDodge()) {
+//    cout << "The monster dodged your attack" << endl;
+//    return;
+//  }
+//  int damage = this->agility +
+//    rng.fromMintoMax(spellToCast->getMinDamage(),
+//		     spellToCast->getMaxDamage());
+//  int newHealth = target->getHealthPower() + target->getArmor() - damage;
+//  newHealth = (newHealth < 0) ? 0 : newHealth;
+//  target->setHealthPower(newHealth);
+//
+//
+//}
+
+void Hero::attack(Monster* monster) {
+	Random random;
+
+	if (random.boolean(monster->getDodge())) {
+		// Monster dodged this attack! , nothing happens.
+	} else {
+		int heroDamage = 0;
+		// Calculate the damage that the Hero can cause.
+		heroDamage += strength;
+
+		if (leftHandWeapon != NULL) {
+			heroDamage += leftHandWeapon->getDamage();
+		}
+
+		if (rightHandWeapon != NULL) {
+			heroDamage += rightHandWeapon->getDamage();
+		}
+
+		// Calculate the damage reduction.
+		int damageReduction = 0;
+
+		damageReduction += monster->getDamageReductionFactor()*heroDamage;
+
+		monster->receiveDamage(heroDamage - damageReduction);
+	}
 }
