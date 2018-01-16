@@ -44,7 +44,10 @@ Hero::Hero(
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
   battleMenu(*this),
-  shield(NULL) {}
+  shield(NULL),
+  potionInUse(NULL),
+  roundsPlayed(0)
+{}
 
 Hero :: ~Hero() {
   delete leftHandWeapon;
@@ -125,6 +128,22 @@ void Hero :: printStats() const {
 	cout << endl;
 }
 
+void Hero::nextRound() {
+	if (potionInUse != NULL) {
+		potionInUse->roundPassed();
+
+		if (potionInUse->getRoundsEffective() == 0) {
+			this->strength /= (1 + potionInUse->getStrengthBoost());
+			this->agility /= (1 + potionInUse->getAgilityBoost());
+			this->dexterity /= (1 + potionInUse->getDexterityBoost());
+
+			delete potionInUse;
+			potionInUse = NULL;
+		}
+	}
+
+	roundsPlayed++;
+}
 void Hero::levelUp() {
 	level++;			// These are common for all Heroes.
 	strength += 10;
@@ -296,15 +315,32 @@ void Hero :: discard(const string& name) {
   cout << "There's no such item or spell in your inventory" << endl;
 }
 
-void Hero :: usePotion(const string& name) {
-  Item* potionToBeUsed = inventory.getItemByName(name);
+void Hero::use(const string& potionName) {
 
-  if (potionToBeUsed != NULL) {
-    this->inventory.removeAndDeleteItem(potionToBeUsed);
-    return;
-  }
+	if (potionInUse != NULL) {
+		cout << "You are already using a potion." << endl;
+		return;
+	} else {
+		Item* searchItemResult = inventory.getItemByName(potionName);
 
-  cout << "There's no such Potion in your inventory" << endl;
+		if (searchItemResult == NULL) {
+			cout << "This Item doesn't exist!" << endl;
+			return;
+		}
+		if (searchItemResult->kindOf() != "Potion") {
+			cout << "The item you selected is not a Potion" << endl;
+			return;
+		}
+
+		potionInUse = static_cast<Potion*>(searchItemResult);
+
+		inventory.removeItem(searchItemResult);
+
+		this->strength *= (1 + potionInUse->getStrengthBoost());
+		this->agility *= (1 + potionInUse->getAgilityBoost());
+		this->dexterity *= (1 + potionInUse->getDexterityBoost());
+
+	}
 }
 
 void Hero :: checkInventory() {
@@ -335,7 +371,7 @@ void Hero :: checkInventory() {
     case 4: {
       string input = getUserInput(usePotionPrompt);
 
-      this->usePotion(input);
+      this->use(input);
       break;
     } 
     case 5: {
@@ -350,7 +386,10 @@ void Hero :: checkInventory() {
 void Hero::buy(const string& itemName) {
   Market* currentMarket = this->getTile().getMarket();
 
-  if (currentMarket == NULL) return;
+  if (currentMarket == NULL) {
+	  cout << "You can't buy on a tile that has no market!" << endl << endl;
+	  return;
+  }
 
   Item* itemToBuy = currentMarket->getItemByName(itemName);
 

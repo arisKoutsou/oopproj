@@ -18,6 +18,7 @@ class Tile;
 class Weapon;
 class Armor;
 class Monster;
+class Potion;
 
 class Hero : public Living {
 public:
@@ -49,30 +50,35 @@ public:
 	double getDamageReductionFactor() const;
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
 
-    	void move(directions direction);
- 	virtual void levelUp();
-        string kindOf() const;
-        void printStats() const;
+	void move(directions direction);
+	virtual void levelUp();
+	string kindOf() const;
+	void printStats() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();
 	Inventory& getInventory();
 	void equip(const string& name);
 	void discard(const string& name);
-	void usePotion(const string& name);
+	void use(const string& potion);
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-        Menu& getBattleMenu() const;
-        void castSpell(Monster* target);
-        void attack(Monster* monster);	// Reduces monster's health.
+	Menu& getBattleMenu() const;
+	void castSpell(Monster* target);
+	void attack(Monster* monster);	// Reduces monster's health.
+
+	// IMPROTANT: Call this function whenever a hero finishes his round.
+	void nextRound();	// Checks potions and goes to next round.
 
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
 	Armor* shield;
+	Potion* potionInUse;
 	list<Spell*> spells;
 
+	int 	roundsPlayed;// Number of rounds played.
 	int 	magicPower;	// Mana.
 	int 	strength;
 	double 	agility;	// P(dodge) an attack.
@@ -82,11 +88,11 @@ protected:
 
 	Inventory inventory;	// Implemented by george.
 							// Contains all items and spells.
-        Menu battleMenu;
+	Menu battleMenu;
 
 private:
-        void printEquipedSpells() const;
-        Spell* getSpellByName(const string& name);
+	void printEquipedSpells() const;
+	Spell* getSpellByName(const string& name);
 	bool usesBothHands() const; // returns true if the hero uses both hands
 	void equipWeapon(Weapon* weapon);
 	void equipArmor(Armor* armor);
