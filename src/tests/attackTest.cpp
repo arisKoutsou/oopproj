@@ -88,8 +88,9 @@ int main() {
 
 	// Testing use (potion);
 	Item* potion = new Potion("Elixir");	// Create a Potion.
-	Market* market = new Market(1);			// A market.
+	Market* market = new Market(2);			// A market.
 	market->addItem(potion);				// Add the potion in the market.
+	market->addItem(new Weapon("Sword"));
 
 	grid.addMarket(0, 2, market);	// Put the market where the hero is.
 	grid.displayMap();
@@ -97,9 +98,10 @@ int main() {
 	//grid.addLiving(0, 2, warrior);
 	cout << "Buying Elixir..." << endl;
 	warrior->buy("Elixir");
+	warrior->buy("Sword");
 
 	int round = 0;
-	while(++round <= 5) {
+	while(++round <= 3) {
 		cout << "##### ROUND " << round << " ######"<< endl;
 		warrior->printStats();
 		warrior->checkInventory();
