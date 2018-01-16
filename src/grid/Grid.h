@@ -50,6 +50,9 @@ public:
   void addMarket(int row, int col, Market* market);
 
   // Adds a living (i.e Hero, Monster) at (row, col) location
+  // !!! Warning this function must be used once
+  // for every living... needs fixing , causes SEGFAULT
+  // At destruction. ( double free )
   void addLiving(int row, int col, Living* living);
 
   // Removes a living (i.e Hero, Monster) from (row, col) location
