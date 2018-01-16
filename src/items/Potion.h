@@ -19,18 +19,22 @@ public:
 		int minL = 3,
 		double sB = 0.1,
 		double dB = 0.0,
-		double aB = 0.05
+		double aB = 0.05,
+		int rounds = 2
 	);
 	~Potion();
 
 	double getAgilityBoost() const;
 	double getDexterityBoost() const;
 	double getStrengthBoost() const;
+	int getRoundsEffective() const;
 	string getInfo() const;
 
-        // Added by: (George Liontos)
-        string kindOf() const;
-        bool operator==(const Potion& rValue) const;
+	// Added by: (George Liontos)
+	string kindOf() const;
+	bool operator==(const Potion& rValue) const;
+
+	void roundPassed();
 private:
 	// All boosts are doubles in [0,1] and that means.
 	// That they will boost damage to damage*(1+boostAmount)...
@@ -39,6 +43,7 @@ private:
 	double strengthBoost;
 	double dexterityBoost;
 	double agilityBoost;
+	int roundsEffective;
 
 };
 

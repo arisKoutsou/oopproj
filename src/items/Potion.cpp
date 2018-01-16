@@ -19,12 +19,14 @@ Potion::Potion(
 	int minL,
 	double sB,
 	double dB,
-	double aB
+	double aB,
+	int r
 )
 : Item(name, val, s, minL),
   agilityBoost(aB),
   strengthBoost(sB),
-  dexterityBoost(dB)
+  dexterityBoost(dB),
+  roundsEffective(r)
 {}
 
 Potion::~Potion() {}
@@ -39,6 +41,14 @@ double Potion::getDexterityBoost() const {
 
 double Potion::getStrengthBoost() const {
 	return strengthBoost;
+}
+
+int Potion::getRoundsEffective() const {
+	return roundsEffective;
+}
+
+void Potion::roundPassed() {
+	roundsEffective--;
 }
 
 string Potion::getInfo() const {
@@ -59,6 +69,8 @@ string Potion::getInfo() const {
 		result << "dexterityBoost: "
 			<< dexterityBoost*100 << "%" << endl;
 	}
+
+	result << "Lasts for: " << roundsEffective << " rounds" << endl;
 
 	return result.str();
 }
