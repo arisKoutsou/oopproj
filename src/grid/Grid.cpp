@@ -114,7 +114,12 @@ const Grid :: Tile& Grid :: getTile(int row, int col) const {
 }   
 
 void Grid :: addLiving(int row, int col, Living* living) {
-  
+  list<Living*> :: const_iterator it = tiles[row][col].livings.begin();
+  for ( ; it != tiles[row][col].livings.end(); ++it) {
+    if ((*it) == living) {
+      return;
+    }
+  }  
   if (tiles[row][col].isNonAccessible()) {
     cerr << "A Hero can't be on a nonAccessible Tile." << endl;
     return;
