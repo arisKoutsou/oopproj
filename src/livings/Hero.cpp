@@ -129,6 +129,25 @@ void Hero :: printStats() const {
 }
 
 void Hero::nextRound() {
+  // (George): Alternative Implementation
+
+  // list<Potion*> :: const_iterator potionsIterator = potions.begin();
+  // list<Nerfs> :: const_iterator nerfsIterator = nerfs.begin();
+  // for ( ; potionsIterator != potions.end(); ++potionsIterator) {
+  //   (*potionsIterator)->roundPassed();
+  //   if ((*potionsIterator)->getRoundsEffective() == 0) {
+  //     this->strength /= (1 + potionInUse->getStrengthBoost());
+  //     this->agility /= (1 + potionInUse->getAgilityBoost());
+  //     this->dexterity /= (1 + potionInUse->getDexterityBoost());
+  //     delete (*potionsIterator);
+  //     potions.erase(potionsIterator);
+  //   }
+  // }
+  // for ( ; nerfsIterator != nerfs.end(); ++nerfsIterator) {
+  //   // NOTE (George) -> (Aris) Implement this the way you want the nerfs to behave
+  // }
+  // ++roundsPlayed;
+  
 	if (potionInUse != NULL) {
 		potionInUse->roundPassed();
 
@@ -316,7 +335,22 @@ void Hero :: discard(const string& name) {
 }
 
 void Hero::use(const string& potionName) {
+  // (George): Alternative implementation
 
+  // Item* potionToUse = inventory.getItemByName(potionName);
+  // if (potionToUse  == NULL) {
+  //   cout << "This potion doesn't exist" << endl;
+  //   return;
+  // } else if (potionToUse->kindOf() != "Potion") {
+  //   cout << "The item you selected isn't a Potion" << endl;
+  //   return;
+  // }
+  // potions.push_back(static_cast<Potion*>(potionToUse));
+  // inventory.removeItem(potionToUse);
+  // this->strength *= (1 + potionInUse->getStrengthBoost());
+  // this->agility *= (1 + potionInUse->getAgilityBoost());
+  // this->dexterity *= (1 + potionInUse->getDexterityBoost());
+  
 	if (potionInUse != NULL) {
 		cout << "You are already using a potion." << endl;
 		return;
@@ -357,20 +391,17 @@ void Hero :: checkInventory() {
       break;
     }
     case 2: {
-      string input = getUserInput(equipPrompt);
-    
+      string input = getUserInput(equipPrompt);   
       this->equip(input);
       break;
     }
     case 3: {
       string input = getUserInput(discardPrompt);
-
       this->discard(input);
       break;      
     }
     case 4: {
       string input = getUserInput(usePotionPrompt);
-
       this->use(input);
       break;
     } 
@@ -530,7 +561,6 @@ void Hero :: enterMarket(Market* market) {
     }
     case 2: {
       string input = getUserInput(buyPrompt);
-      
       this->buy(input);
       break;
     }
@@ -538,7 +568,6 @@ void Hero :: enterMarket(Market* market) {
       cout << "You have these items/spells for sale" << endl << endl;
       this->inventory.printInfo();
       string input = getUserInput(sellPrompt);
-      
       this->sell(input);
       break;
     }
@@ -628,4 +657,26 @@ void Hero::attack(Monster* monster) {
 
 		monster->receiveDamage(heroDamage - damageReduction);
 	}
+}
+
+Hero :: Nerfs :: Nerfs(int rounds, double factor, stats stat)
+
+  : roundsNerfed(rounds), nerfFactor(factor), statNerfed(stat) {}
+
+Hero :: Nerfs :: ~Nerfs() {}
+
+int Hero :: Nerfs :: getRoundsNerfed() const {
+  return roundsNerfed;
+}
+
+double Hero :: Nerfs :: getNerfFactor() const {
+  return nerfFactor;
+}
+
+Hero :: stats Hero :: Nerfs :: getStatNerfed() const {
+  return statNerfed;
+}
+
+void Hero :: Nerfs :: roundPassed() {
+  --roundsNerfed;
 }

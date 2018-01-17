@@ -22,8 +22,24 @@ class Potion;
 
 class Hero : public Living {
 public:
-    // Added by: (George Liontos)
-    // Posible directions for heros to move
+        typedef enum {
+	  NONE, STRENGTH, DEXTERITY, AGILITY
+	} stats;
+
+        typedef struct Nerfs {
+	  Nerfs(int rounds = 0, double factor = 0.0, stats stat = NONE);
+	  ~Nerfs();
+	  int getRoundsNerfed() const;
+	  double getNerfFactor() const;
+	  stats getStatNerfed() const;
+	  void roundPassed();
+	  int roundsNerfed;
+	  double nerfFactor;
+	  stats statNerfed;
+	} Nerfs;
+
+        // Added by: (George Liontos)
+        // Posible directions for heros to move
 	typedef enum {
 		UP, DOWN, LEFT, RIGHT
 	} directions;
@@ -39,7 +55,7 @@ public:
 		double a = 0.2,
 		int d = 100
 	);
-    ~Hero();
+        ~Hero();
   
 	double getAgility() const;
 	int getDexterity() const;
@@ -67,8 +83,8 @@ public:
 	Menu& getBattleMenu() const;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
-
-	// IMPROTANT: Call this function whenever a hero finishes his round.
+  
+        // IMPROTANT: Call this function whenever a hero finishes his round.
 	void nextRound();	// Checks potions and goes to next round.
 
 protected:
@@ -76,9 +92,11 @@ protected:
 	Weapon* rightHandWeapon;
 	Armor* shield;
 	Potion* potionInUse;
-	list<Spell*> spells;
+        list<Spell*> spells;
+        //list<Potion*> potions;
+        //list<Nerfs> nerfs;
 
-	int 	roundsPlayed;// Number of rounds played.
+        int 	roundsPlayed;   // Number of rounds played.
 	int 	magicPower;	// Mana.
 	int 	strength;
 	double 	agility;	// P(dodge) an attack.
@@ -87,9 +105,10 @@ protected:
 	int 	expirience;	// Xp.
 
 	Inventory inventory;	// Implemented by george.
-							// Contains all items and spells.
+                                // Contains all items and spells.
 	Menu battleMenu;
-
+        bool nerfed;
+        list<Nerfs> nerfs;
 private:
 	void printEquipedSpells() const;
 	Spell* getSpellByName(const string& name);
