@@ -22,18 +22,6 @@ class Potion;
 
 class Hero : public Living {
 public:
-        typedef enum {
-	  NONE, STRENGTH, DEXTERITY, AGILITY
-	} stats;
-
-        typedef struct Nerfs {
-	  Nerfs(int rounds = 0, double factor = 0.0, stats stat = NONE);
-	  ~Nerfs();
-	  int roundsNerfed;
-	  double nerfFactor;
-	  stats statNerfed;
-	} Nerfs;
-
         // Added by: (George Liontos)
         // Posible directions for heros to move
 	typedef enum {
@@ -87,11 +75,10 @@ protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
 	Armor* shield;
-	Potion* potionInUse;
+        //Potion* potionInUse;
         list<Spell*> spells;
-        //list<Potion*> potions;
-        //list<Nerfs> nerfs;
-
+        list<Potion*> potions;
+        
         int 	roundsPlayed;   // Number of rounds played.
 	int 	magicPower;	// Mana.
 	int 	strength;
@@ -103,7 +90,6 @@ protected:
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 	Menu battleMenu;
-        //bool nerfed;
 private:
 	void printEquipedSpells() const;
 	Spell* getSpellByName(const string& name);
