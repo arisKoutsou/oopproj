@@ -29,10 +29,6 @@ public:
         typedef struct Nerfs {
 	  Nerfs(int rounds = 0, double factor = 0.0, stats stat = NONE);
 	  ~Nerfs();
-	  int getRoundsNerfed() const;
-	  double getNerfFactor() const;
-	  stats getStatNerfed() const;
-	  void roundPassed();
 	  int roundsNerfed;
 	  double nerfFactor;
 	  stats statNerfed;

@@ -153,7 +153,7 @@ void Hero::nextRound() {
 
 		if (potionInUse->getRoundsEffective() == 0) {
 			this->strength /= (1 + potionInUse->getStrengthBoost());
-			this->agility /= (1 + potionInUse->getAgilityBoost());
+			this->agility /= (1 + potionInUse>getAgilityBoost());
 			this->dexterity /= (1 + potionInUse->getDexterityBoost());
 
 			delete potionInUse;
