@@ -103,8 +103,7 @@ protected:
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 	Menu battleMenu;
-        bool nerfed;
-        list<Nerfs> nerfs;
+        //bool nerfed;
 private:
 	void printEquipedSpells() const;
 	Spell* getSpellByName(const string& name);
