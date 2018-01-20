@@ -106,5 +106,6 @@ int main() {
 	  warrior->printStats();
 	  warrior->nextRound();
 	}
+	warrior->printStats();
 	return EXIT_SUCCESS;
 }
