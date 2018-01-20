@@ -137,26 +137,12 @@ void Hero::nextRound() {
       this->strength /= (1 + (*potionsIterator)->getStrengthBoost());
       this->agility /= (1 + (*potionsIterator)->getAgilityBoost());
       this->dexterity /= (1 + (*potionsIterator)->getDexterityBoost());
-      delete (*potionsIterator);
-      potions.erase(potionsIterator);
+      list<Potion*> :: iterator temp = potionsIterator++;
+      delete (*temp);
+      potions.erase(temp);
     }
   }
   ++roundsPlayed;
-  
-	// if (potionInUse != NULL) {
-	// 	potionInUse->roundPassed();
-
-	// 	if (potionInUse->getRoundsEffective() == 0) {
-	// 		this->strength /= (1 + potionInUse->getStrengthBoost());
-	// 		this->agility /= (1 + potionInUse>getAgilityBoost());
-	// 		this->dexterity /= (1 + potionInUse->getDexterityBoost());
-
-	// 		delete potionInUse;
-	// 		potionInUse = NULL;
-	// 	}
-	// }
-
-	// roundsPlayed++;
 }
 void Hero::levelUp() {
 	level++;			// These are common for all Heroes.

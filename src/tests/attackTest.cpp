@@ -60,10 +60,8 @@ int main() {
 		4,	// n lines.
 		tileInfo	// Previously made bool[].
 	);
-
-	grid.displayMap();
-
 	Hero* warrior = new Warrior(&grid, 0, 2, "Hercules");
+	grid.displayMap();
 //	Hero* paladin = new Paladin(&grid, 0, 1, "Cavalry");
 //	Monster* monster = new Spirit(&grid, 0, 1, "Snake");
 
@@ -101,12 +99,12 @@ int main() {
 	warrior->buy("Sword");
 
 	int round = 0;
+	warrior->printStats();
+	warrior->checkInventory();
 	while(++round <= 3) {
-		cout << "##### ROUND " << round << " ######"<< endl;
-		warrior->printStats();
-		warrior->checkInventory();
-		warrior->nextRound();
+	  cout << "##### ROUND " << round << " ######"<< endl;
+	  warrior->printStats();
+	  warrior->nextRound();
 	}
-
 	return EXIT_SUCCESS;
 }
