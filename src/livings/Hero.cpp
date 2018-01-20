@@ -131,16 +131,35 @@ void Hero::nextRound() {
   // (George): Alternative Implementation
 
   list<Potion*> :: iterator potionsIterator = potions.begin();  
+
   for ( ; potionsIterator != potions.end(); ++potionsIterator) {
     (*potionsIterator)->roundPassed();
-    if ((*potionsIterator)->getRoundsEffective() == 0) {
-      this->strength /= (1 + (*potionsIterator)->getStrengthBoost());
-      this->agility /= (1 + (*potionsIterator)->getAgilityBoost());
-      this->dexterity /= (1 + (*potionsIterator)->getDexterityBoost());
+
+    double strengthBoost = (*potionsIterator)->getStrengthBoost();
+    double agilityBoost = (*potionsIterator)->getAgilityBoost();
+    double dexterityBoost = (*potionsIterator)->getDexterityBoost();
+
+    if ((*potionsIterator)->getRoundsEffective() == -1) {
+      if (strengthBoost != 0.0) {
+	this->strength /= strengthBoost + 1.0;
+      }
+
+      if (agilityBoost != 0.0) {
+	this->agility /= agilityBoost + 1.0;
+      }
+
+      if (dexterityBoost != 0.0) {
+	this->dexterity = dexterityBoost + 1.0;
+      }      
+
+      // Rounding up 1 digit (It's like calling ceil())
+      this->strength += (strengthBoost == 0.0) ? 0 : 1;
+      this->dexterity += (dexterityBoost == 0.0) ? 0 : 1;
+
       list<Potion*> :: iterator temp = potionsIterator++;
       delete (*temp);
       potions.erase(temp);
-    }
+    }    
   }
   ++roundsPlayed;
 }
@@ -318,7 +337,7 @@ void Hero :: discard(const string& name) {
 void Hero::use(const string& potionName) {
   // (George): Alternative implementation
 
-  Item* potionToUse = inventory.getItemByName(potionName);
+  Potion* potionToUse = static_cast<Potion*>(inventory.getItemByName(potionName));
   if (potionToUse  == NULL) {
     cout << "This potion doesn't exist" << endl;
     return;
@@ -326,36 +345,11 @@ void Hero::use(const string& potionName) {
     cout << "The item you selected isn't a Potion" << endl;
     return;
   }
-  potions.push_back(static_cast<Potion*>(potionToUse));
+  potions.push_back(potionToUse);
   inventory.removeItem(potionToUse);
-  this->strength *= (1 + static_cast<Potion*>(potionToUse)->getStrengthBoost());
-  this->agility *= (1 + static_cast<Potion*>(potionToUse)->getAgilityBoost());
-  this->dexterity *= (1 + static_cast<Potion*>(potionToUse)->getDexterityBoost());
-  
-// 	if (potionInUse != NULL) {
-// 		cout << "You are already using a potion." << endl;
-// 		return;
-// 	} else {
-// 		Item* searchItemResult = inventory.getItemByName(potionName);
-
-// 		if (searchItemResult == NULL) {
-// 			cout << "This Item doesn't exist!" << endl;
-// 			return;
-// 		}
-// 		if (searchItemResult->kindOf() != "Potion") {
-// 			cout << "The item you selected is not a Potion" << endl;
-// 			return;
-// 		}
-
-// 		potionInUse = static_cast<Potion*>(searchItemResult);
-
-// 		inventory.removeItem(searchItemResult);
-
-// 		this->strength *= (1 + potionInUse->getStrengthBoost());
-// 		this->agility *= (1 + potionInUse->getAgilityBoost());
-// 		this->dexterity *= (1 + potionInUse->getDexterityBoost());
-
-// 	}
+  this->strength *= potionToUse->getStrengthBoost() + 1.0;
+  this->agility *= potionToUse->getAgilityBoost() + 1.0;
+  this->dexterity *= potionToUse->getDexterityBoost() + 1.0;
 }
 
 void Hero :: checkInventory() {
@@ -639,3 +633,4 @@ void Hero::attack(Monster* monster) {
 		monster->receiveDamage(heroDamage - damageReduction);
 	}
 }
+
