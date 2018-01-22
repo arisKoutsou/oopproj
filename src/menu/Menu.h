@@ -20,7 +20,7 @@ class Menu {
 public:
   Menu(const Market& market);
   Menu(const Inventory& inventory);
-  Menu(const Hero& hero);
+  Menu(const Hero& hero, bool battle);
   ~Menu();
 
   int getNumberOfOptions() const; // Returns the number of options

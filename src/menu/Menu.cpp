@@ -24,12 +24,20 @@ Menu :: Menu(const Inventory& inventory) {
   this->options.push_back("Exit Inventory");
 }
 
-Menu :: Menu(const Hero& hero) {
-  this->options.push_back("Display stats");
-  this->options.push_back("Attack");
-  this->options.push_back("Cast spell");
-  this->options.push_back("Use potion");
-  this->options.push_back("Change weapon/armor");
+Menu :: Menu(const Hero& hero, bool battle) {
+  if (battle) {
+    this->options.push_back("Display stats");
+    this->options.push_back("Attack");
+    this->options.push_back("Cast spell");
+    this->options.push_back("Use potion");
+    this->options.push_back("Change weapon/armor");
+  } else {
+    this->options.push_back("Display map");
+    this->options.push_back("Display stats");
+    this->options.push_back("Check invnentory");
+    this->options.push_back("Move");
+    this->options.push_back("Quit game");
+  }
 }
 
 Menu :: ~Menu() {}
