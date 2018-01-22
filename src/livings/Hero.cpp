@@ -43,9 +43,11 @@ Hero::Hero(
   expirience(0), inventory(),
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
-  battleMenu(*this),
+  battleMenu(*this, true),
+  gameMenu(*this, false),
   shield(NULL),
-  roundsPlayed(0)
+  roundsPlayed(0),
+  inBattle(false)
 {}
 
 Hero :: ~Hero() {
@@ -91,6 +93,10 @@ double Hero::getDamageReductionFactor() const {
 	}
 
 	return result;
+}
+
+bool Hero :: isInBattle() const {
+  return inBattle;
 }
 
 const Grid::Tile& Hero::getTile() {
@@ -261,18 +267,13 @@ void Hero :: moveRight() {
 }
 
 void Hero :: move(directions direction) {
-  try {
-    switch (direction) {
-    case UP: moveUp(); break;
-    case DOWN: moveDown(); break;
-    case LEFT: moveLeft(); break;
-    case RIGHT: moveRight(); break;
-    default: throw HeroMoveException("Unknown direction"); break;
-    }
-  }
-  catch (HeroMoveException& e) {
-    cout << e.what() << endl;
-  }
+  switch (direction) {
+  case UP: moveUp(); break;
+  case DOWN: moveDown(); break;
+  case LEFT: moveLeft(); break;
+  case RIGHT: moveRight(); break;
+  default: throw HeroMoveException("Unknown direction"); break; 
+  }   
 }
 
 string Hero :: getUserInput(const string& prompt) {

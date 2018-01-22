@@ -54,6 +54,7 @@ public:
 	virtual void levelUp();
 	string kindOf() const;
 	void printStats() const;
+        bool isInBattle() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
 	void checkInventory();
@@ -65,6 +66,7 @@ public:
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
 	Menu& getBattleMenu() const;
+        Menu& getGameMenu() const;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
   
@@ -75,7 +77,6 @@ protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
 	Armor* shield;
-        //Potion* potionInUse;
         list<Spell*> spells;
         list<Potion*> potions;
         
@@ -86,10 +87,11 @@ protected:
 	int 	dexterity;
 	int 	money;		// Gold.
 	int 	expirience;	// Xp.
-
+        bool    inBattle;
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 	Menu battleMenu;
+        Menu gameMenu;
 private:
 	void printEquipedSpells() const;
 	Spell* getSpellByName(const string& name);
