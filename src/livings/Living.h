@@ -34,10 +34,10 @@ public:
 	};
   
 	Living(		// Don't pass level as argument because at initialization it's 1.
-	    Grid* gr,
+	        Grid* gr,
 		int y,
 		int x,
-	    string nam,
+	        string nam,
 		int hp = 500
 	);
 	virtual ~Living();
