@@ -27,9 +27,9 @@
 
 Hero::Hero(
 	Grid* gr,
+	string nam,
 	int y,
 	int x,
-	string nam,
 	int hp,
 	int mp,
 	int s,
@@ -93,6 +93,14 @@ double Hero::getDamageReductionFactor() const {
 	}
 
 	return result;
+}
+
+Menu& Hero :: getBattleMenu() {
+  return battleMenu;
+}
+
+Menu& Hero :: getGameMenu() {
+  return gameMenu;
 }
 
 bool Hero :: isInBattle() const {
@@ -635,3 +643,6 @@ void Hero::attack(Monster* monster) {
 	}
 }
 
+void Hero :: displayMap() const {
+  this->grid->displayMap();
+}

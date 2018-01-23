@@ -10,16 +10,16 @@
 
 Paladin::Paladin(
 	Grid* gr,
+	string nam,
 	int y,
 	int x,
-	string nam,
 	int hp,
 	int mp,
 	int s,
 	double a,
 	int d
 ) : strengthBonus(0.1), dexterityBonus(0.1),
-    Hero(gr, y, x, nam, hp, mp, s, a, d) {
+    Hero(gr, nam, y, x, hp, mp, s, a, d) {
 
   this->strength = s + (s * strengthBonus);
   this->dexterity = d + (d * dexterityBonus);

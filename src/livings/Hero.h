@@ -30,9 +30,9 @@ public:
 
 	Hero(
 		Grid* gr,
+		string nam = "",
 		int y = 0,
 		int x = 0,
-		string nam = "",
 		int hp = 500,
 		int mp = 200,
 		int s = 100,
@@ -54,6 +54,7 @@ public:
 	virtual void levelUp();
 	string kindOf() const;
 	void printStats() const;
+        void displayMap() const;
         bool isInBattle() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
@@ -65,8 +66,8 @@ public:
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-	Menu& getBattleMenu() const;
-        Menu& getGameMenu() const;
+        Menu& getBattleMenu() ;
+        Menu& getGameMenu() ;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
   
