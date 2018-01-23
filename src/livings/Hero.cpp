@@ -375,19 +375,31 @@ void Hero :: checkInventory() {
       break;
     }
     case 2: {
-      string input = getUserInput(equipPrompt);   
-      this->equip(input);
-      break;
+      if (!this->getInventory().hasItems()) {
+		  cout << "You have no Items in your Inventory." << endl;
+	  } else {
+		  string input = getUserInput(equipPrompt);
+		  this->equip(input);
+	  }
+	  break;
     }
     case 3: {
-      string input = getUserInput(discardPrompt);
-      this->discard(input);
+      if (!this->getInventory().hasItems()) {
+    	  cout << "There are no Items to discard." << endl;
+      } else {
+		  string input = getUserInput(discardPrompt);
+		  this->discard(input);
+      }
       break;      
     }
     case 4: {
-      string input = getUserInput(usePotionPrompt);
-      this->use(input);
-      break;
+      if (!this->getInventory().hasPotions()) {
+		  cout << "You have no Potions in your Inventory." << endl;
+	  } else {
+		  string input = getUserInput(usePotionPrompt);
+		  this->use(input);
+	  }
+	  break;
     } 
     case 5: {
       this->inventory.getMenu().clearMenu();

@@ -58,9 +58,9 @@ int main() {
 	Grid grid(
 		4,	// m columns.
 		4,	// n lines.
-		tileInfo	// Previously made bool[].
+		tileInfo	// Previously made bool[].x
 	);
-	Hero* warrior = new Warrior(&grid, 0, 2, "Hercules");
+	Hero* warrior = new Warrior(&grid, "Hercules", 0, 2);
 	grid.displayMap();
 //	Hero* paladin = new Paladin(&grid, 0, 1, "Cavalry");
 //	Monster* monster = new Spirit(&grid, 0, 1, "Snake");
