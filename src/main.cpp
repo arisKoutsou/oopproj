@@ -143,10 +143,10 @@ int main(void) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: " << currentHero->getName() << endl << endl;
-    if (currentHero->isInBattle() == false) {
-      handleBasicCase(currentHero);
-    } else {
+    if (currentHero->isInBattle()) {
       handleBattleCase(currentHero);
+    } else {
+      handleBasicCase(currentHero);
     }
   }
   delete gameGrid;
