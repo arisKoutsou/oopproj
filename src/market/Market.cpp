@@ -57,9 +57,13 @@ void Market :: printInfo() const {
     cout << (*itemIterator)->getInfo() << endl;
   }
 
-  cout << "Spells:" << endl << endl;
-  for ( ; spellIterator != spells.end() ; ++spellIterator) {
-    cout << (*spellIterator)->getInfo() << endl;
+  if (this->getCurrentSpells() != 0) {
+	  cout << "Spells:" << endl << endl;
+	  for ( ; spellIterator != spells.end() ; ++spellIterator) {
+		cout << (*spellIterator)->getInfo() << endl;
+	  }
+  } else {
+	  cout << "No Spells in this Market..." << endl;
   }
 }
 
