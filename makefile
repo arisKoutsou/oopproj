@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS= -std=c++98 -ggdb -Wall -fPIC
 
-alltests : all bin/inventoryTest bin/itemTest bin/marketTest bin/spellTest bin/heroOnGridTest bin/attackTest
+alltests : all bin/inventoryTest bin/itemTest bin/marketTest bin/spellTest bin/heroOnGridTest bin/attackTest bin/game
 
 all : objects/exceptions/heroExceptions.o objects/grid/Grid.o objects/inventory/Inventory.o \
       objects/menu/Menu.o objects/market/Market.o objects/random/Random.o objects/items/Item.o \
@@ -40,6 +40,14 @@ bin/attackTest : src/tests/attackTest.cpp objects/grid/*.o objects/livings/*.o o
 			objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
 			objects/inventory/*.o objects/spells/*.o objects/random/*.o objects/exceptions/*.o \
 			-o bin/attackTest
+
+bin/game : src/main.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
+	    objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
+	    objects/random/*.o objects/spells/*.o objects/exceptions/*.o objects/inventory/*.o
+	$(CC) $(CFLAGS) src/main.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
+	       	        objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
+			objects/random/*.o objects/spells/*.o objects/exceptions/*.o objects/inventory/*.o \
+			-o bin/game
 
 objects/exceptions/heroExceptions.o : src/exceptions/heroExceptions.cpp src/exceptions/heroExceptions.h
 	$(CC) $(CFLAGS) -c src/exceptions/heroExceptions.cpp -o objects/exceptions/heroExceptions.o
