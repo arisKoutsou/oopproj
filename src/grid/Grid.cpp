@@ -57,7 +57,7 @@ const list<Living*>& Grid :: Tile :: getLivings() const {
 }
 */
 
-Grid :: Grid(int _maxX, int _maxY, bool* _tileInfo)
+Grid :: Grid(int _maxY, int _maxX, bool* _tileInfo)
 
   : maxX(_maxX), maxY(_maxY), marketCount(0) {
 

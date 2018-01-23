@@ -38,7 +38,7 @@ public:
   
   // tileInfo is an array of bools which has 2 boolean values stored:
   // nonAccessible, common (with that order)
-  Grid(int maxX, int maxY, bool* tileInfo);
+  Grid(int maxY, int maxX, bool* tileInfo);
   ~Grid();
 
   int getMaxX() const;
