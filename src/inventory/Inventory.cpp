@@ -52,6 +52,18 @@ bool Inventory :: hasItems() const {
 bool Inventory :: hasSpells() const {
   return (spells.empty() == false);
 }
+
+bool Inventory::hasPotions() const {
+	list<Item*> :: const_iterator itemIterator = items.begin();
+
+	for ( ; itemIterator != items.end() ; itemIterator++) {
+		if ((*itemIterator)->kindOf() == "Potion") {
+			return true;
+		}
+	}
+
+	return false;
+}
 void Inventory :: printInfo() const {
   list<Item*> :: const_iterator itemIterator = items.begin();
   list<Spell*> :: const_iterator spellIterator = spells.begin();
