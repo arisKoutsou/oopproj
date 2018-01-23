@@ -26,6 +26,7 @@ public:
     bool hasLiving() const;	  // returns if the tile has a living
     bool hasMarket() const;	  // returns if the tile has a market
     bool isCommon() const;	  // returns if the tile is common
+    bool isQualifiedForBattle(int numberOfHeroes) const; // returns if a battle can start at this tile
     int getNumberOfLivings() const; // returns the number of livings
     Market* getMarket() const;	    // returns the market of the tile
     //    const list<Living*>& getLivings() const;
@@ -66,7 +67,7 @@ private:
   int maxX;		        // max number of columns
   int maxY;			// max number of rows
   int marketCount;	// Counts markets on that grid.
-  vector< vector<Tile> > tiles;	// 2D grid of tiles
+  vector<vector<Tile> > tiles;	// 2D grid of tiles
 };
 
 #endif

@@ -5,6 +5,7 @@
 // Created: Tue Dec 26 19:24:55 2017 (+0200)
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <vector>
 #include "Grid.h"
@@ -40,6 +41,10 @@ bool Grid :: Tile :: hasMarket() const {
 
 bool Grid :: Tile :: isCommon() const {
   return common;
+}
+
+bool Grid :: Tile :: isQualifiedForBattle(int numberOfHeroes) const {
+  return ((livings.size() == numberOfHeroes && common));
 }
 
 int Grid :: Tile :: getNumberOfLivings() const {
@@ -140,12 +145,14 @@ void Grid :: displayMap() const {
 
   for (ssize_t i = tiles.size() - 1; i >= 0; --i) {
     for (ssize_t j = 0; j != tiles[i].size(); ++j) {
-      if (tiles[i][j].isNonAccessible()) {
-	cout << "X";
+      if (tiles[i][j].hasLiving()) {
+	cout << "H";
       } else if (tiles[i][j].hasMarket()) {
 	cout << "M";
-      } else if (tiles[i][j].hasLiving()) {
-	cout << "H";
+      } else if (tiles[i][j].isNonAccessible()) {
+	cout << "X";
+      } else if (tiles[i][j].isCommon()) {
+	cout << "C";
       } else {
 	cout << "+";
       }
