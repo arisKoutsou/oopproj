@@ -133,10 +133,14 @@ int main(void) {
   initGrid();
   int numberOfHeroes;
 
-  cout << "Please enter the number of heroes you want to have "
-       << "(min: 1, max: 3): ";
 
-  cin >> numberOfHeroes;
+  while (numberOfHeroes < 1 && numberOfHeroes > 3) {
+	cout << "Please enter the number of heroes you want to have "
+		 << "(min: 1, max: 3): ";
+
+	cin >> numberOfHeroes;
+  }
+
   createHeroes(numberOfHeroes);
 
   Market* market = new Market();
