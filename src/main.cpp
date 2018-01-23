@@ -36,28 +36,30 @@ inline void createHeroes(int numberOfHeroes) {
 	 << " (possible classes are Warrior, Sorcerer, Paladin): ";
     string heroClass;
     cin >> heroClass;
-    if (heroClass == "Warrior") {
-      cout << "Please enter a name for your hero: ";
-      string name;
-      cin >> name;
-      Warrior* warrior = new Warrior(gameGrid, name);
-      heroes.push_back(warrior);
-    } else if (heroClass == "Sorcerer") {
-      cout << "Please enter a name for your hero: ";
-      string name;
-      cin >> name;
-      Sorcerer* sorcerer = new Sorcerer(gameGrid, name);
-      heroes.push_back(sorcerer);
-    } else if (heroClass == "Paladin") {
-      cout << "Please enter a name for your hero: ";
-      string name;
-      cin >> name;
-      Paladin* paladin = new Paladin(gameGrid, name);
-      heroes.push_back(paladin);
-    } else {
-      cout << "That's not a valid class!" << endl;
-      --i;
+
+    if (! (heroClass == "Warrior"
+         || heroClass == "Paladin"
+         || heroClass == "Sorcerer")
+    ) {
+    	cout << "That's not a valid class!" << endl;
+	    --i;
+	    continue;
     }
+
+    cout << "Please enter a name for your hero: ";
+	string name;
+	cin >> name;
+
+	Hero* hero;
+    if (heroClass == "Warrior") {
+      hero = new Warrior(gameGrid, name);
+    } else if (heroClass == "Sorcerer") {
+      hero = new Sorcerer(gameGrid, name);
+    } else if (heroClass == "Paladin") {
+      hero = new Paladin(gameGrid, name);
+    }
+
+    heroes.push_back(hero);
   }
 }
 
@@ -85,11 +87,11 @@ inline void handleMoveCase(Hero* currentHero) {
   if (currentHero->getTile().hasMarket()) {
     string answer;
     do {
-      cout << "It seems that you found a market... Do you want to enter?"
+      cout << "It seems that you found a market... Do you want to enter?(Y/n)"
 	   << endl;
       cin >> answer;
-    } while (answer != "yes" && answer != "no");
-    if (answer == "yes") {
+    } while (answer != "Y" && answer != "n" && answer != "y");
+    if (answer == "Y" || answer == "y") {
       currentHero->enterMarket(currentHero->getTile().getMarket());
     }
   }
@@ -130,25 +132,34 @@ void handleBattleCase(Hero* currentHero) {
 int main(void) {
   initGrid();
   int numberOfHeroes;
+
   cout << "Please enter the number of heroes you want to have "
        << "(min: 1, max: 3): ";
+
   cin >> numberOfHeroes;
   createHeroes(numberOfHeroes);
+
   Market* market = new Market();
   Weapon* sword = new Weapon("Excalibur");
   market->addItem(sword);
   gameGrid->addMarket(1, 0, market);
+
   int heroTurn = 0;
+
   while (quitGame == false) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
-    cout << endl << "Hero Playing: " << currentHero->getName() << endl << endl;
+    cout << endl << "Hero Playing: "
+    		<< currentHero->getName() << endl << endl;
+
     if (currentHero->isInBattle()) {
       handleBattleCase(currentHero);
     } else {
       handleBasicCase(currentHero);
     }
   }
+
   delete gameGrid;
+
   return EXIT_SUCCESS;
 }
