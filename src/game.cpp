@@ -239,6 +239,6 @@ int main(int argc, char* argv[]) {
   }
 
   delete gameGrid;
-
+  map.close();
   return EXIT_SUCCESS;
 }
