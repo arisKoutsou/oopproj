@@ -20,9 +20,6 @@ Living::Living(
     name(nam), level(1),
     healthPower(hp)	// Level start at 1.
 {
-	if (grid != NULL) {
-		grid->addLiving(y, x, this);
-	}
 }
 
 Living::~Living() {}

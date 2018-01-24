@@ -48,7 +48,9 @@ Hero::Hero(
   shield(NULL),
   roundsPlayed(0),
   inBattle(false)
-{}
+{
+  grid->addLiving(y, x, this);
+}
 
 Hero :: ~Hero() {
   delete leftHandWeapon;
