@@ -9,17 +9,20 @@
 #include "Battle.h"
 #include "../random/Random.h"
 #include "../livings/Living.h"
+#include "../livings/Hero.h"
+#include "../livings/Monster.h"
+#include "../menu/Menu.h"
 
-Battle :: Battle(int _rounds, const list<Living*>& livings)
+Battle :: Battle(const list<Living*>& livings)
 
-  : rounds(_rounds), heroesWon(false), heroesRound(true) {
+  : heroesWon(false), heroesRound(true) {
 
   list<Living*> :: const_iterator it = livings.begin();
   for ( ; it != livings.end(); ++it) {
     if ((*it)->kindOf() == "Hero") {
-      heroes.push_front(*it);
+      heroes.push_front(static_cast<Hero*>(*it));
     } else {
-      monsters.push_front(*it);
+      monsters.push_front(static_cast<Monster*>(*it));
     }
   }
 
@@ -33,13 +36,62 @@ void Battle :: setHeroesWon(bool result) {
   heroesWon = result;
 }
 
-void Battle :: nextRound() {
-  if (this->rounds <= 0) return;
-  --this->rounds;
-  // TODO (George): Every time the round changes search for the valid
-  // hero (Health > 0) and set him as the attacker
+void Battle :: beginBattle() {
+  while (true) {
+    int selection;
+
+    while ((selection = currentAttacker->getBattleMenu().getSelection())) {
+      switch (selection) {
+      case 1: {
+	currentAttacker->printStats();
+	break;
+      }
+      case 2: {
+	cout << "The monsters available for attack are:" << endl;
+	printMonsters();
+	do {
+	  cout << "Enter the name of the monster you want to attack" << endl;
+	  string name;
+	  cin >> name;
+	  currentDefender = getLivingByName(name);
+	} while (currentDefender == NULL);
+	currentAttacker->attack(currentDefender);
+	break;
+      }
+      case 3: {
+	cout << "The monsters available for attack are:" << endl;
+	printMonsters();
+	do {
+	  cout << "Enter the name of the monster you want to attack" << endl;
+	  string name;
+	  cin >> name;
+	  currentDefender = getLivingByName(name);
+	} while (currentDefender == NULL);
+	currentAttacker->castSpell(currentDefender);
+	break;
+      }
+      case 4: {
+        
+      }
+      }
+    }
+  }
 }
 
-bool Battle :: battleEnded() const {
-  return (this->rounds == 0);
+Living* Battle :: getLivingByName(const string& name) {
+  list<Living*> :: const_iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    if ((*it)->getName() == name) {
+      return *it;
+    }
+  }
+  return NULL;
+}
+
+void Battle :: printMonsters() const {
+  list<Living*> :: const_iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    (*it)->printStats();
+  }
+  cout << endl;
 }

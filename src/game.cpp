@@ -22,6 +22,9 @@
 
 using namespace std;
 
+#define MIN_MONSTERS 3
+#define MAX_MONSTERS 10
+
 static int numberOfHeroes;
 static vector<Hero*> heroes;
 static list<Monster*> monsters;
@@ -200,8 +203,39 @@ inline void handleBasicCase(Hero* currentHero) {
   }
 }
 
+inline void generateMonsters() {
+  int numberOfMonsters = rng.fromMintoMax(MIN_MONSTERS, MAX_MONSTERS);
+  int heroY = heroes[0]->getPosition().getY();
+  int heroX = heroes[0]->getPosition().getX();
+  for (size_t i = 0U; i != numberOfMonsters; ++i) {
+    int kind = rng.fromMintoMax(0, 2);
+    switch (kind) {
+    case 0: {
+      Dragon* dragon = new Dragon(gameGrid, heroY, heroX, "Dragan");
+      monsters.push_back(dragon);      
+      break;
+    }
+    case 1: {
+      Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, "Boneless");
+      monsters.push_back(ex);
+      break;
+    }
+    case 2: {
+      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, "Boneless");
+      monsters.push_back(spirit);
+      break;
+    }
+    }
+  }
+}
+
 inline void handleBattleCase() {
-  // 
+  generateMonsters();
+  while (true) {
+    int rounds = 1;
+    cout << "ROUNDS " << rounds << endl << endl;
+    
+  }
 }
 
 int main(int argc, char* argv[]) {  

@@ -8,25 +8,28 @@
 #define __BATTLE_HEADER__
 
 #include <list>
+#include <string>
 
 using namespace std;
 
 class Living;
+class Monster;
+class Hero;
 
 class Battle {
 public:
-  Battle(int rounds, const list<Living*>& livings);
+  Battle(const list<Living*>& livings);
   ~Battle();
 
+  void beginBattle();
   void setHeroesWon(bool result);
-  void nextRound();
-  bool battleEnded() const;
 private:
+  Living* getLivingByName(const string& name);
+  void printMonsters() const;
   Living* currentAttacker;
   Living* currentDefender;
-  list<Living*> monsters;
-  list<Living*> heroes;
-  int rounds;
+  list<Monster*> monsters;
+  list<Hero*> heroes;
   bool heroesWon;
   bool heroesRound;
 };
