@@ -28,6 +28,7 @@ Menu :: Menu(const Inventory& inventory) {
 Menu :: Menu(const Hero& hero, bool battle) {
   if (battle) {
     this->options.push_back("Display stats");
+    this->options.push_back("Display all monsters stats");
     this->options.push_back("Attack");
     this->options.push_back("Cast spell");
     this->options.push_back("Use potion");
