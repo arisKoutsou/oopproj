@@ -55,25 +55,23 @@ public:
 	string kindOf() const;
 	void printStats() const;
         void displayMap() const;
-        bool isInBattle() const;
-	bool operator==(const Hero& rValue) const;
+        bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
+        void battle(list<Monster*> monsters);
 	void checkInventory();
 	Inventory& getInventory();
-	void equip(const string& name);
-	void discard(const string& name);
-	void use(const string& potion);
+        bool equip(const string& name);
+        bool discard(const string& name);
+        bool use(const string& potion);
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-        Menu& getBattleMenu() ;
         Menu& getGameMenu() ;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
   
         // IMPROTANT: Call this function whenever a hero finishes his round.
 	void nextRound();	// Checks potions and goes to next round.
-
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
@@ -88,8 +86,7 @@ protected:
 	int 	dexterity;
 	int 	money;		// Gold.
 	int 	expirience;	// Xp.
-        bool    inBattle;
-	Inventory inventory;	// Implemented by george.
+        Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 	Menu battleMenu;
         Menu gameMenu;
@@ -107,7 +104,11 @@ private:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
-	string getUserInput(const string& prompt);  
+	string getUserInput(const string& prompt);
+        void handleAttackCase(list<Monster*> monsters);
+        void handleCastSpellCase(list<Monster*> monsters);
+        void handleUseCase();
+        void handleEquipCase();
 };
 
 #endif /* LIVINGS_HERO_H_ */

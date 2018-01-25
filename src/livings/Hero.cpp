@@ -46,8 +46,7 @@ Hero::Hero(
   battleMenu(*this, true),
   gameMenu(*this, false),
   shield(NULL),
-  roundsPlayed(0),
-  inBattle(false)
+  roundsPlayed(0)
 {
   grid->addLiving(y, x, this);
 }
@@ -97,16 +96,8 @@ double Hero::getDamageReductionFactor() const {
 	return result;
 }
 
-Menu& Hero :: getBattleMenu() {
-  return battleMenu;
-}
-
 Menu& Hero :: getGameMenu() {
   return gameMenu;
-}
-
-bool Hero :: isInBattle() const {
-  return inBattle;
 }
 
 const Grid::Tile& Hero::getTile() {
@@ -295,7 +286,7 @@ string Hero :: getUserInput(const string& prompt) {
   return input;
 }
 
-void Hero :: equip(const string& name) {
+bool Hero :: equip(const string& name) {
   Item* itemToEquip = inventory.getItemByName(name);
 
   if (itemToEquip != NULL) {
@@ -310,10 +301,10 @@ void Hero :: equip(const string& name) {
 
     } else if (kind == "Potion") {
       cout << "You can't equip a potion" << endl;
-      return;
+      return false;
     }
     this->inventory.removeItem(itemToEquip);
-    return;
+    return true;
   }
 
   Spell* spellToEquip = inventory.getSpellByName(name);
@@ -321,46 +312,49 @@ void Hero :: equip(const string& name) {
   if (spellToEquip != NULL) {
     this->equipSpell(spellToEquip);
     this->inventory.removeSpell(spellToEquip);
-    return;
+    return true;
   }
 
   cout << "There's no such item or spell in your inventory" << endl;
+  return false;
 }
 
-void Hero :: discard(const string& name) {
+bool Hero :: discard(const string& name) {
   Item* itemToDiscard = inventory.getItemByName(name);
 
   if (itemToDiscard != NULL) {
     this->inventory.removeAndDeleteItem(itemToDiscard);
-    return;
+    return true;
   }
 
   Spell* spellToDiscard = inventory.getSpellByName(name);
 
   if (spellToDiscard != NULL) {
     this->inventory.removeAndDeleteSpell(spellToDiscard);
-    return;
+    return true;
   }
 
   cout << "There's no such item or spell in your inventory" << endl;
+  return false;
 }
 
-void Hero::use(const string& potionName) {
+bool Hero::use(const string& potionName) {
   // (George): Alternative implementation
 
   Potion* potionToUse = static_cast<Potion*>(inventory.getItemByName(potionName));
   if (potionToUse  == NULL) {
     cout << "This potion doesn't exist" << endl;
-    return;
+    return false;
   } else if (potionToUse->kindOf() != "Potion") {
     cout << "The item you selected isn't a Potion" << endl;
-    return;
+    return true;
   }
   potions.push_back(potionToUse);
   inventory.removeItem(potionToUse);
   this->strength *= potionToUse->getStrengthBoost() + 1.0;
   this->agility *= potionToUse->getAgilityBoost() + 1.0;
   this->dexterity *= potionToUse->getDexterityBoost() + 1.0;
+  return true;
 }
 
 void Hero :: checkInventory() {
@@ -659,4 +653,80 @@ void Hero::attack(Monster* monster) {
 
 void Hero :: displayMap() const {
   this->grid->displayMap();
+}
+
+void Hero :: battle(list<Monster*> monsters) {
+  int selection;
+  this->battleMenu.displayMenu();
+  while ((selection = this->battleMenu.getSelection())) {
+    switch (selection) {
+    case 1: this->printStats(); break;
+    case 2: {
+      list<Monster*> :: const_iterator it = monsters.begin();
+      for ( ; it != monsters.end(); ++it) {
+	if ((*it)->getHealthPower() != 0) (*it)->printStats();
+      }
+      cout << endl;
+      break;
+    }
+    case 3: handleAttackCase(monsters); return;
+    case 4: handleCastSpellCase(monsters); return;
+    case 5: handleUseCase(); return;
+    case 6: handleEquipCase(); return;
+    }
+    this->battleMenu.clearMenu();
+    this->battleMenu.displayMenu();
+  }
+}
+
+void Hero :: handleAttackCase(list<Monster*> monsters) {
+  Monster* monsterToAttack;
+  do {
+    monsterToAttack = NULL;
+    cout << "Please enter the name of the monster you want to attack: ";
+    string name;
+    cin >> name;
+    list<Monster*> :: const_iterator it = monsters.begin();
+    for ( ; it != monsters.end(); ++it) {
+      if ((*it)->getName() == name) {
+        monsterToAttack = (*it);
+	break;
+      }
+    }
+  } while (monsterToAttack == NULL);
+  this->attack(monsterToAttack);
+}
+
+void Hero :: handleCastSpellCase(list<Monster*> monsters) {
+  Monster* monsterToAttack;
+  do {
+    monsterToAttack = NULL;
+    cout << "Please enter the name of the monster you want to cast spell: ";
+    string name;
+    cin >> name;
+    list<Monster*> :: const_iterator it = monsters.begin();
+    for ( ; it != monsters.end(); ++it) {
+      if ((*it)->getName() == name) {
+        monsterToAttack = (*it);
+	break;
+      }
+    }
+  } while (monsterToAttack == NULL);
+  this->castSpell(monsterToAttack);
+}
+
+void Hero :: handleUseCase() {
+  string name;
+  do {
+    cout << "Please enter the name of the potion you want to use: ";
+    cin >> name;
+  } while (this->use(name) == false);  
+}
+
+void Hero :: handleEquipCase() {
+  string name;
+  do {
+    cout << "Please enter the name of the weapon/armor you want to equip: ";
+    cin >> name;
+  } while (equip(name) == false);
 }
