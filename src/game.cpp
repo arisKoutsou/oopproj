@@ -241,12 +241,7 @@ inline int heroesAlive() {
 }
 
 inline bool heroesWon() {
-  size_t dead = 0U;
-  list<Monster*> :: const_iterator it = monsters.begin();
-  for ( ; it != monsters.end(); ++it) {
-    if ((*it)->getHealthPower() == 0) ++dead;
-  }
-  return (dead == monsters.size()) ? true : false;
+  return (monsters.size() == 0);
 }
 
 inline bool monstersWon() {
@@ -269,7 +264,7 @@ inline void handleBattleCase() {
     size_t heroIndex = 0U;
     bool heroesTurn = true;
     cout << "ROUND " << rounds << endl << endl;
-    while (livingsPlayed != (monsters.size() + heroesAlive())) {
+    while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       // TODO (George): After each attack we should check if the monster died
       // so we can add experience and money to the hero or at least save them and
       // add them after the battle.
