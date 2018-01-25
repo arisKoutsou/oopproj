@@ -203,7 +203,10 @@ inline void handleBasicCase(Hero* currentHero) {
   }
 }
 
-inline void generateMonsters() {
+// INCOMPLETE (George)
+inline void createMonsters() {
+  // TODO (George): Find a way so the monsters that get spawned
+  // have the proper stats based on the heroes level (or average level)
   int numberOfMonsters = rng.fromMintoMax(MIN_MONSTERS, MAX_MONSTERS);
   int heroY = heroes[0]->getPosition().getY();
   int heroX = heroes[0]->getPosition().getX();
@@ -229,12 +232,67 @@ inline void generateMonsters() {
   }
 }
 
+inline int heroesAlive() {
+  int alive = 0;
+  for (size_t i = 0U; i != heroes.size(); ++i) {
+    if (heroes[i]->getHealthPower() != 0) ++alive;
+  }
+  return alive;
+}
+
+inline bool heroesWon() {
+  size_t dead = 0U;
+  list<Monster*> :: const_iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    if ((*it)->getHealthPower() == 0) ++dead;
+  }
+  return (dead == monsters.size()) ? true : false;
+}
+
+inline bool monstersWon() {
+  size_t dead = 0U;
+  for (size_t i = 0U; i != numberOfHeroes; ++i) {
+    if (heroes[i]->getHealthPower() == 0) ++dead;
+  }
+  return (dead == numberOfHeroes) ? true : false;
+}
+
+inline bool battleEnded() {
+  return (heroesWon() || monstersWon());
+}
+
 inline void handleBattleCase() {
-  generateMonsters();
+  createMonsters();
   while (true) {
     int rounds = 1;
-    cout << "ROUNDS " << rounds << endl << endl;
-    
+    int livingsPlayed = 0;
+    size_t heroIndex = 0U;
+    bool heroesTurn = true;
+    cout << "ROUND " << rounds << endl << endl;
+    while (livingsPlayed != (monsters.size() + heroesAlive())) {
+      // TODO (George): After each attack we should check if the monster died
+      // so we can add experience and money to the hero or at least save them and
+      // add them after the battle.
+      if (heroesTurn) {
+	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
+        heroes[heroIndex]->battle(monsters);
+	heroesTurn = false;
+	heroIndex = (heroIndex + 1) % numberOfHeroes;
+      } else {
+	size_t monsterIndex = rng.fromMintoMax(0, monsters.size());
+	list<Monster*> :: const_iterator it = monsters.begin();
+	while (monsterIndex-- != 0) ++it;
+	size_t heroToAttackIndex;
+	do {
+          heroToAttackIndex = rng.fromMintoMax(0, numberOfHeroes);
+	} while (heroes[heroToAttackIndex]->getHealthPower() == 0);
+        (*it)->attack(heroes[rng.fromMintoMax(0, numberOfHeroes)]);
+	heroesTurn = true;
+      }
+      ++livingsPlayed;
+    }
+    // TODO (George): Implement the case where the battle ends.
+    ++rounds;
   }
 }
 
@@ -263,13 +321,13 @@ int main(int argc, char* argv[]) {
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
 	 << currentHero->getName() << endl << endl;
-    handleBasicCase(currentHero);
-    // if (currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
-    //   if (rng.boolean(battleProbability)) {
-    // 	handleBattleCase();
-    //   }      
-    // } else {
-    // }    
+    if (currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
+      if (rng.boolean(battleProbability)) {
+    	handleBattleCase();
+      }      
+    } else {
+      handleBasicCase(currentHero);
+    }    
   }
 
   delete gameGrid;
