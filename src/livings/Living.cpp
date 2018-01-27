@@ -18,7 +18,8 @@ Living::Living(
 )
   : grid(gr), p(x, y),
     name(nam), level(1),
-    healthPower(hp)	// Level start at 1.
+    healthPower(hp),	// Level start at 1.
+    maxHealth(hp)
 {
 }
 
@@ -38,7 +39,8 @@ const string& Living::getName() const {
 
 void Living::receiveDamage(int damageDealt) {
 	healthPower -= damageDealt;	// Derived classes use this.
-								// And then kill the living.
+	// And then kill the living.
+	healthPower = (healthPower < 0) ? 0 : healthPower;
 }
 
 // Implemented by: (George Liontos)

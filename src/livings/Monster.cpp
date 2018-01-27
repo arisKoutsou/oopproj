@@ -48,17 +48,17 @@ string Monster :: kindOf() const {
 }
 
 void Monster::printStats() const {
-	Living::printStats();
-	cout << setprecision(2);
-
-	cout << "Damage range: " << minDamage << " - " << maxDamage << endl
-		<< "Dodge: " << dodge*100 << "%" << endl << endl;
+  Living::printStats();
+  cout << setprecision(2);
+  
+  cout << "Damage range: " << minDamage << " - " << maxDamage << endl
+       << "Dodge: " << dodge*100 << "%" << endl << endl;
 }
 
 void Monster::receiveDamage(int damageDealt) {
 	Living::receiveDamage(damageDealt);
-	if (this->getHealthPower() <= 0) {
-		cout << "A monster died..." << endl; // This needs fixing...
+	if (this->getHealthPower() == 0) {
+	  cout << "A monster died..." << endl; // This needs fixing...
 	}
 }
 

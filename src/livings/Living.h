@@ -47,7 +47,7 @@ public:
 	const string& getName() const;  
 	virtual void receiveDamage(int damageDealt);	// Subtract from hp the damageDealt.
 	// Added by: (George Liontos)
-	virtual void setHealthPower(int );
+	virtual void setHealthPower(int health);
 
 	Position& getPosition();
 	virtual void printStats() const;
@@ -57,11 +57,11 @@ public:
 protected:
 	Grid* 	grid;
 	int 	level;			// Level starting from 0.
+        int maxHealth;
 private:
 	Position p;
 	string 	name;
-	int 	healthPower;	// hp with a stupid name...
-
+	int 	healthPower;	// hp with a stupid name...       
 };
 
 #endif /* LIVINGS_LIVING_H_ */

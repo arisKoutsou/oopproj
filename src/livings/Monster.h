@@ -33,7 +33,6 @@ public:
 	int getMinDamage() const;
         string kindOf() const;
         void printStats() const;
-  
         void receiveDamage(int damageDealt);// Reduces health by damageDealt.
         void attack(Hero* hero);			// Reduces hero's health.
 private:
