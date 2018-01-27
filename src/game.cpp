@@ -22,8 +22,8 @@
 
 using namespace std;
 
-#define MIN_MONSTERS 3
-#define MAX_MONSTERS 10
+#define MIN_MONSTERS 1
+#define MAX_MONSTERS 1
 
 static int numberOfHeroes;
 static vector<Hero*> heroes;
@@ -224,7 +224,7 @@ inline void createMonsters() {
       break;
     }
     case 2: {
-      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, "Boneless");
+      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, "Etherioum");
       monsters.push_back(spirit);
       break;
     }
@@ -256,39 +256,79 @@ inline bool battleEnded() {
   return (heroesWon() || monstersWon());
 }
 
+inline void claimRewards() {
+  for (size_t i = 0U; i != numberOfHeroes; ++i) {
+    int monstersKilled = heroes[i]->getMonstersKilled();
+    if (monstersKilled != 0) {
+      // TODO (George): Find a formula for getting the reward money
+      // Also add the experience reward
+      int moneyToClaim = heroes[i]->getLevel()*0.1*monstersKilled + 100*monstersKilled;
+      heroes[i]->setMoney(heroes[i]->getMoney() + moneyToClaim);
+    }
+  }
+}
+
+inline void receivePenalty() {
+  for (size_t i = 0U; i != numberOfHeroes; ++i) {
+    heroes[i]->setMoney(heroes[i]->getMoney()/2);
+  }
+}
+
+inline void restoreHeroes() {
+  for (size_t i = 0U; i != numberOfHeroes; ++i) {
+    heroes[i]->resetBattleStats();
+    if (heroes[i]->getHealthPower() == 0) {
+      heroes[i]->respawn();
+    }
+  }  
+}
+
+inline void cleanupMonsters() {
+  list<Monster*> :: iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    list<Monster*> :: iterator temp = it++;
+    delete (*temp);
+    monsters.erase(temp);
+  }
+}
+
 inline void handleBattleCase() {
   createMonsters();
-  while (true) {
-    int rounds = 1;
+  int rounds = 1;
+  while (true) {    
     int livingsPlayed = 0;
     size_t heroIndex = 0U;
     bool heroesTurn = true;
     cout << "ROUND " << rounds << endl << endl;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
-      // TODO (George): After each attack we should check if the monster died
-      // so we can add experience and money to the hero or at least save them and
-      // add them after the battle.
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
 	heroesTurn = false;
 	heroIndex = (heroIndex + 1) % numberOfHeroes;
       } else {
-	size_t monsterIndex = rng.fromMintoMax(0, monsters.size());
+	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
 	list<Monster*> :: const_iterator it = monsters.begin();
 	while (monsterIndex-- != 0) ++it;
 	size_t heroToAttackIndex;
 	do {
-          heroToAttackIndex = rng.fromMintoMax(0, numberOfHeroes);
+          heroToAttackIndex = rng.fromMintoMax(0, numberOfHeroes - 1);
 	} while (heroes[heroToAttackIndex]->getHealthPower() == 0);
-        (*it)->attack(heroes[rng.fromMintoMax(0, numberOfHeroes)]);
+        (*it)->attack(heroes[heroToAttackIndex]);
 	heroesTurn = true;
       }
       ++livingsPlayed;
     }
-    // TODO (George): Implement the case where the battle ends.
+    if (heroesWon()) {
+      claimRewards();
+      break;
+    } else if (monstersWon()) {
+      receivePenalty();
+      break;
+    }  
     ++rounds;
   }
+  cleanupMonsters();
 }
 
 int main(int argc, char* argv[]) {  
@@ -310,19 +350,22 @@ int main(int argc, char* argv[]) {
   gameGrid->addMarket(1, 0, market);
 
   int heroTurn = 0;
+  bool battled = false;
 
   while (quitGame == false) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
 	 << currentHero->getName() << endl << endl;
-    if (currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
+    if (currentHero->getTile().isQualifiedForBattle(numberOfHeroes && !battled)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
+	battled = true;
+	continue;
       }      
-    } else {
-      handleBasicCase(currentHero);
-    }    
+    }
+    handleBasicCase(currentHero);
+    battled = false;
   }
 
   delete gameGrid;
