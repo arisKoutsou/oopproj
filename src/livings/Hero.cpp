@@ -46,7 +46,8 @@ Hero::Hero(
   battleMenu(*this, true),
   gameMenu(*this, false),
   shield(NULL),
-  roundsPlayed(0)
+  roundsPlayed(0),
+  monstersKilled(0)
 {
   grid->addLiving(y, x, this);
 }
@@ -107,8 +108,24 @@ const Grid::Tile& Hero::getTile() {
 	);
 }
 
+void Hero :: setMoney(int money) {
+  this->money = money;
+}
+
+void Hero :: resetBattleStats() {
+  monstersKilled = 0;
+}
+
+int Hero :: getMonstersKilled() const {
+  return monstersKilled;
+}
+
+void Hero :: respawn() {
+  this->setHealthPower(maxHealth/2);
+}
+
 void Hero :: printStats() const {
-	Living :: printStats();
+        Living :: printStats();
 	cout << setprecision(2);
 
 	cout << "Mana: " << this->magicPower << endl
@@ -419,16 +436,37 @@ void Hero::buy(const string& itemName) {
   if (itemToBuy != NULL) {
     string kind = itemToBuy->kindOf();
     Item* itemToAdd;
-    
+    bool equiped = false;
+
     if (kind == "Weapon") {
       itemToAdd = new Weapon(*static_cast<Weapon*>(itemToBuy));
+      Weapon* aux = static_cast<Weapon*>(itemToAdd);
+      if (aux->needsBothHands()) {
+        if (this->usesLeftHand() == false && this->usesRightHand() == false) {
+	  this->equipWeapon(aux);
+	  equiped = true;
+	}
+      } else {
+	if (this->usesLeftHand() == false || this->usesRightHand() == false) {
+	  this->equipWeapon(aux);
+	  equiped = true;
+	}
+      }
     } else if (kind == "Armor") {
       itemToAdd = new Armor(*static_cast<Armor*>(itemToBuy));
+      if (this->shield == NULL) {
+	this->shield = static_cast<Armor*>(itemToAdd);
+	equiped = true;
+      }
     } else {
       itemToAdd = new Potion(*static_cast<Potion*>(itemToBuy));
+      if (this->potions.size() == 0) {
+	this->potions.push_back(static_cast<Potion*>(itemToAdd));
+	equiped = true;
+      }
     }
 
-    inventory.addItem(itemToAdd);
+    if(!equiped) inventory.addItem(itemToAdd);
     money -= itemToBuy->buyFor();
     return;
   }
@@ -438,7 +476,8 @@ void Hero::buy(const string& itemName) {
   if (spellToBuy != NULL) {
     string kind = spellToBuy->kindOf();
     Spell* spellToAdd;
-
+    bool equiped = false;
+    
     if (kind == "IceSpell") {
       spellToAdd = new IceSpell(*static_cast<IceSpell*>(spellToBuy));
     } else if (kind == "FireSpell") {
@@ -446,8 +485,12 @@ void Hero::buy(const string& itemName) {
     } else {
       spellToAdd = new LightningSpell(*static_cast<LightningSpell*>(spellToBuy));
     }
+    if (this->spells.size() == 0) {
+      this->spells.push_back(spellToAdd);
+      equiped = true;
+    }
 
-    inventory.addSpell(spellToAdd);
+    if (!equiped) inventory.addSpell(spellToAdd);
     money -= spellToBuy->getValue();
     return;
   }
@@ -628,6 +671,7 @@ void Hero::attack(Monster* monster) {
 	Random random;
 
 	if (random.boolean(monster->getDodge())) {
+	  cout << "Monster Dodged your attack sucker!" << endl;
 		// Monster dodged this attack! , nothing happens.
 	} else {
 		int heroDamage = 0;
@@ -647,7 +691,7 @@ void Hero::attack(Monster* monster) {
 
 		damageReduction += monster->getDamageReductionFactor()*heroDamage;
 
-		monster->receiveDamage(heroDamage - damageReduction);
+		monster->receiveDamage(heroDamage - damageReduction);                
 	}
 }
 
@@ -655,7 +699,7 @@ void Hero :: displayMap() const {
   this->grid->displayMap();
 }
 
-void Hero :: battle(list<Monster*> monsters) {
+void Hero :: battle(list<Monster*>& monsters) {
   int selection;
   this->battleMenu.displayMenu();
   while ((selection = this->battleMenu.getSelection())) {
@@ -664,7 +708,7 @@ void Hero :: battle(list<Monster*> monsters) {
     case 2: {
       list<Monster*> :: const_iterator it = monsters.begin();
       for ( ; it != monsters.end(); ++it) {
-	if ((*it)->getHealthPower() != 0) (*it)->printStats();
+        (*it)->printStats();
       }
       cout << endl;
       break;
@@ -679,7 +723,7 @@ void Hero :: battle(list<Monster*> monsters) {
   }
 }
 
-void Hero :: handleAttackCase(list<Monster*> monsters) {
+void Hero :: handleAttackCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
   do {
     monsterToAttack = NULL;
@@ -695,9 +739,14 @@ void Hero :: handleAttackCase(list<Monster*> monsters) {
     }
   } while (monsterToAttack == NULL);
   this->attack(monsterToAttack);
+  if (monsterToAttack->getHealthPower() == 0) {
+    ++this->monstersKilled;
+    monsters.remove(monsterToAttack);
+    delete monsterToAttack;
+  }
 }
 
-void Hero :: handleCastSpellCase(list<Monster*> monsters) {
+void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
   do {
     monsterToAttack = NULL;
@@ -713,6 +762,10 @@ void Hero :: handleCastSpellCase(list<Monster*> monsters) {
     }
   } while (monsterToAttack == NULL);
   this->castSpell(monsterToAttack);
+  if (monsterToAttack->getHealthPower() == 0) {
+    monsters.remove(monsterToAttack);
+    delete monsterToAttack;
+  }
 }
 
 void Hero :: handleUseCase() {

@@ -49,7 +49,7 @@ public:
 	int getStrength() const;
 	double getDamageReductionFactor() const;
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
-
+        void setMoney(int money);
 	void move(directions direction);
 	virtual void levelUp();
 	string kindOf() const;
@@ -57,7 +57,7 @@ public:
         void displayMap() const;
         bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
-        void battle(list<Monster*> monsters);
+        void battle(list<Monster*>& monsters);
 	void checkInventory();
 	Inventory& getInventory();
         bool equip(const string& name);
@@ -72,6 +72,9 @@ public:
   
         // IMPROTANT: Call this function whenever a hero finishes his round.
 	void nextRound();	// Checks potions and goes to next round.
+        int getMonstersKilled() const;
+        void resetBattleStats();
+        void respawn();
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
@@ -85,7 +88,8 @@ protected:
 	double 	agility;	// P(dodge) an attack.
 	int 	dexterity;
 	int 	money;		// Gold.
-	int 	expirience;	// Xp.
+        int 	expirience;	// Xp
+        int     monstersKilled;
         Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
 	Menu battleMenu;
@@ -105,8 +109,8 @@ private:
 	void moveLeft();
 	void moveRight();
 	string getUserInput(const string& prompt);
-        void handleAttackCase(list<Monster*> monsters);
-        void handleCastSpellCase(list<Monster*> monsters);
+        void handleAttackCase(list<Monster*>& monsters);
+        void handleCastSpellCase(list<Monster*>& monsters);
         void handleUseCase();
         void handleEquipCase();
 };
