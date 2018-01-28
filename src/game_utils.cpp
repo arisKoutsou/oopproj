@@ -188,6 +188,8 @@ void handleBattleCase(void) {
 	heroIndex = (heroIndex + 1) % heroes.size();
 	heroesTurn = false;        
       } else {
+	// TODO (George): I should modify the monster class in order
+	// to check if the monster has been nerfed from a spell attack
 	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
 	list<Monster*> :: const_iterator it = monsters.begin();
 	while (monsterIndex-- != 0) ++it;
@@ -365,15 +367,15 @@ void readData(int argc, char* argv[]) {
   ifstream inputStream;
   for (size_t i = 1U; i != argc; ++i) {
     inputStream.open(argv[i]);
-    if (strncmp(argv[i], "names.txt", strlen("names.txt"))) {
+    if (strstr(argv[i], "names.txt")) {
       readSpecificData(inputStream, names);
-    } else if (strncmp(argv[i], "armors.txt", strlen("armors.txt"))) {
+    } else if (strstr(argv[i], "armors.txt")) {
       readSpecificData(inputStream, armors);
-    } else if (strncmp(argv[i], "weapons.txt", strlen("weapons.txt"))) {
+    } else if (strstr(argv[i], "weapons.txt")) {
       readSpecificData(inputStream, weapons);
-    } else if (strncmp(argv[i], "potions.txt", strlen("potions.txt"))) {
+    } else if (strstr(argv[i], "potions.txt")) {
       readSpecificData(inputStream, potions);
-    } else if (strncmp(argv[i], "spells.txt", strlen("spells.txt"))) {
+    } else if (strstr(argv[i], "spells.txt")) {
       readSpecificData(inputStream, spells);
     }
     inputStream.close();
@@ -386,4 +388,34 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
     buffer[buffer.length() - 1] = '\0';
     data.push_back(buffer);
   }
+}
+
+void checkArgumentsAndSetMap(int argc, char* argv[]) {
+  if (argc < 7 ) {
+    cerr << "Too few arguments! You should provide the program with:"
+	 << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
+	 << "potions.txt, and armors.txt" << endl;
+    exit(EXIT_FAILURE);
+  }
+  for (size_t i = 1U; i != argc; ++i) {
+    if (strstr(argv[i], "map.txt")) {
+      map.open(argv[i]);
+      break;
+    }
+  }
+}
+
+int getNumberOfHeroes(void) {
+  int numberOfHeroes = -1;
+  while (numberOfHeroes < 1 || numberOfHeroes > 3) {
+    cout << "Please enter the number of heroes you want to have "
+	 << "(min: 1, max: 3): ";
+    cin >> numberOfHeroes;
+  }
+  return numberOfHeroes;
+}
+
+void cleanupResources(void) {
+  delete gameGrid;
+  map.close();
 }

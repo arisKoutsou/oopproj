@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include <vector>
 #include <list>
 
@@ -10,16 +11,13 @@
 using namespace std;
 
 static const double battleProbability = 0.6;
+ifstream map;
 bool quitGame = false;
 
-int main(int argc, char* argv[]) {  
-  int numberOfHeroes;
-  while (numberOfHeroes < 1 || numberOfHeroes > 3) {
-    cout << "Please enter the number of heroes you want to have "
-	 << "(min: 1, max: 3): ";
-    cin >> numberOfHeroes;
-  }
-  ifstream map(argv[1]);
+int main(int argc, char* argv[]) {
+  checkArgumentsAndSetMap(argc, argv);
+  readData(argc, argv);
+  int numberOfHeroes = getNumberOfHeroes();
   initGrid(map);
   createHeroes(numberOfHeroes);
   int heroTurn = 0;
@@ -39,7 +37,6 @@ int main(int argc, char* argv[]) {
     handleBasicCase(currentHero);
     battled = false;
   }
-  map.close();
-  delete gameGrid;
+  cleanupResources();
   return EXIT_SUCCESS;
 }

@@ -34,6 +34,7 @@ extern vector<string> spells;
 extern list<Monster*> monsters;
 extern Grid* gameGrid;
 extern bool quitGame;
+extern ifstream map;
 
 void initGrid(void);
 void initGrid(ifstream& stream);
@@ -56,5 +57,8 @@ int heroesAlive(void);
 void readData(int argc, char* argv[]);
 void readSpecificData(ifstream& stream, vector<string>& data);
 void regenerateStats(void);
+void checkArgumentsAndSetMap(int argc, char* argv[]);
+int getNumberOfHeroes(void);
+void cleanupResources(void);
 
 #endif
