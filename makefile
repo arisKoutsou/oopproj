@@ -41,10 +41,10 @@ bin/attackTest : src/tests/attackTest.cpp objects/grid/*.o objects/livings/*.o o
 			objects/inventory/*.o objects/spells/*.o objects/random/*.o objects/exceptions/*.o \
 			-o bin/attackTest
 
-bin/game : src/game.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
+bin/game : src/game.cpp src/game_utils.cpp src/game_utils.h objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 	    objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
 	    objects/random/*.o objects/spells/*.o objects/exceptions/*.o objects/inventory/*.o
-	$(CC) $(CFLAGS) src/game.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
+	$(CC) $(CFLAGS) src/game.cpp src/game_utils.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 	       	        objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
 			objects/random/*.o objects/spells/*.o objects/exceptions/*.o objects/inventory/*.o \
 			-o bin/game
