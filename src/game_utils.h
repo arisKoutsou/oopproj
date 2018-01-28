@@ -29,8 +29,6 @@ extern vector<Hero*> heroes;
 extern list<Monster*> monsters;
 extern Grid* gameGrid;
 extern bool quitGame;
-extern int rows;
-extern int columns;
 
 void initGrid(void);
 void initGrid(ifstream& stream);

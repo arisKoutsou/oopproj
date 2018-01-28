@@ -23,6 +23,12 @@
 using namespace std;
 
 static string buffer;
+static int rows = 10;
+static int columns = 10;
+const Random rng;
+vector<Hero*> heroes;
+list<Monster*> monsters;
+Grid* gameGrid;
 
 void initGrid(void) {  
   bool* randomTileInfo = new bool[rows*columns*2];
@@ -41,6 +47,7 @@ void initGrid(ifstream& stream) {
   // REALLY??? stoi is C++11 :(
   rows = atoi(tokens[0].c_str());
   columns = atoi(tokens[1].c_str());
+
   skipCommentsAndWhitespace(stream);
   tokens.clear();
   while (stream.eof() == false) {

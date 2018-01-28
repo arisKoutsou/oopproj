@@ -9,14 +9,8 @@
 
 using namespace std;
 
-vector<Hero*> heroes;
-list<Monster*> monsters;
-Grid* gameGrid;
-bool quitGame = false;
-int rows = 10;
-int columns = 15;
-const Random rng;
 static const double battleProbability = 0.6;
+bool quitGame = false;
 
 int main(int argc, char* argv[]) {  
   int numberOfHeroes;
