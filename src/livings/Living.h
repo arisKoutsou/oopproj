@@ -43,7 +43,8 @@ public:
 	virtual ~Living();
 
 	int getHealthPower() const;
-	int getLevel() const;
+        int getMaxHealthPower() const;
+        int getLevel() const;
 	const string& getName() const;  
 	virtual void receiveDamage(int damageDealt);	// Subtract from hp the damageDealt.
 	// Added by: (George Liontos)

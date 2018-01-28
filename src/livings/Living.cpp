@@ -29,6 +29,10 @@ int Living::getHealthPower() const {
 	return healthPower;
 }
 
+int Living :: getMaxHealthPower() const {
+  return maxHealth;
+}
+
 int Living::getLevel() const {
 	return level;
 }
