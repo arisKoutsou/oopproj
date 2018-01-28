@@ -26,6 +26,11 @@ class Grid;
 
 extern const Random rng;
 extern vector<Hero*> heroes;
+extern vector<string> names;
+extern vector<string> weapons;
+extern vector<string> armors;
+extern vector<string> potions;
+extern vector<string> spells;
 extern list<Monster*> monsters;
 extern Grid* gameGrid;
 extern bool quitGame;
@@ -48,5 +53,7 @@ void cleanupMonsters(void);
 bool heroesWon(void);
 bool monstersWon(void);
 int heroesAlive(void);
+void readData(int argc, char* argv[]);
+void readSpecificData(ifstream& stream, vector<string>& data);
 
 #endif

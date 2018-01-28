@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <cstring>
 
 #include "game_utils.h"
 #include "grid/Grid.h"
@@ -27,6 +28,11 @@ static int rows = 10;
 static int columns = 10;
 const Random rng;
 vector<Hero*> heroes;
+vector<string> names;
+vector<string> weapons;
+vector<string> armors;
+vector<string> potions;
+vector<string> spells;
 list<Monster*> monsters;
 Grid* gameGrid;
 
@@ -321,5 +327,32 @@ void createHeroes(int numberOfHeroes) {
     }
 
     heroes.push_back(hero);
+  }
+}
+
+void readData(int argc, char* argv[]) {
+  ifstream inputStream;
+  for (size_t i = 1U; i != argc; ++i) {
+    inputStream.open(argv[i]);
+    if (strncmp(argv[i], "names.txt", strlen("names.txt"))) {
+      readSpecificData(inputStream, names);
+    } else if (strncmp(argv[i], "armors.txt", strlen("armors.txt"))) {
+      readSpecificData(inputStream, armors);
+    } else if (strncmp(argv[i], "weapons.txt", strlen("weapons.txt"))) {
+      readSpecificData(inputStream, weapons);
+    } else if (strncmp(argv[i], "potions.txt", strlen("potions.txt"))) {
+      readSpecificData(inputStream, potions);
+    } else if (strncmp(argv[i], "spells.txt", strlen("spells.txt"))) {
+      readSpecificData(inputStream, spells);
+    }
+    inputStream.close();
+  }
+}
+
+void readSpecificData(ifstream& stream, vector<string>& data) {
+  while (stream.eof() == false) {
+    getline(stream, buffer);
+    buffer[buffer.length() - 1] = '\0';
+    data.push_back(buffer);
   }
 }
