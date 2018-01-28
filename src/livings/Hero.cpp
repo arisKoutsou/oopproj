@@ -46,8 +46,8 @@ Hero::Hero(
   battleMenu(*this, true),
   gameMenu(*this, false),
   shield(NULL),
-  roundsPlayed(0),
-  monstersKilled(0)
+  monstersKilled(0),
+  maxMagicPower(mp)
 {
   grid->addLiving(y, x, this);
 }
@@ -87,6 +87,10 @@ int Hero::getStrength() const {
 	return strength;
 }
 
+int Hero :: getMaxMagicPower() const {
+  return maxMagicPower;
+}
+  
 double Hero::getDamageReductionFactor() const {
 	double result = 0.0;
 
@@ -114,6 +118,10 @@ void Hero :: setMoney(int money) {
 
 void Hero :: setExperience(int experience) {
   this->expirience = experience;
+}
+
+void Hero :: setMagicPower(int mana) {
+  this->magicPower = mana;
 }
 
 void Hero :: resetBattleStats() {
@@ -189,7 +197,6 @@ void Hero::nextRound() {
       potions.erase(temp);
     }    
   }
-  ++roundsPlayed;
 }
 void Hero::levelUp() {
 	level++;			// These are common for all Heroes.
@@ -669,6 +676,8 @@ void Hero :: castSpell(Monster* target) {
 		     spellToCast->getMaxDamage());
   int damageReduction = target->getDamageReductionFactor() * damage;
   target->receiveDamage(damage - damageReduction);
+  this->magicPower -= spellToCast->getMagicPowerRequired();
+  this->magicPower = (this->magicPower < 0) ? 0 : this->magicPower;
 }
 
 void Hero::attack(Monster* monster) {

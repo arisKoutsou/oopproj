@@ -45,12 +45,14 @@ public:
 	int getDexterity() const;
 	int getExperience() const;
 	int getMagicPower() const;
+        int getMaxMagicPower() const;
 	int getMoney() const;
 	int getStrength() const;
 	double getDamageReductionFactor() const;
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
         void setMoney(int money);
         void setExperience(int experience);
+        void setMagicPower(int mana);
 	void move(directions direction);
 	virtual void levelUp();
 	string kindOf() const;
@@ -82,8 +84,8 @@ protected:
 	Armor* shield;
         list<Spell*> spells;
         list<Potion*> potions;
-        
-        int 	roundsPlayed;   // Number of rounds played.
+
+        const int maxMagicPower;
 	int 	magicPower;	// Mana.
 	int 	strength;
 	double 	agility;	// P(dodge) an attack.
