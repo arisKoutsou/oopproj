@@ -184,8 +184,9 @@ void handleBattleCase(void) {
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
-	heroesTurn = false;
+	heroes[heroIndex]->nextRound();
 	heroIndex = (heroIndex + 1) % heroes.size();
+	heroesTurn = false;        
       } else {
 	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
 	list<Monster*> :: const_iterator it = monsters.begin();
@@ -205,7 +206,8 @@ void handleBattleCase(void) {
     } else if (monstersWon()) {
       receivePenalty();
       break;
-    }  
+    }
+    regenerateStats();
     ++rounds;
   }
   restoreHeroes();
@@ -294,6 +296,35 @@ void cleanupMonsters(void) {
   while (monsters.empty() == false) {
     delete monsters.front();
     monsters.pop_front();
+  }
+}
+
+void regenerateStats(void) {
+  for (size_t i = 0U; i != heroes.size(); ++i) {
+    if (heroes[i]->getHealthPower() != 0) {
+      int health = heroes[i]->getHealthPower();
+      int mana = heroes[i]->getMagicPower();
+      heroes[i]->setHealthPower(health + health*0.3);
+      if (heroes[i]->getHealthPower() > heroes[i]->getMaxHealthPower()) {
+	heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
+      }
+      if (mana == 0) {
+	heroes[i]->setMagicPower(100);
+      } else {
+	heroes[i]->setMagicPower(mana + mana*0.4);
+	if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
+	  heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
+	}
+      }
+    }
+  }
+  list<Monster*> :: const_iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    int health = (*it)->getHealthPower();
+    (*it)->setHealthPower(health + health*0.3);
+    if ((*it)->getHealthPower() > (*it)->getMaxHealthPower()) {
+      (*it)->setHealthPower((*it)->getHealthPower());
+    }
   }
 }
 

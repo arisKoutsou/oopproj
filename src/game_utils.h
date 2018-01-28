@@ -55,5 +55,6 @@ bool monstersWon(void);
 int heroesAlive(void);
 void readData(int argc, char* argv[]);
 void readSpecificData(ifstream& stream, vector<string>& data);
+void regenerateStats(void);
 
 #endif
