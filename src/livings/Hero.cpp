@@ -71,7 +71,7 @@ int Hero::getDexterity() const {
 	return dexterity;
 }
 
-int Hero::getExpirience() const {
+int Hero::getExperience() const {
 	return expirience;
 }
 
@@ -110,6 +110,10 @@ const Grid::Tile& Hero::getTile() {
 
 void Hero :: setMoney(int money) {
   this->money = money;
+}
+
+void Hero :: setExperience(int experience) {
+  this->expirience = experience;
 }
 
 void Hero :: resetBattleStats() {

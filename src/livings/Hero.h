@@ -43,13 +43,14 @@ public:
   
 	double getAgility() const;
 	int getDexterity() const;
-	int getExpirience() const;
+	int getExperience() const;
 	int getMagicPower() const;
 	int getMoney() const;
 	int getStrength() const;
 	double getDamageReductionFactor() const;
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
         void setMoney(int money);
+        void setExperience(int experience);
 	void move(directions direction);
 	virtual void levelUp();
 	string kindOf() const;
