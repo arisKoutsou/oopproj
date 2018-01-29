@@ -28,8 +28,6 @@ static const double battleProbability = 0.6;
 static const Random rng;
 static bool quitGame = false;
 static string buffer;
-static int rows = 10;
-static int columns = 10;
 static vector<Hero*> heroes;
 static vector<string> names;
 static vector<string> weapons;
@@ -40,24 +38,13 @@ static list<Monster*> monsters;
 static ifstream map;
 static Grid* gameGrid;
 
-void initGrid(void) {  
-  bool* randomTileInfo = new bool[rows*columns*2];
-  for (int i = 0; i != rows*columns*2; i += 2) {
-    randomTileInfo[i] = rng.boolean(0.1);
-    randomTileInfo[i+1] = !randomTileInfo[i];
-  }
-  gameGrid = new Grid(rows, columns, randomTileInfo);
-  delete[] randomTileInfo;
-}
-
 void initGrid(ifstream& stream) {  
   vector<string> tokens;
   skipCommentsAndWhitespace(stream);
   tokenize(tokens);
   // REALLY??? stoi is C++11 :(
-  rows = atoi(tokens[0].c_str());
-  columns = atoi(tokens[1].c_str());
-
+  int rows = atoi(tokens[0].c_str());
+  int columns = atoi(tokens[1].c_str());
   skipCommentsAndWhitespace(stream);
   tokens.clear();
   while (stream.eof() == false) {
@@ -69,8 +56,7 @@ void initGrid(ifstream& stream) {
   for (size_t i = 0U; i != tokens.size();) {
     tileInfo[j++] = (tokens[i] == "true") ? true : false;
     tileInfo[j++] = (tokens[i+1] == "true") ? true : false;
-    if (tokens[i+2] == "false") i += 3;
-    else i += 4;
+    i += (tokens[i+2] == "false") ? 3 : 4;
   }
   gameGrid = new Grid(rows, columns, tileInfo);
   size_t row = 0U;
@@ -112,7 +98,6 @@ void tokenize(vector<string>& tokens) {
     buffer.erase(0, pos + 1);    
   }  
 }
-
 
 void handleBasicCase(Hero* currentHero) {
   int selection;  
@@ -274,7 +259,7 @@ void claimRewards(void) {
     int monstersKilled = heroes[i]->getMonstersKilled();
     if (monstersKilled != 0) {
       // TODO (George): Find a formula for getting the reward money
-      // Also add the experience reward
+      // and the reward experience
       int experienceToClaim = heroes[i]->getLevel()*0.2*monstersKilled + 50*monstersKilled;
       int moneyToClaim = heroes[i]->getLevel()*0.1*monstersKilled + 100*monstersKilled;
       heroes[i]->setMoney(heroes[i]->getMoney() + moneyToClaim);
@@ -341,9 +326,9 @@ void createHeroes(int numberOfHeroes) {
     string heroClass;
     cin >> heroClass;
 
-    if (! (heroClass == "Warrior"
-	   || heroClass == "Paladin"
-	   || heroClass == "Sorcerer")
+    if (!(heroClass == "Warrior"
+	  || heroClass == "Paladin"
+	  || heroClass == "Sorcerer")
 	) {
       cout << "That's not a valid class!" << endl;
       --i;
@@ -353,7 +338,7 @@ void createHeroes(int numberOfHeroes) {
     cout << "Please enter a name for your hero: ";
     string name;
     cin >> name;
-
+    cout << endl;
     Hero* hero;
     if (heroClass == "Warrior") {
       hero = new Warrior(gameGrid, name);
@@ -389,7 +374,6 @@ void readData(int argc, char* argv[]) {
 void readSpecificData(ifstream& stream, vector<string>& data) {
   while (stream.eof() == false) {
     getline(stream, buffer);
-    buffer[buffer.length() - 1] = '\0';
     data.push_back(buffer);
   }
 }
@@ -449,3 +433,4 @@ void run(int argc, char* argv[]) {
   }
   cleanupResources();
 }
+
