@@ -3,6 +3,7 @@
 // Filename: game_utils.cpp
 // Author: George Liontos
 // Created: Sun Jan 28 02:34:01 2018 (+0200)
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -23,18 +24,21 @@
 
 using namespace std;
 
+static const double battleProbability = 0.6;
+static const Random rng;
+static bool quitGame = false;
 static string buffer;
 static int rows = 10;
 static int columns = 10;
-const Random rng;
-vector<Hero*> heroes;
-vector<string> names;
-vector<string> weapons;
-vector<string> armors;
-vector<string> potions;
-vector<string> spells;
-list<Monster*> monsters;
-Grid* gameGrid;
+static vector<Hero*> heroes;
+static vector<string> names;
+static vector<string> weapons;
+static vector<string> armors;
+static vector<string> potions;
+static vector<string> spells;
+static list<Monster*> monsters;
+static ifstream map;
+static Grid* gameGrid;
 
 void initGrid(void) {  
   bool* randomTileInfo = new bool[rows*columns*2];
@@ -418,4 +422,30 @@ int getNumberOfHeroes(void) {
 void cleanupResources(void) {
   delete gameGrid;
   map.close();
+}
+
+void run(int argc, char* argv[]) {
+  checkArgumentsAndSetMap(argc, argv);
+  readData(argc, argv);
+  int numberOfHeroes = getNumberOfHeroes();
+  initGrid(map);
+  createHeroes(numberOfHeroes);
+  int heroTurn = 0;
+  bool battled = false;
+  while (quitGame == false) {
+    Hero* currentHero = heroes[heroTurn];
+    heroTurn = (heroTurn + 1) % numberOfHeroes;
+    cout << endl << "Hero Playing: "
+	 << currentHero->getName() << endl << endl;
+    if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
+      if (rng.boolean(battleProbability)) {
+    	handleBattleCase();
+	battled = true;
+	continue;
+      }      
+    }
+    handleBasicCase(currentHero);
+    battled = false;
+  }
+  cleanupResources();
 }

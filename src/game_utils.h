@@ -24,18 +24,6 @@ class Hero;
 class Monster;
 class Grid;
 
-extern const Random rng;
-extern vector<Hero*> heroes;
-extern vector<string> names;
-extern vector<string> weapons;
-extern vector<string> armors;
-extern vector<string> potions;
-extern vector<string> spells;
-extern list<Monster*> monsters;
-extern Grid* gameGrid;
-extern bool quitGame;
-extern ifstream map;
-
 void initGrid(void);
 void initGrid(ifstream& stream);
 bool isCommentOrWhitespace(const string& str);
@@ -60,5 +48,6 @@ void regenerateStats(void);
 void checkArgumentsAndSetMap(int argc, char* argv[]);
 int getNumberOfHeroes(void);
 void cleanupResources(void);
+void run(int argc, char* argv[]);
 
 #endif
