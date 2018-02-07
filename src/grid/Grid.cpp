@@ -40,7 +40,7 @@ bool Grid :: Tile :: hasMarket() const {
 }
 
 bool Grid :: Tile :: isCommon() const {
-  return common;
+  return common == true;
 }
 
 bool Grid :: Tile :: isQualifiedForBattle(int numberOfHeroes) const {
@@ -67,22 +67,20 @@ Grid :: Grid(int _maxY, int _maxX, bool* _tileInfo)
   : maxX(_maxX), maxY(_maxY), marketCount(0) {
 
   size_t auxI = 0U;
-  size_t auxJ = 0U;
   
-  for (ssize_t i = 0U; i != maxY; ++i) {
+  for (size_t i = 0U; i != maxY; ++i) {
     vector<Tile> newTileVector;
     tiles.push_back(newTileVector);
     
-    for (ssize_t j = 0U; j != maxX; ++j) {
+    for (size_t j = 0U; j != maxX; ++j) {
 
-      bool nonAccessible = _tileInfo[auxI + auxJ];
-      bool common = _tileInfo[auxI + auxJ + 1];
+      bool nonAccessible = _tileInfo[auxI];
+      bool common = _tileInfo[auxI + 1];
 
       Tile newTile(nonAccessible, common);
       tiles[i].push_back(newTile);
-
-      ++auxI;
-      ++auxJ;
+      
+      auxI += 2U;
     }
   }
 }

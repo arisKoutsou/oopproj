@@ -8,6 +8,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 #include "game_utils.h"
 #include "grid/Grid.h"
@@ -47,26 +48,28 @@ void initGrid(ifstream& stream) {
   int columns = atoi(tokens[1].c_str());
   skipCommentsAndWhitespace(stream);
   tokens.clear();
+  tokenize(tokens);
   while (stream.eof() == false) {
-    tokenize(tokens);
     getline(stream, buffer);
+    tokenize(tokens);
   }
   bool* tileInfo = new bool[rows*columns*2];
   size_t j = 0U;
-  for (size_t i = 0U; i != tokens.size();) {
+  for (size_t i = 0U; i < tokens.size();) {
     tileInfo[j++] = (tokens[i] == "true") ? true : false;
     tileInfo[j++] = (tokens[i+1] == "true") ? true : false;
     i += (tokens[i+2] == "false") ? 3 : 4;
   }
   gameGrid = new Grid(rows, columns, tileInfo);
-  size_t row = 0U;
-  size_t col = 0U;
-  for (size_t i = 2U; i < tokens.size(); i += 3U, ++col) {
-    if (col == columns) { ++row, col = 0; }
-    if (tokens[i] == "false") continue;
+  ssize_t row = 0U;
+  ssize_t col = 0U;
+  for (size_t i = 2U; i < tokens.size(); ++col) {
+    if (col == columns) { ++row, col = 0U; }
+    if (tokens[i] == "false") { i += 3U; continue; }
     int cap = atoi(tokens[i+1].c_str());
     Market* market = new Market(cap);
     gameGrid->addMarket(row, col, market);
+    i += 4U;
   }
   delete[] tileInfo;
 }
@@ -171,23 +174,23 @@ void handleBattleCase(void) {
     cout << "ROUND " << rounds << endl << endl;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
-	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
+	      while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
-	heroes[heroIndex]->nextRound();
-	heroIndex = (heroIndex + 1) % heroes.size();
-	heroesTurn = false;        
+	      heroes[heroIndex]->nextRound();
+	      heroIndex = (heroIndex + 1) % heroes.size();
+	      heroesTurn = false;        
       } else {
 	// TODO (George): I should modify the monster class in order
 	// to check if the monster has been nerfed from a spell attack
-	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
-	list<Monster*> :: const_iterator it = monsters.begin();
-	while (monsterIndex-- != 0) ++it;
-	size_t heroToAttackIndex;
-	do {
+	      size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
+        list<Monster*> :: const_iterator it = monsters.begin();
+        while (monsterIndex-- != 0) ++it;
+        size_t heroToAttackIndex;
+        do {
           heroToAttackIndex = rng.fromMintoMax(0, heroes.size() - 1);
-	} while (heroes[heroToAttackIndex]->getHealthPower() == 0);
+        } while (heroes[heroToAttackIndex]->getHealthPower() == 0);
         (*it)->attack(heroes[heroToAttackIndex]);
-	heroesTurn = true;
+        heroesTurn = true;
       }
       ++livingsPlayed;
     }
@@ -297,15 +300,15 @@ void regenerateStats(void) {
       int mana = heroes[i]->getMagicPower();
       heroes[i]->setHealthPower(health + health*0.3);
       if (heroes[i]->getHealthPower() > heroes[i]->getMaxHealthPower()) {
-	heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
+	      heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
       }
       if (mana == 0) {
-	heroes[i]->setMagicPower(100);
+	      heroes[i]->setMagicPower(100);
       } else {
-	heroes[i]->setMagicPower(mana + mana*0.4);
-	if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
-	  heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
-	}
+	      heroes[i]->setMagicPower(mana + mana*0.4);
+	      if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
+	        heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
+	      }
       }
     }
   }
@@ -322,7 +325,7 @@ void regenerateStats(void) {
 void createHeroes(int numberOfHeroes) {
   for (int i = 0; i != numberOfHeroes; ++i) {
     cout << "Please enter a class for hero " << i + 1
-	 << " (possible classes are Warrior, Sorcerer, Paladin): ";
+	  << " (possible classes are Warrior, Sorcerer, Paladin): ";
     string heroClass;
     cin >> heroClass;
 
@@ -381,8 +384,8 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
 void checkArgumentsAndSetMap(int argc, char* argv[]) {
   if (argc < 7 ) {
     cerr << "Too few arguments! You should provide the program with:"
-	 << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
-	 << "potions.txt, and armors.txt" << endl;
+	       << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
+	       << "potions.txt, and armors.txt" << endl;
     exit(EXIT_FAILURE);
   }
   for (size_t i = 1U; i != argc; ++i) {
@@ -397,7 +400,7 @@ int getNumberOfHeroes(void) {
   int numberOfHeroes = -1;
   while (numberOfHeroes < 1 || numberOfHeroes > 3) {
     cout << "Please enter the number of heroes you want to have "
-	 << "(min: 1, max: 3): ";
+	  << "(min: 1, max: 3): ";
     cin >> numberOfHeroes;
   }
   return numberOfHeroes;
@@ -420,12 +423,12 @@ void run(int argc, char* argv[]) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
-	 << currentHero->getName() << endl << endl;
+	  << currentHero->getName() << endl << endl;
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
-	battled = true;
-	continue;
+	    battled = true;
+	    continue;
       }      
     }
     handleBasicCase(currentHero);
@@ -433,4 +436,3 @@ void run(int argc, char* argv[]) {
   }
   cleanupResources();
 }
-
