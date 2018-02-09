@@ -262,11 +262,19 @@ void claimRewards(void) {
     int monstersKilled = heroes[i]->getMonstersKilled();
     if (monstersKilled != 0) {
       // TODO (George): Find a formula for getting the reward money
-      // and the reward experience
       int experienceToClaim = heroes[i]->getLevel()*0.2*monstersKilled + 50*monstersKilled;
+
+      heroes[i]->setExperience(heroes[i]->getExperience() + experienceToClaim);
+
+      if (heroes[i]->getExperience() > heroes[i]->getExperienceMilestone()) {
+    	  // Hero exceeded the milestone. He needs to level up.
+    	  heroes[i]->levelUp();		// Level up the Hero. Deserves it.
+    	  heroes[i]->nextMilestone();	// Set a new milestone.
+      }
+
       int moneyToClaim = heroes[i]->getLevel()*0.1*monstersKilled + 100*monstersKilled;
       heroes[i]->setMoney(heroes[i]->getMoney() + moneyToClaim);
-      heroes[i]->setExperience(heroes[i]->getExperience() + experienceToClaim);
+
     }
   }
 }

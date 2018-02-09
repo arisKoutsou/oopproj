@@ -3,7 +3,7 @@
 
 #include "random/Random.h"
 
-#define NON_ACCESSIBLE_P 0.25
+#define NON_ACCESSIBLE_P 0.05
 #define COMMON_P 0.3
 #define MARKET_P 0.05
 #define MIN_CAP 15

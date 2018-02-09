@@ -22,8 +22,8 @@ class Potion;
 
 class Hero : public Living {
 public:
-        // Added by: (George Liontos)
-        // Posible directions for heros to move
+	// Added by: (George Liontos)
+	// Posible directions for heros to move
 	typedef enum {
 		UP, DOWN, LEFT, RIGHT
 	} directions;
@@ -39,64 +39,69 @@ public:
 		double a = 0.2,
 		int d = 100
 	);
-        ~Hero();
-  
+    ~Hero();
+
 	double getAgility() const;
 	int getDexterity() const;
 	int getExperience() const;
 	int getMagicPower() const;
-        int getMaxMagicPower() const;
+	int getMaxMagicPower() const;
 	int getMoney() const;
 	int getStrength() const;
 	double getDamageReductionFactor() const;
+	int getExperienceMilestone() const;
+	void nextMilestone();
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
-        void setMoney(int money);
-        void setExperience(int experience);
-        void setMagicPower(int mana);
+	void setMoney(int money);
+	void setExperience(int experience);
+	void setMagicPower(int mana);
 	void move(directions direction);
 	virtual void levelUp();
 	string kindOf() const;
 	void printStats() const;
-        void displayMap() const;
-        bool operator==(const Hero& rValue) const;
+	void displayMap() const;
+	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
-        void battle(list<Monster*>& monsters);
+	void battle(list<Monster*>& monsters);
 	void checkInventory();
 	Inventory& getInventory();
-        bool equip(const string& name);
-        bool discard(const string& name);
-        bool use(const string& potion);
+	bool equip(const string& name);
+	bool discard(const string& name);
+	bool use(const string& potion);
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-        Menu& getGameMenu() ;
+	Menu& getGameMenu() ;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
-  
-        // IMPROTANT: Call this function whenever a hero finishes his round.
+
+	// IMPROTANT: Call this function whenever a hero finishes his round.
 	void nextRound();	// Checks potions and goes to next round.
-        int getMonstersKilled() const;
-        void resetBattleStats();
-        void respawn();
+	int getMonstersKilled() const;
+	void resetBattleStats();
+	void respawn();
+
 protected:
 	Weapon* leftHandWeapon;
 	Weapon* rightHandWeapon;
 	Armor* shield;
-        list<Spell*> spells;
-        list<Potion*> potions;
+	list<Spell*> spells;
+	list<Potion*> potions;
 
-        const int maxMagicPower;
+	const int maxMagicPower;
 	int 	magicPower;	// Mana.
 	int 	strength;
 	double 	agility;	// P(dodge) an attack.
 	int 	dexterity;
 	int 	money;		// Gold.
-        int 	expirience;	// Xp
-        int     monstersKilled;
-        Inventory inventory;	// Implemented by george.
-                                // Contains all items and spells.
+	int 	expirience;	// Xp
+	int     monstersKilled;
+	int 	milestone; 	// Experience to exceed for level-up.
+	Inventory inventory;	// Implemented by george.
+							// Contains all items and spells.
 	Menu battleMenu;
-        Menu gameMenu;
+	Menu gameMenu;
+
 private:
 	void printEquipedSpells() const;
 	Spell* getSpellByName(const string& name);
@@ -112,10 +117,10 @@ private:
 	void moveLeft();
 	void moveRight();
 	string getUserInput(const string& prompt);
-        void handleAttackCase(list<Monster*>& monsters);
-        void handleCastSpellCase(list<Monster*>& monsters);
-        void handleUseCase();
-        void handleEquipCase();
+	void handleAttackCase(list<Monster*>& monsters);
+	void handleCastSpellCase(list<Monster*>& monsters);
+	void handleUseCase();
+	void handleEquipCase();
 };
 
 #endif /* LIVINGS_HERO_H_ */

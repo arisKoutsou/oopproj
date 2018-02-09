@@ -47,7 +47,8 @@ Hero::Hero(
   gameMenu(*this, false),
   shield(NULL),
   monstersKilled(0),
-  maxMagicPower(mp)
+  maxMagicPower(mp),
+  milestone(200)
 {
   grid->addLiving(y, x, this);
 }
@@ -130,6 +131,14 @@ void Hero :: resetBattleStats() {
 
 int Hero :: getMonstersKilled() const {
   return monstersKilled;
+}
+
+int Hero :: getExperienceMilestone() const {
+	return milestone;
+}
+
+void Hero :: nextMilestone() {
+	milestone += 100;
 }
 
 void Hero :: respawn() {
@@ -782,6 +791,10 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
 }
 
 void Hero :: handleUseCase() {
+	if (!this->getInventory().hasPotions()) {
+		cout << "You have no Potions at the moment." << endl;
+		return ;
+	}
   string name;
   do {
     cout << "Please enter the name of the potion you want to use: ";
@@ -790,6 +803,10 @@ void Hero :: handleUseCase() {
 }
 
 void Hero :: handleEquipCase() {
+	if (!this->getInventory().hasItems()) {
+		cout << "You have no items in your Inventory." << endl;
+		return ;
+	}
   string name;
   do {
     cout << "Please enter the name of the weapon/armor you want to equip: ";
