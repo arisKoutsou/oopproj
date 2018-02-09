@@ -47,7 +47,8 @@ Hero::Hero(
   gameMenu(*this, false),
   shield(NULL),
   monstersKilled(0),
-  maxMagicPower(mp)
+  maxMagicPower(mp),
+  milestone(200)
 {
   grid->addLiving(y, x, this);
 }
@@ -130,6 +131,14 @@ void Hero :: resetBattleStats() {
 
 int Hero :: getMonstersKilled() const {
   return monstersKilled;
+}
+
+int Hero :: getExperienceMilestone() const {
+	return milestone;
+}
+
+void Hero :: nextMilestone() {
+	milestone += 100;
 }
 
 void Hero :: respawn() {

@@ -49,6 +49,8 @@ public:
 	int getMoney() const;
 	int getStrength() const;
 	double getDamageReductionFactor() const;
+	int getExperienceMilestone() const;
+	void nextMilestone();
 	const Grid::Tile& getTile();	// Returns the Tile that Hero is on.
 	void setMoney(int money);
 	void setExperience(int experience);
@@ -94,6 +96,7 @@ protected:
 	int 	money;		// Gold.
 	int 	expirience;	// Xp
 	int     monstersKilled;
+	int 	milestone; 	// Experience to exceed for level-up.
 	Inventory inventory;	// Implemented by george.
 							// Contains all items and spells.
 	Menu battleMenu;
