@@ -791,6 +791,10 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
 }
 
 void Hero :: handleUseCase() {
+	if (!this->getInventory().hasPotions()) {
+		cout << "You have no Potions at the moment." << endl;
+		return ;
+	}
   string name;
   do {
     cout << "Please enter the name of the potion you want to use: ";
@@ -799,6 +803,10 @@ void Hero :: handleUseCase() {
 }
 
 void Hero :: handleEquipCase() {
+	if (!this->getInventory().hasItems()) {
+		cout << "You have no items in your Inventory." << endl;
+		return ;
+	}
   string name;
   do {
     cout << "Please enter the name of the weapon/armor you want to equip: ";
