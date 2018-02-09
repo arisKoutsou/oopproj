@@ -182,7 +182,7 @@ void handleBattleCase(void) {
       } else {
 	// TODO (George): I should modify the monster class in order
 	// to check if the monster has been nerfed from a spell attack
-	      size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
+	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
         list<Monster*> :: const_iterator it = monsters.begin();
         while (monsterIndex-- != 0) ++it;
         size_t heroToAttackIndex;
