@@ -25,7 +25,7 @@ class Monster;
 class Grid;
 class Market;
 
-void initGrid(ifstream& stream);
+void initGrid(void);
 bool isCommentOrWhitespace(const string& str);
 void skipCommentsAndWhitespace(ifstream& stream);
 void tokenize(vector<string>& tokens);

@@ -45,18 +45,18 @@ static list<Monster*> monsters;
 static ifstream map;
 static Grid* gameGrid;
 
-void initGrid(ifstream& stream) {  
+void initGrid(void) {  
   vector<string> tokens;
-  skipCommentsAndWhitespace(stream);
+  skipCommentsAndWhitespace(map);
   tokenize(tokens);
   // REALLY??? stoi is C++11 :(
   int rows = atoi(tokens[0].c_str());
   int columns = atoi(tokens[1].c_str());
-  skipCommentsAndWhitespace(stream);
+  skipCommentsAndWhitespace(map);
   tokens.clear();
   tokenize(tokens);
-  while (stream.eof() == false) {
-    getline(stream, buffer);
+  while (map.eof() == false) {
+    getline(map, buffer);
     tokenize(tokens);
   }
   bool* tileInfo = new bool[rows*columns*2];
@@ -454,7 +454,7 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
 }
 
 void checkArgumentsAndSetMap(int argc, char* argv[]) {
-  if (argc < 7 ) {
+  if (argc < 7) {
     cerr << "Too few arguments! You should provide the program with:"
 	 << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
 	 << "potions.txt, and armors.txt" << endl;
@@ -487,7 +487,7 @@ void run(int argc, char* argv[]) {
   checkArgumentsAndSetMap(argc, argv);
   readData(argc, argv);
   int numberOfHeroes = getNumberOfHeroes();
-  initGrid(map);
+  initGrid();
   createHeroes(numberOfHeroes);
   int heroTurn = 0;
   bool battled = false;
