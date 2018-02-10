@@ -409,30 +409,30 @@ void Hero :: checkInventory() {
     }
     case 2: {
       if (!this->getInventory().hasItems()) {
-		  cout << "You have no Items in your Inventory." << endl;
-	  } else {
-		  string input = getUserInput(equipPrompt);
-		  this->equip(input);
-	  }
-	  break;
+	cout << "You have no Items in your Inventory." << endl;
+      } else {
+	string input = getUserInput(equipPrompt);
+	this->equip(input);
+      }
+      break;
     }
     case 3: {
       if (!this->getInventory().hasItems()) {
-    	  cout << "There are no Items to discard." << endl;
+	cout << "There are no Items to discard." << endl;
       } else {
-		  string input = getUserInput(discardPrompt);
-		  this->discard(input);
+	string input = getUserInput(discardPrompt);
+	this->discard(input);
       }
       break;      
     }
     case 4: {
       if (!this->getInventory().hasPotions()) {
-		  cout << "You have no Potions in your Inventory." << endl;
-	  } else {
-		  string input = getUserInput(usePotionPrompt);
-		  this->use(input);
-	  }
-	  break;
+	cout << "You have no Potions in your Inventory." << endl;
+      } else {
+	string input = getUserInput(usePotionPrompt);
+	this->use(input);
+      }
+      break;
     } 
     case 5: {
       this->inventory.getMenu().clearMenu();
@@ -620,6 +620,10 @@ void Hero :: enterMarket(Market* market) {
       break;
     }
     case 3: {
+      if (!this->inventory.hasSpells() && !this->inventory.hasItems()) {
+	cout << "You have no items or spells for sale" << endl;
+	break;
+      }
       cout << "You have these items/spells for sale" << endl << endl;
       this->inventory.printInfo();
       string input = getUserInput(sellPrompt);
@@ -713,7 +717,7 @@ void Hero::attack(Monster* monster) {
 
 		damageReduction += monster->getDamageReductionFactor()*heroDamage;
 
-		monster->receiveDamage(heroDamage - damageReduction);                
+		monster->receiveDamage(heroDamage - damageReduction);
 	}
 }
 

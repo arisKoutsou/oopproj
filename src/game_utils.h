@@ -23,8 +23,8 @@ using namespace std;
 class Hero;
 class Monster;
 class Grid;
+class Market;
 
-void initGrid(void);
 void initGrid(ifstream& stream);
 bool isCommentOrWhitespace(const string& str);
 void skipCommentsAndWhitespace(ifstream& stream);
@@ -48,6 +48,7 @@ void regenerateStats(void);
 void checkArgumentsAndSetMap(int argc, char* argv[]);
 int getNumberOfHeroes(void);
 void cleanupResources(void);
+void fillMarket(Market* market);
 void run(int argc, char* argv[]);
 
 #endif

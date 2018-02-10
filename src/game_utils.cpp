@@ -14,6 +14,12 @@
 #include "grid/Grid.h"
 #include "market/Market.h"
 #include "livings/Hero.h"
+#include "items/Weapon.h"
+#include "items/Armor.h"
+#include "items/Potion.h"
+#include "spells/FireSpell.h"
+#include "spells/IceSpell.h"
+#include "spells/LightningSpell.h"
 #include "exceptions/heroExceptions.h"
 #include "livings/heroes/Warrior.h"
 #include "livings/heroes/Sorcerer.h"
@@ -25,7 +31,7 @@
 
 using namespace std;
 
-static const double battleProbability = 0.6;
+static const double battleProbability = 0.1;
 static const Random rng;
 static bool quitGame = false;
 static string buffer;
@@ -68,10 +74,67 @@ void initGrid(ifstream& stream) {
     if (tokens[i] == "false") { i += 3U; continue; }
     int cap = atoi(tokens[i+1].c_str());
     Market* market = new Market(cap);
+    fillMarket(market);
     gameGrid->addMarket(row, col, market);
     i += 4U;
   }
   delete[] tileInfo;
+}
+
+void fillMarketItems(Market* market, int size) {
+  for (int i = 0; i != size; ++i) {
+    int kind = rng.fromMintoMax(0, 2);
+    switch (kind) {
+    case 0: {
+      string name = weapons[rng.fromMintoMax(0, weapons.size() - 1)];
+      Weapon* newWeapon = new Weapon(name);
+      market->addItem(newWeapon);
+      break;
+    }
+    case 1: {
+      string name = armors[rng.fromMintoMax(0, armors.size() - 1)];
+      Armor* newArmor = new Armor(name);
+      market->addItem(newArmor);
+      break;
+    }
+    case 2: {
+      string name = potions[rng.fromMintoMax(0, potions.size() - 1)];
+      Potion* newPotion = new Potion(name);
+      market->addItem(newPotion);
+      break;
+    }
+    }
+  }
+}
+
+void fillMarketSpells(Market* market, int size) {
+  for (int i = 0; i != size; ++i) {
+    int kind = rng.fromMintoMax(0, 2);
+    string name = spells[rng.fromMintoMax(0, spells.size() - 1)];
+    switch (kind) {
+    case 0: {
+      FireSpell* newFireSpell = new FireSpell(name);
+      market->addSpell(newFireSpell);
+      break;
+    }
+    case 1: {
+      IceSpell* newIceSpell = new IceSpell(name);
+      market->addSpell(newIceSpell);
+      break;
+    }
+    case 2: {
+      LightningSpell* newLightningSpell = new LightningSpell(name);
+      market->addSpell(newLightningSpell);
+      break;
+    }
+    }
+  }
+}
+
+void fillMarket(Market* market) {
+  fillMarketItems(market, market->getMaxCapacity()/2);
+  fillMarketSpells(market, market->getMaxCapacity() -
+		   market->getMaxCapacity()/2);
 }
 
 bool isCommentOrWhitespace(const string& str) {
@@ -217,19 +280,20 @@ void createMonsters(void) {
   int heroX = heroes[0]->getPosition().getX();
   for (size_t i = 0U; i != numberOfMonsters; ++i) {
     int kind = rng.fromMintoMax(0, 2);
+    string name = names[rng.fromMintoMax(0, names.size() - 1)];
     switch (kind) {
     case 0: {
-      Dragon* dragon = new Dragon(gameGrid, heroY, heroX, "Dragan");
+      Dragon* dragon = new Dragon(gameGrid, heroY, heroX, name);
       monsters.push_back(dragon);      
       break;
     }
     case 1: {
-      Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, "Boneless");
+      Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, name);
       monsters.push_back(ex);
       break;
     }
     case 2: {
-      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, "Etherioum");
+      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, name);
       monsters.push_back(spirit);
       break;
     }
@@ -325,7 +389,7 @@ void regenerateStats(void) {
     int health = (*it)->getHealthPower();
     (*it)->setHealthPower(health + health*0.3);
     if ((*it)->getHealthPower() > (*it)->getMaxHealthPower()) {
-      (*it)->setHealthPower((*it)->getHealthPower());
+      (*it)->setHealthPower((*it)->getMaxHealthPower());
     }
   }
 }
