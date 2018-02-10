@@ -174,11 +174,11 @@ void handleBattleCase(void) {
     cout << "ROUND " << rounds << endl << endl;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
-	      while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
+	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
-	      heroes[heroIndex]->nextRound();
-	      heroIndex = (heroIndex + 1) % heroes.size();
-	      heroesTurn = false;        
+	heroes[heroIndex]->nextRound();
+	heroIndex = (heroIndex + 1) % heroes.size();
+	heroesTurn = false;        
       } else {
 	// TODO (George): I should modify the monster class in order
 	// to check if the monster has been nerfed from a spell attack
@@ -267,9 +267,9 @@ void claimRewards(void) {
       heroes[i]->setExperience(heroes[i]->getExperience() + experienceToClaim);
 
       if (heroes[i]->getExperience() > heroes[i]->getExperienceMilestone()) {
-    	  // Hero exceeded the milestone. He needs to level up.
-    	  heroes[i]->levelUp();		// Level up the Hero. Deserves it.
-    	  heroes[i]->nextMilestone();	// Set a new milestone.
+	// Hero exceeded the milestone. He needs to level up.
+	heroes[i]->levelUp();		// Level up the Hero. Deserves it.
+	heroes[i]->nextMilestone();	// Set a new milestone.
       }
 
       int moneyToClaim = heroes[i]->getLevel()*0.1*monstersKilled + 100*monstersKilled;
@@ -308,15 +308,15 @@ void regenerateStats(void) {
       int mana = heroes[i]->getMagicPower();
       heroes[i]->setHealthPower(health + health*0.3);
       if (heroes[i]->getHealthPower() > heroes[i]->getMaxHealthPower()) {
-	      heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
+	heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
       }
       if (mana == 0) {
-	      heroes[i]->setMagicPower(100);
+	heroes[i]->setMagicPower(100);
       } else {
-	      heroes[i]->setMagicPower(mana + mana*0.4);
-	      if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
-	        heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
-	      }
+	heroes[i]->setMagicPower(mana + mana*0.4);
+	if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
+	  heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
+	}
       }
     }
   }
@@ -333,7 +333,7 @@ void regenerateStats(void) {
 void createHeroes(int numberOfHeroes) {
   for (int i = 0; i != numberOfHeroes; ++i) {
     cout << "Please enter a class for hero " << i + 1
-	  << " (possible classes are Warrior, Sorcerer, Paladin): ";
+	 << " (possible classes are Warrior, Sorcerer, Paladin): ";
     string heroClass;
     cin >> heroClass;
 
@@ -392,8 +392,8 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
 void checkArgumentsAndSetMap(int argc, char* argv[]) {
   if (argc < 7 ) {
     cerr << "Too few arguments! You should provide the program with:"
-	       << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
-	       << "potions.txt, and armors.txt" << endl;
+	 << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
+	 << "potions.txt, and armors.txt" << endl;
     exit(EXIT_FAILURE);
   }
   for (size_t i = 1U; i != argc; ++i) {
@@ -408,7 +408,7 @@ int getNumberOfHeroes(void) {
   int numberOfHeroes = -1;
   while (numberOfHeroes < 1 || numberOfHeroes > 3) {
     cout << "Please enter the number of heroes you want to have "
-	  << "(min: 1, max: 3): ";
+	 << "(min: 1, max: 3): ";
     cin >> numberOfHeroes;
   }
   return numberOfHeroes;
@@ -431,12 +431,12 @@ void run(int argc, char* argv[]) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
-	  << currentHero->getName() << endl << endl;
+	 << currentHero->getName() << endl << endl;
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
-	    battled = true;
-	    continue;
+	battled = true;
+	continue;
       }      
     }
     handleBasicCase(currentHero);

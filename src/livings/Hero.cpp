@@ -737,8 +737,8 @@ void Hero :: battle(list<Monster*>& monsters) {
     }
     case 3: handleAttackCase(monsters); return;
     case 4: handleCastSpellCase(monsters); return;
-    case 5: handleUseCase(); return;
-    case 6: handleEquipCase(); return;
+    case 5: if (handleUseCase()) return; break;
+    case 6: if (handleEquipCase()) return; break;
     }
     this->battleMenu.clearMenu();
     this->battleMenu.displayMenu();
@@ -790,26 +790,28 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
   }
 }
 
-void Hero :: handleUseCase() {
-	if (!this->getInventory().hasPotions()) {
-		cout << "You have no Potions at the moment." << endl;
-		return ;
-	}
+bool Hero :: handleUseCase() {
+  if (!this->getInventory().hasPotions()) {
+    cout << "You have no Potions at the moment." << endl;
+    return false;
+  }
   string name;
   do {
     cout << "Please enter the name of the potion you want to use: ";
     cin >> name;
-  } while (this->use(name) == false);  
+  } while (this->use(name) == false);
+  return true;
 }
 
-void Hero :: handleEquipCase() {
-	if (!this->getInventory().hasItems()) {
-		cout << "You have no items in your Inventory." << endl;
-		return ;
-	}
+bool Hero :: handleEquipCase() {
+  if (!this->getInventory().hasItems()) {
+    cout << "You have no items in your Inventory." << endl;
+    return false;
+  }
   string name;
   do {
     cout << "Please enter the name of the weapon/armor you want to equip: ";
     cin >> name;
   } while (equip(name) == false);
+  return true;
 }

@@ -119,8 +119,8 @@ private:
 	string getUserInput(const string& prompt);
 	void handleAttackCase(list<Monster*>& monsters);
 	void handleCastSpellCase(list<Monster*>& monsters);
-	void handleUseCase();
-	void handleEquipCase();
+        bool handleUseCase();
+        bool handleEquipCase();
 };
 
 #endif /* LIVINGS_HERO_H_ */
