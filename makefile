@@ -12,7 +12,7 @@ all : objects/exceptions/heroExceptions.o objects/grid/Grid.o objects/inventory/
       objects/livings/monsters/Dragon.o objects/livings/monsters/Spirit.o objects/livings/monsters/Exoskeleton.o
 
 bin/inventoryTest : src/tests/inventoryTest.cpp objects/inventory/*.o objects/menu/*.o \
-                      objects/items/*.o objects/spells/*.o
+                      objects/items/*.o objects/spells/*.o 
 	$(CC) $(CFLAGS) src/tests/inventoryTest.cpp objects/inventory/*.o objects/menu/*.o \
 			objects/items/*.o objects/spells/*.o -o bin/inventoryTest
 
@@ -28,17 +28,17 @@ bin/spellTest : src/tests/spellTest.cpp objects/spells/*.o
 
 bin/heroOnGridTest : src/tests/heroOnGridTest.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 		       objects/exceptions/*.o objects/inventory/*.o objects/menu/*.o objects/market/*.o objects/random/*.o \
-		       objects/items/*.o objects/spells/*.o
+		       objects/items/*.o objects/spells/*.o src/game_utils.h objects/livings/monsters/*
 	$(CC) $(CFLAGS) src/tests/heroOnGridTest.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 		        objects/exceptions/*.o objects/inventory/*.o objects/menu/*.o objects/market/*.o objects/random/*.o \
-			objects/items/*.o objects/spells/*.o \
+			objects/items/*.o objects/spells/*.o objects/livings/monsters/* src/game_utils.cpp \
 			-o bin/heroOnGridTest
 
 bin/attackTest : src/tests/attackTest.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
-		  objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o
+		  objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o src/game_utils.h
 	$(CC) $(CFLAGS)	src/tests/attackTest.cpp objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
 			objects/livings/monsters/*.o objects/market/*.o objects/menu/*.o  objects/items/*.o \
-			objects/inventory/*.o objects/spells/*.o objects/random/*.o objects/exceptions/*.o \
+			objects/inventory/*.o objects/spells/*.o objects/random/*.o objects/exceptions/*.o src/game_utils.cpp \
 			-o bin/attackTest
 
 bin/game : src/game.cpp src/game_utils.cpp src/game_utils.h objects/grid/*.o objects/livings/*.o objects/livings/heroes/*.o \
@@ -99,8 +99,8 @@ objects/livings/Living.o : src/livings/Living.cpp src/livings/Living.h src/grid/
 objects/livings/Hero.o : src/livings/Hero.cpp src/livings/Hero.h src/livings/Living.h \
 			   src/menu/Menu.h src/grid/Grid.h src/exceptions/heroExceptions.h \
 			   src/items/Item.h src/items/Weapon.h src/items/Armor.h src/items/Potion.h \
-			   src/spells/Spell.h src/market/Market.h
-	$(CC) $(CFLAGS) -c src/livings/Hero.cpp -o objects/livings/Hero.o
+			   src/spells/Spell.h src/market/Market.h src/game_utils.h
+	$(CC) $(CFLAGS) -c src/livings/Hero.cpp src/game_utils.cpp -o objects/livings/Hero.o
 
 objects/livings/Monster.o : src/livings/Monster.cpp src/livings/Monster.h src/livings/Living.h
 	$(CC) $(CFLAGS) -c src/livings/Monster.cpp -o objects/livings/Monster.o
