@@ -104,7 +104,7 @@ int main() {
 	while(++round <= 3) {
 	  cout << "##### ROUND " << round << " ######"<< endl;
 	  warrior->printStats();
-	  warrior->nextRound();
+	  warrior->updatePotions();
 	}
 	warrior->printStats();
 	return EXIT_SUCCESS;
