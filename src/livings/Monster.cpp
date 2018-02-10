@@ -38,7 +38,7 @@ Monster::Monster(
 	int hp,
 	int min,
 	int max,
-	int arm,
+	double arm,
 	double dodg        
 )
 : Living(gr, y ,x, nam, hp),
@@ -46,7 +46,7 @@ Monster::Monster(
   maxDamage(max),
   damageReductionFactor(arm), dodge(dodg) {}
 
-int Monster::getDamageReductionFactor() const {
+double Monster::getDamageReductionFactor() const {
 	return damageReductionFactor;
 }
 

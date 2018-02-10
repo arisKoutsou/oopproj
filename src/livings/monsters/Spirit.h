@@ -22,8 +22,9 @@ public:
 		int hp = 500,
 		int min = 10,
 		int max = 20,
-		int arm = 0.1,
-		double dodg = 0.1                
+		double arm = 0.1,
+		double dodg = 0.1,
+		double dodgeBonus = 0.1
 	);
 
 private:

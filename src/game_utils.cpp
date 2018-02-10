@@ -273,29 +273,45 @@ void handleBattleCase(void) {
   cleanupMonsters();
 }
 
-// INCOMPLETE (George)
 void createMonsters(void) {
-  // TODO (George): Find a way so the monsters that get spawned
-  // have the proper stats based on the heroes level (or average level)
   int numberOfMonsters = rng.fromMintoMax(MIN_MONSTERS, MAX_MONSTERS);
   int heroY = heroes[0]->getPosition().getY();
   int heroX = heroes[0]->getPosition().getX();
+  int averageLevel;
+  for (int i = 0; i != heroes.size(); ++i) {
+    averageLevel += heroes[i]->getLevel();
+  }
+  averageLevel /= heroes.size();
+  int healthPower = 500 + 50*averageLevel;
+  int minDamage = 10 + 15*averageLevel;
+  int maxDamage = 20 + 15*averageLevel;
+  double armor = 0.1 + 0.2*averageLevel;
+  double dodge = 0.1 + 0.15*averageLevel;
   for (size_t i = 0U; i != numberOfMonsters; ++i) {
     int kind = rng.fromMintoMax(0, 2);
     string name = names[rng.fromMintoMax(0, names.size() - 1)];
     switch (kind) {
     case 0: {
-      Dragon* dragon = new Dragon(gameGrid, heroY, heroX, name);
-      monsters.push_back(dragon);      
+      double damageBonus = 5 + 5*averageLevel;
+      Dragon* dragon = new Dragon(gameGrid, heroY, heroX, name,
+				  healthPower, minDamage, maxDamage,
+				  armor, dodge, damageBonus);
+      monsters.push_back(dragon);
       break;
     }
     case 1: {
-      Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, name);
+      double armorBonus = 0.15 + 0.1*averageLevel;
+      Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, name,
+					healthPower, minDamage, maxDamage,
+					armor, dodge, armorBonus);
       monsters.push_back(ex);
       break;
     }
     case 2: {
-      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, name);
+      double dodgeBonus = 0.1 + 0.05*averageLevel;
+      Spirit* spirit = new Spirit(gameGrid, heroY, heroX, name,
+				  healthPower, minDamage, maxDamage,
+				  armor, dodge, dodgeBonus);
       monsters.push_back(spirit);
       break;
     }

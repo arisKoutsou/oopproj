@@ -15,10 +15,12 @@ Dragon::Dragon(
 	int hp,
 	int min,
 	int max,
-	int arm,
-	double dodg        
-) :  damageBonus(5),
-     Monster(gr, y, x, nam, hp, min + 5, max + 5, arm, dodg)
-{
+	double arm,
+	double dodg,
+	int _damageBonus
+) :  damageBonus(_damageBonus),
+     Monster(gr, y, x, nam, hp, min, max, arm, dodg) {
 
+  minDamage += damageBonus;
+  maxDamage += damageBonus;
 }

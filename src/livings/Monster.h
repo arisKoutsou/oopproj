@@ -42,11 +42,11 @@ public:
 		int hp = 500,
 		int min = 10,
 		int max = 20,
-		int arm = 0.1,
+		double arm = 0.1,
 		double dodg = 0.1                
 	);
 
-	int getDamageReductionFactor() const;
+        double getDamageReductionFactor() const;
 	double getDodge() const;
 	int getMaxDamage() const;
 	int getMinDamage() const;
@@ -56,7 +56,7 @@ public:
         void attack(Hero* hero);			// Reduces hero's health.
         void applyNerf(int duration, double amount, Type nerfType); // Applies a new nerf to the monster
         void updateNerfs();
-private:
+protected:
 	int minDamage;
 	int maxDamage;
 	double damageReductionFactor;	// Reduce damage taken.
