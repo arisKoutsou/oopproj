@@ -14,7 +14,7 @@ FireSpell::FireSpell(
 	int 	val,
 	int 	minL,
 	int 	magicP,
-	int		minDmg,
+	int	minDmg,
 	int 	maxDmg,
 	double  reduction,	// new data member.
 	int rnds
