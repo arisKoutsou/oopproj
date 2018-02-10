@@ -166,7 +166,7 @@ void tokenize(vector<string>& tokens) {
 }
 
 void handleBasicCase(Hero* currentHero) {
-  int selection;  
+  int selection;
   currentHero->getGameMenu().displayMenu();
   while ((selection = currentHero->getGameMenu().getSelection())) {
     switch (selection) {
@@ -239,7 +239,6 @@ void handleBattleCase(void) {
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
-	heroes[heroIndex]->nextRound();
 	heroIndex = (heroIndex + 1) % heroes.size();
 	heroesTurn = false;        
       } else {
@@ -265,6 +264,7 @@ void handleBattleCase(void) {
       break;
     }
     regenerateStats();
+    updatePotionsAndNerfs();
     ++rounds;
   }
   restoreHeroes();
@@ -394,6 +394,16 @@ void regenerateStats(void) {
   }
 }
 
+void updatePotionsAndNerfs(void) {
+  for (size_t i = 0U; i != heroes.size(); ++i) {
+    heroes[i]->updatePotions();   
+  }
+  list<Monster*> :: iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    (*it)->updateNerfs();
+  }
+}
+
 void createHeroes(int numberOfHeroes) {
   for (int i = 0; i != numberOfHeroes; ++i) {
     cout << "Please enter a class for hero " << i + 1
@@ -499,6 +509,7 @@ void run(int argc, char* argv[]) {
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
+	currentHero->updatePotions();
 	battled = true;
 	continue;
       }      

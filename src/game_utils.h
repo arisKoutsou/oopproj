@@ -49,6 +49,7 @@ void checkArgumentsAndSetMap(int argc, char* argv[]);
 int getNumberOfHeroes(void);
 void cleanupResources(void);
 void fillMarket(Market* market);
+void updatePotionsAndNerfs(void);
 void run(int argc, char* argv[]);
 
 #endif

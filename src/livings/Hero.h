@@ -76,7 +76,7 @@ public:
 	void attack(Monster* monster);	// Reduces monster's health.
 
 	// IMPROTANT: Call this function whenever a hero finishes his round.
-	void nextRound();	// Checks potions and goes to next round.
+        void updatePotions();	// Checks potions and goes to next round.
 	int getMonstersKilled() const;
 	void resetBattleStats();
 	void respawn();

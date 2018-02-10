@@ -172,7 +172,7 @@ void Hero :: printStats() const {
 	cout << endl;
 }
 
-void Hero::nextRound() {
+void Hero::updatePotions() {
   // (George): Alternative Implementation
 
   list<Potion*> :: iterator potionsIterator = potions.begin();  
@@ -180,11 +180,11 @@ void Hero::nextRound() {
   for ( ; potionsIterator != potions.end(); ++potionsIterator) {
     (*potionsIterator)->roundPassed();
 
-    double strengthBoost = (*potionsIterator)->getStrengthBoost();
-    double agilityBoost = (*potionsIterator)->getAgilityBoost();
-    double dexterityBoost = (*potionsIterator)->getDexterityBoost();
-
     if ((*potionsIterator)->getRoundsEffective() == -1) {
+      double strengthBoost = (*potionsIterator)->getStrengthBoost();
+      double agilityBoost = (*potionsIterator)->getAgilityBoost();
+      double dexterityBoost = (*potionsIterator)->getDexterityBoost();
+      
       if (strengthBoost != 0.0) {
 	this->strength /= strengthBoost + 1.0;
       }
@@ -691,6 +691,23 @@ void Hero :: castSpell(Monster* target) {
   target->receiveDamage(damage - damageReduction);
   this->magicPower -= spellToCast->getMagicPowerRequired();
   this->magicPower = (this->magicPower < 0) ? 0 : this->magicPower;
+  string kind = spellToCast->kindOf();
+  if (kind == "FireSpell") {
+    FireSpell* auxSpell = static_cast<FireSpell*>(spellToCast);
+    int rounds = auxSpell->getReductionRounds();
+    double amount = auxSpell->reduceOponentArmorBy();
+    target->applyNerf(rounds, amount, Monster :: FIRE);
+  } else if (kind == "IceSpell") {
+    IceSpell* auxSpell = static_cast<IceSpell*>(spellToCast);
+    int rounds = auxSpell->getReductionRounds();
+    double amount = auxSpell->reduceOponentDamageRangeBy();
+    target->applyNerf(rounds, amount, Monster :: ICE);    
+  } else {
+    LightningSpell* auxSpell = static_cast<LightningSpell*>(spellToCast);
+    int rounds = auxSpell->getReductionRounds();
+    double amount = auxSpell->reduceOponentDodgeBy();
+    target->applyNerf(rounds, amount, Monster :: LIGHT);
+  }
 }
 
 void Hero::attack(Monster* monster) {

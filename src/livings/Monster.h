@@ -8,6 +8,8 @@
 #ifndef LIVINGS_MONSTER_H_
 #define LIVINGS_MONSTER_H_
 
+#include <list>
+
 #include "./Living.h"
 
 class Grid;
@@ -15,7 +17,24 @@ class Hero;
 
 class Monster: public Living {
 public:
-	Monster(
+        typedef enum {
+	  FIRE, ICE, LIGHT
+	} Type;
+  
+        struct Nerf {
+	private:
+	  int duration;
+	  double nerfAmount;
+	  Type nerfType;	  
+	public:
+	  Nerf(int duration, double nerfAmount, Type nerfType);
+	  int getDuration() const;
+	  double getNerfAmount() const;
+	  Type getNerfType() const;
+	  void roundPassed();
+	};
+
+        Monster(
 		Grid* gr,
 		int y,
 		int x,
@@ -35,12 +54,14 @@ public:
         void printStats() const;
         void receiveDamage(int damageDealt);// Reduces health by damageDealt.
         void attack(Hero* hero);			// Reduces hero's health.
+        void applyNerf(int duration, double amount, Type nerfType); // Applies a new nerf to the monster
+        void updateNerfs();
 private:
 	int minDamage;
 	int maxDamage;
 	double damageReductionFactor;	// Reduce damage taken.
 	double dodge;	// Probabillity for dodge.
-
+        list<Nerf> nerfs;
 };
 
 #endif /* LIVINGS_MONSTER_H_ */

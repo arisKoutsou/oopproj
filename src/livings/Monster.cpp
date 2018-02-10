@@ -11,6 +11,25 @@
 #include "./Hero.h"
 #include "../random/Random.h"
 
+Monster :: Nerf :: Nerf(int _duration, double amount, Type _nerfType)
+  : duration(_duration), nerfAmount(amount), nerfType(_nerfType) {}
+
+int Monster :: Nerf :: getDuration() const {
+  return duration;
+}
+
+double Monster :: Nerf :: getNerfAmount() const {
+  return nerfAmount;
+}
+
+Monster :: Type Monster :: Nerf :: getNerfType() const {
+  return nerfType;
+}
+
+void Monster :: Nerf :: roundPassed() {
+  --duration;
+}
+
 Monster::Monster(
 	Grid* gr,
 	int y,
@@ -83,3 +102,50 @@ void Monster::attack(Hero* hero) {
 
 }
 
+void Monster :: applyNerf(int duration, double amount, Type nerfType) {
+  Nerf newNerf(duration, amount, nerfType);
+  nerfs.push_back(newNerf);
+  switch (nerfType) {
+  case ICE: {
+    minDamage *= 1.0 - amount;
+    maxDamage *= 1.0 - amount;
+    break;  
+  }
+  case FIRE: {
+    damageReductionFactor -= amount;
+    damageReductionFactor = (damageReductionFactor < 0.0) ? 0.0 : damageReductionFactor;
+    break;    
+  }
+  case LIGHT: {
+    dodge -= amount;
+    dodge = (dodge < 0.0) ? 0.0 : dodge;
+    break;
+  }
+  }
+}
+
+void Monster :: updateNerfs() {
+  list<Nerf> :: iterator it = nerfs.begin();
+  for ( ; it != nerfs.end(); ++it) {
+    (*it).roundPassed();
+    if ((*it).getDuration() == -1) {
+      switch ((*it).getNerfType()) {
+      case ICE: {
+	minDamage /= 1.0 - (*it).getNerfAmount();
+	maxDamage /= 1.0 - (*it).getNerfAmount();
+	break;
+      }
+      case FIRE: {
+        damageReductionFactor += (*it).getNerfAmount();
+	break;
+      }
+      case LIGHT: {
+	dodge += (*it).getNerfAmount();
+	break;
+      }
+      }
+      list<Nerf> :: iterator tmp = it++;
+      nerfs.erase(tmp);
+    }
+  }
+}
