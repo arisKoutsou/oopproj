@@ -25,13 +25,15 @@ class Monster;
 class Grid;
 class Market;
 
+extern bool quitGame;
+extern void handleQuitCase(void);
+
 void initGrid(void);
 bool isCommentOrWhitespace(const string& str);
 void skipCommentsAndWhitespace(ifstream& stream);
 void tokenize(vector<string>& tokens);
 void createHeroes(int numberOfHeroes);
 void handleMoveCase(Hero* currentHero);
-void handleQuitCase(void);
 void handleBasicCase(Hero* currentHero);
 void handleBattleCase(void);
 void createMonsters(void);

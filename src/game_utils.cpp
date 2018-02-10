@@ -31,9 +31,10 @@
 
 using namespace std;
 
+bool quitGame = false;
+
 static const double battleProbability = 0.9;
 static const Random rng;
-static bool quitGame = false;
 static string buffer;
 static vector<Hero*> heroes;
 static vector<string> names;
@@ -239,6 +240,7 @@ void handleBattleCase(void) {
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
+	if (quitGame) return;
 	heroIndex = (heroIndex + 1) % heroes.size();
 	heroesTurn = false;        
       } else {

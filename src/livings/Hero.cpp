@@ -10,6 +10,7 @@
 
 #include <iomanip>
 
+#include "../game_utils.h"
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
 #include "../items/Item.h"
@@ -760,6 +761,7 @@ void Hero :: battle(list<Monster*>& monsters) {
     case 4: handleCastSpellCase(monsters); return;
     case 5: if (handleUseCase()) return; break;
     case 6: if (handleEquipCase()) return; break;
+    case 7: handleQuitCase(); if (quitGame) return; break;
     }
     this->battleMenu.clearMenu();
     this->battleMenu.displayMenu();
