@@ -751,20 +751,42 @@ void Hero :: battle(list<Monster*>& monsters) {
 
 void Hero :: handleAttackCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
-  do {
-    monsterToAttack = NULL;
-    cout << "Please enter the name of the monster you want to attack: ";
-    string name;
-    cin >> name;
-    list<Monster*> :: const_iterator it = monsters.begin();
-    for ( ; it != monsters.end(); ++it) {
-      if ((*it)->getName() == name) {
-        monsterToAttack = (*it);
-	break;
-      }
-    }
-  } while (monsterToAttack == NULL);
+
+  if (monsters.size() == 1) {
+	  monsterToAttack = *monsters.begin();
+
+	  cout << "Attacking the only monster here: "
+		<< monsterToAttack->getName() << endl;
+  } else {
+		do {
+			monsterToAttack = NULL;
+			cout << "Please enter the name of the monster you want to attack";
+			cout << "(";
+			list<Monster*> :: const_iterator it = monsters.begin();
+
+			for ( ; it != monsters.end(); ++it) {
+				cout << (*it)->getName();
+				cout << ", ";
+			}
+			cout << ") : ";
+
+			string name;
+			cin >> name;
+
+			for (it = monsters.begin() ; it != monsters.end(); ++it) {
+				if ((*it)->getName() == name) {
+					monsterToAttack = (*it);
+					break;
+				}
+			}
+
+		} while (monsterToAttack == NULL);
+
+		cout << "Attacking Monster " << monsterToAttack->getName() << endl;
+  }
+
   this->attack(monsterToAttack);
+
   if (monsterToAttack->getHealthPower() == 0) {
     ++this->monstersKilled;
     monsters.remove(monsterToAttack);

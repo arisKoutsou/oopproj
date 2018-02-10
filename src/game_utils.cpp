@@ -31,7 +31,7 @@
 
 using namespace std;
 
-static const double battleProbability = 0.1;
+static const double battleProbability = 0.9;
 static const Random rng;
 static bool quitGame = false;
 static string buffer;
@@ -370,14 +370,14 @@ void regenerateStats(void) {
     if (heroes[i]->getHealthPower() != 0) {
       int health = heroes[i]->getHealthPower();
       int mana = heroes[i]->getMagicPower();
-      heroes[i]->setHealthPower(health + health*0.3);
+      heroes[i]->setHealthPower(health + health*0.01);
       if (heroes[i]->getHealthPower() > heroes[i]->getMaxHealthPower()) {
 	heroes[i]->setHealthPower(heroes[i]->getMaxHealthPower());
       }
       if (mana == 0) {
 	heroes[i]->setMagicPower(100);
       } else {
-	heroes[i]->setMagicPower(mana + mana*0.4);
+	heroes[i]->setMagicPower(mana + mana*0.1);
 	if (heroes[i]->getMagicPower() > heroes[i]->getMaxMagicPower()) {
 	  heroes[i]->setMagicPower(heroes[i]->getMaxMagicPower());
 	}
@@ -387,7 +387,7 @@ void regenerateStats(void) {
   list<Monster*> :: const_iterator it = monsters.begin();
   for ( ; it != monsters.end(); ++it) {
     int health = (*it)->getHealthPower();
-    (*it)->setHealthPower(health + health*0.3);
+    (*it)->setHealthPower(health + health*0.01);
     if ((*it)->getHealthPower() > (*it)->getMaxHealthPower()) {
       (*it)->setHealthPower((*it)->getMaxHealthPower());
     }
