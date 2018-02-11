@@ -137,26 +137,47 @@ void Grid :: removeLiving(int row, int col, Living* living) {
 // (@aris) Implemented displayMap function.
 // Prints "+" and letters to represent grid.
 void Grid :: displayMap() const {
-  cout << endl;
-  cout << "Displaying Grid..." << endl;
-  cout << endl;
 
-  for (ssize_t i = tiles.size() - 1; i >= 0; --i) {
-    for (ssize_t j = 0; j != tiles[i].size(); ++j) {
-      if (tiles[i][j].hasLiving()) {
-	cout << "H";
-      } else if (tiles[i][j].hasMarket()) {
-	cout << "M";
-      } else if (tiles[i][j].isNonAccessible()) {
-	cout << "X";
-      } else if (tiles[i][j].isCommon()) {
-	cout << "C";
-      } else {
-	cout << "+";
-      }
-    }
-    cout << endl;
-  }
+	int columns = tiles[0].size();	// Get the size of the vector of tiles.
+	int rows = tiles.size();		// Get the size of lines of the vector.
 
-  cout << endl;
+	// Draw the first line which is a wall...
+	for (int i = 0; i < columns; i++) {
+		cout << "+---";
+	}
+	cout << "+" << endl;
+
+	for (int i = 0; i < rows; i++) {
+		// Draw | H |   | ....
+		for (int j = 0; j < columns; j++) {
+			cout << "| ";
+
+			if (tiles[i][j].hasLiving()) {
+				cout << "H ";
+			} else if (tiles[i][j].hasMarket()) {
+				cout << "M ";
+			} else if (tiles[i][j].isNonAccessible()) {
+				cout << "X ";
+			} else if (tiles[i][j].isCommon()) {
+				cout << "C ";
+			} else {
+				cout << "  ";
+			}
+
+		}
+		cout << "|" << endl;
+
+		// Draw wall...
+		for (int i = 0; i < columns; i++) {
+			cout << "+---";
+		}
+		cout << "+" << endl;
+	}
+
 }
+
+
+
+
+
+
