@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -std=c++98 -ggdb -Wall -fPIC
+CFLAGS= -std=c++98 -Wall 
 
 alltests : all bin/inventoryTest bin/itemTest bin/marketTest bin/spellTest bin/heroOnGridTest bin/attackTest bin/game
 
@@ -100,7 +100,7 @@ objects/livings/Hero.o : src/livings/Hero.cpp src/livings/Hero.h src/livings/Liv
 			   src/menu/Menu.h src/grid/Grid.h src/exceptions/heroExceptions.h \
 			   src/items/Item.h src/items/Weapon.h src/items/Armor.h src/items/Potion.h \
 			   src/spells/Spell.h src/market/Market.h src/game_utils.h
-	$(CC) $(CFLAGS) -c src/livings/Hero.cpp src/game_utils.cpp -o objects/livings/Hero.o
+	$(CC) $(CFLAGS) -c src/livings/Hero.cpp  -o objects/livings/Hero.o
 
 objects/livings/Monster.o : src/livings/Monster.cpp src/livings/Monster.h src/livings/Living.h
 	$(CC) $(CFLAGS) -c src/livings/Monster.cpp -o objects/livings/Monster.o
