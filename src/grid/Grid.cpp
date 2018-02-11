@@ -147,7 +147,7 @@ void Grid :: displayMap() const {
 	}
 	cout << "+" << endl;
 
-	for (int i = rows; i >= 0 ; i--) {
+	for (int i = rows - 1; i >= 0 ; i--) {
 		// Draw | H |   | ....
 		for (int j = 0; j < columns; j++) {
 			cout << "|";
