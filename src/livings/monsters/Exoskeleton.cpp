@@ -15,10 +15,11 @@ Exoskeleton::Exoskeleton(
 	int hp,
 	int min,
 	int max,
-	int arm,
-	double dodg        
-) : armorBonus(0.1),
-	Monster(gr, y, x, nam, hp, min, max, arm+arm*armorBonus, dodg)
-{
+	double arm,
+	double dodg,
+	double _armorBonus
+) : armorBonus(_armorBonus),
+	Monster(gr, y, x, nam, hp, min, max, arm, dodg) {
 
+  damageReductionFactor += armorBonus;
 }
