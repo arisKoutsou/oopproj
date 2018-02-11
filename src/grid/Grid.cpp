@@ -150,18 +150,18 @@ void Grid :: displayMap() const {
 	for (int i = 0; i < rows; i++) {
 		// Draw | H |   | ....
 		for (int j = 0; j < columns; j++) {
-			cout << "| ";
+			cout << "|";
 
 			if (tiles[i][j].hasLiving()) {
-				cout << "H ";
+				cout << " H ";
 			} else if (tiles[i][j].hasMarket()) {
-				cout << "M ";
+				cout << " M ";
 			} else if (tiles[i][j].isNonAccessible()) {
-				cout << "X ";
+				cout << "###";
 			} else if (tiles[i][j].isCommon()) {
-				cout << "C ";
+				cout << " C ";
 			} else {
-				cout << "  ";
+				cout << "   ";
 			}
 
 		}
