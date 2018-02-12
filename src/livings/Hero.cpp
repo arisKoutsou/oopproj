@@ -151,11 +151,11 @@ void Hero :: printStats() const {
 	cout << setprecision(2);
 
 	cout << "Mana: " << this->magicPower << endl
-	   << "Strength: " << this->strength << endl
-	   << "Agility: " << this->agility*100 << "%" << endl
-	   << "Dexterity: " << this->dexterity << endl
-	   << "Money: " << this->money << endl
-	   << "Experience: " << this->expirience << endl;
+	     << "Strength: " << this->strength << endl
+	     << "Agility: " << this->agility*100 << "%" << endl
+	     << "Dexterity: " << this->dexterity << endl
+	     << "Money: " << this->money << endl
+	     << "Experience: " << this->expirience << endl;
 
 	if (leftHandWeapon == NULL && rightHandWeapon == NULL) {
 		cout << "Not using any weapon..." << endl << endl;
@@ -438,7 +438,12 @@ void Hero :: checkInventory() {
     case 5: {
       this->inventory.getMenu().clearMenu();
       return;
-    }      
+    }
+    case 6: {
+      handleQuitCase();
+      if (quitGame) return;
+      break;
+    }
     }
     this->inventory.getMenu().displayMenu();
   }
@@ -634,6 +639,11 @@ void Hero :: enterMarket(Market* market) {
     case 4: {
       market->getMenu().clearMenu();
       return;
+    }
+    case 5: {
+      handleQuitCase();
+      if (quitGame) return;
+      break;
     }
     }
     market->getMenu().displayMenu();

@@ -32,6 +32,7 @@ public:
   MainMenu();  // Initial print of the menu when starting game.
   void welcome() const;
   string prompt() const; // Promts for user input and returns the selection.
+  void displayMenu() const;
 };
 
 #endif

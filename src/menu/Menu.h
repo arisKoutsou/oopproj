@@ -15,7 +15,7 @@ using namespace std;
 class Menu {
 public:
   int getNumberOfOptions() const; // Returns the number of options
-  void displayMenu() const;	  // Displays the menu
+  virtual void displayMenu() const;	  // Displays the menu
   void clearMenu() const;	// Clears the menu screen
   int getSelection();   // Returns the selection the user made
 protected:

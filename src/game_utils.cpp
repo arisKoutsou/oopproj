@@ -4,6 +4,7 @@
 // Author: George Liontos
 // Created: Sun Jan 28 02:34:01 2018 (+0200)
 
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -281,21 +282,23 @@ void handleMoveCase(Hero* currentHero) {
 }
 
 void handleQuitCase(void) {
-	string answer;
+  string answer;
 
-	while (true) {
-		cout << "Do you you really want to exit?(Y/n) : " ;
-		cin >> answer;
-
-		if (answer == "y" || answer == "Y") {
-			quitGame = true;
-			break;
-		} else if (answer == "n") {
-			cout << endl;
-			break;
-		}
-	}
-
+  while (true) {
+    cout << "Do you you really want to go to the main menu? (yes|no)" << endl
+	 << "(If you answer yes the current session will be terminated)"
+	 << endl << endl;
+    cout << "> ";
+    cin >> answer;
+    transform(answer.begin(), answer.end(), answer.begin(), :: tolower);
+    if (answer == "yes") {
+      quitGame = true;
+      break;
+    } else if (answer == "no") {
+      cout << endl;
+      break;
+    }
+  }
 }
 
 void handleBattleCase(void) {
@@ -498,10 +501,11 @@ void createHeroes(int numberOfHeroes) {
 	 << " (possible classes are Warrior, Sorcerer, Paladin): ";
     string heroClass;
     cin >> heroClass;
-
-    if (!(heroClass == "Warrior"
-	  || heroClass == "Paladin"
-	  || heroClass == "Sorcerer")
+    transform(heroClass.begin(), heroClass.end(),
+	      heroClass.begin(), :: tolower);
+    if (!(heroClass == "warrior"
+	  || heroClass == "paladin"
+	  || heroClass == "sorcerer")
 	) {
       cout << "That's not a valid class!" << endl;
       --i;
@@ -513,11 +517,11 @@ void createHeroes(int numberOfHeroes) {
     cin >> name;
     cout << endl;
     Hero* hero;
-    if (heroClass == "Warrior") {
+    if (heroClass == "warrior") {
       hero = new Warrior(gameGrid, name);
-    } else if (heroClass == "Sorcerer") {
+    } else if (heroClass == "sorcerer") {
       hero = new Sorcerer(gameGrid, name);
-    } else if (heroClass == "Paladin") {
+    } else if (heroClass == "paladin") {
       hero = new Paladin(gameGrid, name);
     }
 
@@ -576,27 +580,19 @@ int getNumberOfHeroes(void) {
   return numberOfHeroes;
 }
 
-void cleanupResources(void) {
+void cleanupResources(void) {  
   delete gameGrid;
+  heroes.clear();
+  names.clear();
+  weapons.clear();
+  armors.clear();
+  potions.clear();
+  spells.clear();
   map.close();
   quitGame = false;
 }
 
-void run(int argc, char* argv[]) {
-  MainMenu mainMenu;
-  string userInput;
-  do {
-    mainMenu.welcome();
-    userInput = mainMenu.prompt();
-    if (userInput == "GenerateMap") {
-      generateMap();
-    } else if (userInput == "Quit") {
-      cout << endl << "Exiting game..." << endl;
-      return;
-    } else if (userInput == "Help") {
-      // mainMenu.help();
-    } 
-  } while (userInput != "Play");
+void play(int argc, char* argv[]) {
   checkArgumentsAndSetMap(argc, argv);
   readData(argc, argv);
   int numberOfHeroes = getNumberOfHeroes();
@@ -621,4 +617,23 @@ void run(int argc, char* argv[]) {
     battled = false;
   }
   cleanupResources();
+}
+
+void run(int argc, char* argv[]) {
+  MainMenu mainMenu;
+  string userInput;
+  do {
+    mainMenu.welcome();
+    userInput = mainMenu.prompt();
+    transform(userInput.begin(), userInput.end(),
+	      userInput.begin(), :: tolower);
+    if (userInput == "generatemap") {
+      generateMap();
+    } else if (userInput == "play") {
+      play(argc, argv);      
+    } else if (userInput == "help") {
+      // mainMenu.help();
+    } 
+  } while (userInput != "quit");
+  cout << endl << "Exiting game..." << endl;
 }

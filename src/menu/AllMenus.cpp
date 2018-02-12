@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <string>
 #include <iostream>
 #include "AllMenus.h"
 
@@ -9,7 +11,7 @@ BasicMenu :: BasicMenu()
   this->options.push_back("Display stats");
   this->options.push_back("Check invnentory");
   this->options.push_back("Move");
-  this->options.push_back("Quit game");
+  this->options.push_back("Go to Main Menu");
 }
 
 BattleMenu :: BattleMenu()
@@ -20,7 +22,7 @@ BattleMenu :: BattleMenu()
   this->options.push_back("Cast spell");
   this->options.push_back("Use potion");
   this->options.push_back("Change weapon/armor");
-  this->options.push_back("Quit game");
+  this->options.push_back("Go to Main Menu");
 }
 
 MarketMenu :: MarketMenu()
@@ -29,7 +31,7 @@ MarketMenu :: MarketMenu()
   this->options.push_back("Buy Item/Spell");
   this->options.push_back("Sell Item/Spell");
   this->options.push_back("Exit Market");
-  this->options.push_back("Quit game");
+  this->options.push_back("Go to Main Menu");
 }
 
 InventoryMenu :: InventoryMenu()
@@ -39,7 +41,7 @@ InventoryMenu :: InventoryMenu()
   this->options.push_back("Discard Item/Spell");
   this->options.push_back("Use Potion");
   this->options.push_back("Exit Inventory");
-  this->options.push_back("Quit game");
+  this->options.push_back("Go to Main Menu");
 }
 
 // Added by Aris
@@ -75,13 +77,23 @@ string MainMenu :: prompt() const {
 
   cout << "> ";
   cin >> userInput;
-
+  transform(userInput.begin(), userInput.end(),
+	    userInput.begin(), :: tolower);  
   for (size_t i = 0; i < options.size(); i++) {
-    if (userInput == options[i]) {
+    string tmp = options[i];
+    transform(tmp.begin(), tmp.end(), tmp.begin(), :: tolower);
+    if (userInput == tmp) {
       return userInput;
     }
   }
 
   cout << "Your input does not match any option." << endl << endl;
   return prompt();
+}
+
+void MainMenu :: displayMenu() const {
+  for (size_t i = 0; i != options.size(); ++i) {
+    cout << "•" << options[i] << endl;
+  }
+  cout << endl;
 }
