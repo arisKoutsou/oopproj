@@ -280,14 +280,21 @@ void handleMoveCase(Hero* currentHero) {
 }
 
 void handleQuitCase(void) {
-  string answer;
-  do {
-    cout << "Do you you really want to exit?" << endl;
-    cin >> answer;        
-  } while (answer != "yes" && answer != "no");
-  if (answer == "yes") {
-    quitGame = true;
-  }
+	string answer;
+
+	while (true) {
+		cout << "Do you you really want to exit?(Y/n) : " ;
+		cin >> answer;
+
+		if (answer == "y" || answer == "Y") {
+			quitGame = true;
+			break;
+		} else if (answer == "n") {
+			cout << endl;
+			break;
+		}
+	}
+
 }
 
 void handleBattleCase(void) {
@@ -571,6 +578,7 @@ int getNumberOfHeroes(void) {
 void cleanupResources(void) {
   delete gameGrid;
   map.close();
+  quitGame = false;
 }
 
 void run(int argc, char* argv[]) {
