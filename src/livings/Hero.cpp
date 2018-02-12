@@ -265,7 +265,7 @@ void Hero :: moveDown() {
   int heroX = this->getPosition().getX();
  
   if (heroY == 0) {
-    throw HeroMoveException("You can't move down any further");
+    throw HeroMoveException("You can't  down any further");
   } else if (this->grid->getTile(heroY - 1, heroX).isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
   } else {
@@ -316,7 +316,7 @@ void Hero :: move(directions direction) {
 }
 
 string Hero :: getUserInput(const string& prompt) {
-  cout << prompt << endl;
+  cout << prompt << endl << endl << "> ";
 
   string input;
   cin >> input;
@@ -401,8 +401,9 @@ void Hero :: checkInventory() {
   string equipPrompt = "Please enter the name of the item/spell you want to equip";
   string discardPrompt = "Please enter the name of the item/spell you want to discard";
   string usePotionPrompt = "Please enter the name of the potion you want to use";
-  
+
   while ((selection = this->inventory.getMenu().getSelection())) {
+    this->inventory.getMenu().clearMenu();
     switch (selection) {
     case 1: {
       this->inventory.printInfo();
@@ -441,10 +442,11 @@ void Hero :: checkInventory() {
     }
     case 6: {
       handleQuitCase();
-      if (quitGame) return;
+      this->inventory.getMenu().clearMenu();
+      if (quitGame) return;      
       break;
     }
-    }
+    }    
     this->inventory.getMenu().displayMenu();
   }
 }
@@ -613,8 +615,9 @@ void Hero :: enterMarket(Market* market) {
   int selection;
   string buyPrompt = "Please enter the name of the item/spell you want to buy";
   string sellPrompt = "Please enter the name of the item/spell you want to sell";
-  
-  while ((selection = market->getMenu().getSelection())) {
+
+  while ((selection = market->getMenu().getSelection())) {   
+    market->getMenu().clearMenu();
     switch (selection) {
     case 1: {
      market->printInfo();
@@ -642,7 +645,8 @@ void Hero :: enterMarket(Market* market) {
     }
     case 5: {
       handleQuitCase();
-      if (quitGame) return;
+      market->getMenu().clearMenu();
+      if (quitGame) return;      
       break;
     }
     }
@@ -755,8 +759,9 @@ void Hero :: displayMap() const {
 
 void Hero :: battle(list<Monster*>& monsters) {
   int selection;
-  this->battleMenu.displayMenu();
-  while ((selection = this->battleMenu.getSelection())) {
+  this->battleMenu.displayMenu();  
+  while ((selection = this->battleMenu.getSelection())) {    
+    this->battleMenu.clearMenu();
     switch (selection) {
     case 1: this->printStats(); break;
     case 2: {
@@ -771,9 +776,9 @@ void Hero :: battle(list<Monster*>& monsters) {
     case 4: handleCastSpellCase(monsters); return;
     case 5: if (handleUseCase()) return; break;
     case 6: if (handleEquipCase()) return; break;
-    case 7: handleQuitCase(); if (quitGame) return; break;
-    }
-    this->battleMenu.clearMenu();
+    case 7: handleQuitCase(); if (quitGame) return;
+            this->battleMenu.clearMenu(); break;
+    }    
     this->battleMenu.displayMenu();
   }
 }
@@ -782,36 +787,36 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
 
   if (monsters.size() == 1) {
-	  monsterToAttack = *monsters.begin();
+    monsterToAttack = *monsters.begin();
 
-	  cout << "Attacking the only monster here: "
-		<< monsterToAttack->getName() << endl;
+    cout << "Attacking the only monster here: "
+	 << monsterToAttack->getName() << endl;
   } else {
-		do {
-			monsterToAttack = NULL;
-			cout << "Please enter the name of the monster you want to attack";
-			cout << "(";
-			list<Monster*> :: const_iterator it = monsters.begin();
+    do {
+      monsterToAttack = NULL;
+      cout << "Please enter the name of the monster you want to attack";
+      cout << "(";
+      list<Monster*> :: const_iterator it = monsters.begin();
 
-			for ( ; it != monsters.end(); ++it) {
-				cout << (*it)->getName();
-				cout << ", ";
-			}
-			cout << ") : ";
+      for ( ; it != monsters.end(); ++it) {
+	cout << (*it)->getName();
+	cout << ", ";
+      }
+      cout << ") : ";
 
-			string name;
-			cin >> name;
+      string name;
+      cin >> name;
 
-			for (it = monsters.begin() ; it != monsters.end(); ++it) {
-				if ((*it)->getName() == name) {
-					monsterToAttack = (*it);
-					break;
-				}
-			}
+      for (it = monsters.begin() ; it != monsters.end(); ++it) {
+	if ((*it)->getName() == name) {
+	  monsterToAttack = (*it);
+	  break;
+	}
+      }
 
-		} while (monsterToAttack == NULL);
+    } while (monsterToAttack == NULL);
 
-		cout << "Attacking Monster " << monsterToAttack->getName() << endl;
+    cout << "Attacking Monster " << monsterToAttack->getName() << endl;
   }
 
   this->attack(monsterToAttack);

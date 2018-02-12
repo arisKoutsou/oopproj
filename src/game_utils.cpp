@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <string>
+#include <limits>
 
 #include "game_utils.h"
 #include "grid/Grid.h"
@@ -67,39 +68,37 @@ void generateMap() {
       >> pMarket >> pNonAccessible >> pCommon;
 
   Random rng;
-  ofstream map("input/map.txt");
-  if (map.is_open()) {
-    map << "# Map goes as follows: Each line has information about a tile" << endl
-	<< "# First value (true, false) is about nonAccessible" << endl
-	<< "# Second value (true, false) is about common" << endl
-	<< "# Third value (true, false) is about market. If it's true "
-	<< "then an in is given which is the capacity of the market" << endl
-	<< "# First line has the dimensions of the grid (row, col)" << endl
-	<< "# The delimiter is ','" << endl << endl;
-    map << rows << "," << columns << "," << endl << endl;
-    map << "false,false,false," << endl; /* That's the first tile. That's where our heroes spawn */
-    for (size_t i = 2U; i != rows*columns*2; i += 2) {
-      bool non_accessible = rng.boolean(pNonAccessible);
-      bool common = rng.boolean(pCommon);
-      bool market = rng.boolean(pMarket);
-      if (non_accessible) {
-	map << "true,";
-	common = false;
-	market = false;
-      } else map << "false,";
-      if (common) {
-	map << "true,";
-	market = false;
-      } else map << "false,";
-      if (market) {
-	map << "true,";
-	int cap = rng.fromMintoMax(5, 15);
-	map << cap << ",";
-      } else map << "false,";
-      map << endl;
-    }
+  ofstream newMap("../input/map.txt");
+  newMap << "# Map goes as follows: Each line has information about a tile" << endl
+	 << "# First value (true, false) is about nonAccessible" << endl
+	 << "# Second value (true, false) is about common" << endl
+	 << "# Third value (true, false) is about market. If it's true "
+	 << "then an in is given which is the capacity of the market" << endl
+	 << "# First line has the dimensions of the grid (row, col)" << endl
+	 << "# The delimiter is ','" << endl << endl;
+  newMap << rows << "," << columns << "," << endl << endl;
+  newMap << "false,false,false," << endl; /* That's the first tile. That's where our heroes spawn */
+  for (size_t i = 2U; i != rows*columns*2; i += 2) {
+    bool non_accessible = rng.boolean(pNonAccessible);
+    bool common = rng.boolean(pCommon);
+    bool market = rng.boolean(pMarket);
+    if (non_accessible) {
+      newMap << "true,";
+      common = false;
+      market = false;
+    } else newMap << "false,";
+    if (common) {
+      newMap << "true,";
+      market = false;
+    } else newMap << "false,";
+    if (market) {
+      newMap << "true,";
+      int cap = rng.fromMintoMax(5, 15);
+      newMap << cap << ",";
+    } else newMap << "false,";
+    newMap << endl;
   }
-  map.close();
+  newMap.close();
 
   cout << endl << "Map generated !" << endl;
 
@@ -232,17 +231,19 @@ void tokenize(vector<string>& tokens) {
 
 void handleBasicCase(Hero* currentHero) {
   int selection;
+  currentHero->getGameMenu().clearMenu();
   currentHero->getGameMenu().displayMenu();
-  while ((selection = currentHero->getGameMenu().getSelection())) {
+  while ((selection = currentHero->getGameMenu().getSelection())) {   
+    currentHero->getGameMenu().clearMenu();
     switch (selection) {
     case 1: currentHero->displayMap(); break;
     case 2: currentHero->printStats(); break;
     case 3: currentHero->checkInventory(); return;
     case 4: handleMoveCase(currentHero); return;
-    case 5: handleQuitCase(); if (quitGame) return; break;
+    case 5: handleQuitCase(); currentHero->getGameMenu().clearMenu();
+	    if (quitGame) return; break;
     default: break;
-    }
-    currentHero->getGameMenu().clearMenu();
+    }    
     currentHero->getGameMenu().displayMenu();
   }
 }
@@ -250,8 +251,10 @@ void handleBasicCase(Hero* currentHero) {
 void handleMoveCase(Hero* currentHero) {
   bool moved = false;
   while (!moved) {
-    cout << "Please enter the direction you want to move "
-	 << "(possible directions are up, down, left, right): ";
+    cout << endl
+	 << "Please enter the direction you want to move "
+	 << "(possible directions are up, down, left, right)"
+	 << endl << endl << "> ";
     string answer;
     cin >> answer;
     Hero :: directions direction;
@@ -259,6 +262,7 @@ void handleMoveCase(Hero* currentHero) {
     else if (answer == "down") direction = Hero :: DOWN;
     else if (answer == "left") direction = Hero :: LEFT;
     else if (answer == "right") direction = Hero :: RIGHT;
+    else direction = Hero :: UNKNOWN;
     try {
       currentHero->move(direction);
       moved = true;
@@ -271,11 +275,12 @@ void handleMoveCase(Hero* currentHero) {
   if (currentHero->getTile().hasMarket()) {
     string answer;
     do {
-      cout << "It seems that you found a market... Do you want to enter?(Y/n)"
-	   << endl;
+      cout << "It seems that you found a market... Do you want to enter?(Y|n)"
+	   << endl << endl << "> ";
       cin >> answer;
-    } while (answer != "Y" && answer != "n" && answer != "y");
-    if (answer == "Y" || answer == "y") {
+      transform(answer.begin(), answer.end(), answer.begin(), :: tolower);
+    } while (answer != "y" && answer != "n");
+    if (answer == "y") {
       currentHero->enterMarket(currentHero->getTile().getMarket());
     }
   }
@@ -285,16 +290,17 @@ void handleQuitCase(void) {
   string answer;
 
   while (true) {
-    cout << "Do you you really want to go to the main menu? (yes|no)" << endl
-	 << "(If you answer yes the current session will be terminated)"
+    cout << endl
+	 << "Do you you really want to go to the main menu? (Y|n)" << endl
+	 << "(If you answer Y the current session will be terminated)"
 	 << endl << endl;
     cout << "> ";
     cin >> answer;
     transform(answer.begin(), answer.end(), answer.begin(), :: tolower);
-    if (answer == "yes") {
+    if (answer == "y") {
       quitGame = true;
       break;
-    } else if (answer == "no") {
+    } else if (answer == "n") {
       cout << endl;
       break;
     }
@@ -496,9 +502,16 @@ void updatePotionsAndNerfs(void) {
 }
 
 void createHeroes(int numberOfHeroes) {
+  bool warriorSelected = false;
+  bool sorcererSelected = false;
+  bool paladinSelected = false;
   for (int i = 0; i != numberOfHeroes; ++i) {
     cout << "Please enter a class for hero " << i + 1
-	 << " (possible classes are Warrior, Sorcerer, Paladin): ";
+	 << " ( possible classes are ";
+    if (!warriorSelected) cout << "Warrior ";
+    if (!sorcererSelected) cout << "Sorcerer ";
+    if (!paladinSelected) cout << "Paladin ";
+    cout << ")" << endl << endl << "> ";
     string heroClass;
     cin >> heroClass;
     transform(heroClass.begin(), heroClass.end(),
@@ -512,16 +525,42 @@ void createHeroes(int numberOfHeroes) {
       continue;
     }
 
-    cout << "Please enter a name for your hero: ";
+    if (heroClass == "warrior" && warriorSelected) {
+      cout << endl
+	   << "Warrior is already selected. Please select one of the "
+	   << "available classes" << endl << endl;
+      --i;
+      continue;
+    }
+    if (heroClass == "sorcerer" && sorcererSelected) {
+      cout << endl
+	   << "Sorcerer is already selected. Please selecet one of the "
+	   << "available classes" << endl << endl;
+      --i;
+      continue;
+    }
+    if (heroClass == "paladin" && paladinSelected) {
+      cout << endl
+	   << "Paladin is already selected. Please select one of the "
+	   << "available classes" << endl << endl;
+      --i;
+      continue;
+    }
+
+    cout << endl << "Please enter a name for your hero"
+	 << endl << endl << "> ";
     string name;
     cin >> name;
     cout << endl;
     Hero* hero;
     if (heroClass == "warrior") {
+      warriorSelected = true;
       hero = new Warrior(gameGrid, name);
     } else if (heroClass == "sorcerer") {
+      sorcererSelected = true;
       hero = new Sorcerer(gameGrid, name);
     } else if (heroClass == "paladin") {
+      paladinSelected = true;
       hero = new Paladin(gameGrid, name);
     }
 
@@ -529,21 +568,29 @@ void createHeroes(int numberOfHeroes) {
   }
 }
 
-void readData(int argc, char* argv[]) {
+void readData(void) {
   ifstream inputStream;
-  for (size_t i = 1U; i != argc; ++i) {
-    inputStream.open(argv[i]);
-    if (strstr(argv[i], "names.txt")) {
-      readSpecificData(inputStream, names);
-    } else if (strstr(argv[i], "armors.txt")) {
-      readSpecificData(inputStream, armors);
-    } else if (strstr(argv[i], "weapons.txt")) {
-      readSpecificData(inputStream, weapons);
-    } else if (strstr(argv[i], "potions.txt")) {
-      readSpecificData(inputStream, potions);
-    } else if (strstr(argv[i], "spells.txt")) {
-      readSpecificData(inputStream, spells);
+  vector<string>* dataVectors[5] = {
+    &names, &weapons, &armors,
+    &potions, &spells
+  };
+  string inputNames[5] = {
+    "../input/names.txt",
+    "../input/weapons.txt",
+    "../input/armors.txt",
+    "../input/potions.txt",
+    "../input/spells.txt"
+  };
+  for (size_t i = 0U; i != 5U; ++i) {
+    inputStream.open(inputNames[i].c_str());
+    if (inputStream.is_open() == false) {
+      cerr << "There was an error while opening "
+	   << inputNames[i] << " file. Exiting game..."
+	   << endl;
+      exit(EXIT_FAILURE);
+      
     }
+    readSpecificData(inputStream, *dataVectors[i]);
     inputStream.close();
   }
 }
@@ -555,27 +602,24 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
   }
 }
 
-void checkArgumentsAndSetMap(int argc, char* argv[]) {
-  if (argc < 7) {
-    cerr << "Too few arguments! You should provide the program with:"
-	 << endl << "map.txt, names.txt, weapons.txt, spells.txt, "
-	 << "potions.txt, and armors.txt" << endl;
+void setMap(void) {
+  map.open("../input/map.txt");
+  if (map.is_open() == false) {
+    cerr << "There was a problem opening the map file. Exiting game..."
+	 << endl;
     exit(EXIT_FAILURE);
-  }
-  for (size_t i = 1U; i != argc; ++i) {
-    if (strstr(argv[i], "map.txt")) {
-      map.open(argv[i]);
-      break;
-    }
   }
 }
 
 int getNumberOfHeroes(void) {
   int numberOfHeroes = -1;
   while (numberOfHeroes < 1 || numberOfHeroes > 3) {
-    cout << "Please enter the number of heroes you want to have "
-	 << "(min: 1, max: 3): ";
-    cin >> numberOfHeroes;
+    cout << endl
+	 << "Please enter the number of heroes you want to have "
+	 << "(min: 1, max: 3)" << endl << endl << "> ";
+    cin >> numberOfHeroes;    
+    cout << endl;
+    cin.ignore(numeric_limits<streamsize> :: max(), '\n');
   }
   return numberOfHeroes;
 }
@@ -592,9 +636,9 @@ void cleanupResources(void) {
   quitGame = false;
 }
 
-void play(int argc, char* argv[]) {
-  checkArgumentsAndSetMap(argc, argv);
-  readData(argc, argv);
+void play(void) {
+  setMap();
+  readData();
   int numberOfHeroes = getNumberOfHeroes();
   initGrid();
   createHeroes(numberOfHeroes);
@@ -604,7 +648,7 @@ void play(int argc, char* argv[]) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
-	 << currentHero->getName() << endl << endl;
+	 << currentHero->getName();
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
@@ -619,18 +663,18 @@ void play(int argc, char* argv[]) {
   cleanupResources();
 }
 
-void run(int argc, char* argv[]) {
+void run(void) {  
   MainMenu mainMenu;
   string userInput;
-  do {
+  do {    
     mainMenu.welcome();
     userInput = mainMenu.prompt();
-    transform(userInput.begin(), userInput.end(),
+    transform(userInput.begin(), userInput.end(),	      
 	      userInput.begin(), :: tolower);
     if (userInput == "generatemap") {
       generateMap();
     } else if (userInput == "play") {
-      play(argc, argv);      
+      play();      
     } else if (userInput == "help") {
       // mainMenu.help();
     } 

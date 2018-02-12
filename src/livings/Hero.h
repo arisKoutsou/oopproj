@@ -24,8 +24,9 @@ class Hero : public Living {
 public:
 	// Added by: (George Liontos)
 	// Posible directions for heros to move
-	typedef enum {
-		UP, DOWN, LEFT, RIGHT
+        typedef enum {
+	  UP, DOWN, LEFT,
+	  RIGHT, UNKNOWN
 	} directions;
 
 	Hero(

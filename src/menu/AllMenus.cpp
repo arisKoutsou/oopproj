@@ -67,8 +67,7 @@ void MainMenu :: welcome() const {
 
   displayMenu();
 
-  cout << endl
-       << "Type any of the above options to enter (i.e : \"GenerateMap\" or \"Help\")"
+  cout << "Type any of the above options to enter (i.e : \"GenerateMap\" or \"Help\")"
        << endl << endl;
 }
 

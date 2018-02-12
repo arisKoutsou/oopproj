@@ -45,14 +45,14 @@ void cleanupMonsters(void);
 bool heroesWon(void);
 bool monstersWon(void);
 int heroesAlive(void);
-void readData(int argc, char* argv[]);
+void readData(void);
 void readSpecificData(ifstream& stream, vector<string>& data);
 void regenerateStats(void);
-void checkArgumentsAndSetMap(int argc, char* argv[]);
+void checkArgumentsAndSetMap(void);
 int getNumberOfHeroes(void);
 void cleanupResources(void);
 void fillMarket(Market* market);
 void updatePotionsAndNerfs(void);
-void run(int argc, char* argv[]);
+void run(void);
 
 #endif

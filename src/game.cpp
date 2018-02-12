@@ -1,6 +1,6 @@
 #include "game_utils.h"
 
-int main(int argc, char* argv[]) {
-  run(argc, argv);
+int main(void) {
+  run();
   return EXIT_SUCCESS;
 }

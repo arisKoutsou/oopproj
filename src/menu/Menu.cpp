@@ -17,6 +17,7 @@ int Menu :: getNumberOfOptions() const {
 }
 
 void Menu :: displayMenu() const {
+  cout << endl << endl;
   for (size_t i = 0; i != options.size(); ++i) {
     cout << i + 1 << ". " << options[i] << endl;
   }
@@ -25,18 +26,17 @@ void Menu :: displayMenu() const {
 
 void Menu :: clearMenu() const {
   // Yes I know, that way is pathetic... :)
-  //cout << string(100, '\n');	// Can't debug... removed temporarily.
+  cout << string(100, '\n');	// Can't debug... removed temporarily.
 }
 
 int Menu :: getSelection() {
   int option;
   do {
-    cout << "Please enter an option: ";
+    cout << "Please enter an option: "
+	 << endl << endl << "> ";
     cin >> option;
-    if (cin.fail()) {
-      cin.clear();
-      cin.ignore(numeric_limits<streamsize> :: max(), '\n');
-    }
+    if (cin.fail()) cin.clear();
+    cin.ignore(numeric_limits<streamsize> :: max(), '\n');
   } while (option < 1 && option > options.size());  
   return option;
 }
