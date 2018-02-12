@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <list>
-#include "../menu/Menu.h"
+#include "../menu/AllMenus.h"
 
 class Item;
 class Spell;
@@ -28,7 +28,7 @@ public:
   bool hasSpells() const;
   bool hasItems() const;
   bool hasPotions() const;
-  Menu& getMenu(); // returns the menu
+  InventoryMenu& getMenu(); // returns the menu
   Item* getItemByName(const string& name) const; // returns a pointer to an item.
   Spell* getSpellByName(const string& spellName) const;// return pointer to spell.
   
@@ -45,7 +45,7 @@ private:
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
-  Menu menu;
+  InventoryMenu menu;
 };
 
 #endif

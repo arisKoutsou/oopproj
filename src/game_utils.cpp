@@ -12,6 +12,7 @@
 
 #include "game_utils.h"
 #include "grid/Grid.h"
+#include "menu/AllMenus.h"
 #include "market/Market.h"
 #include "livings/Hero.h"
 #include "items/Weapon.h"
@@ -47,65 +48,65 @@ static ifstream map;
 static Grid* gameGrid;
 
 void generateMap() {
-	cout << endl;
-	cout << "A Map/Grid is a 2d array of Tiles." << endl;
-	cout << "with <rows> rows and <cols> columns." << endl;
-	cout << "Each Tile can have a probability to have a Market (m)." << endl;
-	cout << "A probability to be non Accessible (x)." << endl;
-	cout << "And a probabilty to be common (c)." << endl;
-	cout << "Probability is a number in the interval [0, 1]." << endl;
-	cout << "Please enter dimensions and probabilities in the following order:" << endl;
-	cout << "<rows> <cols> <m> <x> <c>\t\t(i.e : 4  5  0.1  0.3  0.03 )" << endl;
-	cout << endl;
-	cout << "> ";
+  cout << endl;
+  cout << "A Map/Grid is a 2d array of Tiles." << endl;
+  cout << "with <rows> rows and <cols> columns." << endl;
+  cout << "Each Tile can have a probability to have a Market (m)." << endl;
+  cout << "A probability to be non Accessible (x)." << endl;
+  cout << "And a probabilty to be common (c)." << endl;
+  cout << "Probability is a number in the interval [0, 1]." << endl;
+  cout << "Please enter dimensions and probabilities in the following order:" << endl;
+  cout << "<rows> <cols> <m> <x> <c>\t\t(i.e : 4  5  0.1  0.3  0.03 )" << endl;
+  cout << endl;
+  cout << "> ";
 
-	int rows, columns;
-	double pMarket, pNonAccessible, pCommon;
-	cin >> rows >> columns
-		>> pMarket >> pNonAccessible >> pCommon;
+  int rows, columns;
+  double pMarket, pNonAccessible, pCommon;
+  cin >> rows >> columns
+      >> pMarket >> pNonAccessible >> pCommon;
 
-	Random rng;
-	  ofstream map("input/map.txt");
-	  if (map.is_open()) {
-	    map << "# Map goes as follows: Each line has information about a tile" << endl
-	  	<< "# First value (true, false) is about nonAccessible" << endl
-	  	<< "# Second value (true, false) is about common" << endl
-	  	<< "# Third value (true, false) is about market. If it's true "
-	  	<< "then an in is given which is the capacity of the market" << endl
-	  	<< "# First line has the dimensions of the grid (row, col)" << endl
-	  	<< "# The delimiter is ','" << endl << endl;
-	    map << rows << "," << columns << "," << endl << endl;
-	    map << "false,false,false," << endl; /* That's the first tile. That's where our heroes spawn */
-	    for (size_t i = 2U; i != rows*columns*2; i += 2) {
-	      bool non_accessible = rng.boolean(pNonAccessible);
-	      bool common = rng.boolean(pCommon);
-	      bool market = rng.boolean(pMarket);
-	      if (non_accessible) {
-	        map << "true,";
-	        common = false;
-	        market = false;
-	      } else map << "false,";
-	      if (common) {
-	        map << "true,";
-	        market = false;
-	      } else map << "false,";
-	      if (market) {
-		      map << "true,";
-		      int cap = rng.fromMintoMax(5, 15);
-		      map << cap << ",";
-	      } else map << "false,";
-	      map << endl;
-	    }
-	  }
-	  map.close();
+  Random rng;
+  ofstream map("input/map.txt");
+  if (map.is_open()) {
+    map << "# Map goes as follows: Each line has information about a tile" << endl
+	<< "# First value (true, false) is about nonAccessible" << endl
+	<< "# Second value (true, false) is about common" << endl
+	<< "# Third value (true, false) is about market. If it's true "
+	<< "then an in is given which is the capacity of the market" << endl
+	<< "# First line has the dimensions of the grid (row, col)" << endl
+	<< "# The delimiter is ','" << endl << endl;
+    map << rows << "," << columns << "," << endl << endl;
+    map << "false,false,false," << endl; /* That's the first tile. That's where our heroes spawn */
+    for (size_t i = 2U; i != rows*columns*2; i += 2) {
+      bool non_accessible = rng.boolean(pNonAccessible);
+      bool common = rng.boolean(pCommon);
+      bool market = rng.boolean(pMarket);
+      if (non_accessible) {
+	map << "true,";
+	common = false;
+	market = false;
+      } else map << "false,";
+      if (common) {
+	map << "true,";
+	market = false;
+      } else map << "false,";
+      if (market) {
+	map << "true,";
+	int cap = rng.fromMintoMax(5, 15);
+	map << cap << ",";
+      } else map << "false,";
+      map << endl;
+    }
+  }
+  map.close();
 
-	  cout << endl << "Map generated !" << endl;
+  cout << endl << "Map generated !" << endl;
 
-	 string answer;
-	 while (answer != "Y" && answer != "y") {
-		 cout << endl << "Exit to Main Menu?(Y/n) : ";
-		 cin >> answer;
-	 }
+  string answer;
+  while (answer != "Y" && answer != "y") {
+    cout << endl << "Exit to Main Menu?(Y/n) : ";
+    cin >> answer;
+  }
 }
 
 void initGrid(void) {  
@@ -582,6 +583,20 @@ void cleanupResources(void) {
 }
 
 void run(int argc, char* argv[]) {
+  MainMenu mainMenu;
+  string userInput;
+  do {
+    mainMenu.welcome();
+    userInput = mainMenu.prompt();
+    if (userInput == "GenerateMap") {
+      generateMap();
+    } else if (userInput == "Quit") {
+      cout << endl << "Exiting game..." << endl;
+      return;
+    } else if (userInput == "Help") {
+      // mainMenu.help();
+    } 
+  } while (userInput != "Play");
   checkArgumentsAndSetMap(argc, argv);
   readData(argc, argv);
   int numberOfHeroes = getNumberOfHeroes();

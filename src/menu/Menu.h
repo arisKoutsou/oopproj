@@ -12,22 +12,14 @@
 
 using namespace std;
 
-class Market;
-class Inventory;
-class Hero;
-
 class Menu {
 public:
-  Menu(const Market& market);
-  Menu(const Inventory& inventory);
-  Menu(const Hero& hero, bool battle);
-  ~Menu();
-
   int getNumberOfOptions() const; // Returns the number of options
   void displayMenu() const;	  // Displays the menu
   void clearMenu() const;	// Clears the menu screen
   int getSelection();   // Returns the selection the user made
-private:
+protected:
+  Menu();
   vector<string> options;
 };
 

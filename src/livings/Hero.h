@@ -10,7 +10,7 @@
 
 #include "./Living.h"
 #include "../inventory/Inventory.h"
-#include "../menu/Menu.h"
+#include "../menu/AllMenus.h"
 #include "../grid/Grid.h"
 #include <vector>
 
@@ -39,7 +39,7 @@ public:
 		double a = 0.2,
 		int d = 100
 	);
-    ~Hero();
+        ~Hero();
 
 	double getAgility() const;
 	int getDexterity() const;
@@ -71,7 +71,7 @@ public:
 	void enterMarket(Market* market);
 	void buy(const string&);	// Add item, and subtract from money.
 	void sell(const string&);	// Sells item, and gains money.
-	Menu& getGameMenu() ;
+	BasicMenu& getGameMenu() ;
 	void castSpell(Monster* target);
 	void attack(Monster* monster);	// Reduces monster's health.
 
@@ -99,8 +99,8 @@ protected:
 	int 	milestone; 	// Experience to exceed for level-up.
 	Inventory inventory;	// Implemented by george.
 							// Contains all items and spells.
-	Menu battleMenu;
-	Menu gameMenu;
+        BattleMenu battleMenu;
+        BasicMenu gameMenu;
 
 private:
 	void printEquipedSpells() const;

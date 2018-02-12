@@ -15,7 +15,7 @@ using namespace std;
 
 Inventory :: Inventory(int _maxCapacity)
 
-  : menu(*this), maxCapacity(_maxCapacity) {}
+  : menu(), maxCapacity(_maxCapacity) {}
 
 Inventory :: ~Inventory() {
   while(items.empty() == false) {
@@ -148,7 +148,7 @@ void Inventory :: removeSpell(Spell* spell) {
   spells.remove(spell);
 }
 
-Menu& Inventory :: getMenu() {
+InventoryMenu& Inventory :: getMenu() {
   return menu;
 }
 

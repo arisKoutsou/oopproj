@@ -44,8 +44,8 @@ Hero::Hero(
   expirience(0), inventory(),
   leftHandWeapon(NULL),
   rightHandWeapon(NULL),
-  battleMenu(*this, true),
-  gameMenu(*this, false),
+  battleMenu(),
+  gameMenu(),
   shield(NULL),
   monstersKilled(0),
   maxMagicPower(mp),
@@ -103,7 +103,7 @@ double Hero::getDamageReductionFactor() const {
 	return result;
 }
 
-Menu& Hero :: getGameMenu() {
+BasicMenu& Hero :: getGameMenu() {
   return gameMenu;
 }
 

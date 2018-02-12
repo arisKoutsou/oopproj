@@ -14,7 +14,7 @@ using namespace std;
 
 Market :: Market(int _maxCapacity)
 
-  : menu(*this), maxCapacity(_maxCapacity) {}
+  : menu(), maxCapacity(_maxCapacity) {}
 
 Market :: ~Market() {
   while(items.empty() == false) {
@@ -44,7 +44,7 @@ int Market :: getCurrentSpells() const {
   return (spells.size());
 }
 
-Menu& Market :: getMenu() {
+MarketMenu& Market :: getMenu() {
   return menu;
 }
 
