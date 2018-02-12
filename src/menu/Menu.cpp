@@ -33,13 +33,13 @@ Menu :: Menu(const Hero& hero, bool battle) {
     this->options.push_back("Cast spell");
     this->options.push_back("Use potion");
     this->options.push_back("Change weapon/armor");
-    this->options.push_back("Quit game");
+    this->options.push_back("Main menu");
   } else {
     this->options.push_back("Display map");
     this->options.push_back("Display stats");
     this->options.push_back("Check invnentory");
     this->options.push_back("Move");
-    this->options.push_back("Quit game");
+    this->options.push_back("Main menu");
   }
 }
 
