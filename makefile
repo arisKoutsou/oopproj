@@ -4,7 +4,7 @@ CFLAGS= -std=c++98 -Wall
 alltests : all bin/inventoryTest bin/itemTest bin/marketTest bin/spellTest bin/heroOnGridTest bin/attackTest bin/game
 
 all : objects/exceptions/heroExceptions.o objects/grid/Grid.o objects/inventory/Inventory.o \
-      objects/menu/Menu.o objects/market/Market.o objects/random/Random.o objects/items/Item.o \
+      objects/menu/Menu.o objects/menu/AllMenus.o objects/market/Market.o objects/random/Random.o objects/items/Item.o \
       objects/items/Weapon.o objects/items/Armor.o objects/items/Potion.o objects/spells/Spell.o \
       objects/spells/FireSpell.o objects/spells/IceSpell.o objects/spells/LightningSpell.o \
       objects/livings/Living.o objects/livings/Hero.o objects/livings/Monster.o \
@@ -56,15 +56,18 @@ objects/grid/Grid.o : src/grid/Grid.cpp src/grid/Grid.h src/market/Market.h src/
 	$(CC) $(CFLAGS) -c src/grid/Grid.cpp -o objects/grid/Grid.o
 
 objects/inventory/Inventory.o : src/inventory/Inventory.cpp src/inventory/Inventory.h \
-				   src/items/Item.h src/spells/Spell.h src/livings/Hero.h src/menu/Menu.h
-	$(CC) $(CFLAGS) -c src/inventory/Inventory.cpp -o objects/inventory/Inventory.o
+				   src/items/Item.h src/spells/Spell.h src/livings/Hero.h objects/menu/AllMenus.o
+	$(CC) $(CFLAGS) -c src/inventory/Inventory.cpp objects/menu/AllMenus.o -o objects/inventory/Inventory.o
 
 objects/menu/Menu.o : src/menu/Menu.cpp src/menu/Menu.h
 	$(CC) $(CFLAGS) -c src/menu/Menu.cpp -o objects/menu/Menu.o
 
+objects/menu/AllMenus.o : src/menu/Menu.h src/menu/AllMenus.cpp src/menu/AllMenus.h
+	$(CC) $(CFLAGS) -c src/menu/AllMenus.cpp -o objects/menu/AllMenus.o
+
 objects/market/Market.o : src/market/Market.cpp src/market/Market.h src/items/Item.h src/spells/Spell.h \
-			     src/menu/Menu.h
-	$(CC) $(CFLAGS) -c src/market/Market.cpp -o objects/market/Market.o
+			     src/menu/Menu.h objects/menu/AllMenus.o
+	$(CC) $(CFLAGS) -c src/market/Market.cpp objects/menu/AllMenus.o -o objects/market/Market.o
 
 objects/random/Random.o : src/random/Random.cpp src/random/Random.h
 	$(CC) $(CFLAGS) -c src/random/Random.cpp -o objects/random/Random.o
@@ -99,8 +102,8 @@ objects/livings/Living.o : src/livings/Living.cpp src/livings/Living.h src/grid/
 objects/livings/Hero.o : src/livings/Hero.cpp src/livings/Hero.h src/livings/Living.h \
 			   src/menu/Menu.h src/grid/Grid.h src/exceptions/heroExceptions.h \
 			   src/items/Item.h src/items/Weapon.h src/items/Armor.h src/items/Potion.h \
-			   src/spells/Spell.h src/market/Market.h src/game_utils.h
-	$(CC) $(CFLAGS) -c src/livings/Hero.cpp  -o objects/livings/Hero.o
+			   src/spells/Spell.h src/market/Market.h src/game_utils.h objects/menu/AllMenus.o
+	$(CC) $(CFLAGS) -c src/livings/Hero.cpp objects/menu/AllMenus.o -o objects/livings/Hero.o
 
 objects/livings/Monster.o : src/livings/Monster.cpp src/livings/Monster.h src/livings/Living.h
 	$(CC) $(CFLAGS) -c src/livings/Monster.cpp -o objects/livings/Monster.o
