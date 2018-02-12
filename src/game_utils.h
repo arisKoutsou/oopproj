@@ -28,6 +28,7 @@ class Market;
 extern bool quitGame;
 extern void handleQuitCase(void);
 
+void generateMap();
 void initGrid(void);
 bool isCommentOrWhitespace(const string& str);
 void skipCommentsAndWhitespace(ifstream& stream);
