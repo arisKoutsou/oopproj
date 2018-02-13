@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "AllMenus.h"
 
 using namespace std;
@@ -55,15 +56,7 @@ MainMenu :: MainMenu()
 }
 
 void MainMenu :: welcome() const {  
-  cout << endl;
-  cout << "+---+---+---+---+"                 << endl;
-  cout << "| R | o | l | e |"                 << endl;
-  cout << "+---+---+---+---+---+---+---+---+" << endl;
-  cout << "    | P | l | a | y | i | n | g |" << endl;
-  cout << "    +---+---+---+---+---+---+---+" << endl;
-  cout << "        | G | a | m | e |"         << endl;
-  cout << "        +---+---+---+---+"	      << endl;
-  cout << endl;
+  cout << endl << "Welcome to ...";
 
   displayMenu();
 
@@ -91,8 +84,41 @@ string MainMenu :: prompt() const {
 }
 
 void MainMenu :: displayMenu() const {
+
+  cout << endl;
+  cout << "+---+---+---+---+"                 << endl;
+  cout << "| R | o | l | e |"                 << endl;
+  cout << "+---+---+---+---+---+---+---+---+" << endl;
+  cout << "    | P | l | a | y | i | n | g |" << endl;
+  cout << "    +---+---+---+---+---+---+---+" << endl;
+  cout << "        | G | a | m | e |"         << endl;
+  cout << "        +---+---+---+---+"	      << endl;
+  cout << endl;
+
   for (size_t i = 0; i != options.size(); ++i) {
     cout << "•" << options[i] << endl;
   }
   cout << endl;
 }
+
+void MainMenu::help() const {
+	ifstream helpFile;
+
+	helpFile.open("input/help.info");
+
+	if (helpFile.is_open()) {
+		cout << endl;
+		cout << helpFile.rdbuf();
+	} else {
+		cerr << "A problem occured while opening \"input/help.info\" ";
+		cout << endl<< endl;
+	}
+
+	string answer;
+	  while (answer != "Y" && answer != "y") {
+		cout << endl << "Exit to Main Menu?(Y/n) : ";
+		cin >> answer;
+	  }
+}
+
+

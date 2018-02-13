@@ -30,7 +30,9 @@ public:
 class MainMenu : public Menu {
 public:
   MainMenu();  // Initial print of the menu when starting game.
+
   void welcome() const;
+  void help() const;
   string prompt() const; // Promts for user input and returns the selection.
   void displayMenu() const;
 };

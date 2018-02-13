@@ -272,6 +272,7 @@ void handleMoveCase(Hero* currentHero) {
       moved = false;
     }
   }
+
   if (currentHero->getTile().hasMarket()) {
     string answer;
     do {
@@ -575,11 +576,11 @@ void readData(void) {
     &potions, &spells
   };
   string inputNames[5] = {
-    "../input/names.txt",
-    "../input/weapons.txt",
-    "../input/armors.txt",
-    "../input/potions.txt",
-    "../input/spells.txt"
+    "input/names.txt",
+    "input/weapons.txt",
+    "input/armors.txt",
+    "input/potions.txt",
+    "input/spells.txt"
   };
   for (size_t i = 0U; i != 5U; ++i) {
     inputStream.open(inputNames[i].c_str());
@@ -603,9 +604,9 @@ void readSpecificData(ifstream& stream, vector<string>& data) {
 }
 
 void setMap(void) {
-  map.open("../input/map.txt");
-  if (map.is_open() == false) {
-    cerr << "There was a problem opening the map file. Exiting game..."
+  map.open("input/map.txt");
+  if (!map.is_open()) {
+    cerr << "There was a problem opening the map file.\nExiting game..."
 	 << endl;
     exit(EXIT_FAILURE);
   }
@@ -666,8 +667,16 @@ void play(void) {
 void run(void) {  
   MainMenu mainMenu;
   string userInput;
-  do {    
-    mainMenu.welcome();
+  bool firstWelcome = true;
+
+  do {
+	if (firstWelcome) {
+		mainMenu.welcome();
+		firstWelcome = false;
+	} else {
+		mainMenu.displayMenu();
+	}
+
     userInput = mainMenu.prompt();
     transform(userInput.begin(), userInput.end(),	      
 	      userInput.begin(), :: tolower);
@@ -676,7 +685,7 @@ void run(void) {
     } else if (userInput == "play") {
       play();      
     } else if (userInput == "help") {
-      // mainMenu.help();
+       mainMenu.help();
     } 
   } while (userInput != "quit");
   cout << endl << "Exiting game..." << endl;
