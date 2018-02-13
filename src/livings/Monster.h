@@ -45,7 +45,7 @@ public:
 		double arm = 0.1,
 		double dodg = 0.1                
 	);
-
+        void setLevel(int level);
         double getDamageReductionFactor() const;
 	double getDodge() const;
 	int getMaxDamage() const;

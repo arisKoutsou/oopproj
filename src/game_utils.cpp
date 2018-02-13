@@ -376,6 +376,7 @@ void createMonsters(void) {
       Dragon* dragon = new Dragon(gameGrid, heroY, heroX, name,
 				  healthPower, minDamage, maxDamage,
 				  armor, dodge, damageBonus);
+      dragon->setLevel(averageLevel);
       monsters.push_back(dragon);
       break;
     }
@@ -384,6 +385,7 @@ void createMonsters(void) {
       Exoskeleton* ex = new Exoskeleton(gameGrid, heroY, heroX, name,
 					healthPower, minDamage, maxDamage,
 					armor, dodge, armorBonus);
+      ex->setLevel(averageLevel);      
       monsters.push_back(ex);
       break;
     }
@@ -392,6 +394,7 @@ void createMonsters(void) {
       Spirit* spirit = new Spirit(gameGrid, heroY, heroX, name,
 				  healthPower, minDamage, maxDamage,
 				  armor, dodge, dodgeBonus);
+      spirit->setLevel(averageLevel);
       monsters.push_back(spirit);
       break;
     }

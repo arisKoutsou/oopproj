@@ -67,6 +67,10 @@ string Monster :: kindOf() const {
   return "Monster";
 }
 
+void Monster :: setLevel(int level) {
+  this->level = level;
+}
+
 void Monster::printStats() const {
   size_t nameLength = getName().length();
   int levelDigits = getDigits(level);
