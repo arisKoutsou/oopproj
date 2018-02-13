@@ -55,4 +55,6 @@ void fillMarket(Market* market);
 void updatePotionsAndNerfs(void);
 void run(void);
 
+void clearScreen();
+
 #endif

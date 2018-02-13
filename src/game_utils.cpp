@@ -315,7 +315,7 @@ void handleBattleCase(void) {
     int livingsPlayed = 0;
     size_t heroIndex = 0U;
     bool heroesTurn = true;
-    cout << "ROUND " << rounds << endl << endl;
+    cout << endl << "ROUND " << rounds;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
@@ -649,7 +649,7 @@ void play(void) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
     cout << endl << "Hero Playing: "
-	 << currentHero->getName();
+	 << currentHero->getName() << endl;
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
@@ -680,13 +680,22 @@ void run(void) {
     userInput = mainMenu.prompt();
     transform(userInput.begin(), userInput.end(),	      
 	      userInput.begin(), :: tolower);
+
     if (userInput == "generatemap") {
       generateMap();
     } else if (userInput == "play") {
-      play();      
+      play();
     } else if (userInput == "help") {
        mainMenu.help();
     } 
+    clearScreen();	// When exiting from any case. Print ClearScreen.
   } while (userInput != "quit");
   cout << endl << "Exiting game..." << endl;
+}
+
+//
+
+void clearScreen() {
+	// Yes I know, that way is pathetic... :)
+	  cout << string(100, '\n');	// Can't debug... removed temporarily.
 }

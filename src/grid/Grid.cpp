@@ -141,6 +141,7 @@ void Grid :: displayMap() const {
   int columns = tiles[0].size();	// Get the size of the vector of tiles.
   int rows = tiles.size();		// Get the size of lines of the vector.
 
+  cout << endl;
   // Draw the first line which is a wall...
   for (int i = 0; i < columns; i++) {
     cout << "+---";
