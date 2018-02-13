@@ -109,7 +109,7 @@ void generateMap() {
   }
 }
 
-void initGrid(void) {  
+void initGrid(void) {
   vector<string> tokens;
   skipCommentsAndWhitespace(map);
   tokenize(tokens);
@@ -234,16 +234,35 @@ void handleBasicCase(Hero* currentHero) {
   currentHero->getGameMenu().clearMenu();
   currentHero->getGameMenu().displayMenu();
   while ((selection = currentHero->getGameMenu().getSelection())) {   
-    currentHero->getGameMenu().clearMenu();
     switch (selection) {
-    case 1: currentHero->displayMap(); break;
-    case 2: currentHero->printStats(); break;
-    case 3: currentHero->checkInventory(); return;
-    case 4: handleMoveCase(currentHero); return;
-    case 5: handleQuitCase(); currentHero->getGameMenu().clearMenu();
-	    if (quitGame) return; break;
+    case 1: {
+      currentHero->getGameMenu().clearMenu();
+      currentHero->displayMap();
+      break;
+    }
+    case 2: {
+      currentHero->getGameMenu().clearMenu();
+      currentHero->printStats();
+      break;
+    }
+    case 3: {
+      currentHero->getGameMenu().clearMenu();
+      currentHero->checkInventory();
+      return;
+    }
+    case 4: {      
+      handleMoveCase(currentHero);
+      return; 
+    }
+    case 5: {
+      currentHero->getGameMenu().clearMenu();
+      handleQuitCase();
+      currentHero->getGameMenu().clearMenu();
+      if (quitGame) return;
+      break;
+    }            
     default: break;
-    }    
+    }
     currentHero->getGameMenu().displayMenu();
   }
 }
@@ -282,6 +301,7 @@ void handleMoveCase(Hero* currentHero) {
       transform(answer.begin(), answer.end(), answer.begin(), :: tolower);
     } while (answer != "y" && answer != "n");
     if (answer == "y") {
+      clearScreen();
       currentHero->enterMarket(currentHero->getTile().getMarket());
     }
   }
@@ -727,12 +747,40 @@ void printHeroFrame(void) {
 }
 
 void printMonsterFrame(void) {
+  cout << '+' << string(24, '-');
+  cout << '+' << string(9, '-'); 
+  cout << '+' << string(8, '-'); 
+  cout << '+' << string(12, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(9, '-'); 
+  cout << '+' << string(9, '-'); 
+  cout << '+' << endl;
+}
+
+void printArmorFrame(void) {
   cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(9, '-');  // LEVEL
-  cout << '+' << string(8, '-');  // HP
-  cout << '+' << string(12, '-'); // MIN DAMAGE
-  cout << '+' << string(12, '-'); // MAX DAMAGE
-  cout << '+' << string(9, '-');  // ARMOR
-  cout << '+' << string(9, '-');  // DODGE
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(18, '-'); // DAMAGE REDUCTION (16)
+  cout << '+' << endl;
+}
+
+void printWeaponFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(8, '-');  // DAMAGE
+  cout << '+' << string(12, '-'); // TWO HANDED (10)
+  cout << '+' << endl;
+}
+
+void printPotionFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(16, '-'); // STRENGTH BONUS (14)
+  cout << '+' << string(17, '-'); // DEXTERITY BONUS (15)
+  cout << '+' << string(15, '-'); // AGILITY BONUS (13)
+  cout << '+' << string(10, '-'); // DURATION
   cout << '+' << endl;
 }

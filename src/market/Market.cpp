@@ -54,7 +54,8 @@ void Market :: printInfo() const {
 
   cout << "Items:" << endl << endl;
   for ( ; itemIterator != items.end(); ++itemIterator) {
-    cout << (*itemIterator)->getInfo() << endl;
+    (*itemIterator)->getInfo();
+    cout << endl;
   }
 
   if (this->getCurrentSpells() != 0) {

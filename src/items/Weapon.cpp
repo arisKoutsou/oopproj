@@ -5,9 +5,11 @@
  *      Author: aris
  */
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 
 #include "Weapon.h"
+#include "../game_utils.h"
 #include "../items/Item.h"
 
 using namespace std;
@@ -27,17 +29,21 @@ int Weapon::getDamage() const {
 	return damage;
 }
 
-string Weapon::getInfo() const {
-	stringstream result;
-
-	result << Item::getInfo()
-		<< "damage: " << damage << endl
-		<< "requiresBothHands: " << ( requiresBothHands ? "Yes" : "No" ) << endl;
-
-	return result.str();
+void Weapon :: getInfo() const {
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(buyFor());
+  int minLevelDigits = getDigits(unlocksInLevel());
+  int damageDigits = getDigits(damage);
+  string twoHanded = (requiresBothHands) ? "YES" : "NO";
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(12 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << buyFor() << setw(4 - priceDigits/2)<< '|'
+       << setw(5 + minLevelDigits/2) << unlocksInLevel() << setw(6 - minLevelDigits/2) << '|'
+       << setw(4 + damageDigits/2) << damage << setw(4 - damageDigits/2) << '|'
+       << setw(6 + twoHanded.length()/2) << twoHanded << setw(6 - twoHanded.length()/2) << '|'
+       << endl;
 }
 
-// Implemented by: (George Liontos)
 bool Weapon :: operator==(const Weapon& rValue) const {
   bool sameItems;
   bool sameDamage;

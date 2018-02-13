@@ -1,3 +1,4 @@
+
 /*
  * Item.h
  *
@@ -25,13 +26,9 @@ public:
 	int sellsFor() const;		// Return how much it sells for.
 	int buyFor() const;			// Return it's price.
 	int unlocksInLevel() const;	// Return the level it unlocks.
-        virtual string getInfo() const;		// Returns a string with all the info.
-
-        // Added by: (George Liontos)
+        virtual void getInfo() const;
         virtual string kindOf() const = 0;
-        virtual bool operator==(const Item& rValue) const;
-        // WARNING (George): Non static initialisation only possible in C++11
-  
+        virtual bool operator==(const Item& rValue) const;   
 private:
 	string name;
 	int value;

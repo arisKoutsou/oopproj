@@ -8,7 +8,8 @@
 #include <sstream>
 #include <iomanip>
 
-#include "./Armor.h"
+#include "../game_utils.h"
+#include "Armor.h"
 
 using namespace std;
 
@@ -27,18 +28,19 @@ double Armor::getDamageReductionFactor() const {
 	return reduceDamageTakenBy;
 }
 
-string Armor::getInfo() const {
-	stringstream result;
-	result << fixed << setprecision(2);
-
-	result << Item::getInfo()
-	       << "reduces damage taken by: "
-	       << reduceDamageTakenBy*100 << "%" << endl;
-
-	return result.str();
+void Armor::getInfo() const {
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(buyFor());
+  int minLevelDigits = getDigits(unlocksInLevel());
+  int factorDigits = getDigits(getDamageReductionFactor()) + 2;
+  cout << setw(12 + nameLength/2) << getName() << setw(12 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << buyFor() << setw(4 - priceDigits/2) << '|'
+       << setw(5 + minLevelDigits/2) << unlocksInLevel() << setw(6 - minLevelDigits/2) << '|'
+       << setw(9 + factorDigits/2) << setprecision(2) << getDamageReductionFactor()
+       << setw(9 - factorDigits/2) << '|'
+       << endl;
 }
 
-// Implemented by: (George Liontos)
 bool Armor :: operator==(const Armor& rValue) const {
   bool sameItems;
   bool sameReduceDamageTakenBy;

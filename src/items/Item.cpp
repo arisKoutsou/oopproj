@@ -39,18 +39,8 @@ int Item::unlocksInLevel() const {
 	return minLevel;
 }
 
-string Item::getInfo() const {
-	stringstream result;
+void Item :: getInfo() const {}
 
-	result << "name: " << name << endl
-		<< "price: " << buyFor() << endl
-		<< "sell for: " << sellsFor() << endl
-		<< "min level to aquire: " << minLevel << endl;
-
-	return result.str();
-}
-
-// Implemented by: (George Liontos)
 bool Item :: operator==(const Item& rValue) const {
   bool sameName;
   bool sameValue;

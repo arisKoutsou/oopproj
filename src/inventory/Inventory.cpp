@@ -73,7 +73,8 @@ void Inventory :: printInfo() const {
   } else {
     cout << "Items:" << endl << endl;
     for ( ; itemIterator != items.end(); ++itemIterator) {
-      cout << (*itemIterator)->getInfo() << endl;
+      (*itemIterator)->getInfo();
+      cout << endl;
     }
   }
 

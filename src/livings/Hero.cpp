@@ -774,8 +774,8 @@ void Hero :: displayMap() const {
 
 void Hero :: battle(list<Monster*>& monsters) {
   int selection;
-  this->battleMenu.displayMenu();  
-  while ((selection = this->battleMenu.getSelection())) {    
+  this->battleMenu.displayMenu();
+  while ((selection = this->battleMenu.getSelection())) {
     this->battleMenu.clearMenu();
     switch (selection) {
     case 1: this->printStats(); break;

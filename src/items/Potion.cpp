@@ -51,31 +51,10 @@ void Potion::roundPassed() {
 	roundsEffective--;
 }
 
-string Potion::getInfo() const {
-	stringstream result;
-	result << fixed << setprecision(2);
-
-	result << Item::getInfo();
-
-	if (agilityBoost != 0.0) {
-		result << "agilityBoost: "
-			<< agilityBoost*100 << "%" << endl;
-	}
-	if (strengthBoost != 0.0) {
-		result << "strengthBoost: "
-			<< strengthBoost*100 << "%" << endl;
-	}
-	if (dexterityBoost != 0.0) {
-		result << "dexterityBoost: "
-			<< dexterityBoost*100 << "%" << endl;
-	}
-
-	result << "Lasts for: " << roundsEffective << " rounds" << endl;
-
-	return result.str();
+void Potion :: getInfo() const {
+  
 }
 
-// Implemented by: (George Liontos)
 bool Potion :: operator==(const Potion& rValue) const {
   bool sameItems;
   bool sameStrengthBoost;

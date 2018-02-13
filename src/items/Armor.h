@@ -22,10 +22,7 @@ public:
         ~Armor();
 
 	double getDamageReductionFactor() const;	// Returns private member.
-	string getInfo() const;	// Uses base ...
-
-
-        // Added by: (George Liontos)
+        void getInfo() const;	// Uses base ...
         string kindOf() const;
         bool operator==(const Armor& rValue) const;
 private:

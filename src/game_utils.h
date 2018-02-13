@@ -56,10 +56,10 @@ void updatePotionsAndNerfs(void);
 void run(void);
 void printHeroFrame(void);
 void printMonsterFrame(void);
+void printArmorFrame(void);
+void printWeaponFrame(void);
+void printPotionFrame(void);
 int getDigits(int n);
 void clearScreen(void);
 
 #endif
-
-
-

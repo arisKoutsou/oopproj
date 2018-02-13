@@ -22,10 +22,9 @@ public:
 	);
 	~Weapon();
 
-	string getInfo() const;	// Uses base class getInfo().
+        void getInfo() const;
 	int getDamage() const;	// How much damage it has.
-
-        // Added by: (George Liontos)
+        
         bool needsBothHands() const;
         string kindOf() const;
         bool operator==(const Weapon& rValue) const;

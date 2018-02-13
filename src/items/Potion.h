@@ -8,7 +8,7 @@
 #ifndef ITEMS_POTION_H_
 #define ITEMS_POTION_H_
 
-#include "./Item.h"
+#include "Item.h"
 
 class Potion: public Item {
 public:
@@ -28,12 +28,9 @@ public:
 	double getDexterityBoost() const;
 	double getStrengthBoost() const;
 	int getRoundsEffective() const;
-	string getInfo() const;
-
-	// Added by: (George Liontos)
-	string kindOf() const;
+        void getInfo() const;
+        string kindOf() const;
 	bool operator==(const Potion& rValue) const;
-
 	void roundPassed();
 private:
 	// All boosts are doubles in [0,1] and that means.
