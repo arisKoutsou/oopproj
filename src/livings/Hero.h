@@ -59,7 +59,7 @@ public:
 	void move(directions direction);
 	virtual void levelUp();
 	string kindOf() const;
-	void printStats() const;
+        void printStats() const;
 	void displayMap() const;
 	bool operator==(const Hero& rValue) const;
 	// Opens the inventory menu and handles the hero selection
@@ -99,7 +99,7 @@ protected:
 	int     monstersKilled;
 	int 	milestone; 	// Experience to exceed for level-up.
 	Inventory inventory;	// Implemented by george.
-							// Contains all items and spells.
+                                // Contains all items and spells.
         BattleMenu battleMenu;
         BasicMenu gameMenu;
 

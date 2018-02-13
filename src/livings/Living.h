@@ -51,7 +51,7 @@ public:
 	virtual void setHealthPower(int health);
 
 	Position& getPosition();
-	virtual void printStats() const;
+        virtual void printStats() const;
 	virtual string kindOf() const = 0;
 	virtual bool operator==(const Living& rValue) const;
 

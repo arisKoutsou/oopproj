@@ -5,6 +5,9 @@
  *      Author: aris
  */
 #include <iostream>
+#include <cstdlib>
+#include <cstring>
+#include <iomanip>
 
 #include "./Living.h"
 #include "../grid/Grid.h"
@@ -101,8 +104,5 @@ bool Living :: Position :: operator==(const Position& rValue) const {
   return (sameX && sameY);
 }
 
-void Living :: printStats() const {
-  cout << "Name: " << this->name << endl
-       << "Level: " << this->level << endl
-       << "Health: " << this->healthPower << endl;
-}
+
+void Living :: printStats() const {}

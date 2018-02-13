@@ -146,31 +146,69 @@ void Hero :: respawn() {
   this->setHealthPower(maxHealth/2);
 }
 
+// Auxiliary functions
+int getDigits(int n) {
+  int digits = 0;
+  while (n) {
+    ++digits;
+    n /= 10;
+  }
+  return digits;
+}
+
+void printFrame(void) {  
+  cout << '+' << string(16, '-');
+  cout << '+' << string(7, '-');
+  cout << '+' << string(8, '-');
+  cout << '+' << string(8, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(11, '-');
+  cout << '+' << string(13, '-');
+  cout << '+' << string(15, '-');
+  cout << '+' << string(16, '-');
+  cout << '+' << endl;
+}
+
+// Implemented by: (George Liontos)
+// Please don't even try and understand what this code does
+// That was a hard night computing offsets for right printing
 void Hero :: printStats() const {
-        Living :: printStats();
-	cout << setprecision(2);
-
-	cout << "Mana: " << this->magicPower << endl
-	     << "Strength: " << this->strength << endl
-	     << "Agility: " << this->agility*100 << "%" << endl
-	     << "Dexterity: " << this->dexterity << endl
-	     << "Money: " << this->money << endl
-	     << "Experience: " << this->expirience << endl;
-
-	if (leftHandWeapon == NULL && rightHandWeapon == NULL) {
-		cout << "Not using any weapon..." << endl << endl;
-		return;
-	}
-
-	if (leftHandWeapon != NULL) {
-		cout << "Left hand weapon: " << leftHandWeapon->getName() << endl;
-	}
-
-	if (rightHandWeapon != NULL) {
-		cout << "Right hand weapon: " << rightHandWeapon->getName() << endl;
-	}
-
-	cout << endl;
+  printFrame();
+  cout << '|'
+       << setw(10) << "NAME" << setw(7) << '|'
+       << setw(6) << "LEVEL" << setw(2) << '|'
+       << setw(5) << "HP" << setw(4) << '|'
+       << setw(6) << "MANA" << setw(3) << '|'
+       << setw(10) << "STRENGTH" << setw(3) << '|'
+       << setw(9) << "AGILITY" << setw(3) << '|'
+       << setw(11) << "DEXTERITY" << setw(3) << '|'
+       << setw(13) << "LEFT WEAPON" << setw(3) << '|'
+       << setw(14) << "RIGHT WEAPON" << setw(3) << '|'
+       << endl;
+  printFrame();
+  size_t nameLength = getName().length();
+  int levelDigits = getDigits(level);
+  int hpDigits = getDigits(getHealthPower());
+  int manaDigits = getDigits(getMagicPower());
+  int strengthDigits = getDigits(getStrength());
+  int agilityDigits = getDigits(getAgility()) + 2;
+  int dexDigits = getDigits(getDexterity());
+  string leftWeapon = (leftHandWeapon == NULL) ? "NONE" : leftHandWeapon->getName();
+  string rightWeapon = (rightHandWeapon == NULL) ? "NONE" : rightHandWeapon->getName();
+  size_t leftWeaponLength = (leftHandWeapon == NULL) ? 4 : leftWeapon.length();
+  size_t rightWeaponLength = (rightHandWeapon == NULL) ? 4 : rightWeapon.length();
+  cout << '|'
+       << setw(9 + nameLength/2) << getName() << setw(8 - nameLength/2) << '|'
+       << setw(4 + levelDigits/2) << level << setw(4 - levelDigits/2) << '|'
+       << setw(5 + hpDigits/2) << getHealthPower() << setw(4 - hpDigits/2) << '|'
+       << setw(4 + manaDigits/2) << getMagicPower() << setw(5 - manaDigits/2) << '|'
+       << setw(7 + strengthDigits/2) << getStrength() << setw(6 - strengthDigits/2) << '|'
+       << setw(6 + agilityDigits/2) << setprecision(2) << getAgility() << setw(6 - agilityDigits/2) << '|'
+       << setw(7 + dexDigits/2) << getDexterity() << setw(9 - dexDigits) << '|'
+       << setw(8 + leftWeaponLength/2) << leftWeapon << setw(8 - leftWeaponLength/2) << '|'
+       << setw(9 + rightWeaponLength/2) << rightWeapon << setw(8 - rightWeaponLength/2) << '|'
+       << endl;
+  printFrame();
 }
 
 void Hero::updatePotions() {
