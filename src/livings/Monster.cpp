@@ -7,6 +7,7 @@
 #include <iostream>
 #include <iomanip>
 
+#include "../game_utils.h"
 #include "./Monster.h"
 #include "./Hero.h"
 #include "../random/Random.h"
@@ -67,11 +68,24 @@ string Monster :: kindOf() const {
 }
 
 void Monster::printStats() const {
-  Living::printStats();
-  cout << setprecision(2);
-  
-  cout << "Damage range: " << minDamage << " - " << maxDamage << endl
-       << "Dodge: " << dodge*100 << "%" << endl << endl;
+  size_t nameLength = getName().length();
+  int levelDigits = getDigits(level);
+  int hpDigits = getDigits(getHealthPower());
+  int minDamageDigits = getDigits(minDamage);
+  int maxDamageDigits = getDigits(maxDamage);
+  int armorDigits = getDigits(getDamageReductionFactor()) + 2;
+  int dodgeDigits = getDigits(getDodge()) + 2;
+  printMonsterFrame();
+  cout << '|'
+       << setw(13 + nameLength/2) << getName() << setw(12 - nameLength/2) << '|'
+       << setw(5 + levelDigits/2) << level << setw(5 - levelDigits/2) << '|'
+       << setw(5 + hpDigits/2) << getHealthPower() << setw(4 - hpDigits/2) << '|'
+       << setw(6 + minDamageDigits/2) << minDamage << setw(7 - minDamageDigits/2) << '|'
+       << setw(6 + maxDamageDigits/2) << maxDamage << setw(7 - maxDamageDigits/2) << '|'
+       << setw(5 + armorDigits/2) << setprecision(2) << getDamageReductionFactor()
+       << setw(5 - armorDigits/2) << '|'
+       << setw(5 + dodgeDigits/2) << setprecision(2) << getDodge() << setw(5 - dodgeDigits/2) << '|'
+       << endl;
 }
 
 void Monster::receiveDamage(int damageDealt) {

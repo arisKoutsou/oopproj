@@ -15,8 +15,8 @@
 #include "random/Random.h"
 
 // NOTE (George): These numbers are just for testing
-#define MIN_MONSTERS 1
-#define MAX_MONSTERS 1
+#define MIN_MONSTERS 3
+#define MAX_MONSTERS 10
 
 using namespace std;
 
@@ -54,7 +54,12 @@ void cleanupResources(void);
 void fillMarket(Market* market);
 void updatePotionsAndNerfs(void);
 void run(void);
-
-void clearScreen();
+void printHeroFrame(void);
+void printMonsterFrame(void);
+int getDigits(int n);
+void clearScreen(void);
 
 #endif
+
+
+

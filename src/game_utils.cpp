@@ -695,7 +695,41 @@ void run(void) {
 
 //
 
-void clearScreen() {
-	// Yes I know, that way is pathetic... :)
-	  cout << string(100, '\n');	// Can't debug... removed temporarily.
+void clearScreen(void) {
+  // Yes I know, that way is pathetic... :)
+  cout << string(100, '\n');
+}
+
+int getDigits(int n) {
+  if (n == 0) return 1;
+  int digits = 0;
+  while (n) {
+    ++digits;
+    n /= 10;
+  }
+  return digits;
+}
+
+void printHeroFrame(void) {
+  cout << '+' << string(16, '-');
+  cout << '+' << string(7, '-');
+  cout << '+' << string(8, '-');
+  cout << '+' << string(8, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(11, '-');
+  cout << '+' << string(13, '-');
+  cout << '+' << string(15, '-');
+  cout << '+' << string(16, '-');
+  cout << '+' << endl;
+}
+
+void printMonsterFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(9, '-');  // LEVEL
+  cout << '+' << string(8, '-');  // HP
+  cout << '+' << string(12, '-'); // MIN DAMAGE
+  cout << '+' << string(12, '-'); // MAX DAMAGE
+  cout << '+' << string(9, '-');  // ARMOR
+  cout << '+' << string(9, '-');  // DODGE
+  cout << '+' << endl;
 }

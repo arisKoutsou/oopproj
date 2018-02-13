@@ -146,34 +146,11 @@ void Hero :: respawn() {
   this->setHealthPower(maxHealth/2);
 }
 
-// Auxiliary functions
-int getDigits(int n) {
-  int digits = 0;
-  while (n) {
-    ++digits;
-    n /= 10;
-  }
-  return digits;
-}
-
-void printFrame(void) {  
-  cout << '+' << string(16, '-');
-  cout << '+' << string(7, '-');
-  cout << '+' << string(8, '-');
-  cout << '+' << string(8, '-');
-  cout << '+' << string(12, '-');
-  cout << '+' << string(11, '-');
-  cout << '+' << string(13, '-');
-  cout << '+' << string(15, '-');
-  cout << '+' << string(16, '-');
-  cout << '+' << endl;
-}
-
 // Implemented by: (George Liontos)
 // Please don't even try and understand what this code does
 // That was a hard night computing offsets for right printing
 void Hero :: printStats() const {
-  printFrame();
+  printHeroFrame();
   cout << '|'
        << setw(10) << "NAME" << setw(7) << '|'
        << setw(6) << "LEVEL" << setw(2) << '|'
@@ -185,7 +162,7 @@ void Hero :: printStats() const {
        << setw(13) << "LEFT WEAPON" << setw(3) << '|'
        << setw(14) << "RIGHT WEAPON" << setw(3) << '|'
        << endl;
-  printFrame();
+  printHeroFrame();
   size_t nameLength = getName().length();
   int levelDigits = getDigits(level);
   int hpDigits = getDigits(getHealthPower());
@@ -208,7 +185,7 @@ void Hero :: printStats() const {
        << setw(8 + leftWeaponLength/2) << leftWeapon << setw(8 - leftWeaponLength/2) << '|'
        << setw(9 + rightWeaponLength/2) << rightWeapon << setw(8 - rightWeaponLength/2) << '|'
        << endl;
-  printFrame();
+  printHeroFrame();
 }
 
 void Hero::updatePotions() {
@@ -802,14 +779,7 @@ void Hero :: battle(list<Monster*>& monsters) {
     this->battleMenu.clearMenu();
     switch (selection) {
     case 1: this->printStats(); break;
-    case 2: {
-      list<Monster*> :: const_iterator it = monsters.begin();
-      for ( ; it != monsters.end(); ++it) {
-        (*it)->printStats();
-      }
-      cout << endl;
-      break;
-    }
+    case 2: this->printMonsters(monsters); break;
     case 3: handleAttackCase(monsters); return;
     case 4: handleCastSpellCase(monsters); return;
     case 5: if (handleUseCase()) return; break;
@@ -819,6 +789,24 @@ void Hero :: battle(list<Monster*>& monsters) {
     }    
     this->battleMenu.displayMenu();
   }
+}
+
+void Hero :: printMonsters(list<Monster*>& monsters) {
+  printMonsterFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(7) << "LEVEL" << setw(3) << '|'
+       << setw(5) << "HP" << setw(4) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(7) << "ARMOR" << setw(3) << '|'
+       << setw(7) << "DODGE" << setw(3) << '|'
+       << endl;
+  list<Monster*> :: iterator it = monsters.begin();
+  for ( ; it != monsters.end(); ++it) {
+    (*it)->printStats();    
+  }
+  printMonsterFrame();
 }
 
 void Hero :: handleAttackCase(list<Monster*>& monsters) {

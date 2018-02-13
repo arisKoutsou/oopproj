@@ -122,6 +122,7 @@ private:
 	void handleCastSpellCase(list<Monster*>& monsters);
         bool handleUseCase();
         bool handleEquipCase();
+        void printMonsters(list<Monster*>& monsters);
 };
 
 #endif /* LIVINGS_HERO_H_ */
