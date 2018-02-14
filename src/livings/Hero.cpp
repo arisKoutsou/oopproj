@@ -776,14 +776,15 @@ void Hero :: battle(list<Monster*>& monsters) {
   int selection;
   this->battleMenu.displayMenu();
   while ((selection = this->battleMenu.getSelection())) {
+	  battleMenu.clearMenu();
     switch (selection) {
     case 1: {
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       this->printStats();
       break;
     }
     case 2:{
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       this->printMonsters(monsters);
       break;
     } 
@@ -796,20 +797,20 @@ void Hero :: battle(list<Monster*>& monsters) {
       break;
     }
     case 5: {
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       if (handleUseCase()) return;
       break;
     }
     case 6: {
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       if (handleEquipCase()) return;
       break;
     }
     case 7: {
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       handleQuitCase();
       if (quitGame) return;
-      this->battleMenu.clearMenu();
+//      this->battleMenu.clearMenu();
       break;
     }             
     }    
@@ -844,8 +845,16 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
     cout << endl
 	 << "Attacking the only monster here: "
 	 << monsterToAttack->getName() << endl;
+
+    this->attack(monsterToAttack);
+
+	  if (monsterToAttack->getHealthPower() == 0) {
+		++this->monstersKilled;
+		monsters.remove(monsterToAttack);
+		delete monsterToAttack;
+	  }
   } else {
-    do {
+
       monsterToAttack = NULL;
       cout << endl
 	   << "Please enter the name of the monster you want to attack"
@@ -854,25 +863,36 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
       list<Monster*> :: iterator it = monsters.begin();
       getline(cin, name);
       
-      for (it = monsters.begin() ; it != monsters.end(); ++it) {
-	if ((*it)->getName() == name) {
-	  monsterToAttack = (*it);
-	  break;
-	}
-      }
+    for (it = monsters.begin() ; it != monsters.end(); ++it) {
+    	if ((*it)->getName() == name) {
+    		monsterToAttack = (*it);
+    		break;
+    	}
+    }
 
-    } while (monsterToAttack == NULL);
 
-    cout << endl << "Attacking Monster " << monsterToAttack->getName() << endl;
+
+    if (monsterToAttack != NULL) {
+
+    	cout << endl << "Attacking Monster " << monsterToAttack->getName() << endl;
+
+    	 this->attack(monsterToAttack);
+
+    	  if (monsterToAttack->getHealthPower() == 0) {
+    	    ++this->monstersKilled;
+    	    monsters.remove(monsterToAttack);
+    	    delete monsterToAttack;
+
+    	   // TODO Remove this Common cell. maybe.
+    	  }
+    } else {
+
+    	cout << endl << "There is no such Monster here..." << endl;
+    }
   }
 
-  this->attack(monsterToAttack);
 
-  if (monsterToAttack->getHealthPower() == 0) {
-    ++this->monstersKilled;
-    monsters.remove(monsterToAttack);
-    delete monsterToAttack;
-  }
+
 }
 
 bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
@@ -886,8 +906,17 @@ bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
 
      cout << "Attacking the only monster here: "
  	 << monsterToAttack->getName() << endl;
+
+     this->castSpell(monsterToAttack);
+
+		if (monsterToAttack->getHealthPower() == 0) {
+		monsters.remove(monsterToAttack);
+		delete monsterToAttack;
+		}
+		return true;
+
    } else {
-     do {
+
        monsterToAttack = NULL;
        cout << "Please enter the name of the monster you want to attack"
 	    << endl << endl << "> ";
@@ -896,20 +925,31 @@ bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
        string name;
        getline(cin, name);
 
-       for (it = monsters.begin(); it != monsters.end(); ++it) {
-	 if ((*it)->getName() == name) {
-	   monsterToAttack = (*it);
-	   break;
+     for (it = monsters.begin(); it != monsters.end(); ++it) {
+    	 if ((*it)->getName() == name) {
+    		 monsterToAttack = (*it);
+    		 break;
+    	 }
+     }
+
+     if (monsterToAttack != NULL) {
+		cout << endl << "Casting Spell on " << monsterToAttack->getName() << endl;
+
+		this->castSpell(monsterToAttack);
+
+		if (monsterToAttack->getHealthPower() == 0) {
+		monsters.remove(monsterToAttack);
+		delete monsterToAttack;
+		}
+		return true;
+	 } else {
+
+		cout << endl << "There is no such Monster here..." << endl;
 	 }
-       }
-     } while (monsterToAttack == NULL);
+
   }
-  this->castSpell(monsterToAttack);
-  if (monsterToAttack->getHealthPower() == 0) {
-    monsters.remove(monsterToAttack);
-    delete monsterToAttack;
-  }
-  return true;
+
+  return false;
 }
 
 bool Hero :: handleUseCase() {
@@ -917,14 +957,24 @@ bool Hero :: handleUseCase() {
     cout << "You have no Potions at the moment." << endl;
     return false;
   }
-  string name;
-  do {
-    cout << endl
-	 << "Please enter the name of the potion you want to use"
-	 << endl << endl << "> ";
-    cin >> name;
-  } while (this->use(name) == false);
-  return true;
+
+  	string name;
+
+	cout << endl
+	<< "Please enter the name of the potion you want to use"
+	<< endl << endl << "> ";
+
+	getline(cin, name);
+
+	for (list<Potion*> :: const_iterator it = potions.begin() ;
+			it != potions.end() ; it++ ) {
+		if (name == (*it)->getName()) {
+			this->use(name);
+			return true;
+		}
+	}
+
+  return false;
 }
 
 bool Hero :: handleEquipCase() {

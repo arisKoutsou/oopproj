@@ -336,7 +336,7 @@ void handleBattleCase(void) {
     size_t heroIndex = 0U;
     size_t prevHero = 0U;
     bool heroesTurn = true;
-    clearScreen();
+    //clearScreen();
     cout << endl << "ROUND " << rounds;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
@@ -345,7 +345,7 @@ void handleBattleCase(void) {
 	if (quitGame) return;
 	prevHero = heroIndex;
 	heroIndex = (heroIndex + 1) % heroes.size();
-	if (prevHero != heroIndex) clearScreen();
+	if (prevHero != heroIndex) /*clearScreen()*/;
 	heroesTurn = false;        
       } else {
 	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
