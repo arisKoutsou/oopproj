@@ -692,6 +692,8 @@ void play(void) {
 }
 
 void run(void) {  
+  clearScreen();
+
   MainMenu mainMenu;
   string userInput;
   bool firstWelcome = true;
