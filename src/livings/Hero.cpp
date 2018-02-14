@@ -744,7 +744,7 @@ void Hero::attack(Monster* monster) {
 	Random random;
 
 	if (random.boolean(monster->getDodge())) {
-	  cout << "Monster Dodged your attack sucker!" << endl;
+	  cout << endl << "Monster Dodged your attack sucker!" << endl;
 		// Monster dodged this attack! , nothing happens.
 	} else {
 		int heroDamage = 0;
@@ -774,18 +774,45 @@ void Hero :: displayMap() const {
 
 void Hero :: battle(list<Monster*>& monsters) {
   int selection;
+  this->battleMenu.clearMenu();
   this->battleMenu.displayMenu();
   while ((selection = this->battleMenu.getSelection())) {
-    this->battleMenu.clearMenu();
     switch (selection) {
-    case 1: this->printStats(); break;
-    case 2: this->printMonsters(monsters); break;
-    case 3: handleAttackCase(monsters); return;
-    case 4: handleCastSpellCase(monsters); return;
-    case 5: if (handleUseCase()) return; break;
-    case 6: if (handleEquipCase()) return; break;
-    case 7: handleQuitCase(); if (quitGame) return;
-            this->battleMenu.clearMenu(); break;
+    case 1: {
+      this->battleMenu.clearMenu();
+      this->printStats();
+      break;
+    }
+    case 2:{
+      this->battleMenu.clearMenu();
+      this->printMonsters(monsters);
+      break;
+    } 
+    case 3: {
+     handleAttackCase(monsters);
+     return; 
+    }
+    case 4: {
+      handleCastSpellCase(monsters);
+      return;
+    }
+    case 5: {
+      this->battleMenu.clearMenu();
+      if (handleUseCase()) return;
+      break;
+    }
+    case 6: {
+      this->battleMenu.clearMenu();
+      if (handleEquipCase()) return;
+      break;
+    }
+    case 7: {
+      this->battleMenu.clearMenu();
+      handleQuitCase();
+      if (quitGame) return;
+      this->battleMenu.clearMenu();
+      break;
+    }             
     }    
     this->battleMenu.displayMenu();
   }
@@ -815,24 +842,18 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
   if (monsters.size() == 1) {
     monsterToAttack = *monsters.begin();
 
-    cout << "Attacking the only monster here: "
+    cout << endl
+	 << "Attacking the only monster here: "
 	 << monsterToAttack->getName() << endl;
   } else {
     do {
       monsterToAttack = NULL;
-      cout << "Please enter the name of the monster you want to attack";
-      cout << "(";
-      list<Monster*> :: const_iterator it = monsters.begin();
-
-      for ( ; it != monsters.end(); ++it) {
-	cout << (*it)->getName();
-	cout << ", ";
-      }
-      cout << ") : ";
-
+      cout << endl
+	   << "Please enter the name of the monster you want to attack"
+	   << endl << endl << "> ";
       string name;
       cin >> name;
-
+      list<Monster*> :: iterator it = monsters.begin();
       for (it = monsters.begin() ; it != monsters.end(); ++it) {
 	if ((*it)->getName() == name) {
 	  monsterToAttack = (*it);
@@ -842,7 +863,7 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 
     } while (monsterToAttack == NULL);
 
-    cout << "Attacking Monster " << monsterToAttack->getName() << endl;
+    cout << endl << "Attacking Monster " << monsterToAttack->getName() << endl;
   }
 
   this->attack(monsterToAttack);
@@ -858,7 +879,9 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
   do {
     monsterToAttack = NULL;
-    cout << "Please enter the name of the monster you want to cast spell: ";
+    cout << endl
+	 << "Please enter the name of the monster you want to cast spell"
+	 << endl << endl << "> ";
     string name;
     cin >> name;
     list<Monster*> :: const_iterator it = monsters.begin();
@@ -883,7 +906,9 @@ bool Hero :: handleUseCase() {
   }
   string name;
   do {
-    cout << "Please enter the name of the potion you want to use: ";
+    cout << endl
+	 << "Please enter the name of the potion you want to use"
+	 << endl << endl << "> ";
     cin >> name;
   } while (this->use(name) == false);
   return true;
@@ -896,7 +921,9 @@ bool Hero :: handleEquipCase() {
   }
   string name;
   do {
-    cout << "Please enter the name of the weapon/armor you want to equip: ";
+    cout << endl
+	 << "Please enter the name of the weapon/armor you want to equip"
+	 << endl << endl << "> ";
     cin >> name;
   } while (equip(name) == false);
   return true;
