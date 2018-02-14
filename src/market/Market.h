@@ -13,6 +13,9 @@
 
 class Item;
 class Spell;
+class Weapon;
+class Armor;
+class Potion;
 
 using namespace std;
 
@@ -29,12 +32,17 @@ public:
   Item* getItemByName(const string& name);
   Spell* getSpellByName(const string& name);
 
-  void printInfo() const;  // Prints every item and spell in the market
+  void printInfo();  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market
   void addSpell(Spell* spell); // adds a spell in the market
   void removeItem(Item* item); // removes an item from the market
   void removeSpell(Spell* spell); // removes a spell from the market
 private:
+  void printItems();
+  void printWeapons(vector<Weapon*>& weapons);
+  void printArmors(vector<Armor*>& armors);
+  void printPotions(vector<Potion*>& potions);
+  void printSpells();
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;

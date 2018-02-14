@@ -33,11 +33,13 @@ void Armor::getInfo() const {
   int priceDigits = getDigits(buyFor());
   int minLevelDigits = getDigits(unlocksInLevel());
   int factorDigits = getDigits(getDamageReductionFactor()) + 2;
-  cout << setw(12 + nameLength/2) << getName() << setw(12 - nameLength/2) << '|'
-       << setw(3 + priceDigits/2) << buyFor() << setw(4 - priceDigits/2) << '|'
-       << setw(5 + minLevelDigits/2) << unlocksInLevel() << setw(6 - minLevelDigits/2) << '|'
+  printArmorFrame();
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(13 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << buyFor() << setw(5 - priceDigits/2) << '|'
+       << setw(6 + minLevelDigits/2) << unlocksInLevel() << setw(6 - minLevelDigits/2) << '|'
        << setw(9 + factorDigits/2) << setprecision(2) << getDamageReductionFactor()
-       << setw(9 - factorDigits/2) << '|'
+       << setw(10 - factorDigits/2) << '|'
        << endl;
 }
 

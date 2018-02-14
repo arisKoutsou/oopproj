@@ -56,7 +56,7 @@ MainMenu :: MainMenu()
 }
 
 void MainMenu :: welcome() const {  
-  cout << endl << "Welcome to ...";
+  cout << endl << "Welcome to ..." << endl;
 
   displayMenu();
 
@@ -79,7 +79,7 @@ string MainMenu :: prompt() const {
     }
   }
 
-  cout << "Your input does not match any option." << endl << endl;
+  cout << endl << "Your input does not match any option." << endl << endl;
   return prompt();
 }
 

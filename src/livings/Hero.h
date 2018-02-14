@@ -118,8 +118,8 @@ private:
 	void moveLeft();
 	void moveRight();
 	string getUserInput(const string& prompt);
-	void handleAttackCase(list<Monster*>& monsters);
-	void handleCastSpellCase(list<Monster*>& monsters);
+        void handleAttackCase(list<Monster*>& monsters);
+        bool handleCastSpellCase(list<Monster*>& monsters);
         bool handleUseCase();
         bool handleEquipCase();
         void printMonsters(list<Monster*>& monsters);

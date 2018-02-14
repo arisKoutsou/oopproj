@@ -334,18 +334,20 @@ void handleBattleCase(void) {
   while (true) {    
     int livingsPlayed = 0;
     size_t heroIndex = 0U;
+    size_t prevHero = 0U;
     bool heroesTurn = true;
+    clearScreen();
     cout << endl << "ROUND " << rounds;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
 	while (heroes[heroIndex]->getHealthPower() == 0) ++heroIndex;
         heroes[heroIndex]->battle(monsters);
 	if (quitGame) return;
+	prevHero = heroIndex;
 	heroIndex = (heroIndex + 1) % heroes.size();
+	if (prevHero != heroIndex) clearScreen();
 	heroesTurn = false;        
       } else {
-	// TODO (George): I should modify the monster class in order
-	// to check if the monster has been nerfed from a spell attack
 	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
         list<Monster*> :: const_iterator it = monsters.begin();
         while (monsterIndex-- != 0) ++it;
@@ -546,7 +548,7 @@ void createHeroes(int numberOfHeroes) {
 	  || heroClass == "paladin"
 	  || heroClass == "sorcerer")
 	) {
-      cout << "That's not a valid class!" << endl;
+      cout << endl <<  "That's not a valid class!" << endl << endl;
       --i;
       continue;
     }
@@ -717,8 +719,6 @@ void run(void) {
   } while (userInput != "quit");
   cout << endl << "Exiting game..." << endl;
 }
-
-//
 
 void clearScreen(void) {
   // Yes I know, that way is pathetic... :)

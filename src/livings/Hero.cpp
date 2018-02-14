@@ -744,7 +744,7 @@ void Hero::attack(Monster* monster) {
 	Random random;
 
 	if (random.boolean(monster->getDodge())) {
-	  cout << endl << "Monster Dodged your attack sucker!" << endl;
+	  cout << endl << "Monster Dodged your attack sucker!";
 		// Monster dodged this attack! , nothing happens.
 	} else {
 		int heroDamage = 0;
@@ -774,7 +774,6 @@ void Hero :: displayMap() const {
 
 void Hero :: battle(list<Monster*>& monsters) {
   int selection;
-  this->battleMenu.clearMenu();
   this->battleMenu.displayMenu();
   while ((selection = this->battleMenu.getSelection())) {
     switch (selection) {
@@ -790,11 +789,11 @@ void Hero :: battle(list<Monster*>& monsters) {
     } 
     case 3: {
      handleAttackCase(monsters);
-     return; 
+     return;
     }
     case 4: {
-      handleCastSpellCase(monsters);
-      return;
+      if (handleCastSpellCase(monsters)) return;      
+      break;
     }
     case 5: {
       this->battleMenu.clearMenu();
@@ -876,8 +875,12 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
   }
 }
 
-void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
-  Monster* monsterToAttack;         
+bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
+  if (spells.empty()) {
+    cout << endl << "You have no spells equiped";
+    return false;
+  }
+  Monster* monsterToAttack;
   if (monsters.size() == 1) {
      monsterToAttack = *monsters.begin();
 
@@ -900,12 +903,13 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
 	 }
        }
      } while (monsterToAttack == NULL);
-     this->castSpell(monsterToAttack);
-     if (monsterToAttack->getHealthPower() == 0) {
-       monsters.remove(monsterToAttack);
-       delete monsterToAttack;
-     }
   }
+  this->castSpell(monsterToAttack);
+  if (monsterToAttack->getHealthPower() == 0) {
+    monsters.remove(monsterToAttack);
+    delete monsterToAttack;
+  }
+  return true;
 }
 
 bool Hero :: handleUseCase() {

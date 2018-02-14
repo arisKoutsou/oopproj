@@ -8,7 +8,8 @@
 #include <sstream>
 #include <iomanip>
 
-#include "./Potion.h"
+#include "../game_utils.h"
+#include "Potion.h"
 
 using namespace std;
 
@@ -52,7 +53,26 @@ void Potion::roundPassed() {
 }
 
 void Potion :: getInfo() const {
-  
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(buyFor());
+  int minLevelDigits = getDigits(unlocksInLevel());
+  int strengthDigits = getDigits(getStrengthBoost()) + 2;
+  int agilityDigits = getDigits(getAgilityBoost()) + 2;
+  int dexDigits = getDigits(getDexterityBoost()) + 2;
+  int durDigits = getDigits(getRoundsEffective());
+  printPotionFrame();
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(13 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << buyFor() << setw(5 - priceDigits/2) << '|'
+       << setw(6 + minLevelDigits/2) << unlocksInLevel() << setw(6 - minLevelDigits/2) << '|'
+       << setw(8 + strengthDigits/2) << setprecision(2) << getStrengthBoost()
+       << setw(9 - strengthDigits/2) << '|'
+       << setw(8 + dexDigits/2) << setprecision(2) << getDexterityBoost()
+       << setw(10 - dexDigits/2) << '|'
+       << setw(9 + agilityDigits/2) << setprecision(2) << getAgilityBoost()
+       << setw(7 - agilityDigits/2) << '|'
+       << setw(5 + durDigits/2) << getRoundsEffective() << setw(6 - durDigits/2) << '|'
+       << endl;
 }
 
 bool Potion :: operator==(const Potion& rValue) const {
