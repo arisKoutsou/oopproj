@@ -411,58 +411,58 @@ bool Hero::use(const string& potionName) {
 }
 
 void Hero :: checkInventory() {
-  this->inventory.getMenu().displayMenu();
+  inventory.getMenu().clearMenu();
+  inventory.getMenu().displayMenu();
   int selection;
   string equipPrompt = "Please enter the name of the item/spell you want to equip";
   string discardPrompt = "Please enter the name of the item/spell you want to discard";
   string usePotionPrompt = "Please enter the name of the potion you want to use";
 
   while ((selection = this->inventory.getMenu().getSelection())) {
-    this->inventory.getMenu().clearMenu();
-    switch (selection) {
-    case 1: {
-      this->inventory.printInfo();
+    inventory.getMenu().clearMenu();
+    switch (selection) {    
+    case 1: {      
+      if (!getInventory().hasItems() && !getInventory().hasSpells()) {
+	cout << endl << "You have no Items or Spells in your Inventory." << endl;
+      } else {
+	inventory.printInfo();
+	string input = getUserInput(equipPrompt);
+	equip(input);
+      }
       break;
     }
     case 2: {
-      if (!this->getInventory().hasItems()) {
-	cout << "You have no Items in your Inventory." << endl;
+      if (!getInventory().hasItems() && !getInventory().hasSpells()) {
+	cout << endl << "There are no Items or Spells to discard." << endl;
       } else {
-	string input = getUserInput(equipPrompt);
-	this->equip(input);
-      }
-      break;
-    }
-    case 3: {
-      if (!this->getInventory().hasItems()) {
-	cout << "There are no Items to discard." << endl;
-      } else {
+	inventory.printInfo();
 	string input = getUserInput(discardPrompt);
-	this->discard(input);
+	discard(input);
       }
       break;      
     }
-    case 4: {
-      if (!this->getInventory().hasPotions()) {
-	cout << "You have no Potions in your Inventory." << endl;
+    case 3: {
+      if (!getInventory().hasPotions()) {
+	cout << endl << "You have no Potions in your Inventory." << endl;
       } else {
+	// @INCOMPLETE
 	string input = getUserInput(usePotionPrompt);
-	this->use(input);
+	use(input);
       }
       break;
     } 
-    case 5: {
-      this->inventory.getMenu().clearMenu();
+    case 4: {
+      inventory.getMenu().clearMenu();
       return;
     }
-    case 6: {
+    case 5: {
       handleQuitCase();
-      this->inventory.getMenu().clearMenu();
+      inventory.getMenu().clearMenu();
       if (quitGame) return;      
       break;
     }
     }    
-    this->inventory.getMenu().displayMenu();
+    inventory.getMenu().displayMenu();
   }
 }
 
@@ -626,6 +626,7 @@ void Hero :: equipSpell(Spell* spell) {
 }
 
 void Hero :: enterMarket(Market* market) {
+  market->getMenu().clearMenu();
   market->getMenu().displayMenu();
   int selection;
   string buyPrompt = "Please enter the name of the item/spell you want to buy";
@@ -633,32 +634,28 @@ void Hero :: enterMarket(Market* market) {
 
   while ((selection = market->getMenu().getSelection())) {   
     market->getMenu().clearMenu();
-    switch (selection) {
+    switch (selection) {    
     case 1: {
-     market->printInfo();
-     break; 
-    }
-    case 2: {
+      market->printInfo();
       string input = getUserInput(buyPrompt);
       this->buy(input);
       break;
     }
-    case 3: {
+    case 2: {
       if (!this->inventory.hasSpells() && !this->inventory.hasItems()) {
 	cout << "You have no items or spells for sale" << endl;
 	break;
-      }
-      cout << "You have these items/spells for sale" << endl << endl;
-      this->inventory.printInfo();
+      }      
+      inventory.printInfo();
       string input = getUserInput(sellPrompt);
-      this->sell(input);
+      sell(input);
       break;
     }
-    case 4: {
+    case 3: {
       market->getMenu().clearMenu();
       return;
     }
-    case 5: {
+    case 4: {
       handleQuitCase();
       market->getMenu().clearMenu();
       if (quitGame) return;      
@@ -744,8 +741,7 @@ void Hero::attack(Monster* monster) {
 	Random random;
 
 	if (random.boolean(monster->getDodge())) {
-	  cout << endl << "Monster Dodged your attack sucker!";
-		// Monster dodged this attack! , nothing happens.
+	  cout << endl << "Monster Dodged your attack sucker!" << endl;
 	} else {
 		int heroDamage = 0;
 		// Calculate the damage that the Hero can cause.
@@ -774,47 +770,40 @@ void Hero :: displayMap() const {
 
 void Hero :: battle(list<Monster*>& monsters) {
   int selection;
-  this->battleMenu.displayMenu();
-  while ((selection = this->battleMenu.getSelection())) {
-	  battleMenu.clearMenu();
+  battleMenu.displayMenu();
+  while ((selection = battleMenu.getSelection())) {
+    battleMenu.clearMenu();
     switch (selection) {
     case 1: {
-//      this->battleMenu.clearMenu();
-      this->printStats();
+      printStats();
       break;
     }
-    case 2:{
-//      this->battleMenu.clearMenu();
-      this->printMonsters(monsters);
-      break;
-    } 
+    case 2: {
+      printMonsters(monsters);
+      handleAttackCase(monsters);
+      return;
+    }
     case 3: {
-     handleAttackCase(monsters);
-     return;
-    }
-    case 4: {
+      printMonsters(monsters);
       if (handleCastSpellCase(monsters)) return;      
       break;
     }
     case 5: {
-//      this->battleMenu.clearMenu();
       if (handleUseCase()) return;
       break;
     }
     case 6: {
-//      this->battleMenu.clearMenu();
       if (handleEquipCase()) return;
       break;
     }
     case 7: {
-//      this->battleMenu.clearMenu();
       handleQuitCase();
       if (quitGame) return;
-//      this->battleMenu.clearMenu();
+      battleMenu.clearMenu();
       break;
     }             
     }    
-    this->battleMenu.displayMenu();
+    battleMenu.displayMenu();
   }
 }
 

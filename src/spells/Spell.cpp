@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "./Spell.h"
+#include "Spell.h"
 
 Spell::Spell(
 	string 	nam,
@@ -48,24 +48,23 @@ int Spell::getValue() const {
 }
 
 int Spell::sellsFor() const {
-	return (int)(value*sellRate);
+  return (int)(value*sellRate);
 }
 
 string Spell::getInfo() const {
-	stringstream result;
+  stringstream result;
 
-	result << "name: " << name << endl
-		<< "price: " << getValue() << endl
-		<< "sell for: " << sellsFor() << endl
-		<< "min level to aquire: " << minLevel << endl
-		<< "magic power required to cast: " << magicPowerRequired << endl
-		<< "damage range: " << getMinDamage() << " to " << getMaxDamage() << endl;
+  result << "name: " << name << endl
+	 << "price: " << getValue() << endl
+	 << "sell for: " << sellsFor() << endl
+	 << "min level to aquire: " << minLevel << endl
+	 << "magic power required to cast: " << magicPowerRequired << endl
+	 << "damage range: " << getMinDamage() << " to " << getMaxDamage() << endl;
 
-	return result.str();
+  return result.str();
 
 }
 
-// Imlemented by: (George Liontos)
 bool Spell :: operator==(const Spell& rValue) const {
   bool sameName;
   bool sameValue;

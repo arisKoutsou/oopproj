@@ -232,31 +232,24 @@ void tokenize(vector<string>& tokens) {
 void handleBasicCase(Hero* currentHero) {
   int selection;
   currentHero->getGameMenu().clearMenu();
-  currentHero->displayMap();
   currentHero->getGameMenu().displayMenu();
-  while ((selection = currentHero->getGameMenu().getSelection())) {   
-    switch (selection) {
-    case 1: {
-      currentHero->getGameMenu().clearMenu();
-      currentHero->displayMap();
-      break;
-    }
-    case 2: {
-      currentHero->getGameMenu().clearMenu();
+  while ((selection = currentHero->getGameMenu().getSelection())) {
+    currentHero->getGameMenu().clearMenu();
+    switch (selection) {    
+    case 1: {      
       currentHero->printStats();
       break;
     }
-    case 3: {
-      currentHero->getGameMenu().clearMenu();
+    case 2: {      
       currentHero->checkInventory();
       return;
     }
-    case 4: {      
+    case 3: {
+      currentHero->displayMap();
       handleMoveCase(currentHero);
       return; 
     }
-    case 5: {
-      currentHero->getGameMenu().clearMenu();
+    case 4: {      
       handleQuitCase();
       currentHero->getGameMenu().clearMenu();
       if (quitGame) return;
@@ -296,7 +289,7 @@ void handleMoveCase(Hero* currentHero) {
   if (currentHero->getTile().hasMarket()) {
     string answer;
     do {
-      cout << "It seems that you found a market... Do you want to enter?(Y|n)"
+      cout << endl << "It seems that you found a market... Do you want to enter?(Y|n)"
 	   << endl << endl << "> ";
       cin >> answer;
       transform(answer.begin(), answer.end(), answer.begin(), :: tolower);

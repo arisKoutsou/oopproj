@@ -8,51 +8,45 @@ using namespace std;
 
 BasicMenu :: BasicMenu()
   : Menu() {
-  this->options.push_back("Display map");
-  this->options.push_back("Display stats");
-  this->options.push_back("Check invnentory");
-  this->options.push_back("Move");
-  this->options.push_back("Go to Main Menu");
+  options.push_back("Display stats");
+  options.push_back("Check invnentory");
+  options.push_back("Move");
+  options.push_back("Go to Main Menu");
 }
 
 BattleMenu :: BattleMenu()
   : Menu() {
-  this->options.push_back("Display stats");
-  this->options.push_back("Display all monsters stats");
-  this->options.push_back("Attack");
-  this->options.push_back("Cast spell");
-  this->options.push_back("Use potion");
-  this->options.push_back("Change weapon/armor");
-  this->options.push_back("Go to Main Menu");
+  options.push_back("Display stats");
+  options.push_back("Attack");
+  options.push_back("Cast spell");
+  options.push_back("Use potion");
+  options.push_back("Change weapon/armor");
+  options.push_back("Go to Main Menu");
 }
 
 MarketMenu :: MarketMenu()
-  : Menu() {
-  this->options.push_back("Display Market Items/Spells");
-  this->options.push_back("Buy Item/Spell");
-  this->options.push_back("Sell Item/Spell");
-  this->options.push_back("Exit Market");
-  this->options.push_back("Go to Main Menu");
+  : Menu() {  
+  options.push_back("Buy Item/Spell");
+  options.push_back("Sell Item/Spell");
+  options.push_back("Exit Market");
+  options.push_back("Go to Main Menu");
 }
 
 InventoryMenu :: InventoryMenu()
-  : Menu() {
-  this->options.push_back("Display inventory");
-  this->options.push_back("Equip Item/Spell");
-  this->options.push_back("Discard Item/Spell");
-  this->options.push_back("Use Potion");
-  this->options.push_back("Exit Inventory");
-  this->options.push_back("Go to Main Menu");
+  : Menu() {  
+  options.push_back("Equip Item/Spell");
+  options.push_back("Discard Item/Spell");
+  options.push_back("Use Potion");
+  options.push_back("Exit Inventory");
+  options.push_back("Go to Main Menu");
 }
-
-// Added by Aris
 
 MainMenu :: MainMenu()
   : Menu() {
-  this->options.push_back("Play");
-  this->options.push_back("GenerateMap");
-  this->options.push_back("Help");
-  this->options.push_back("Quit");
+  options.push_back("Play");
+  options.push_back("GenerateMap");
+  options.push_back("Help");
+  options.push_back("Quit");
 }
 
 void MainMenu :: welcome() const {  
