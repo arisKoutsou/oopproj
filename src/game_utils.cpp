@@ -713,10 +713,12 @@ void run(void) {
 	      userInput.begin(), :: tolower);
 
     if (userInput == "generatemap") {
+      clearScreen();
       generateMap();
     } else if (userInput == "play") {
       play();
     } else if (userInput == "help") {
+       clearScreen();
        mainMenu.help();
     } 
     clearScreen();	// When exiting from any case. Print ClearScreen.
