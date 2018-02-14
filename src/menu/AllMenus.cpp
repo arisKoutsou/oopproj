@@ -25,7 +25,8 @@ BattleMenu :: BattleMenu()
 }
 
 MarketMenu :: MarketMenu()
-  : Menu() {  
+  : Menu() {
+  options.push_back("Display Items/Spells");
   options.push_back("Buy Item/Spell");
   options.push_back("Sell Item/Spell");
   options.push_back("Exit Market");
@@ -33,7 +34,8 @@ MarketMenu :: MarketMenu()
 }
 
 InventoryMenu :: InventoryMenu()
-  : Menu() {  
+  : Menu() {
+  options.push_back("Display Items/Spells");
   options.push_back("Equip Item/Spell");
   options.push_back("Discard Item/Spell");
   options.push_back("Use Potion");

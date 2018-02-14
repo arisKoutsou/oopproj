@@ -6,10 +6,11 @@
  */
 
 #include <cstring>
-#include "Hero.h"
-
+#include <string>
+#include <sstream>
 #include <iomanip>
 
+#include "Hero.h"
 #include "../game_utils.h"
 #include "../grid/Grid.h"
 #include "../exceptions/heroExceptions.h"
@@ -25,6 +26,8 @@
 #include "../market/Market.h"
 #include "../random/Random.h"
 #include "Monster.h"
+
+using namespace std;
 
 Hero::Hero(
 	Grid* gr,
@@ -420,8 +423,16 @@ void Hero :: checkInventory() {
 
   while ((selection = this->inventory.getMenu().getSelection())) {
     inventory.getMenu().clearMenu();
-    switch (selection) {    
-    case 1: {      
+    switch (selection) {
+    case 1: {
+      if (!getInventory().hasItems() && !getInventory().hasSpells()) {
+	cout << endl << "You have no Items or Spells in your Inventory." << endl;
+      } else {
+	inventory.printInfo();
+      }      
+      break;
+    }
+    case 2: {      
       if (!getInventory().hasItems() && !getInventory().hasSpells()) {
 	cout << endl << "You have no Items or Spells in your Inventory." << endl;
       } else {
@@ -431,7 +442,7 @@ void Hero :: checkInventory() {
       }
       break;
     }
-    case 2: {
+    case 3: {
       if (!getInventory().hasItems() && !getInventory().hasSpells()) {
 	cout << endl << "There are no Items or Spells to discard." << endl;
       } else {
@@ -441,7 +452,7 @@ void Hero :: checkInventory() {
       }
       break;      
     }
-    case 3: {
+    case 4: {
       if (!getInventory().hasPotions()) {
 	cout << endl << "You have no Potions in your Inventory." << endl;
       } else {
@@ -451,11 +462,11 @@ void Hero :: checkInventory() {
       }
       break;
     } 
-    case 4: {
+    case 5: {
       inventory.getMenu().clearMenu();
       return;
     }
-    case 5: {
+    case 6: {
       handleQuitCase();
       inventory.getMenu().clearMenu();
       if (quitGame) return;      
@@ -470,8 +481,8 @@ void Hero::buy(const string& itemName) {
   Market* currentMarket = this->getTile().getMarket();
 
   if (currentMarket == NULL) {
-	  cout << "You can't buy on a tile that has no market!" << endl << endl;
-	  return;
+    cout << "You can't buy on a tile that has no market!" << endl << endl;
+    return;
   }
 
   Item* itemToBuy = currentMarket->getItemByName(itemName);
@@ -630,18 +641,27 @@ void Hero :: enterMarket(Market* market) {
   market->getMenu().displayMenu();
   int selection;
   string buyPrompt = "Please enter the name of the item/spell you want to buy";
+  buyPrompt += "\n(Current Money: ";  
+  stringstream ss;
+  ss << getMoney();
+  buyPrompt += ss.str();
+  buyPrompt += ")";
   string sellPrompt = "Please enter the name of the item/spell you want to sell";
 
   while ((selection = market->getMenu().getSelection())) {   
     market->getMenu().clearMenu();
-    switch (selection) {    
+    switch (selection) {
     case 1: {
+      market->printInfo();
+      break;
+    }
+    case 2: {
       market->printInfo();
       string input = getUserInput(buyPrompt);
       this->buy(input);
       break;
     }
-    case 2: {
+    case 3: {
       if (!this->inventory.hasSpells() && !this->inventory.hasItems()) {
 	cout << "You have no items or spells for sale" << endl;
 	break;
@@ -651,11 +671,11 @@ void Hero :: enterMarket(Market* market) {
       sell(input);
       break;
     }
-    case 3: {
+    case 4: {
       market->getMenu().clearMenu();
       return;
     }
-    case 4: {
+    case 5: {
       handleQuitCase();
       market->getMenu().clearMenu();
       if (quitGame) return;      

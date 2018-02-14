@@ -670,8 +670,6 @@ void play(void) {
   while (quitGame == false) {
     Hero* currentHero = heroes[heroTurn];
     heroTurn = (heroTurn + 1) % numberOfHeroes;
-    cout << endl << "Hero Playing: "
-	 << currentHero->getName() << endl;
     if (!battled && currentHero->getTile().isQualifiedForBattle(numberOfHeroes)) {
       if (rng.boolean(battleProbability)) {
     	handleBattleCase();
