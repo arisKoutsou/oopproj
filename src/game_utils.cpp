@@ -374,14 +374,16 @@ void handleBattleCase(void) {
 }
 
 void createMonsters(void) {
-  int numberOfMonsters = rng.fromMintoMax(MIN_MONSTERS, MAX_MONSTERS);
+  int numberOfMonsters = rng.fromMintoMax(1, 2);
   int heroY = heroes[0]->getPosition().getY();
   int heroX = heroes[0]->getPosition().getX();
-  int averageLevel;
-  for (int i = 0; i != heroes.size(); ++i) {
-    averageLevel += heroes[i]->getLevel();
+  // Calculate the average level. fixed.
+  int averageLevel = 0;
+  for (int i = 0; i < heroes.size(); i++) {
+	  averageLevel += heroes[i]->getLevel();
   }
   averageLevel /= heroes.size();
+
   int healthPower = 500 + 50*averageLevel;
   int minDamage = 10 + 15*averageLevel;
   int maxDamage = 20 + 15*averageLevel;

@@ -852,8 +852,9 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 	   << "Please enter the name of the monster you want to attack"
 	   << endl << endl << "> ";
       string name;
-      cin >> name;
       list<Monster*> :: iterator it = monsters.begin();
+      getline(cin, name);
+      
       for (it = monsters.begin() ; it != monsters.end(); ++it) {
 	if ((*it)->getName() == name) {
 	  monsterToAttack = (*it);
@@ -876,26 +877,34 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 }
 
 void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
-  Monster* monsterToAttack;
-  do {
-    monsterToAttack = NULL;
-    cout << endl
-	 << "Please enter the name of the monster you want to cast spell"
-	 << endl << endl << "> ";
-    string name;
-    cin >> name;
-    list<Monster*> :: const_iterator it = monsters.begin();
-    for ( ; it != monsters.end(); ++it) {
-      if ((*it)->getName() == name) {
-        monsterToAttack = (*it);
-	break;
-      }
-    }
-  } while (monsterToAttack == NULL);
-  this->castSpell(monsterToAttack);
-  if (monsterToAttack->getHealthPower() == 0) {
-    monsters.remove(monsterToAttack);
-    delete monsterToAttack;
+  Monster* monsterToAttack;         
+  if (monsters.size() == 1) {
+     monsterToAttack = *monsters.begin();
+
+     cout << "Attacking the only monster here: "
+ 	 << monsterToAttack->getName() << endl;
+   } else {
+     do {
+       monsterToAttack = NULL;
+       cout << "Please enter the name of the monster you want to attack"
+	    << endl << endl << "> ";
+       list<Monster*> :: const_iterator it = monsters.begin();
+       
+       string name;
+       getline(cin, name);
+
+       for (it = monsters.begin(); it != monsters.end(); ++it) {
+	 if ((*it)->getName() == name) {
+	   monsterToAttack = (*it);
+	   break;
+	 }
+       }
+     } while (monsterToAttack == NULL);
+     this->castSpell(monsterToAttack);
+     if (monsterToAttack->getHealthPower() == 0) {
+       monsters.remove(monsterToAttack);
+       delete monsterToAttack;
+     }
   }
 }
 
