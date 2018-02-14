@@ -68,7 +68,7 @@ void generateMap() {
       >> pMarket >> pNonAccessible >> pCommon;
 
   Random rng;
-  ofstream newMap("../input/map.txt");
+  ofstream newMap("input/map.txt");
   newMap << "# Map goes as follows: Each line has information about a tile" << endl
 	 << "# First value (true, false) is about nonAccessible" << endl
 	 << "# Second value (true, false) is about common" << endl
