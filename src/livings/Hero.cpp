@@ -831,7 +831,7 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
       cout << ") : ";
 
       string name;
-      cin >> name;
+      getline(cin, name);
 
       for (it = monsters.begin() ; it != monsters.end(); ++it) {
 	if ((*it)->getName() == name) {
@@ -856,13 +856,27 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 
 void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
   Monster* monsterToAttack;
-  do {
-    monsterToAttack = NULL;
-    cout << "Please enter the name of the monster you want to cast spell: ";
+  if (monsters.size() == 1) {
+     monsterToAttack = *monsters.begin();
+
+     cout << "Attacking the only monster here: "
+ 	 << monsterToAttack->getName() << endl;
+   } else {
+     do {
+       monsterToAttack = NULL;
+       cout << "Please enter the name of the monster you want to attack";
+       cout << "(";
+       list<Monster*> :: const_iterator it = monsters.begin();
+
+       for ( ; it != monsters.end(); ++it) {
+ 	cout << (*it)->getName();
+ 	cout << ", ";
+       }
+       cout << ") : ";
     string name;
-    cin >> name;
-    list<Monster*> :: const_iterator it = monsters.begin();
-    for ( ; it != monsters.end(); ++it) {
+    getline(cin, name);
+
+    for (it = monsters.begin(); it != monsters.end(); ++it) {
       if ((*it)->getName() == name) {
         monsterToAttack = (*it);
 	break;
@@ -874,6 +888,7 @@ void Hero :: handleCastSpellCase(list<Monster*>& monsters) {
     monsters.remove(monsterToAttack);
     delete monsterToAttack;
   }
+   }
 }
 
 bool Hero :: handleUseCase() {
