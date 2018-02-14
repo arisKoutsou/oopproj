@@ -232,6 +232,7 @@ void tokenize(vector<string>& tokens) {
 void handleBasicCase(Hero* currentHero) {
   int selection;
   currentHero->getGameMenu().clearMenu();
+  currentHero->displayMap();
   currentHero->getGameMenu().displayMenu();
   while ((selection = currentHero->getGameMenu().getSelection())) {   
     switch (selection) {
@@ -331,12 +332,13 @@ void handleQuitCase(void) {
 void handleBattleCase(void) {
   createMonsters();
   int rounds = 1;
+  clearScreen();
   while (true) {    
     int livingsPlayed = 0;
     size_t heroIndex = 0U;
     size_t prevHero = 0U;
     bool heroesTurn = true;
-    //clearScreen();
+
     cout << endl << "ROUND " << rounds;
     while (monsters.size() != 0 && livingsPlayed != (monsters.size() + heroesAlive())) {
       if (heroesTurn) {
@@ -345,7 +347,7 @@ void handleBattleCase(void) {
 	if (quitGame) return;
 	prevHero = heroIndex;
 	heroIndex = (heroIndex + 1) % heroes.size();
-	if (prevHero != heroIndex) /*clearScreen()*/;
+	if (prevHero != heroIndex) clearScreen();
 	heroesTurn = false;        
       } else {
 	size_t monsterIndex = rng.fromMintoMax(0, monsters.size() - 1);
