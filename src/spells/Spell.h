@@ -32,7 +32,7 @@ public:
 	int getValue() const;
 	int sellsFor() const;
 
-	virtual string getInfo() const;
+        virtual string getInfo() const;
         virtual const string kindOf() const = 0;
   
         // Added by: (George Liontos)

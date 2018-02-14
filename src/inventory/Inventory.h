@@ -9,10 +9,14 @@
 
 #include <iostream>
 #include <list>
+#include <vector>
 #include "../menu/AllMenus.h"
 
 class Item;
 class Spell;
+class Weapon;
+class Armor;
+class Potion;
 
 using namespace std;
 
@@ -42,6 +46,11 @@ public:
   void removeItem(Item* item); // Removes an item from the inventory
   void removeSpell(Spell* spell); // Removes a spell from the inventory
 private:
+  void printItems();
+  void printWeapons(vector<Weapon*>& weapons);
+  void printArmors(vector<Armor*>& armors);
+  void printPotions(vector<Potion*>& potions);
+  void printSpells();
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;
