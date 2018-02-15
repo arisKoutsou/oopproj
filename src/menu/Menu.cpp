@@ -5,7 +5,8 @@
 // Created: Fri Dec 29 00:01:55 2017 (+0200)
 
 #include <iostream>
-#include <limits>
+#include <cstdlib>
+
 #include "Menu.h"
 
 using namespace std;
@@ -30,13 +31,13 @@ void Menu :: clearMenu() const {
 }
 
 int Menu :: getSelection() {
+  string input;
   int option;
   do {
-    cout << "Please enter an option: "
+    cout << endl << "Please enter an option: "
 	 << endl << endl << "> ";
-    cin >> option;
-    if (cin.fail()) cin.clear();
-    cin.ignore(numeric_limits<streamsize> :: max(), '\n');
-  } while (option < 1 && option > options.size());  
+    getline(cin, input);
+    option = atoi(input.c_str());
+  } while (option < 1 || option > options.size());
   return option;
 }

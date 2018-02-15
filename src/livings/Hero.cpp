@@ -149,7 +149,6 @@ void Hero :: respawn() {
   this->setHealthPower(maxHealth/2);
 }
 
-// Implemented by: (George Liontos)
 // Please don't even try and understand what this code does
 // That was a hard night computing offsets for right printing
 void Hero :: printStats() const {
@@ -234,7 +233,6 @@ void Hero::levelUp() {
 	magicPower += 5;
 }
 
-// Implemented by: (George Liontos)
 Inventory& Hero :: getInventory() {
   return inventory;
 }
@@ -247,8 +245,6 @@ bool Hero :: operator==(const Hero& rValue) const {
   bool sameDexterity;
   bool sameMoney;
   bool sameExperience;
-  // There's no need to check if they've got the same inventory
-
   sameLiving = Living::operator==(rValue);
   sameMagicPower = (this->magicPower == rValue.magicPower) ? true : false;
   sameStrength = (this->strength == rValue.strength) ? true : false;
@@ -356,7 +352,7 @@ bool Hero :: equip(const string& name) {
       this->equipArmor(armorToEquip);
 
     } else if (kind == "Potion") {
-      cout << "You can't equip a potion" << endl;
+      cout << endl << "You can't equip a potion" << endl;
       return false;
     }
     this->inventory.removeItem(itemToEquip);
@@ -371,7 +367,7 @@ bool Hero :: equip(const string& name) {
     return true;
   }
 
-  cout << "There's no such item or spell in your inventory" << endl;
+  cout << endl << "There's no such item or spell in your inventory" << endl;
   return false;
 }
 
@@ -390,17 +386,17 @@ bool Hero :: discard(const string& name) {
     return true;
   }
 
-  cout << "There's no such item or spell in your inventory" << endl;
+  cout << endl << "There's no such item or spell in your inventory" << endl;
   return false;
 }
 
 bool Hero::use(const string& potionName) {
   Potion* potionToUse = static_cast<Potion*>(inventory.getItemByName(potionName));
   if (potionToUse  == NULL) {
-    cout << "This potion doesn't exist" << endl;
+    cout << endl << "This potion doesn't exist" << endl;
     return false;
   } else if (potionToUse->kindOf() != "Potion") {
-    cout << "The item you selected isn't a Potion" << endl;
+    cout << endl << "The item you selected isn't a Potion" << endl;
     return true;
   }
   potions.push_back(potionToUse);
@@ -454,7 +450,7 @@ void Hero :: checkInventory() {
       if (!getInventory().hasPotions()) {
 	cout << endl << "You have no Potions in your Inventory." << endl;
       } else {
-	// @INCOMPLETE
+        inventory.printPotions();
 	string input = getUserInput(usePotionPrompt);
 	use(input);
       }
@@ -510,10 +506,12 @@ void Hero::buy(const string& itemName) {
 	this->shield = static_cast<Armor*>(itemToAdd);
 	equiped = true;
       }
+    } else {
+      itemToAdd = new Potion(*static_cast<Potion*>(itemToBuy));
     }
 
     if(!equiped) inventory.addItem(itemToAdd);
-    money -= itemToBuy->buyFor();
+    setMoney(getMoney() - itemToBuy->buyFor());
     return;
   }
 
@@ -537,11 +535,11 @@ void Hero::buy(const string& itemName) {
     }
 
     if (!equiped) inventory.addSpell(spellToAdd);
-    money -= spellToBuy->getValue();
+    setMoney(getMoney() - spellToBuy->getValue());
     return;
   }
 
-  cout << "There's no item/spell with this name" << endl;
+  cout << endl << "There's no item/spell with this name" << endl;
 }
 
 void Hero::sell(const string& itemName) {
@@ -549,18 +547,18 @@ void Hero::sell(const string& itemName) {
 
 	if (itemToSell != NULL) {
 		inventory.removeAndDeleteItem(itemToSell);
-		money += itemToSell->sellsFor();
+		setMoney(getMoney() + itemToSell->sellsFor());
 		return;
 	}
 
 	Spell* spellToSell = inventory.getSpellByName(itemName);
 	if (spellToSell != NULL) {
 		inventory.removeAndDeleteSpell(spellToSell);
-		money += spellToSell->getValue();
+		setMoney(getMoney() + spellToSell->getValue()/2);
 		return;
 	}
 
-	cout << "There's no item/spell with this name" << endl;
+	cout << endl << "There's no item/spell with this name" << endl;
 }
 
 bool Hero :: usesBothHands() const {
@@ -595,9 +593,9 @@ void Hero :: equipWeapon(Weapon* weapon) {
       string hand;
       do {
 	cout << "You are using both hands. Would you like to equip"
-	     << " the weapon to left of right hand?" << endl;
+	     << " the weapon to left of right hand?" << endl << endl << " >";
 
-	cin >> hand;
+        getline(cin, hand);
 
 	if (hand == "left") {
 	  this->inventory.addItem(this->leftHandWeapon);
@@ -632,12 +630,6 @@ void Hero :: enterMarket(Market* market) {
   market->getMenu().clearMenu();
   market->getMenu().displayMenu();
   int selection;
-  string buyPrompt = "Please enter the name of the item/spell you want to buy";
-  buyPrompt += "\n(Current Money: ";  
-  stringstream ss;
-  ss << getMoney();
-  buyPrompt += ss.str();
-  buyPrompt += ")";
   string sellPrompt = "Please enter the name of the item/spell you want to sell";
 
   while ((selection = market->getMenu().getSelection())) {   
@@ -648,6 +640,12 @@ void Hero :: enterMarket(Market* market) {
       break;
     }
     case 2: {
+      string buyPrompt = "Please enter the name of the item/spell you want to buy";
+      buyPrompt += "\n(Current Money: ";  
+      stringstream ss;
+      ss << getMoney();
+      buyPrompt += ss.str();
+      buyPrompt += ")";
       market->printInfo();
       string input = getUserInput(buyPrompt);
       this->buy(input);
@@ -673,6 +671,7 @@ void Hero :: enterMarket(Market* market) {
       if (quitGame) return;      
       break;
     }
+    default: break;
     }
     market->getMenu().displayMenu();
   }
@@ -697,13 +696,13 @@ void Hero :: castSpell(Monster* target) {
     cout << "You have no spells for use" << endl;
     return;
   }
-  cout << "You currently have these spells" << endl << endl;  
+  printEquipedSpells();
   Spell* spellToCast;
   do {
     cout << "Choose a spell to cast"
 	 << endl << endl << "> ";
     string name;
-    cin >> name;
+    getline(cin, name);
     spellToCast = this->getSpellByName(name);
     if (spellToCast == NULL) {
       cout << endl << "There's no such a spell" << endl;
@@ -792,15 +791,15 @@ void Hero :: battle(list<Monster*>& monsters) {
       if (handleCastSpellCase(monsters)) return;      
       break;
     }
-    case 5: {
+    case 4: {
       if (handleUseCase()) return;
       break;
     }
-    case 6: {
+    case 5: {
       if (handleEquipCase()) return;
       break;
     }
-    case 7: {
+    case 6: {
       handleQuitCase();
       if (quitGame) return;
       battleMenu.clearMenu();
@@ -841,46 +840,43 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 
     this->attack(monsterToAttack);
 
-	  if (monsterToAttack->getHealthPower() == 0) {
-		++this->monstersKilled;
-		monsters.remove(monsterToAttack);
-		delete monsterToAttack;
-	  }
+    if (monsterToAttack->getHealthPower() == 0) {
+      ++this->monstersKilled;
+      monsters.remove(monsterToAttack);
+      delete monsterToAttack;
+    }
   } else {
 
-      monsterToAttack = NULL;
-      cout << endl
-	   << "Please enter the name of the monster you want to attack"
-	   << endl << endl << "> ";
-      string name;
-      list<Monster*> :: iterator it = monsters.begin();
-      getline(cin, name);      
-      for (it = monsters.begin() ; it != monsters.end(); ++it) {
-    	if ((*it)->getName() == name) {
-	  monsterToAttack = (*it);
-	  break;
-    	}
+    monsterToAttack = NULL;
+    cout << endl
+	 << "Please enter the name of the monster you want to attack"
+	 << endl << endl << "> ";
+    string name;
+    list<Monster*> :: iterator it = monsters.begin();
+    getline(cin, name);      
+    for (it = monsters.begin() ; it != monsters.end(); ++it) {
+      if ((*it)->getName() == name) {
+	monsterToAttack = (*it);
+	break;
       }
+    }
 
     if (monsterToAttack != NULL) {
 
-    	cout << endl << "Attacking Monster " << monsterToAttack->getName() << endl;
+      cout << endl << "Attacking Monster " << monsterToAttack->getName() << endl;
 
-    	 this->attack(monsterToAttack);
+      this->attack(monsterToAttack);
 
-    	  if (monsterToAttack->getHealthPower() == 0) {
-    	    ++this->monstersKilled;
-    	    monsters.remove(monsterToAttack);
-    	    delete monsterToAttack;            
-    	  }
+      if (monsterToAttack->getHealthPower() == 0) {
+	++this->monstersKilled;
+	monsters.remove(monsterToAttack);
+	delete monsterToAttack;            
+      }
     } else {
 
-    	cout << endl << "There is no such Monster here..." << endl;
+      cout << endl << "There is no such Monster here..." << endl;
     }
   }
-
-
-
 }
 
 bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
@@ -890,49 +886,50 @@ bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
   }
   Monster* monsterToAttack;
   if (monsters.size() == 1) {
-     monsterToAttack = *monsters.begin();
+    monsterToAttack = *monsters.begin();
 
-     cout << "Attacking the only monster here: "
+    this->castSpell(monsterToAttack);
+
+    cout << endl
+	 << "Attacking the only monster here: "
  	 << monsterToAttack->getName() << endl;
 
-     this->castSpell(monsterToAttack);
+    if (monsterToAttack->getHealthPower() == 0) {
+      monsters.remove(monsterToAttack);
+      delete monsterToAttack;
+    }
+    return true;
 
-		if (monsterToAttack->getHealthPower() == 0) {
-		monsters.remove(monsterToAttack);
-		delete monsterToAttack;
-		}
-		return true;
+  } else {
 
-   } else {
-
-       monsterToAttack = NULL;
-       cout << "Please enter the name of the monster you want to attack"
-	    << endl << endl << "> ";
-       list<Monster*> :: const_iterator it = monsters.begin();
+    monsterToAttack = NULL;
+    cout << endl
+	 << "Please enter the name of the monster you want to attack"
+	 << endl << endl << "> ";
+    list<Monster*> :: const_iterator it = monsters.begin();
        
-       string name;
-       getline(cin, name);       
-       for (it = monsters.begin(); it != monsters.end(); ++it) {
-    	 if ((*it)->getName() == name) {
-    		 monsterToAttack = (*it);
-    		 break;
-    	 }
-     }
+    string name;
+    getline(cin, name);       
+    for (it = monsters.begin(); it != monsters.end(); ++it) {
+      if ((*it)->getName() == name) {
+	monsterToAttack = (*it);
+	break;
+      }
+    }
 
-     if (monsterToAttack != NULL) {
-		cout << endl << "Casting Spell on " << monsterToAttack->getName() << endl;
+    if (monsterToAttack != NULL) {
+      this->castSpell(monsterToAttack);
+      cout << endl << "Casting Spell on " << monsterToAttack->getName() << endl;
+      
+      if (monsterToAttack->getHealthPower() == 0) {
+	monsters.remove(monsterToAttack);
+	delete monsterToAttack;
+      }
+      return true;
+    } else {
 
-		this->castSpell(monsterToAttack);
-
-		if (monsterToAttack->getHealthPower() == 0) {
-		monsters.remove(monsterToAttack);
-		delete monsterToAttack;
-		}
-		return true;
-	 } else {
-
-		cout << endl << "There is no such Monster here..." << endl;
-	 }
+      cout << endl << "There is no such Monster here..." << endl;
+    }
 
   }
 
@@ -944,21 +941,21 @@ bool Hero :: handleUseCase() {
     cout << "You have no Potions at the moment." << endl;
     return false;
   }
+  inventory.printPotions();
+  string name;
 
-  	string name;
+  cout << endl
+       << "Please enter the name of the potion you want to use"
+       << endl << endl << "> ";
 
-	cout << endl
-	<< "Please enter the name of the potion you want to use"
-	<< endl << endl << "> ";
-
-	getline(cin, name);        
-	for (list<Potion*> :: const_iterator it = potions.begin() ;
-			it != potions.end() ; it++ ) {
-		if (name == (*it)->getName()) {
-			this->use(name);
-			return true;
-		}
-	}
+  getline(cin, name);        
+  for (list<Potion*> :: const_iterator it = potions.begin() ;
+       it != potions.end() ; it++ ) {
+    if (name == (*it)->getName()) {
+      this->use(name);
+      return true;
+    }
+  }
 
   return false;
 }
@@ -970,10 +967,102 @@ bool Hero :: handleEquipCase() {
   }
   string name;
   do {
+    clearScreen();
+    inventory.printInfo();
     cout << endl
 	 << "Please enter the name of the weapon/armor you want to equip"
 	 << endl << endl << "> ";
     getline(cin, name);    
   } while (equip(name) == false);
   return true;
+}
+
+void Hero :: printFireSpells(vector<FireSpell*>& fireSpells) {
+  if (fireSpells.size() == 0) return;
+  cout << '+' << string(111, '-') << '+' << endl;
+  cout << '|' << setw(61) << "FIRE SPELLS" << setw(51) << '|' << endl;
+  printFireSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(16) << "ARMOR REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != fireSpells.size(); ++i) {
+    fireSpells[i]->getInfo();
+  }
+  printFireSpellFrame();
+  cout << endl << endl;
+}
+
+void Hero :: printIceSpells(vector<IceSpell*>& iceSpells) {
+  if (iceSpells.size() == 0) return;
+  cout << '+' << string(112, '-') << '+' << endl;
+  cout << '|' << setw(62) << "ICE SPELLS" << setw(51) << '|' << endl;
+  printIceSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(17) << "DAMAGE REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != iceSpells.size(); ++i) {
+    iceSpells[i]->getInfo();
+  }
+  printIceSpellFrame();
+  cout << endl << endl;
+}
+
+void Hero :: printLightningSpells(vector<LightningSpell*>& lightningSpells) {
+  if (lightningSpells.size() == 0) return;
+  cout << '+' << string(111, '-') << '+' << endl;
+  cout << '|' << setw(63) << "LIGHTNING SPELLS" << setw(49) << '|' << endl;
+  printLightningSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(16) << "DODGE REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != lightningSpells.size(); ++i) {
+    lightningSpells[i]->getInfo();
+  }
+  printLightningSpellFrame();
+  cout << endl << endl;
+}
+
+void Hero :: printEquipedSpells() {
+  if (spells.empty()) {    
+    return;
+  } else {
+    list<Spell*> :: const_iterator it = spells.begin();
+    vector<IceSpell*> iceSpells;
+    vector<FireSpell*> fireSpells;
+    vector<LightningSpell*> lightningSpells;
+    for ( ; it != spells.end(); ++it) {
+      string kind = (*it)->kindOf();
+      if (kind == "IceSpell") {
+	iceSpells.push_back(static_cast<IceSpell*>(*it));
+      } else if (kind == "FireSpell") {
+	fireSpells.push_back(static_cast<FireSpell*>(*it));        
+      } else if (kind == "LightningSpell") {
+	lightningSpells.push_back(static_cast<LightningSpell*>(*it));
+      }
+    }
+    printIceSpells(iceSpells);
+    printFireSpells(fireSpells);
+    printLightningSpells(lightningSpells);
+  }
 }

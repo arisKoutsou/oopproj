@@ -22,8 +22,7 @@ class Potion;
 
 class Hero : public Living {
 public:
-	// Added by: (George Liontos)
-	// Posible directions for heros to move
+        // Posible directions for heros to move
         typedef enum {
 	  UP, DOWN, LEFT,
 	  RIGHT, UNKNOWN
@@ -61,8 +60,7 @@ public:
 	string kindOf() const;
         void printStats() const;
 	void displayMap() const;
-	bool operator==(const Hero& rValue) const;
-	// Opens the inventory menu and handles the hero selection
+	bool operator==(const Hero& rValue) const;        
 	void battle(list<Monster*>& monsters);
 	void checkInventory();
 	Inventory& getInventory();
@@ -122,6 +120,10 @@ private:
         bool handleUseCase();
         bool handleEquipCase();
         void printMonsters(list<Monster*>& monsters);
+        void printEquipedSpells();
+        void printFireSpells(vector<FireSpell*>& fireSpells);
+        void printIceSpells(vector<IceSpell*>& iceSpells);
+        void printLightningSpells(vector<LightningSpell*>& lightningSpells);
 };
 
 #endif /* LIVINGS_HERO_H_ */

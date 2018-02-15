@@ -135,7 +135,7 @@ void Inventory :: printPotions(vector<Potion*>& potions) {
 
 void Inventory :: printItems() {
   if (this->getCurrentItems() == 0) {
-    cout << endl << "No items in this market" << endl << endl;
+    cout << endl << "No items in the inventory" << endl << endl;
     return;
   } else {
     list<Item*> :: const_iterator it = items.begin();
@@ -226,7 +226,7 @@ void Inventory :: printLightningSpells(vector<LightningSpell*>& lightningSpells)
 
 void Inventory :: printSpells() {
   if (getCurrentSpells() == 0) {
-    cout << endl << "No spells in this market" << endl << endl;
+    cout << endl << "No spells in the Inventory" << endl << endl;
     return;
   } else {
     list<Spell*> :: const_iterator it = spells.begin();
@@ -340,4 +340,28 @@ Spell* Inventory::getSpellByName(const string& spellName) const {
 	}
 
 	return NULL;
+}
+
+void Inventory :: printPotions() {
+  if (hasPotions() == false) return;
+  cout << '+' << string(106, '-') << '+' << endl;
+  cout << '|' << setw(53 + 7/2) << "POTIONS" << setw(54 - 7/2) << '|' << endl;
+  printPotionFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(15) << "STRENGTH BONUS" << setw(2) << '|'
+       << setw(16) << "DEXTERITY BONUS" << setw(2) << '|'
+       << setw(14) << "AGILITY BONUS" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  list<Item*> :: iterator it = items.begin();
+  for ( ; it != items.end(); ++it) {
+    if ((*it)->kindOf() == "Potion") {
+      (*it)->getInfo();
+    }
+  }
+  printPotionFrame();
+  cout << endl << endl;
 }

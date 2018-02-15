@@ -269,7 +269,7 @@ void handleMoveCase(Hero* currentHero) {
 	 << "(possible directions are up, down, left, right)"
 	 << endl << endl << "> ";
     string answer;
-    cin >> answer;
+    getline(cin, answer);
     Hero :: directions direction;
     if (answer == "up") direction = Hero :: UP;
     else if (answer == "down") direction = Hero :: DOWN;
@@ -291,7 +291,7 @@ void handleMoveCase(Hero* currentHero) {
     do {
       cout << endl << "It seems that you found a market... Do you want to enter?(Y|n)"
 	   << endl << endl << "> ";
-      cin >> answer;
+      getline(cin, answer);
       transform(answer.begin(), answer.end(), answer.begin(), :: tolower);
     } while (answer != "y" && answer != "n");
     if (answer == "y") {
@@ -536,7 +536,7 @@ void createHeroes(int numberOfHeroes) {
     if (!paladinSelected) cout << "Paladin ";
     cout << ")" << endl << endl << "> ";
     string heroClass;
-    cin >> heroClass;
+    getline(cin, heroClass);
     transform(heroClass.begin(), heroClass.end(),
 	      heroClass.begin(), :: tolower);
     if (!(heroClass == "warrior"
@@ -573,7 +573,7 @@ void createHeroes(int numberOfHeroes) {
     cout << endl << "Please enter a name for your hero"
 	 << endl << endl << "> ";
     string name;
-    cin >> name;
+    getline(cin, name);
     cout << endl;
     Hero* hero;
     if (heroClass == "warrior") {

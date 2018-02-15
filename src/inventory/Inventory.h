@@ -47,6 +47,7 @@ public:
   void removeAndDeleteSpell(Spell* spell); // Completely removes a spell from the inventory
   void removeItem(Item* item); // Removes an item from the inventory
   void removeSpell(Spell* spell); // Removes a spell from the inventory
+  void printPotions();
 private:
   void printItems();
   void printWeapons(vector<Weapon*>& weapons);
