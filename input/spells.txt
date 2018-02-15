@@ -27,7 +27,7 @@ Flood
 Wave
 Surge
 Tsunami
-Nyad’s Lore
+Nyad's Lore
 Sleep
 Slumber
 Shock
@@ -39,7 +39,7 @@ Tempest
 Whirlwhind
 Cyclone
 Vortex
-Wyvern’s Wings
+Wyvern's Wings
 Daze
 Stun
 Confuse
@@ -52,7 +52,7 @@ Purge
 Wrath
 Retribution
 Judgment
-Angel’s Mercy
+Angel's Mercy
 Darkness
 Shade
 Gloom
@@ -62,7 +62,7 @@ Corrupt
 Spite
 Rancor
 Malice
-Demon’s Rage
+Demon's Rage
 Drain
 Siphon
 Void
@@ -81,8 +81,8 @@ Fire Wings
 Fury of Osano-Wo
 Gaijin Flames
 Hungry Blade
-Yakamo’s Wrath
-Yakamo’s Eye
+Yakamo's Wrath
+Yakamo's Eye
 Breath of Suitengu
 The Inner Ocean
 Surging Soul
