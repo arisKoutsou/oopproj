@@ -5,18 +5,23 @@
  *      Author: aris
  */
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
-#include "./IceSpell.h"
+
+#include "../game_utils.h"
+#include "IceSpell.h"
+
+using namespace std;
 
 IceSpell::IceSpell(
 	string 	nam,
 	int 	val,
 	int 	minL,
 	int 	magicP,
-	int		minDmg,
+	int	minDmg,
 	int 	maxDmg,
-	double  reduction,	// new data member.
+	double  reduction,
 	int rnds
 )
 : Spell(nam, val, minL, magicP, minDmg, maxDmg),
@@ -31,20 +36,29 @@ int IceSpell::getReductionRounds() const {
 	return rounds;
 }
 
-string IceSpell::getInfo() const {
-	stringstream result;
-	result << fixed << setprecision(2);
-
-	result << Spell::getInfo()
-		<< "oponent damage reduction: "
-		<< oponentDamageReduction*100 << "%" << endl
-		<< "takes effect for: "
-		<< rounds << " rounds" << endl;
-
-	return result.str();
+void IceSpell::getInfo() const {
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(getValue());
+  int levelDigits = getDigits(getMinLevel());
+  int manaDigits = getDigits(getMagicPowerRequired());
+  int minDamageDigits = getDigits(getMinDamage());
+  int maxDamageDigits = getDigits(getMaxDamage());
+  int nerfDigits = getDigits(reduceOponentDamageRangeBy()) + 2;
+  int durationDigits = getDigits(getReductionRounds());  
+  printIceSpellFrame();
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(13 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << getValue() << setw(5 - priceDigits/2) << '|'
+       << setw(6 + levelDigits/2) << getMinLevel() << setw(6 - levelDigits/2) << '|'
+       << setw(5 + manaDigits/2) << getMagicPowerRequired() << setw(7 - manaDigits/2) << '|'
+       << setw(6 + minDamageDigits/2) << getMinDamage() << setw(7 - minDamageDigits/2) << '|'
+       << setw(6 + maxDamageDigits/2) << getMaxDamage() << setw(7 - maxDamageDigits/2) << '|'
+       << setw(10 + nerfDigits/2) << setprecision(2) << reduceOponentDamageRangeBy()
+       << setw(9 - nerfDigits/2) << '|'
+       << setw(5 + durationDigits/2) << getReductionRounds() << setw(6 - durationDigits/2) << '|'
+       << endl;  
 }
 
-// Imlemented by: (George Liontos)
 bool IceSpell :: operator==(const IceSpell& rValue) const {
   bool sameSpells;
   bool sameOponentDamageReduction;

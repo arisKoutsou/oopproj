@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <vector>
 #include <list>
 
 #include "Market.h"
@@ -15,6 +16,9 @@
 #include "../items/Armor.h"
 #include "../items/Potion.h"
 #include "../spells/Spell.h"
+#include "../spells/IceSpell.h"
+#include "../spells/FireSpell.h"
+#include "../spells/LightningSpell.h"
 
 using namespace std;
 
@@ -138,21 +142,100 @@ void Market :: printItems() {
   }
 }
 
+void Market :: printFireSpells(vector<FireSpell*>& fireSpells) {
+  if (fireSpells.size() == 0) return;  
+  cout << '+' << string(111, '-') << '+' << endl;
+  cout << '|' << setw(61) << "FIRE SPELLS" << setw(51) << '|' << endl;
+  printFireSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(16) << "ARMOR REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != fireSpells.size(); ++i) {
+    fireSpells[i]->getInfo();
+  }
+  printFireSpellFrame();
+  cout << endl << endl;
+}
+
+void Market :: printIceSpells(vector<IceSpell*>& iceSpells) {
+  if (iceSpells.size() == 0) return;
+  cout << '+' << string(112, '-') << '+' << endl;
+  cout << '|' << setw(62) << "ICE SPELLS" << setw(51) << '|' << endl;
+  printIceSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(17) << "DAMAGE REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != iceSpells.size(); ++i) {
+    iceSpells[i]->getInfo();
+  }
+  printIceSpellFrame();
+  cout << endl << endl;
+}
+
+void Market :: printLightningSpells(vector<LightningSpell*>& lightningSpells) {
+  if (lightningSpells.size() == 0) return;
+  cout << '+' << string(111, '-') << '+' << endl;
+  cout << '|' << setw(63) << "LIGHTNING SPELLS" << setw(49) << '|' << endl;
+  printLightningSpellFrame();
+  cout << '|'
+       << setw(14) << "NAME" << setw(11) << '|'
+       << setw(6) << "PRICE" << setw(2) << '|'
+       << setw(10) << "MIN LEVEL" << setw(2) << '|'
+       << setw(10) << "MANA COST" << setw(2) << '|'
+       << setw(11) << "MIN DAMAGE" << setw(2) << '|'
+       << setw(11) << "MAX DAMAGE" << setw(2) << '|'
+       << setw(16) << "DODGE REDUCTION" << setw(2) << '|'
+       << setw(9) << "DURATION" << setw(2) << '|'
+       << endl;
+  for (size_t i = 0U; i != lightningSpells.size(); ++i) {
+    lightningSpells[i]->getInfo();
+  }
+  printLightningSpellFrame();
+  cout << endl << endl;
+}
+
 void Market :: printSpells() {
+  if (getCurrentSpells() == 0) {
+    cout << endl << "No spells in this market" << endl << endl;
+    return;
+  } else {
+    list<Spell*> :: const_iterator it = spells.begin();
+    vector<IceSpell*> iceSpells;
+    vector<FireSpell*> fireSpells;
+    vector<LightningSpell*> lightningSpells;
+    for ( ; it != spells.end(); ++it) {
+      string kind = (*it)->kindOf();
+      if (kind == "IceSpell") {
+	iceSpells.push_back(static_cast<IceSpell*>(*it));
+      } else if (kind == "FireSpell") {
+	fireSpells.push_back(static_cast<FireSpell*>(*it));        
+      } else if (kind == "LightningSpell") {
+	lightningSpells.push_back(static_cast<LightningSpell*>(*it));
+      }
+    }
+    printIceSpells(iceSpells);
+    printFireSpells(fireSpells);
+    printLightningSpells(lightningSpells);
+  }
 }
 
 void Market :: printInfo() {
   printItems();
-  //  printSpells();
-  if (this->getCurrentSpells() != 0) {
-    list<Spell*> :: const_iterator spellIterator = spells.begin();
-    cout << "Spells:" << endl << endl;
-    for ( ; spellIterator != spells.end() ; ++spellIterator) {
-      cout << (*spellIterator)->getInfo() << endl;
-    }
-  } else {
-    cout << "No Spells in this Market..." << endl;
-  }
+  printSpells();
 }
 
 void Market :: addItem(Item* item) {

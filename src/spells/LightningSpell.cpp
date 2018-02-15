@@ -5,9 +5,14 @@
  *      Author: aris
  */
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
-#include "./LightningSpell.h"
+
+#include "../game_utils.h"
+#include "LightningSpell.h"
+
+using namespace std;
 
 LightningSpell::LightningSpell(
 	string 	nam,
@@ -31,20 +36,29 @@ int LightningSpell::getReductionRounds() const {
 	return rounds;
 }
 
-string LightningSpell::getInfo() const {
-	stringstream result;
-	result << fixed << setprecision(2);
-
-	result << Spell::getInfo()
-		<< "oponent dodge chance reduction: "
-		<< oponentDodgeReduction*100 << "%" << endl
-		<< "takes effect for: "
-		<< rounds << " rounds" << endl;
-
-	return result.str();
+void LightningSpell::getInfo() const {
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(getValue());
+  int levelDigits = getDigits(getMinLevel());
+  int manaDigits = getDigits(getMagicPowerRequired());
+  int minDamageDigits = getDigits(getMinDamage());
+  int maxDamageDigits = getDigits(getMaxDamage());
+  int nerfDigits = getDigits(reduceOponentDodgeBy()) + 2;
+  int durationDigits = getDigits(getReductionRounds());  
+  printLightningSpellFrame();
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(13 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << getValue() << setw(5 - priceDigits/2) << '|'
+       << setw(6 + levelDigits/2) << getMinLevel() << setw(6 - levelDigits/2) << '|'
+       << setw(5 + manaDigits/2) << getMagicPowerRequired() << setw(7 - manaDigits/2) << '|'
+       << setw(6 + minDamageDigits/2) << getMinDamage() << setw(7 - minDamageDigits/2) << '|'
+       << setw(6 + maxDamageDigits/2) << getMaxDamage() << setw(7 - maxDamageDigits/2) << '|'
+       << setw(9 + nerfDigits/2) << setprecision(2) << reduceOponentDodgeBy()
+       << setw(9 - nerfDigits/2) << '|'
+       << setw(5 + durationDigits/2) << getReductionRounds() << setw(6 - durationDigits/2) << '|'
+       << endl;    
 }
 
-// Implemented by: (George Liontos)
 bool LightningSpell :: operator==(const LightningSpell& rValue) const {
   bool sameSpells;
   bool sameOponentDodgeReduction;

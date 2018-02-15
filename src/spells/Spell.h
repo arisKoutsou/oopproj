@@ -19,7 +19,7 @@ public:
 		int 	val = 20,
 		int 	minL = 1,
 		int 	magicP = 10,
-		int		minDmg = 80,
+		int	minDmg = 80,
 		int 	maxDmg = 100
 	);
 	virtual ~Spell();
@@ -32,14 +32,10 @@ public:
 	int getValue() const;
 	int sellsFor() const;
 
-        virtual string getInfo() const;
+        virtual void getInfo() const;
         virtual const string kindOf() const = 0;
-  
-        // Added by: (George Liontos)
         virtual bool operator==(const Spell& rValue) const;
-        // WARNING: (George) Non-static initialisation only in C++11
-	const double sellRate;
-
+        const double sellRate;
 private:
 	string 	name;
 	int 	value;

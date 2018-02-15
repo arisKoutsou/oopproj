@@ -337,7 +337,7 @@ string Hero :: getUserInput(const string& prompt) {
   cout << prompt << endl << endl << "> ";
 
   string input;
-  cin >> input;
+  getline(cin, input);  
 
   return input;
 }
@@ -395,8 +395,6 @@ bool Hero :: discard(const string& name) {
 }
 
 bool Hero::use(const string& potionName) {
-  // (George): Alternative implementation
-
   Potion* potionToUse = static_cast<Potion*>(inventory.getItemByName(potionName));
   if (potionToUse  == NULL) {
     cout << "This potion doesn't exist" << endl;
@@ -510,12 +508,6 @@ void Hero::buy(const string& itemName) {
       itemToAdd = new Armor(*static_cast<Armor*>(itemToBuy));
       if (this->shield == NULL) {
 	this->shield = static_cast<Armor*>(itemToAdd);
-	equiped = true;
-      }
-    } else {
-      itemToAdd = new Potion(*static_cast<Potion*>(itemToBuy));
-      if (this->potions.size() == 0) {
-	this->potions.push_back(static_cast<Potion*>(itemToAdd));
 	equiped = true;
       }
     }
@@ -690,14 +682,6 @@ string Hero :: kindOf() const {
   return "Hero";
 }
 
-void Hero :: printEquipedSpells() const {
-  list<Spell*> :: const_iterator it = spells.begin();
-  for ( ; it != spells.end(); ++it) {
-    cout << (*it)->getInfo() << endl;
-  }
-  cout << endl;
-}
-
 Spell* Hero :: getSpellByName(const string& name) {
   list<Spell*> :: const_iterator it = spells.begin();
   for ( ; it != spells.end(); ++it) {
@@ -713,22 +697,22 @@ void Hero :: castSpell(Monster* target) {
     cout << "You have no spells for use" << endl;
     return;
   }
-  cout << "You currently have these spells" << endl << endl;
-  this->printEquipedSpells();
+  cout << "You currently have these spells" << endl << endl;  
   Spell* spellToCast;
   do {
-    cout << "Choose a spell to cast (name): ";
+    cout << "Choose a spell to cast"
+	 << endl << endl << "> ";
     string name;
     cin >> name;
     spellToCast = this->getSpellByName(name);
     if (spellToCast == NULL) {
-      cout << "There's no such a spell" << endl;
+      cout << endl << "There's no such a spell" << endl;
     }
   } while (spellToCast == NULL);
   Random rng;
   double dodgeProbability = rng.from0to1();
   if (dodgeProbability <= target->getDodge()) {
-    cout << "The monster dodged your attack" << endl;
+    cout << endl << "The monster dodged your attack" << endl;
     return;
   }
   int damage = this->dexterity +
@@ -870,16 +854,13 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
 	   << endl << endl << "> ";
       string name;
       list<Monster*> :: iterator it = monsters.begin();
-      getline(cin, name);
-      
-    for (it = monsters.begin() ; it != monsters.end(); ++it) {
+      getline(cin, name);      
+      for (it = monsters.begin() ; it != monsters.end(); ++it) {
     	if ((*it)->getName() == name) {
-    		monsterToAttack = (*it);
-    		break;
+	  monsterToAttack = (*it);
+	  break;
     	}
-    }
-
-
+      }
 
     if (monsterToAttack != NULL) {
 
@@ -890,9 +871,7 @@ void Hero :: handleAttackCase(list<Monster*>& monsters) {
     	  if (monsterToAttack->getHealthPower() == 0) {
     	    ++this->monstersKilled;
     	    monsters.remove(monsterToAttack);
-    	    delete monsterToAttack;
-
-    	   // TODO Remove this Common cell. maybe.
+    	    delete monsterToAttack;            
     	  }
     } else {
 
@@ -932,9 +911,8 @@ bool Hero :: handleCastSpellCase(list<Monster*>& monsters) {
        list<Monster*> :: const_iterator it = monsters.begin();
        
        string name;
-       getline(cin, name);
-
-     for (it = monsters.begin(); it != monsters.end(); ++it) {
+       getline(cin, name);       
+       for (it = monsters.begin(); it != monsters.end(); ++it) {
     	 if ((*it)->getName() == name) {
     		 monsterToAttack = (*it);
     		 break;
@@ -973,8 +951,7 @@ bool Hero :: handleUseCase() {
 	<< "Please enter the name of the potion you want to use"
 	<< endl << endl << "> ";
 
-	getline(cin, name);
-
+	getline(cin, name);        
 	for (list<Potion*> :: const_iterator it = potions.begin() ;
 			it != potions.end() ; it++ ) {
 		if (name == (*it)->getName()) {
@@ -988,7 +965,7 @@ bool Hero :: handleUseCase() {
 
 bool Hero :: handleEquipCase() {
   if (!this->getInventory().hasItems()) {
-    cout << "You have no items in your Inventory." << endl;
+    cout << endl << "You have no items in your Inventory." << endl;
     return false;
   }
   string name;
@@ -996,7 +973,7 @@ bool Hero :: handleEquipCase() {
     cout << endl
 	 << "Please enter the name of the weapon/armor you want to equip"
 	 << endl << endl << "> ";
-    cin >> name;
+    getline(cin, name);    
   } while (equip(name) == false);
   return true;
 }

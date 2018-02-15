@@ -281,7 +281,7 @@ void handleMoveCase(Hero* currentHero) {
       moved = true;
     }
     catch (HeroMoveException& e) {
-      cout << e.what() << endl;
+      cout << endl << e.what() << endl;
       moved = false;
     }
   }
@@ -781,5 +781,41 @@ void printPotionFrame(void) {
   cout << '+' << string(17, '-'); // DEXTERITY BONUS (15)
   cout << '+' << string(15, '-'); // AGILITY BONUS (13)
   cout << '+' << string(10, '-'); // DURATION
+  cout << '+' << endl;
+}
+
+void printIceSpellFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(11, '-'); // MANA COST
+  cout << '+' << string(12, '-'); // MIN DAMAGE
+  cout << '+' << string(12, '-'); // MAX DAMAGE
+  cout << '+' << string(18, '-'); // DAMAGE REDUCTION (16)
+  cout << '+' << string(10, '-');  // DURATION
+  cout << '+' << endl;
+}
+
+void printFireSpellFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(11, '-'); // MANA COST
+  cout << '+' << string(12, '-'); // MIN DAMAGE
+  cout << '+' << string(12, '-'); // MAX DAMAGE
+  cout << '+' << string(17, '-'); // ARMOR REDUCTION (15)
+  cout << '+' << string(10, '-');  // DURATION
+  cout << '+' << endl;
+}
+
+void printLightningSpellFrame(void) {
+  cout << '+' << string(24, '-'); // NAME
+  cout << '+' << string(7, '-');  // PRICE
+  cout << '+' << string(11, '-'); // MIN LEVEL
+  cout << '+' << string(11, '-'); // MANA COST
+  cout << '+' << string(12, '-'); // MIN DAMAGE
+  cout << '+' << string(12, '-'); // MAX DAMAGE
+  cout << '+' << string(17, '-'); // DODGE REDUCTION (15)
+  cout << '+' << string(10, '-');  // DURATION
   cout << '+' << endl;
 }

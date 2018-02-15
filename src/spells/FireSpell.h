@@ -17,9 +17,9 @@ public:
 		int 	val = 20,
 		int 	minL = 1,
 		int 	magicP = 10,
-		int		minDmg = 80,
+		int	minDmg = 80,
 		int 	maxDmg = 100,
-		double  reduction = 0.1,	// new data member.
+		double  reduction = 0.1,
 		int 	rounds = 3
 	);
 
@@ -27,9 +27,8 @@ public:
 	// The percentage which enemy damage will be reduced.
 	double reduceOponentArmorBy() const;
 	int    getReductionRounds() const;
-	string getInfo() const;
-
-        // Added by: (George Liontos)
+        void getInfo() const;
+  
         const string kindOf() const;
         bool operator==(const FireSpell& rValue) const;
 private:

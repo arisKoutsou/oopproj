@@ -17,9 +17,9 @@ public:
 		int 	val = 20,
 		int 	minL = 1,
 		int 	magicP = 10,
-		int		minDmg = 80,
+		int	minDmg = 80,
 		int 	maxDmg = 100,
-		double  reduction = 0.23,	// new data member.
+		double  reduction = 0.23,
 		int 	rounds = 1
 	);
 
@@ -27,9 +27,8 @@ public:
 	// The percentage which enemy damage will be reduced.
 	double reduceOponentDodgeBy() const;
 	int    getReductionRounds() const;
-	string getInfo() const;
+        void getInfo() const;
 
-        // Added by: (George Liontos)
         const string kindOf() const;
         bool operator==(const LightningSpell& rValue) const;
 private:

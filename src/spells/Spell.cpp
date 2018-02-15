@@ -51,19 +51,7 @@ int Spell::sellsFor() const {
   return (int)(value*sellRate);
 }
 
-string Spell::getInfo() const {
-  stringstream result;
-
-  result << "name: " << name << endl
-	 << "price: " << getValue() << endl
-	 << "sell for: " << sellsFor() << endl
-	 << "min level to aquire: " << minLevel << endl
-	 << "magic power required to cast: " << magicPowerRequired << endl
-	 << "damage range: " << getMinDamage() << " to " << getMaxDamage() << endl;
-
-  return result.str();
-
-}
+void Spell :: getInfo() const {}
 
 bool Spell :: operator==(const Spell& rValue) const {
   bool sameName;

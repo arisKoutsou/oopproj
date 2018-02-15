@@ -5,9 +5,14 @@
  *      Author: aris
  */
 
+#include <iostream>
 #include <iomanip>
 #include <sstream>
-#include "./FireSpell.h"
+
+#include "../game_utils.h"
+#include "FireSpell.h"
+
+using namespace std;
 
 FireSpell::FireSpell(
 	string 	nam,
@@ -16,7 +21,7 @@ FireSpell::FireSpell(
 	int 	magicP,
 	int	minDmg,
 	int 	maxDmg,
-	double  reduction,	// new data member.
+	double  reduction,
 	int rnds
 )
 : Spell(nam, val, minL, magicP, minDmg, maxDmg),
@@ -31,20 +36,29 @@ int FireSpell::getReductionRounds() const {
 	return rounds;
 }
 
-string FireSpell::getInfo() const {
-	stringstream result;
-	result << fixed << setprecision(2);
-
-	result << Spell::getInfo()
-		<< "oponent armor reduction: "
-		<< oponentArmorReduction*100 << "%" << endl
-		<< "takes effect for: "
-		<< rounds << " rounds" << endl;
-
-	return result.str();
+void FireSpell::getInfo() const {
+  size_t nameLength = getName().length();
+  int priceDigits = getDigits(getValue());
+  int levelDigits = getDigits(getMinLevel());
+  int manaDigits = getDigits(getMagicPowerRequired());
+  int minDamageDigits = getDigits(getMinDamage());
+  int maxDamageDigits = getDigits(getMaxDamage());
+  int nerfDigits = getDigits(reduceOponentArmorBy()) + 2;
+  int durationDigits = getDigits(getReductionRounds());  
+  printFireSpellFrame();
+  cout << '|'
+       << setw(12 + nameLength/2) << getName() << setw(13 - nameLength/2) << '|'
+       << setw(3 + priceDigits/2) << getValue() << setw(5 - priceDigits/2) << '|'
+       << setw(6 + levelDigits/2) << getMinLevel() << setw(6 - levelDigits/2) << '|'
+       << setw(5 + manaDigits/2) << getMagicPowerRequired() << setw(7 - manaDigits/2) << '|'
+       << setw(6 + minDamageDigits/2) << getMinDamage() << setw(7 - minDamageDigits/2) << '|'
+       << setw(6 + maxDamageDigits/2) << getMaxDamage() << setw(7 - maxDamageDigits/2) << '|'
+       << setw(9 + nerfDigits/2) << setprecision(2) << reduceOponentArmorBy()
+       << setw(9 - nerfDigits/2) << '|'
+       << setw(5 + durationDigits/2) << getReductionRounds() << setw(6 - durationDigits/2) << '|'
+       << endl;  
 }
 
-// Implemented by: (George Liontos)
 bool FireSpell :: operator==(const FireSpell& rValue) const {
   bool sameSpells;
   bool sameOponentArmorReduction;

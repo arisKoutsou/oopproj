@@ -17,6 +17,9 @@ class Spell;
 class Weapon;
 class Armor;
 class Potion;
+class IceSpell;
+class FireSpell;
+class LightningSpell;
 
 using namespace std;
 
@@ -37,8 +40,7 @@ public:
   Spell* getSpellByName(const string& spellName) const;// return pointer to spell.
   
   // Prints all the items and spells, including their info.
-  void printInfo() const;
-  void printSpells() const;
+  void printInfo();  
   void addItem(Item* item); // Adds an item to the inventory
   void addSpell(Spell* spell); // Adds a spell to the inventory
   void removeAndDeleteItem(Item* item); // Completely removes an items from the inventory
@@ -51,6 +53,9 @@ private:
   void printArmors(vector<Armor*>& armors);
   void printPotions(vector<Potion*>& potions);
   void printSpells();
+  void printIceSpells(vector<IceSpell*>& iceSpells);
+  void printFireSpells(vector<FireSpell*>& fireSpells);
+  void printLightningSpells(vector<LightningSpell*>& lightningSpells);
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;

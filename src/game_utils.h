@@ -14,7 +14,6 @@
 
 #include "random/Random.h"
 
-// NOTE (George): These numbers are just for testing
 #define MIN_MONSTERS 3
 #define MAX_MONSTERS 10
 
@@ -59,6 +58,9 @@ void printMonsterFrame(void);
 void printArmorFrame(void);
 void printWeaponFrame(void);
 void printPotionFrame(void);
+void printIceSpellFrame(void);
+void printFireSpellFrame(void);
+void printLightningSpellFrame(void);
 int getDigits(int n);
 void clearScreen(void);
 

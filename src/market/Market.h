@@ -8,7 +8,9 @@
 #define __MARKET_HEADER__
 
 #include <iostream>
+#include <vector>
 #include <list>
+
 #include "../menu/AllMenus.h"
 
 class Item;
@@ -16,6 +18,9 @@ class Spell;
 class Weapon;
 class Armor;
 class Potion;
+class IceSpell;
+class FireSpell;
+class LightningSpell;
 
 using namespace std;
 
@@ -43,6 +48,9 @@ private:
   void printArmors(vector<Armor*>& armors);
   void printPotions(vector<Potion*>& potions);
   void printSpells();
+  void printIceSpells(vector<IceSpell*>& iceSpells);
+  void printFireSpells(vector<FireSpell*>& fireSpells);
+  void printLightningSpells(vector<LightningSpell*>& lightningSpells);
   int maxCapacity;
   list<Item*> items;
   list<Spell*> spells;

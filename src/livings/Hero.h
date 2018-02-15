@@ -103,8 +103,7 @@ protected:
         BattleMenu battleMenu;
         BasicMenu gameMenu;
 
-private:
-	void printEquipedSpells() const;
+private:        
 	Spell* getSpellByName(const string& name);
 	bool usesBothHands() const; // returns true if the hero uses both hands
 	void equipWeapon(Weapon* weapon);
