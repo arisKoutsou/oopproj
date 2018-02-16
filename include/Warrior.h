@@ -8,7 +8,7 @@
 #ifndef LIVINGS_WARRIOR_H_
 #define LIVINGS_WARRIOR_H_
 
-#include "../Hero.h"
+#include "Hero.h"
 
 class Grid;
 
@@ -30,9 +30,7 @@ public:
 		int d = 100
 	);
 	void levelUp();	// Increase stats.
-
-	// Added by: (George Liontos)
-	bool operator==(const Warrior& rValue) const;
+        bool operator==(const Warrior& rValue) const;
   
 private:
 	const double agilityBonus;

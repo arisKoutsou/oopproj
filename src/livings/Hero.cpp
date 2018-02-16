@@ -10,22 +10,22 @@
 #include <sstream>
 #include <iomanip>
 
-#include "Hero.h"
-#include "../game_utils.h"
-#include "../grid/Grid.h"
-#include "../exceptions/heroExceptions.h"
-#include "../items/Item.h"
-#include "../items/Weapon.h"
-#include "../items/Armor.h"
-#include "../items/Potion.h"
-#include "../spells/Spell.h"
-#include "../spells/IceSpell.h"
-#include "../spells/FireSpell.h"
-#include "../spells/LightningSpell.h"
-#include "../inventory/Inventory.h"
-#include "../market/Market.h"
-#include "../random/Random.h"
-#include "Monster.h"
+#include "../../include/Hero.h"
+#include "../../include/Monster.h"
+#include "../../include/game_utils.h"
+#include "../../include/Grid.h"
+#include "../../include/heroExceptions.h"
+#include "../../include/Item.h"
+#include "../../include/Weapon.h"
+#include "../../include/Armor.h"
+#include "../../include/Potion.h"
+#include "../../include/Spell.h"
+#include "../../include/IceSpell.h"
+#include "../../include/FireSpell.h"
+#include "../../include/LightningSpell.h"
+#include "../../include/Inventory.h"
+#include "../../include/Market.h"
+#include "../../include/Random.h"
 
 using namespace std;
 
@@ -481,11 +481,13 @@ void Hero::buy(const string& itemName) {
 
   Item* itemToBuy = currentMarket->getItemByName(itemName);
 
-  if (itemToBuy != NULL) {
+  if (itemToBuy != NULL) {    
     string kind = itemToBuy->kindOf();
     Item* itemToAdd;
     bool equiped = false;
 
+    cout << endl << "Bought " << itemName
+	 << " (" << kind << ")";
     if (kind == "Weapon") {
       itemToAdd = new Weapon(*static_cast<Weapon*>(itemToBuy));
       Weapon* aux = static_cast<Weapon*>(itemToAdd);
@@ -521,7 +523,9 @@ void Hero::buy(const string& itemName) {
     string kind = spellToBuy->kindOf();
     Spell* spellToAdd;
     bool equiped = false;
-    
+
+    cout << endl << "Bought " << itemName
+	 << " (" << kind << ")";
     if (kind == "IceSpell") {
       spellToAdd = new IceSpell(*static_cast<IceSpell*>(spellToBuy));
     } else if (kind == "FireSpell") {
@@ -546,6 +550,8 @@ void Hero::sell(const string& itemName) {
     Item* itemToSell = inventory.getItemByName(itemName);
 
 	if (itemToSell != NULL) {
+	  cout << endl << "Sold " << itemName
+	       << " (" << itemToSell->kindOf() << ")";
 		inventory.removeAndDeleteItem(itemToSell);
 		setMoney(getMoney() + itemToSell->sellsFor());
 		return;
@@ -553,6 +559,9 @@ void Hero::sell(const string& itemName) {
 
 	Spell* spellToSell = inventory.getSpellByName(itemName);
 	if (spellToSell != NULL) {
+	  cout << endl << "Sold " << itemName
+	       << " (" << itemToSell->kindOf() << ")";
+	  
 		inventory.removeAndDeleteSpell(spellToSell);
 		setMoney(getMoney() + spellToSell->getValue()/2);
 		return;

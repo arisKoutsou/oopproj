@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "Warrior.h"
+#include "../../../include/Warrior.h"
 
 Warrior::Warrior(
 	Grid* gr,

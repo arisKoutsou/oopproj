@@ -12,7 +12,7 @@
 #include <vector>
 #include <list>
 
-#include "random/Random.h"
+#include "Random.h"
 
 #define MIN_MONSTERS 3
 #define MAX_MONSTERS 10

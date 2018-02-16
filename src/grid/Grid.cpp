@@ -5,12 +5,12 @@
 // Created: Tue Dec 26 19:24:55 2017 (+0200)
 
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
 #include <vector>
-#include "Grid.h"
-#include "../market/Market.h"
-#include "../livings/Living.h"
+
+#include "../../include/Grid.h"
+#include "../../include/Market.h"
+#include "../../include/Living.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ bool Grid :: Tile :: isNonAccessible() const {
 }
 
 bool Grid :: Tile :: hasLiving() const {
-  return !livings.empty();	// fixed, "!" missing.
+  return !livings.empty();
 }
 
 bool Grid :: Tile :: hasMarket() const {
@@ -52,19 +52,12 @@ int Grid :: Tile :: getNumberOfLivings() const {
 }
 
 Market* Grid :: Tile :: getMarket() const {
-  // NOTE (George): This function assumes that a market at
-  // the specific tile exists
-  return (market);	// (@aris) Return NULL if there is no market. That way we can be sure.
+  return (market);
 }
-/* Temporarily removed... didnt compile...
-const list<Living*>& Grid :: Tile :: getLivings() const {
-  return this->livings;
-}
-*/
 
 Grid :: Grid(int _maxY, int _maxX, bool* _tileInfo)
 
-  : maxX(_maxX), maxY(_maxY), marketCount(0) {
+  : maxX(_maxX), maxY(_maxY) {
 
   size_t auxI = 0U;
   
@@ -96,19 +89,16 @@ int Grid :: getMaxY() const {
 }
  
 void Grid :: addMarket(int row, int col, Market* _market) {
-  if (tiles[row][col].hasMarket()) {	// market == NULL means there is no market at that tile.
+  if (tiles[row][col].hasMarket()) {
     cerr << "You can't add more than one market in a tile." << endl;
     return;
   }
-  // (@aris)
-  if (tiles[row][col].isNonAccessible()) {	// If it's non accessible u cant put a market in it.
-	  cerr << "You can't add a market at a nonAccessible tile." << endl;
-	  return;
+  
+  if (tiles[row][col].isNonAccessible()) {
+    cerr << "You can't add a market at a nonAccessible tile." << endl;
+    return;
   }
-  // NOTE (George): We don't need copy constructor for this
-  // as we don't have any pointers as data members
-  tiles[row][col].market = _market;
-  marketCount++;
+  tiles[row][col].market = _market;  
 }
 
 
@@ -134,8 +124,6 @@ void Grid :: removeLiving(int row, int col, Living* living) {
   tiles[row][col].livings.remove(living);
 }
 
-// (@aris) Implemented displayMap function.
-// Prints "+" and letters to represent grid.
 void Grid :: displayMap() const {
 
   int columns = tiles[0].size();	// Get the size of the vector of tiles.

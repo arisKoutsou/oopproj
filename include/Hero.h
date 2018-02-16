@@ -8,11 +8,12 @@
 #ifndef LIVINGS_HERO_H_
 #define LIVINGS_HERO_H_
 
-#include "./Living.h"
-#include "../inventory/Inventory.h"
-#include "../menu/AllMenus.h"
-#include "../grid/Grid.h"
 #include <vector>
+
+#include "Living.h"
+#include "Inventory.h"
+#include "AllMenus.h"
+#include "Grid.h"
 
 class Tile;
 class Weapon;
@@ -21,8 +22,7 @@ class Monster;
 class Potion;
 
 class Hero : public Living {
-public:
-        // Posible directions for heros to move
+public:        
         typedef enum {
 	  UP, DOWN, LEFT,
 	  RIGHT, UNKNOWN
@@ -72,9 +72,7 @@ public:
 	void sell(const string&);	// Sells item, and gains money.
 	BasicMenu& getGameMenu() ;
 	void castSpell(Monster* target);
-	void attack(Monster* monster);	// Reduces monster's health.
-
-	// IMPROTANT: Call this function whenever a hero finishes his round.
+	void attack(Monster* monster);	// Reduces monster's health.        
         void updatePotions();	// Checks potions and goes to next round.
 	int getMonstersKilled() const;
 	void resetBattleStats();
@@ -88,20 +86,20 @@ protected:
 	list<Potion*> potions;
 
 	const int maxMagicPower;
-	int 	magicPower;	// Mana.
-	int 	strength;
-	double 	agility;	// P(dodge) an attack.
-	int 	dexterity;
-	int 	money;		// Gold.
-	int 	expirience;	// Xp
-	int     monstersKilled;
-	int 	milestone; 	// Experience to exceed for level-up.
+	int magicPower;	// Mana.
+	int strength;
+	double agility;	// P(dodge) an attack.
+	int dexterity;
+	int money;		// Gold.
+	int expirience;	// Xp
+	int monstersKilled;
+	int milestone; 	// Experience to exceed for level-up.
 	Inventory inventory;	// Implemented by george.
                                 // Contains all items and spells.
         BattleMenu battleMenu;
         BasicMenu gameMenu;
 
-private:        
+private:
 	Spell* getSpellByName(const string& name);
 	bool usesBothHands() const; // returns true if the hero uses both hands
 	void equipWeapon(Weapon* weapon);

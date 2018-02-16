@@ -9,8 +9,8 @@
 #include <iomanip>
 #include <sstream>
 
-#include "../game_utils.h"
-#include "IceSpell.h"
+#include "../../include/game_utils.h"
+#include "../../include/IceSpell.h"
 
 using namespace std;
 

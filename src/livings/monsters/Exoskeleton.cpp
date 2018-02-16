@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "Exoskeleton.h"
+#include "../../../include/Exoskeleton.h"
 
 Exoskeleton::Exoskeleton(
 	Grid* gr,

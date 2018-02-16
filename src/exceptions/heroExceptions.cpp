@@ -6,7 +6,8 @@
 
 #include <iostream>
 #include <string>
-#include "heroExceptions.h"
+
+#include "../../include/heroExceptions.h"
 
 using namespace std;
 

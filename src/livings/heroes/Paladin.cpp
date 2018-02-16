@@ -5,8 +5,7 @@
  *      Author: aris
  */
 
-#include "Paladin.h"
-#include "../Hero.h"
+#include "../../../include/Paladin.h"
 
 Paladin::Paladin(
 	Grid* gr,
@@ -31,7 +30,6 @@ void Paladin::levelUp() {
 	strength += strength*strengthBonus;
 }
 
-// Implemented by: (George Liontos)
 bool Paladin :: operator==(const Paladin& rValue) const {
   bool sameHeros;
   bool sameStrengthBonus;

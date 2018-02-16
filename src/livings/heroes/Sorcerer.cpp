@@ -4,7 +4,7 @@
  *  Created on: Jan 4, 2018
  *      Author: aris
  */
-#include "Sorcerer.h"
+#include "../../../include/Sorcerer.h"
 
 Sorcerer::Sorcerer(
 	Grid* gr,

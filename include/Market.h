@@ -11,7 +11,7 @@
 #include <vector>
 #include <list>
 
-#include "../menu/AllMenus.h"
+#include "AllMenus.h"
 
 class Item;
 class Spell;
@@ -40,8 +40,6 @@ public:
   void printInfo();  // Prints every item and spell in the market
   void addItem(Item* item); // adds an item in the market
   void addSpell(Spell* spell); // adds a spell in the market
-  void removeItem(Item* item); // removes an item from the market
-  void removeSpell(Spell* spell); // removes a spell from the market
 private:
   void printItems();
   void printWeapons(vector<Weapon*>& weapons);

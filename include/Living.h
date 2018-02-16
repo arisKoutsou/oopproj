@@ -33,7 +33,7 @@ public:
 		int y;
 	};
   
-	Living(		// Don't pass level as argument because at initialization it's 1.
+        Living(	
 	        Grid* gr,
 		int y,
 		int x,
@@ -44,25 +44,22 @@ public:
 
 	int getHealthPower() const;
         int getMaxHealthPower() const;
-        int getLevel() const;
+        int getLevel() const; 
+        Position& getPosition();
 	const string& getName() const;  
-	virtual void receiveDamage(int damageDealt);	// Subtract from hp the damageDealt.
-	// Added by: (George Liontos)
-	virtual void setHealthPower(int health);
-
-	Position& getPosition();
+	virtual void receiveDamage(int damageDealt);	// Subtract from hp the damageDealt.        
+	virtual void setHealthPower(int health);  
         virtual void printStats() const;
 	virtual string kindOf() const = 0;
 	virtual bool operator==(const Living& rValue) const;
-
 protected:
-	Grid* 	grid;
-	int 	level;			// Level starting from 0.
+	Grid* grid;
+        int level;
         int maxHealth;
 private:
 	Position p;
-	string 	name;
-	int 	healthPower;	// hp with a stupid name...       
+	string name;
+        int healthPower;
 };
 
 #endif /* LIVINGS_LIVING_H_ */

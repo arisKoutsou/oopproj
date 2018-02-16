@@ -8,8 +8,8 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../game_utils.h"
-#include "Potion.h"
+#include "../../include/game_utils.h"
+#include "../../include/Potion.h"
 
 using namespace std;
 

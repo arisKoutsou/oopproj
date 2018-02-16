@@ -9,8 +9,8 @@
 #include <cstring>
 #include <iomanip>
 
-#include "./Living.h"
-#include "../grid/Grid.h"
+#include "../../include/Living.h"
+#include "../../include/Grid.h"
 
 Living::Living(
 	Grid* gr,
@@ -21,7 +21,7 @@ Living::Living(
 )
   : grid(gr), p(x, y),
     name(nam), level(1),
-    healthPower(hp),	// Level start at 1.
+    healthPower(hp),
     maxHealth(hp)
 {
 }
@@ -29,7 +29,7 @@ Living::Living(
 Living::~Living() {}
 
 int Living::getHealthPower() const {
-	return healthPower;
+  return healthPower;
 }
 
 int Living :: getMaxHealthPower() const {
@@ -37,20 +37,18 @@ int Living :: getMaxHealthPower() const {
 }
 
 int Living::getLevel() const {
-	return level;
+  return level;
 }
 
 const string& Living::getName() const {
-	return name;
+  return name;
 }
 
 void Living::receiveDamage(int damageDealt) {
-	healthPower -= damageDealt;	// Derived classes use this.
-	// And then kill the living.
-	healthPower = (healthPower < 0) ? 0 : healthPower;
+  healthPower -= damageDealt;  
+  healthPower = (healthPower < 0) ? 0 : healthPower;
 }
 
-// Implemented by: (George Liontos)
 void Living :: setHealthPower(int health) {
   healthPower = health;
 }
@@ -103,6 +101,5 @@ bool Living :: Position :: operator==(const Position& rValue) const {
 
   return (sameX && sameY);
 }
-
 
 void Living :: printStats() const {}

@@ -12,25 +12,25 @@
 #include <string>
 #include <limits>
 
-#include "game_utils.h"
-#include "grid/Grid.h"
-#include "menu/AllMenus.h"
-#include "market/Market.h"
-#include "livings/Hero.h"
-#include "items/Weapon.h"
-#include "items/Armor.h"
-#include "items/Potion.h"
-#include "spells/FireSpell.h"
-#include "spells/IceSpell.h"
-#include "spells/LightningSpell.h"
-#include "exceptions/heroExceptions.h"
-#include "livings/heroes/Warrior.h"
-#include "livings/heroes/Sorcerer.h"
-#include "livings/heroes/Paladin.h"
-#include "livings/Monster.h"
-#include "livings/monsters/Dragon.h"
-#include "livings/monsters/Spirit.h"
-#include "livings/monsters/Exoskeleton.h"
+#include "../include/game_utils.h"
+#include "../include/Grid.h"
+#include "../include/AllMenus.h"
+#include "../include/Market.h"
+#include "../include/Hero.h"
+#include "../include/Weapon.h"
+#include "../include/Armor.h"
+#include "../include/Potion.h"
+#include "../include/FireSpell.h"
+#include "../include/IceSpell.h"
+#include "../include/LightningSpell.h"
+#include "../include/heroExceptions.h"
+#include "../include/Warrior.h"
+#include "../include/Sorcerer.h"
+#include "../include/Paladin.h"
+#include "../include/Monster.h"
+#include "../include/Dragon.h"
+#include "../include/Spirit.h"
+#include "../include/Exoskeleton.h"
 
 using namespace std;
 
@@ -70,9 +70,9 @@ void generateMap() {
   Random rng;
   ofstream newMap("input/map.txt");
   newMap << "# Map goes as follows: Each line has information about a tile" << endl
-	 << "# First value (true, false) is about nonAccessible" << endl
-	 << "# Second value (true, false) is about common" << endl
-	 << "# Third value (true, false) is about market. If it's true "
+	 << "# First value (true|false) is about nonAccessible" << endl
+	 << "# Second value (true|false) is about common" << endl
+	 << "# Third value (true|false) is about market. If it's true "
 	 << "then an in is given which is the capacity of the market" << endl
 	 << "# First line has the dimensions of the grid (row, col)" << endl
 	 << "# The delimiter is ','" << endl << endl;
@@ -113,7 +113,6 @@ void initGrid(void) {
   vector<string> tokens;
   skipCommentsAndWhitespace(map);
   tokenize(tokens);
-  // REALLY??? stoi is C++11 :(
   int rows = atoi(tokens[0].c_str());
   int columns = atoi(tokens[1].c_str());
   skipCommentsAndWhitespace(map);
@@ -374,10 +373,9 @@ void createMonsters(void) {
   int numberOfMonsters = rng.fromMintoMax(1, 2);
   int heroY = heroes[0]->getPosition().getY();
   int heroX = heroes[0]->getPosition().getX();
-  // Calculate the average level. fixed.
   int averageLevel = 0;
   for (int i = 0; i < heroes.size(); i++) {
-	  averageLevel += heroes[i]->getLevel();
+    averageLevel += heroes[i]->getLevel();
   }
   averageLevel /= heroes.size();
 
@@ -444,8 +442,7 @@ bool monstersWon(void) {
 void claimRewards(void) {
   for (size_t i = 0U; i != heroes.size(); ++i) {
     int monstersKilled = heroes[i]->getMonstersKilled();
-    if (monstersKilled != 0) {
-      // TODO (George): Find a formula for getting the reward money
+    if (monstersKilled != 0) {      
       int experienceToClaim = heroes[i]->getLevel()*0.2*monstersKilled + 50*monstersKilled;
 
       heroes[i]->setExperience(heroes[i]->getExperience() + experienceToClaim);
@@ -692,12 +689,12 @@ void run(void) {
   bool firstWelcome = true;
 
   do {
-	if (firstWelcome) {
-		mainMenu.welcome();
-		firstWelcome = false;
-	} else {
-		mainMenu.displayMenu();
-	}
+    if (firstWelcome) {
+      mainMenu.welcome();
+      firstWelcome = false;
+    } else {
+      mainMenu.displayMenu();
+    }
 
     userInput = mainMenu.prompt();
     transform(userInput.begin(), userInput.end(),	      
@@ -709,8 +706,8 @@ void run(void) {
     } else if (userInput == "play") {
       play();
     } else if (userInput == "help") {
-       clearScreen();
-       mainMenu.help();
+      clearScreen();
+      mainMenu.help();
     } 
     clearScreen();	// When exiting from any case. Print ClearScreen.
   } while (userInput != "quit");
@@ -757,65 +754,66 @@ void printMonsterFrame(void) {
 }
 
 void printArmorFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(18, '-'); // DAMAGE REDUCTION (16)
+  cout << '+' << string(24, '-'); 
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(18, '-');
   cout << '+' << endl;
 }
 
 void printWeaponFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(8, '-');  // DAMAGE
-  cout << '+' << string(12, '-'); // TWO HANDED (10)
+  cout << '+' << string(24, '-'); 
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(8, '-');  
+  cout << '+' << string(12, '-');
   cout << '+' << endl;
 }
 
 void printPotionFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(16, '-'); // STRENGTH BONUS (14)
-  cout << '+' << string(17, '-'); // DEXTERITY BONUS (15)
-  cout << '+' << string(15, '-'); // AGILITY BONUS (13)
-  cout << '+' << string(10, '-'); // DURATION
+  cout << '+' << string(24, '-'); 
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(16, '-');
+  cout << '+' << string(17, '-');
+  cout << '+' << string(15, '-');
+  cout << '+' << string(10, '-'); 
   cout << '+' << endl;
 }
 
 void printIceSpellFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(11, '-'); // MANA COST
-  cout << '+' << string(12, '-'); // MIN DAMAGE
-  cout << '+' << string(12, '-'); // MAX DAMAGE
-  cout << '+' << string(18, '-'); // DAMAGE REDUCTION (16)
-  cout << '+' << string(10, '-');  // DURATION
+  cout << '+' << string(24, '-'); 
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(12, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(18, '-');
+  cout << '+' << string(10, '-'); 
   cout << '+' << endl;
 }
 
 void printFireSpellFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(11, '-'); // MANA COST
-  cout << '+' << string(12, '-'); // MIN DAMAGE
-  cout << '+' << string(12, '-'); // MAX DAMAGE
-  cout << '+' << string(17, '-'); // ARMOR REDUCTION (15)
-  cout << '+' << string(10, '-');  // DURATION
+  cout << '+' << string(24, '-'); 
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(12, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(17, '-');
+  cout << '+' << string(10, '-'); 
   cout << '+' << endl;
 }
 
 void printLightningSpellFrame(void) {
-  cout << '+' << string(24, '-'); // NAME
-  cout << '+' << string(7, '-');  // PRICE
-  cout << '+' << string(11, '-'); // MIN LEVEL
-  cout << '+' << string(11, '-'); // MANA COST
-  cout << '+' << string(12, '-'); // MIN DAMAGE
-  cout << '+' << string(12, '-'); // MAX DAMAGE
-  cout << '+' << string(17, '-'); // DODGE REDUCTION (15)
-  cout << '+' << string(10, '-');  // DURATION
+  cout << '+' << string(24, '-');
+  cout << '+' << string(7, '-');  
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(11, '-'); 
+  cout << '+' << string(12, '-');
+  cout << '+' << string(12, '-');
+  cout << '+' << string(17, '-');
+  cout << '+' << string(10, '-'); 
   cout << '+' << endl;
 }
+

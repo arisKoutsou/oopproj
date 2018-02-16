@@ -1,4 +1,4 @@
-#include "game_utils.h"
+#include "../include/game_utils.h"
 
 int main(void) {
   run();

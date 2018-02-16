@@ -8,9 +8,9 @@
 #include <iomanip>
 #include <sstream>
 
-#include "Weapon.h"
-#include "../game_utils.h"
-#include "../items/Item.h"
+#include "../../include/Weapon.h"
+#include "../../include/game_utils.h"
+#include "../../include/Item.h"
 
 using namespace std;
 

@@ -8,8 +8,8 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../game_utils.h"
-#include "Armor.h"
+#include "../../include/game_utils.h"
+#include "../../include/Armor.h"
 
 using namespace std;
 

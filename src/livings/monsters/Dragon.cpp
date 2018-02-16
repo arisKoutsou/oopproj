@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "Dragon.h"
+#include "../../../include/Dragon.h"
 
 Dragon::Dragon(
 	Grid* gr,

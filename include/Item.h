@@ -10,6 +10,7 @@
 #define ITEMS_ITEM_H_
 
 #include <string>
+
 using namespace std;
 
 class Item {

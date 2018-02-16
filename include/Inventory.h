@@ -10,7 +10,8 @@
 #include <iostream>
 #include <list>
 #include <vector>
-#include "../menu/AllMenus.h"
+
+#include "AllMenus.h"
 
 class Item;
 class Spell;

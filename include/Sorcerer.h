@@ -1,24 +1,24 @@
 /*
- * Paladin.h
+ * Sorcerer.h
  *
  *  Created on: Jan 4, 2018
  *      Author: aris
  */
 
-#ifndef LIVINGS_PALADIN_H_
-#define LIVINGS_PALADIN_H_
+#ifndef LIVINGS_SORCERER_H_
+#define LIVINGS_SORCERER_H_
 
-#include "../Hero.h"
+#include "Hero.h"
 
 class Grid;
 
-class Paladin: public Hero {
+class Sorcerer: public Hero {
 	// This type of hero is better at:
-	// Strength, Dexterity.
+	// Agility, Dexterity.
 	// At level up these characteristics
 	// Get an extra bonus...
 	public:
-		Paladin(
+		Sorcerer(
 			Grid* gr,
 			string nam = "",
 			int y = 0,
@@ -32,11 +32,10 @@ class Paladin: public Hero {
 		void levelUp();	// Increase stats.
 
         // Added by: (George Liontos)
-        bool operator==(const Paladin& rValue) const;
-
-        private:
-		const double strengthBonus;
+        bool operator==(const Sorcerer& rValue) const;
+	private:
+		const double agilityBonus;
 		const double dexterityBonus;
 };
 
-#endif /* LIVINGS_PALADIN_H_ */
+#endif /* LIVINGS_SORCERER_H_ */

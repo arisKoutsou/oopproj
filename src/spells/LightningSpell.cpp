@@ -9,8 +9,8 @@
 #include <iomanip>
 #include <sstream>
 
-#include "../game_utils.h"
-#include "LightningSpell.h"
+#include "../../include/game_utils.h"
+#include "../../include/LightningSpell.h"
 
 using namespace std;
 

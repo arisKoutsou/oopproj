@@ -10,7 +10,7 @@
 
 #include <list>
 
-#include "./Living.h"
+#include "Living.h"
 
 class Grid;
 class Hero;
@@ -25,7 +25,7 @@ public:
 	private:
 	  int duration;
 	  double nerfAmount;
-	  Type nerfType;	  
+	  Type nerfType;
 	public:
 	  Nerf(int duration, double nerfAmount, Type nerfType);
 	  int getDuration() const;
@@ -45,6 +45,7 @@ public:
 		double arm = 0.1,
 		double dodg = 0.1                
 	);
+
         void setLevel(int level);
         double getDamageReductionFactor() const;
 	double getDodge() const;

@@ -7,10 +7,10 @@
 #include <iostream>
 #include <iomanip>
 
-#include "../game_utils.h"
-#include "./Monster.h"
-#include "./Hero.h"
-#include "../random/Random.h"
+#include "../../include/game_utils.h"
+#include "../../include/Monster.h"
+#include "../../include/Hero.h"
+#include "../../include/Random.h"
 
 Monster :: Nerf :: Nerf(int _duration, double amount, Type _nerfType)
   : duration(_duration), nerfAmount(amount), nerfType(_nerfType) {}
@@ -48,19 +48,19 @@ Monster::Monster(
   damageReductionFactor(arm), dodge(dodg) {}
 
 double Monster::getDamageReductionFactor() const {
-	return damageReductionFactor;
+  return damageReductionFactor;
 }
 
 double Monster::getDodge() const {
-	return dodge;
+  return dodge;
 }
 
 int Monster::getMaxDamage() const {
-	return maxDamage;
+  return maxDamage;
 }
 
 int Monster::getMinDamage() const {
-	return minDamage;
+  return minDamage;
 }
 
 string Monster :: kindOf() const {
@@ -93,30 +93,28 @@ void Monster::printStats() const {
 }
 
 void Monster::receiveDamage(int damageDealt) {
-	Living::receiveDamage(damageDealt);
-	if (this->getHealthPower() == 0) {
-	  cout << "A monster died..." << endl; // This needs fixing...
-	}
+  Living::receiveDamage(damageDealt);
+  if (this->getHealthPower() == 0) {
+    cout << "A monster died..." << endl;
+  }
 }
 
 void Monster::attack(Hero* hero) {
-	Random random;
+  Random random;
 
-	if ( random.boolean(hero->getAgility()) ) {
-		// Dodged the attack.
-		// Do nothing.
-	} else {
-		int monsterDamage = 0;
-		// Calculate the damage that the Monster can cause.
-		monsterDamage += random.fromMintoMax(this->minDamage, this->maxDamage);
+  if (random.boolean(hero->getAgility())) {
+  } else {
+    int monsterDamage = 0;
+    // Calculate the damage that the Monster can cause.
+    monsterDamage += random.fromMintoMax(this->minDamage, this->maxDamage);
 
-		// Calculate the damage reduction.
-		int damageReduction = 0;
+    // Calculate the damage reduction.
+    int damageReduction = 0;
 
-		damageReduction += hero->getDamageReductionFactor()*monsterDamage;
+    damageReduction += hero->getDamageReductionFactor()*monsterDamage;
 
-		hero->receiveDamage(monsterDamage - damageReduction);
-	}
+    hero->receiveDamage(monsterDamage - damageReduction);
+  }
 
 }
 

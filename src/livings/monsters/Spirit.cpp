@@ -5,7 +5,7 @@
  *      Author: aris
  */
 
-#include "Spirit.h"
+#include "../../../include/Spirit.h"
 
 Spirit::Spirit(
 	Grid* gr,

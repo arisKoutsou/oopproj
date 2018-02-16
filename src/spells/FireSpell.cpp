@@ -9,8 +9,8 @@
 #include <iomanip>
 #include <sstream>
 
-#include "../game_utils.h"
-#include "FireSpell.h"
+#include "../../include/game_utils.h"
+#include "../../include/FireSpell.h"
 
 using namespace std;
 

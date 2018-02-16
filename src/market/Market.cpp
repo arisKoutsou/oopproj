@@ -9,16 +9,16 @@
 #include <vector>
 #include <list>
 
-#include "Market.h"
-#include "../game_utils.h"
-#include "../items/Item.h"
-#include "../items/Weapon.h"
-#include "../items/Armor.h"
-#include "../items/Potion.h"
-#include "../spells/Spell.h"
-#include "../spells/IceSpell.h"
-#include "../spells/FireSpell.h"
-#include "../spells/LightningSpell.h"
+#include "../../include/Market.h"
+#include "../../include/game_utils.h"
+#include "../../include/Item.h"
+#include "../../include/Weapon.h"
+#include "../../include/Armor.h"
+#include "../../include/Potion.h"
+#include "../../include/Spell.h"
+#include "../../include/IceSpell.h"
+#include "../../include/FireSpell.h"
+#include "../../include/LightningSpell.h"
 
 using namespace std;
 
@@ -254,26 +254,6 @@ void Market :: addSpell(Spell* spell) {
   }
 
   spells.push_back(spell);
-}
-
-void Market :: removeItem(Item* item) {
-  if (this->getCurrentCapacity() == 0) {
-    cout << "Market is already empty" << endl;
-    return;
-  }
-
-  items.remove(item);
-  delete item;
-}
-
-void Market :: removeSpell(Spell* spell) {
-  if (this->getCurrentCapacity() == 0) {
-    cout << "Market is already empty" << endl;
-    return;
-  }
-
-  spells.remove(spell);
-  delete spell;
 }
 
 Item* Market :: getItemByName(const string& name) {

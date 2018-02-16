@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "./Item.h"
+#include "../../include/Item.h"
 
 using namespace std;
 

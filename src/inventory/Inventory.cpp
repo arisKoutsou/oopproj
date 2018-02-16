@@ -9,16 +9,16 @@
 #include <list>
 #include <vector>
 
-#include "Inventory.h"
-#include "../game_utils.h"
-#include "../items/Weapon.h"
-#include "../items/Armor.h"
-#include "../items/Potion.h"
-#include "../items/Item.h"
-#include "../spells/Spell.h"
-#include "../spells/IceSpell.h"
-#include "../spells/FireSpell.h"
-#include "../spells/LightningSpell.h"
+#include "../../include/Inventory.h"
+#include "../../include/game_utils.h"
+#include "../../include/Weapon.h"
+#include "../../include/Armor.h"
+#include "../../include/Potion.h"
+#include "../../include/Item.h"
+#include "../../include/Spell.h"
+#include "../../include/IceSpell.h"
+#include "../../include/FireSpell.h"
+#include "../../include/LightningSpell.h"
 
 using namespace std;
 
@@ -63,15 +63,15 @@ bool Inventory :: hasSpells() const {
 }
 
 bool Inventory::hasPotions() const {
-	list<Item*> :: const_iterator itemIterator = items.begin();
+  list<Item*> :: const_iterator itemIterator = items.begin();
 
-	for ( ; itemIterator != items.end() ; itemIterator++) {
-		if ((*itemIterator)->kindOf() == "Potion") {
-			return true;
-		}
-	}
+  for ( ; itemIterator != items.end() ; itemIterator++) {
+    if ((*itemIterator)->kindOf() == "Potion") {
+      return true;
+    }
+  }
 
-	return false;
+  return false;
 }
 
 void Inventory :: printWeapons(vector<Weapon*>& weapons) {
@@ -273,8 +273,6 @@ void Inventory :: addSpell(Spell* spell) {
 }
 
 void Inventory :: removeAndDeleteItem(Item* item) {
-  // This check can be ommited. If the inventory is already empty
-  // then we should not be able to select an item to remove
   if (this->getCurrentCapacity() == 0) {
     cout << "Your inventory is already empty" << endl;
     return;
@@ -285,8 +283,6 @@ void Inventory :: removeAndDeleteItem(Item* item) {
 }
 
 void Inventory :: removeAndDeleteSpell(Spell* spell) {
-  // This check can be ommited. If the inventory is already empty
-  // then we should not be able to select a spell to remove
   if (this->getCurrentCapacity() == 0) {
     cout << "Your inventory is aldready empty" << endl;
     return;
@@ -319,27 +315,27 @@ InventoryMenu& Inventory :: getMenu() {
 }
 
 Item* Inventory::getItemByName(const string& itemName) const {
-	list<Item*>::const_iterator it = items.begin();
+  list<Item*>::const_iterator it = items.begin();
 
-	for ( ; it != items.end() ; it++) {
-		if ((*it)->getName() == itemName) {
-			return *it;
-		}
-	}
+  for ( ; it != items.end() ; it++) {
+    if ((*it)->getName() == itemName) {
+      return *it;
+    }
+  }
 
-	return NULL;
+  return NULL;
 }
 
 Spell* Inventory::getSpellByName(const string& spellName) const {
-	list<Spell*>::const_iterator it = spells.begin();
+  list<Spell*>::const_iterator it = spells.begin();
 
-	for ( ; it != spells.end() ; it++) {
-		if ((*it)->getName() == spellName) {
-			return *it;
-		}
-	}
+  for ( ; it != spells.end() ; it++) {
+    if ((*it)->getName() == spellName) {
+      return *it;
+    }
+  }
 
-	return NULL;
+  return NULL;
 }
 
 void Inventory :: printPotions() {
