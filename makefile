@@ -8,4 +8,4 @@ game : $(SOURCES) $(HEADERS)
 .PHONY: clean
 
 clean:
-	rm -f game $(shell find -name "*.o")
+	rm -f game
