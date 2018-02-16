@@ -2,7 +2,7 @@
 	•Aris Koutsouridis (1115201600078)
 	•George Liontos (1115201600094)
 
-2) In order to compile the compile just use the included makefile (write make).
+2) In order to compile the program just use the included makefile (write make).
 
 ==================================WARNING(!)===============================
 
