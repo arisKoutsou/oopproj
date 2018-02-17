@@ -734,6 +734,7 @@ void printHeroFrame(void) {
   cout << '+' << string(7, '-');
   cout << '+' << string(8, '-');
   cout << '+' << string(8, '-');
+  cout << '+' << string(8, '-');
   cout << '+' << string(12, '-');
   cout << '+' << string(11, '-');
   cout << '+' << string(13, '-');

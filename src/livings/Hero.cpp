@@ -156,6 +156,7 @@ void Hero :: printStats() const {
   cout << '|'
        << setw(10) << "NAME" << setw(7) << '|'
        << setw(6) << "LEVEL" << setw(2) << '|'
+	   << setw(6) << "MONEY"  << setw(3) << '|'
        << setw(5) << "HP" << setw(4) << '|'
        << setw(6) << "MANA" << setw(3) << '|'
        << setw(10) << "STRENGTH" << setw(3) << '|'
@@ -167,6 +168,7 @@ void Hero :: printStats() const {
   printHeroFrame();
   size_t nameLength = getName().length();
   int levelDigits = getDigits(level);
+  int goldDigits = getDigits(getMoney());
   int hpDigits = getDigits(getHealthPower());
   int manaDigits = getDigits(getMagicPower());
   int strengthDigits = getDigits(getStrength());
@@ -179,6 +181,7 @@ void Hero :: printStats() const {
   cout << '|'
        << setw(9 + nameLength/2) << getName() << setw(8 - nameLength/2) << '|'
        << setw(4 + levelDigits/2) << level << setw(4 - levelDigits/2) << '|'
+	   << setw(4 + goldDigits/2) << getMoney() << setw(4 - levelDigits/2) << '|'
        << setw(5 + hpDigits/2) << getHealthPower() << setw(4 - hpDigits/2) << '|'
        << setw(4 + manaDigits/2) << getMagicPower() << setw(5 - manaDigits/2) << '|'
        << setw(7 + strengthDigits/2) << getStrength() << setw(6 - strengthDigits/2) << '|'
