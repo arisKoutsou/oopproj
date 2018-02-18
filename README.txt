@@ -32,9 +32,15 @@ inventory can only be equiped, sold, discarded and used (only for potions).
 The hero has some extra data which is the currently equiped weapons, spells(3)
 and potions in use. The Grid is a 2D vector of Tiles. A tile is a structure that
 holds information such as if the tile is non accessible, has a market, a hero or
-a battle can occur (we assumed that common tiles are the tiles which a battle can occur).
+a battle can occur (we assumed that common tiles are the tiles where a battle can occur).
 We have added an exception which is thrown when a hero tries to go out of bounds.
 Furthermore, we have added an Inventory class, a Market class(they are much alike)
 which hold the items and spells a hero can buy/sell/have/discard. Finally we have made a
 Menu class from which derive specific menus. These menus have the options a hero can choose
-from such as battle options, basic options, inventory options etc.
+from such as battle options, basic options, inventory options etc. As far as it concerns the
+battle, it can take place only in common tiles. That happens when all heroes go to a common tile.
+Then with a probability a battle can occur and the monsters spawn at that moment. Also, I would like
+to point out that each hero is a separate entity makes his own moves at his own round. That means, he
+can move separatly from the other heroes, so a battle can occur based on the probability if all heroes
+go to a common tile. For example, if we have 2 heroes and only one of them is in a common tile then no
+battle can occur.
