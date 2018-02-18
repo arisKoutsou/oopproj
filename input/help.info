@@ -1,1 +1,27 @@
-This is a help file...
+Help
+
+The game takes action on a grid.
+The grid consist of tiles that can be:
+	non Accessible, Common, or tiles that have a Market.
+
+Common tiles have monsters. When a Hero
+is passing by a Common tile, there is a 
+chance that he is attacked by a Monster.
+In that case, a Battle starts and the Hero
+stays on that tile until all monsters are dead 
+or until all heroes are dead. Heroes and Monsters 
+attack each other taking turns.
+
+You can control 1 to 3 Heroes of your choice.
+A Hero can be one of the following:
+	Warrior, Paladin, Sorcerer.
+Each one of the above 3 kinds of Hero
+has some boosts on specific specs.
+
+Heroes move on the grid, killing monsters,
+gaining Xp and Gold, leveling up and
+buying items off markets.
+
+Enjoy...
+
+
