@@ -266,7 +266,7 @@ void Hero :: moveUp() {
   int heroY = this->getPosition().getY();
   int heroX = this->getPosition().getX();
 
-  if (heroY == this->grid->getMaxY()) {
+  if (heroY == this->grid->getMaxY() - 1) {
     throw HeroMoveException("You can't move up any further");
   } else if (this->grid->getTile(heroY + 1, heroX).isNonAccessible()) {
     throw HeroMoveException("You can't move in a non accessible tile");
